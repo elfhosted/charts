@@ -1,0 +1,34 @@
+{{ if .Values.rutorrentgluetun.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rutorrent-gluetun-config
+data:
+
+  # These are used by the gluetun image
+  VPN_SERVICE_PROVIDER: "{{ .Values.rutorrentgluetun.VPN_SERVICE_PROVIDER | default }}"
+  VPN_TYPE: "{{ .Values.rutorrentgluetun.VPN_TYPE | default }}"
+  VPN_ENDPOINT_IP: "{{ .Values.rutorrentgluetun.VPN_ENDPOINT_IP | default }}"
+  VPN_ENDPOINT_PORT: "{{ .Values.rutorrentgluetun.VPN_ENDPOINT_PORT | default }}"
+  OPENVPN_USER: "{{ .Values.rutorrentgluetun.OPENVPN_USER | default }}"
+  OPENVPN_PASSWORD: "{{ .Values.rutorrentgluetun.OPENVPN_PASSWORD | default }}"
+  WIREGUARD_PUBLIC_KEY: "{{ .Values.rutorrentgluetun.WIREGUARD_PUBLIC_KEY | default }}"
+  WIREGUARD_PRIVATE_KEY: "{{ .Values.rutorrentgluetun.WIREGUARD_PRIVATE_KEY | default }}"
+  WIREGUARD_PRESHARED_KEY: "{{ .Values.rutorrentgluetun.WIREGUARD_PRESHARED_KEY | default }}"
+  WIREGUARD_ADDRESSES: "{{ .Values.rutorrentgluetun.WIREGUARD_ADDRESSES | default }}"
+  SERVER_COUNTRIES: "{{ .Values.rutorrentgluetun.SERVER_COUNTRIES | default }}"
+  SERVER_CITIES: "{{ .Values.rutorrentgluetun.SERVER_CITIES | default }}"
+  OPENVPN_CUSTOM_CONFIG: "{{ .Values.rutorrentgluetun.OPENVPN_CUSTOM_CONFIG | default }}"
+  SERVER_REGIONS: "{{ .Values.rutorrentgluetun.SERVER_REGIONS | default }}"
+  VPN_PORT_FORWARDING: "{{ .Values.rutorrentgluetun.VPN_PORT_FORWARDING | default false }}"
+  VPN_PORT_FORWARDING_PROVIDER: "{{ .Values.rutorrentgluetun.VPN_PORT_FORWARDING_PROVIDER | default false }}"
+  VPN_PORT_FORWARDING_STATUS_FILE: /config/forwarded-port
+  POST_UP: /gluetun/scripts/up.sh
+  PRE_DOWN: /gluetun/scripts/down.sh
+
+  # This is used by our custom qbit image, and aligns with the PIA env vars
+  PORT_FILE: /config/forwarded-port
+
+  # Avoid breaking kube probes
+  FIREWALL_INPUT_PORTS: "8080"
+{{ end }}

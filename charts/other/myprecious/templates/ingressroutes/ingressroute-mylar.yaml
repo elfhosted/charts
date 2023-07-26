@@ -1,0 +1,23 @@
+{{ if .Values.mylar.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-mylar.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-mylar.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: mylar
+          kind: Service
+          port: 8090
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: {{ .Release.Name }}-add-cors-for-homer
+        - name: error-pages
+          namespace: traefik
+        {{ if ne "default" .Values.themepark.theme }}
+        - name: theme-park-mylar3-{{ .Values.themepark.theme }}
+          namespace: theme-park
+        {{ end }}
+{{ end }}

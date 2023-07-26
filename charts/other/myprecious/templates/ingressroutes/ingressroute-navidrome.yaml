@@ -1,0 +1,21 @@
+{{ if .Values.navidrome.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-navidrome.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-navidrome.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: navidrome
+          kind: Service
+          port: 4533
+      middlewares:
+      {{- if .Values.navidrome.sso.enabled }}
+        - name: {{ .Release.Name }}-traefik-forward-auth
+      {{- end }}
+        - name: {{ .Release.Name }}-add-cors-for-homer
+        - name: error-pages
+          namespace: traefik
+{{ end }}

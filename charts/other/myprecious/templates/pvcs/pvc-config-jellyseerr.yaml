@@ -1,0 +1,15 @@
+{{ if .Values.jellyseerr.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-jellyseerr
+  annotations:
+    helm.sh/resource-policy: keep  
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-filesystem
+{{ end }}

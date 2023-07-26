@@ -1,0 +1,16 @@
+{{ if .Values.premiumize.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: premiumize
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: rclone-{{ .Release.Name }}-premiumize
+{{ end }}

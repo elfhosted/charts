@@ -1,0 +1,11 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-filebrowser-egress-elfbot-kube-apiserver"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: filebrowser
+  egress:
+    - toEntities:
+        - kube-apiserver

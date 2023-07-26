@@ -1,0 +1,24 @@
+---
+apiVersion: v2
+appVersion: 4.3.1
+description: Looks and smells like Sonarr but made for music
+name: thelounge
+version: 14.2.2
+kubeVersion: ">=1.16.0-0"
+keywords:
+  - thelounge
+home: https://github.com/thelounge/thelounge
+icon: https://avatars.githubusercontent.com/u/14336958?s=200&v=4
+sources:
+  - https://github.com/thelounge/thelounge
+maintainers:
+  - name: funkypenguin
+    email: davidy@funkypenguin.co.nz
+dependencies:
+  - name: common
+    repository: http://chartmuseum.chartmuseum:8080
+    version: ~0.2.5
+annotations:
+  artifacthub.io/changes: |-
+    - kind: changed
+      description: Upgraded `common` chart dependency to version 0.2.2

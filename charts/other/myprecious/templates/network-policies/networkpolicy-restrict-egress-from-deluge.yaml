@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: restrict-egress-from-deluge
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: deluge
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+      - ipBlock:
+          cidr: 45.136.48.154/32 # goblin01
+      - ipBlock:
+          cidr: 45.136.48.105/32 # goblin02
+      ports:
+        - protocol: UDP
+          port: 51820

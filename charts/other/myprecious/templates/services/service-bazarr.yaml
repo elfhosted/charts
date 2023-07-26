@@ -1,0 +1,20 @@
+{{ if .Values.bazarr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: bazarr
+  labels:
+    app.kubernetes.io/name: bazarr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 6767
+    targetPort: 6767
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: bazarr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

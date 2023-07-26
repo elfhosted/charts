@@ -1,0 +1,20 @@
+{{ if .Values.plex.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: plex
+  labels:
+    app.kubernetes.io/name: plex
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 32400
+    targetPort: 32400
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: plex
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

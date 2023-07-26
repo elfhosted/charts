@@ -1,0 +1,69 @@
+name: "Charts: Release to GitHub pages"
+
+on:
+  workflow_call:
+    inputs:
+      charts:
+        description: >
+          Json encoded list of Helm charts to release.
+          Defaults to releasing everything.
+        default: "[]"
+        required: false
+        type: string
+
+env:
+  HELM_VERSION: 3.9.2
+
+jobs:
+  release-charts:
+    name: Release charts
+    runs-on: [ self-hosted, actions-runner-elfhosted.com ]
+    steps:
+
+      - name: Checkout charts branch
+        uses: actions/checkout@v3
+        with:
+          path: "src"
+          fetch-depth: 0
+
+      - name: Install Kubernetes tools
+        uses: yokawasa/action-setup-kube-tools@v0.8.2
+        with:
+          setup-tools: |
+            helm
+            yq
+          helm: "${{ env.HELM_VERSION }}"
+
+      - name: Add helm repo
+        shell: bash
+        run: |
+          helm repo add chartmuseum http://chartmuseum.chartmuseum:8080 --username chartmuseum --password chartmuseum
+          helm plugin install https://github.com/chartmuseum/helm-push
+
+      - name: Push chart into chartmuseum 
+        shell: bash
+        env:
+          SRC_DIR: "src/charts"
+          DEST_DIR: "dest"
+        run: |
+          CHARTS=( $(yq --null-input e '${{ inputs.charts }}[]' ) )
+
+          for CHART in "${CHARTS[@]}" ; do
+            mapfile -t CHART_PATH_PARTS < <(echo "$CHART" | tr '/' '\n')
+            CHART_TYPE=${CHART_PATH_PARTS[0]}
+
+            helm dep up "${SRC_DIR}/${CHART}"
+            helm cm-push "${SRC_DIR}/${CHART}" chartmuseum --force
+          done
+
+      - name: Trigger flux to reconcile HelmRepository
+        run: |
+          curl -X POST ${{ secrets.FLUX_WEBHOOK_URL }}
+
+      # - name: Discord Commits
+      #   uses: Sniddl/discord-commits@v1.3
+      #   with:
+      #     webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      #     message: "Pushed chart update to chartmuseum/flux **{{ github.context.payload.repository.owner.name }}/{{ github.context.payload.repository.name}}**.\nDiff: {{ github.context.payload.compare }}"
+      #     embed: '{ "title": "{{ commit.title }}", "description": "{{ commit.description }}", "url": "{{ commit.url }}", "author": { "name": "{{ commit.author.name }} ({{ commit.author.username }})", "icon_url": "https://avatars.io/gravatar/{{ commit.author.email }}"} }'
+      #     last-commit-only: false

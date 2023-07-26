@@ -1,0 +1,18 @@
+{{ if .Values.rdtclient.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-rdtclient.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-rdtclient.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: rdtclient
+          kind: Service
+          port: 6500
+      middlewares:  
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}

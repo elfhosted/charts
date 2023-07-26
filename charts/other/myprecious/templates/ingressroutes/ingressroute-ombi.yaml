@@ -1,0 +1,25 @@
+{{ if .Values.ombi.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-ombi.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-ombi.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: ombi
+          kind: Service
+          port: 5000
+      middlewares:
+      {{- if .Values.ombi.sso.enabled }}      
+        - name: {{ .Release.Name }}-traefik-forward-auth
+      {{- end }}        
+        - name: {{ .Release.Name }}-add-cors-for-homer  
+        - name: error-pages
+          namespace: traefik
+        {{ if ne "default" .Values.themepark.theme }}
+        - name: theme-park-ombi-{{ .Values.themepark.theme }}
+          namespace: theme-park
+        {{ end }}
+{{ end }}

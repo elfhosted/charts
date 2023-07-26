@@ -1,0 +1,33 @@
+{{ if .Values.storageboxc.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: storagebox-{{ .Release.Name }}-c
+  labels:
+    name: storagebox-{{ .Release.Name }}-c
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: smb
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - uid=0
+    - gid=0
+    - noperm
+    - mfsymlinks
+    - cache=strict
+    - noserverino  # required to prevent data corruption  
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: smb.csi.k8s.io
+    readOnly: false
+    volumeHandle: {{ .Values.storageboxc.username }}.your-storagebox.de/{{ if .Values.storageboxc.subaccount }}{{ .Values.storageboxc.username }}{{ else }}backup{{ end }}##
+    volumeAttributes:
+      source: "//{{ .Values.storageboxc.username }}.your-storagebox.de/{{ if .Values.storageboxc.subaccount }}{{ .Values.storageboxc.username }}{{ else }}backup{{ end }}"
+    nodeStageSecretRef:
+      name: smbcreds-storagebox-c
+      namespace: {{ .Release.Namespace }}
+{{ end }}

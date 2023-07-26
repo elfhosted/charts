@@ -1,0 +1,19 @@
+{{ if or .Values.delugegluetun.enabled .Values.delugepia.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-deluge.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-deluge.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: deluge
+          kind: Service
+          port: 8112
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: {{ .Release.Name }}-add-cors-for-homer
+        - name: error-pages
+          namespace: traefik
+{{ end }}

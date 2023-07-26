@@ -1,0 +1,14 @@
+{{ if .Values.storageboxb.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: storagebox-b
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: storagebox-{{ .Release.Name }}-b
+  storageClassName: smb
+{{ end }}

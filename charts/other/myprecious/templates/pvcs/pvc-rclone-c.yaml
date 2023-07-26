@@ -1,0 +1,16 @@
+{{ if .Values.rclonec.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rclone-c
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: rclone-{{ .Release.Name }}-c
+{{ end }}

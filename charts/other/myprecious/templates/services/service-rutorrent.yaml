@@ -1,0 +1,30 @@
+{{ if or .Values.rutorrentgluetun.enabled .Values.rutorrentpia.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: rutorrent
+  labels:
+    app.kubernetes.io/name: rutorrent
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+{{ if .Values.rutorrentgluetun.enabled }}
+  - port: 8000
+    targetPort: 8000
+    protocol: TCP
+    name: gluetun
+{{ end }}
+  selector:
+{{ if .Values.rutorrentgluetun.enabled }}  
+    app.kubernetes.io/name: rutorrentgluetun
+{{ else }}
+    app.kubernetes.io/name: rutorrentpia
+{{ end }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

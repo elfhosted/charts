@@ -1,0 +1,1089 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homer-config
+data:
+  disk_usage.sh: |
+    #!/bin/bash
+
+    while true
+    do
+
+      # Once for all of /config...
+      tree --du -hF -s  /config/ -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config -T "🧝 ElfHosted [/config] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config.html
+
+      for STORAGE_PATH in $(ls /config); do
+        # And again per-app /config...
+        tree --du -hF -s  /config/${STORAGE_PATH} -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/${STORAGE_PATH} -T "🧝 ElfHosted [/config/${STORAGE_PATH}] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config-${STORAGE_PATH}.html
+
+        df -Ph /config/${STORAGE_PATH} | sed s/%//g > /www/assets/message/disk_space_${STORAGE_PATH}.txt
+        PERCENTAGE_USED=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | sed s/%//g | awk '{print $5}' | tail -n1)
+        DISK_USED=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | awk '{print $3}' | tail -n1)
+        DISK_TOTAL=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | awk '{print $2}' | tail -n1)
+        DISK_FREE=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | awk '{print $4}' | tail -n1)
+        PERCENTAGE_FREE=$(echo $((100-${PERCENTAGE_USED})))
+
+        # Keep the highest percentage used number
+        if [[ ! -z ${EXISTING_USAGE+x} ]]; then
+          if [[ "$PERCENTAGE_USED" -gt "$EXISTING_USAGE" ]]; then
+            EXISTING_USAGE=$PERCENTAGE_USED
+            CONFIG_BIGGEST_CONSUMER=$STORAGE_PATH
+            CONFIG_DISK_FREE=$DISK_FREE
+            CONFIG_PERCENTAGE_USED=$PERCENTAGE_USED
+            CONFIG_DISK_TOTAL=$DISK_TOTAL
+            echo -n "<A HREF='/assets/message/disk-usage-config.html' TARGET='_blank'>/config</A>: Largest volume-per-app consumer is <A HREF='/assets/message/disk-usage-config-${CONFIG_BIGGEST_CONSUMER}.html' TARGET='_blank'>${CONFIG_BIGGEST_CONSUMER}</A> with ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" > /www/assets/message/message_details_config.html
+          fi
+        else
+          EXISTING_USAGE=$PERCENTAGE_USED
+          CONFIG_BIGGEST_CONSUMER=$STORAGE_PATH
+          CONFIG_DISK_FREE=$DISK_FREE
+          CONFIG_PERCENTAGE_USED=$PERCENTAGE_USED
+          CONFIG_DISK_TOTAL=$DISK_TOTAL
+          echo -n "<A HREF='/assets/message/disk-usage-config.html' TARGET='_blank'>/config</A>: Largest volume-per-app consumer is <A HREF='/assets/message/disk-usage-config-${CONFIG_BIGGEST_CONSUMER}.html' TARGET='_blank'>${CONFIG_BIGGEST_CONSUMER}</A> with ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" > /www/assets/message/message_details_config.html
+        fi        
+      done
+
+      
+      cat /dev/null > /www/assets/message/message_details.html
+      # And once for everything else...
+      for STORAGE_PATH in $(ls /storage); do
+        tree --du -hF -s  /storage/$STORAGE_PATH/  -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/$STORAGE_PATH -T "🧝 ElfHosted [/storage/$STORAGE_PATH] usage for {{ .Release.Name }}" > /www/assets/message/disk-usage-$STORAGE_PATH.html
+
+        # Summarize 
+        df -Ph /storage/${STORAGE_PATH} | sed s/%//g > /www/assets/message/disk_space_${STORAGE_PATH}.txt
+        PERCENTAGE_USED=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | sed s/%//g | awk '{print $5}' | tail -n1)
+        DISK_USED=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | awk '{print $3}' | tail -n1)
+        DISK_TOTAL=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | awk '{print $2}' | tail -n1)
+        DISK_FREE=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | awk '{print $4}' | tail -n1)
+        PERCENTAGE_FREE=$(echo $((100-${PERCENTAGE_USED})))
+
+        # Keep the highest percentage used number
+        if [[ -f /www/assets/message/disk_space_percent_used ]]; then
+          EXISTING_USAGE=$(cat /www/assets/message/disk_space_percent_used)
+          if [[ "$PERCENTAGE_USED" -gt "$EXISTING_USAGE" ]]; then
+            echo $PERCENTAGE_USED > /www/assets/message/disk_space_percent_used
+          fi
+        else
+          echo $PERCENTAGE_USED > /www/assets/message/disk_space_percent_used
+        fi
+
+        echo -n "<A HREF='/assets/message/disk-usage-${STORAGE_PATH}.html' TARGET='_blank'>/storage/${STORAGE_PATH}</A>: ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" >> /www/assets/message/message_details.html
+      done
+
+      PERCENTAGE_USED=$(cat /www/assets/message/disk_space_percent_used)
+      if [[ "$PERCENTAGE_USED" -ge 90 ]]; then
+        STYLE="is-danger"
+        ICON="fa fa-thermometer-full"
+        MESSAGE="Time to clean up! 🧹"
+      elif [[ "$PERCENTAGE_USED" -ge 75 ]]; then
+        STYLE="is-warning"
+        ICON="fa fa-thermometer-three-quarters"
+        MESSAGE="Getting full.. 🍔"
+      elif [[ "$PERCENTAGE_USED" -ge 50 ]]; then
+        STYLE="is-info"
+        ICON="fa fa-thermometer-half"
+        MESSAGE="Halfway there.."
+      elif [[ "$PERCENTAGE_USED" -ge 25 ]]; then
+        STYLE="is-success"
+        ICON="fa fa-thermometer-quarter"
+        MESSAGE="Nice and tidy! 👍"
+      else
+        STYLE="is-success"
+        ICON="fa fa-thermometer-empty"
+        MESSAGE="Gigabytes everywhere! 🥳"
+      fi
+      
+      MESSAGE_DETAILS=$(cat /www/assets/message/message_details.html /www/assets/message/message_details_config.html )
+      echo "{ \"title\":\"Storage usage: ${MESSAGE}\", \"content\":\"${MESSAGE_DETAILS}(<I>Updated roughly hourly</I>)\",\"style\":\"${STYLE}\",\"icon\":\"${ICON}\" }" > /www/assets/message/message.json
+
+      # now get a random dark/light background...
+      # curl -s 'https://source.unsplash.com/random/?wallpaper,dark,background' -L --output /www/assets/backgrounds/unsplash-dark.jpg
+      # curl -s 'https://source.unsplash.com/random/?wallpaper,light,background' -L --output /www/assets/backgrounds/unsplash-light.jpg
+      
+      # Until we can improve wallpaper now that source.unsplash.com isn't working
+      curl -s 'https://picsum.photos/1024/768' -L --output /www/assets/backgrounds/unsplash-dark.jpg
+      cp /www/assets/backgrounds/unsplash-dark.jpg /www/assets/backgrounds/unsplash-light.jpg
+      
+      sleep $(shuf -i 1800-5400 -n 1)
+    done
+
+  config.yml: |
+    ---
+    # Homepage configuration
+    # See https://fontawesome.com/icons for icons options
+
+    # Optional: Use external configuration file.
+    # Using this will ignore remaining config in this file
+    # externalConfig: https://example.com/server-luci/config.yaml
+
+    subtitle: "{{ .Release.Name }} is ..."
+    title: "ElfHosted! 🧝"
+    documentTitle: "ElfHosted - {{ .Release.Name }}" # Customize the browser tab text
+    # Alternatively a fa icon can be provided:
+    icon: "fas fa-wand-magic-sparkles"
+
+    header: true # Set to false to hide the header
+    footer: true
+
+    columns: "3" # "auto" or number (must be a factor of 12: 1, 2, 3, 4, 6, 12)
+    connectivityCheck: false # whether you want to display a message when the apps are not accessible anymore (VPN disconnected for example)
+
+    # Optional theming
+    # theme: default # 'default' or one of the themes available in 'src/assets/themes'.
+
+    # Optional custom stylesheet
+    # Will load custom CSS files. Especially useful for custom icon sets.
+    stylesheet:
+      - "assets/custom.css"
+
+    # Here is the exhaustive list of customization parameters
+    # However all value are optional and will fallback to default if not set.
+    # if you want to change only some of the colors, feel free to remove all unused key.
+    colors:
+      light:
+        highlight-primary: "#222526"
+        highlight-secondary: "#4285f4"
+        highlight-hover: "#5a95f5"
+        background: "#222526"
+        card-background: "#ffffff"
+        text: "#363636"
+        text-header: "#ffffff"
+        text-title: "#303030"
+        text-subtitle: "#424242"
+        card-shadow: rgba(0, 0, 0, 0.1)
+        link-hover: "#363636"
+        background-image: /assets/backgrounds/elfhosted.jpg
+      dark:
+        highlight-primary: "#222526"
+        highlight-secondary: "#4285f4"
+        highlight-hover: "#5a95f5"
+        background: "#222526"
+        card-background: "#2b2b2b"
+        text: "#eaeaea"
+        text-header: "#ffffff"
+        text-title: "#fafafa"
+        text-subtitle: "#f5f5f5"
+        card-shadow: rgba(0, 0, 0, 0.4)
+        link-hover: "#ffdd57"
+        background-image: /assets/backgrounds/elfhosted.jpg
+
+    # Optional message
+    message:
+      url: https://{{ .Release.Name }}.elfhosted.com/assets/message/message.json
+      # mapping:
+      #   content: 'message'
+      #   style: 'style'
+      #   title: 'title'
+      refreshInterval: 30000
+      # icon: "fa fa-seedling"
+
+    # Optional navbar
+    # links: [] # Allows for navbar (dark mode, layout, and search) without any links
+    links:
+
+      - name: "Media"
+        icon: "fas fa-couch"
+        url: "#config"
+
+      - name: "Tools"
+        icon: "fas fa-toolbox"
+        url: "#tools"
+
+      - name: "Health"
+        icon: "fas fa-heartbeat"
+        url: "https://{{ .Release.Name }}-health.elfhosted.com"
+        target: "_blank" # optional html tag target attribute
+
+      - name: "Docs"
+        icon: "fas fa-book"
+        url: "https://elfhosted.com"
+        target: "_blank" # optional html tag target attribute
+
+      - name: "Subscription"
+        icon: "fa fa-user"
+        url: "https://store.elfhosted.com/my-account/subscriptions/"
+        target: "_blank" # optional html tag target attribute
+
+      - name: "Discord"
+        icon: "fa-brands fa-discord"
+        url: "https://discord.elfhosted.com"
+        target: "_blank" # optional html tag target attribute
+
+      - name: "Logout"
+        icon: "fas fa-lock"
+        url: https://{{ .Release.Name }}-auth-me.elfhosted.com/_oauth/logout
+
+    # Services
+    # First level array represents a group.
+    # Leave only a "items" key if not using group (group name, icon & tagstyle are optional, section separation will not be displayed).
+    services:
+      - name: "Consume Media"
+        icon: "fas fa-couch"
+        # A path to an image can also be provided. Note that icon take precedence if both icon and logo are set.
+        # logo: "path/to/logo"
+        items:
+          {{ if .Values.jellyfin.enabled }}
+          - name: "Jellyfin"
+            logo: "assets/png/jellyfin.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Watch Movies/TV"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-jellyfin.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.plex.enabled }}
+          - name: "Plex"
+            logo: "assets/png/plex.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Watch Movies/TV"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-plex.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.emby.enabled }}
+          - name: "Emby"
+            logo: "assets/png/emby.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Watch Movies/TV"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-emby.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.navidrome.enabled }}
+          - name: "Navidrome"
+            logo: "assets/png/navidrome.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Listen to Music"
+            {{ if .Values.navidrome.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-navidrome.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.calibreweb.enabled }}
+          - name: "Calibre Web"
+            logo: "assets/png/calibre-web.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Read Books"
+            {{ if .Values.calibreweb.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-calibre-web.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.calibre.enabled }}
+          - name: "Calibre"
+            logo: "assets/png/calibre.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-calibre.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.komga.enabled }}
+          - name: "Komga"
+            logo: "assets/png/komga.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Read Comics / Books"
+            {{ if .Values.komga.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-komga.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.kavita.enabled }}
+          - name: "Kavita"
+            logo: "assets/png/kavita.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Read Comics / Books"
+            {{ if .Values.kavita.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-kavita.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.audiobookshelf.enabled }}
+          - name: "Audiobookshelf"
+            logo: "assets/png/audiobookshelf.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Listen to Books/Podcasts"
+            {{ if .Values.audiobookshelf.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-audiobookshelf.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+      - name: "Manage Media"
+        icon: "fas fa-photo-video"
+        items:
+          {{ if .Values.radarr.enabled }}
+          - name: "Radarr"
+            logo: "assets/png/radarr.png"
+            subtitle: "Manage Movies"
+            {{ if .Values.radarr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-radarr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            type: "Radarr"
+            apikey: "041776c8d5f74bf295aa486d9d51c33a"
+            useCredentials: true
+          {{ end }}
+
+          {{ if .Values.radarr4k.enabled }}
+          - name: "Radarr 4K"
+            logo: "assets/png/radarr.png"
+            subtitle: "Manage Movies (4K)"
+            {{ if .Values.radarr4k.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-radarr4k.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            type: "Radarr"
+            apikey: "7da5d4ba79804527b78a78b68c7a0781"
+            useCredentials: true
+          {{ end }}
+
+          {{ if .Values.sonarr.enabled }}
+          - name: "Sonarr"
+            logo: "assets/png/sonarr.png"
+            subtitle: "Manage Series"
+            {{ if .Values.sonarr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-sonarr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            type: "Sonarr"
+            apikey: "a6f1c7d07fab4be49c5c1cb545f85a76"
+            useCredentials: true
+          {{ end }}
+
+          {{ if .Values.sonarr4k.enabled }}
+          - name: "Sonarr 4K"
+            logo: "assets/png/sonarr.png"
+            subtitle: "Manage Series (4K)"
+            {{ if .Values.sonarr4k.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-sonarr4k.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            type: "Sonarr"
+            apikey: "e4f93c115169484bbed19821f7ac8e49"
+            useCredentials: true
+          {{ end }}
+
+          {{ if .Values.lidarr.enabled }}
+          - name: "Lidarr"
+            logo: "assets/png/lidarr.png"
+            subtitle: "Manage Music"
+            {{ if .Values.lidarr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-lidarr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            type: "Lidarr"
+            apikey: "0e68e28531a249659737513d3102bfe9"
+            useCredentials: true
+          {{ end }}
+
+          {{ if .Values.readarr.enabled }}
+          - name: "Readarr"
+            logo: "assets/png/readarr.png"
+            subtitle: "Manage Books"
+            {{ if .Values.readarr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-readarr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            # type: "Readarr"
+            # apikey: "ada51fcb59014c14970fe66d6206ed67"
+            # useCredentials: true
+          {{ end }}
+
+          {{ if .Values.readarraudio.enabled }}
+          - name: "Readarr (Audio)"
+            logo: "assets/png/readarr.png"
+            subtitle: "Manage Audio Books"
+            {{ if .Values.readarraudio.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-readarraudio.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            # type: "Readarr"
+            # apikey: "1696174031db48ba983ec288c00353a5"
+            # useCredentials: true
+          {{ end }}
+
+
+          {{ if .Values.bazarr.enabled }}
+          - name: "Bazarr"
+            logo: "assets/png/bazarr.png"
+            subtitle: "Manage Subtitles"
+            {{ if .Values.bazarr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-bazarr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.bazarr4k.enabled }}
+          - name: "Bazarr 4K"
+            logo: "assets/png/bazarr.png"
+            subtitle: "Manage Subtitles (4K)"
+            {{ if .Values.bazarr4k.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-bazarr4k.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.rpdb.enabled }}
+          - name: "RPDB"
+            icon: "fas fa-star"
+            subtitle: "Manage Media Ratings Posters"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-rpdb.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.ombi.enabled }}
+          - name: "Ombi"
+            logo: "assets/png/ombi.png"
+            subtitle: "Manage Requests"
+            {{ if .Values.ombi.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-ombi.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.overseerr.enabled }}
+          - name: "Overseerr"
+            logo: "assets/png/overseerr.png"
+            subtitle: "Manage Requests"
+            {{ if .Values.overseerr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-overseerr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.jellyseerr.enabled }}
+          - name: "Jellyseerr"
+            logo: "assets/png/jellyseerr.png"
+            subtitle: "Manage Requests"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-jellyseerr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.jfa.enabled }}
+          - name: "Jellyfin Accounts"
+            icon: "fas fa-users"
+            subtitle: "Manage Requests"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-jfa.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.lazylibrarian.enabled }}
+          - name: "LazyLibrarian"
+            logo: "assets/png/lazylibrarian.png"
+            subtitle: "Manage Books"
+            {{ if .Values.lazylibrarian.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-lazylibrarian.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            {{ end }}
+
+          {{ if .Values.mylar.enabled }}
+          - name: "Mylar"
+            logo: "assets/png/mylar.png"
+            subtitle: "Manage Comics"
+            {{ if .Values.mylar.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-mylar.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.tautulli.enabled }}
+          - name: "Tautulli"
+            logo: "assets/png/tautulli.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Plex Statistics"
+            {{ if .Values.tautulli.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-tautulli.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.xteve.enabled }}
+          - name: "XTeve"
+            logo: "assets/png/xteve.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Live TV Proxy for Plex/Emby"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-xteve.elfhosted.com/web/"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.nextpvr.enabled }}
+          - name: "NextPVR"
+            # logo: "assets/png/nextpvr.png"
+            # Alternatively a fa icon can be provided:
+            icon: "fas fa-tv"
+            subtitle: "Live TV Proxy"
+            {{ if .Values.nextpvr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-nextpvr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
+
+          {{ if .Values.notifiarr.enabled }}
+          - name: "Notifiarr"
+            logo: "assets/png/notifiarr.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Discord-based notifications"
+            {{ if .Values.notifiarr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-notifiarr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.shoko.enabled }}
+          - name: "Shoko"
+            logo: "assets/png/shoko.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Manage Anime"
+            {{ if .Values.shoko.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-shoko.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.filebot.enabled }}
+          - name: "FileBot"
+            logo: "assets/png/filebot.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Automate Media Management"
+            {{ if .Values.filebot.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-filebot.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.unpackerr.enabled }}
+          - name: "Unpackerr"
+            # logo: "assets/png/unpackerr.png"
+            # Alternatively a fa icon can be provided:
+            icon: "fas fa-box-archive"
+            subtitle: "Unpack Media"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/unpackerr/"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.plexmetamanager.enabled }}
+          - name: "Plex Meta Manager"
+            # logo: "assets/png/unpackerr.png"
+            # Alternatively a fa icon can be provided:
+            icon: "fas fa-photo-film"
+            subtitle: "Unpack Media"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/plex-meta-manager/"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
+
+      - name: "Download Media"
+        icon: "fas fa-cloud-arrow-down"
+        items:
+          {{ if .Values.nzbget.enabled }}
+          - name: "NZBGet"
+            logo: "assets/png/nzbget.png"
+            subtitle: "Usenet client"
+            {{ if .Values.nzbget.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-nzbget.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.sabnzbd.enabled }}
+          - name: "SABnzbd"
+            logo: "assets/png/sabnzbd.png"
+            subtitle: "Usenet client"
+            {{ if .Values.sabnzbd.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-sabnzbd.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            type: "SABnzbd"
+            apikey: 8flkbru7ncdps3dzzgk48q2msz41m4on
+            downloadInterval: 60000 # (Optional) Interval (in ms) for updating the download count - so this would be 1m
+          {{ end }}
+
+          {{ if .Values.prowlarr.enabled }}
+          - name: "Prowlarr"
+            logo: "assets/png/prowlarr.png"
+            subtitle: "Manage Indexers"
+            {{ if .Values.prowlarr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-prowlarr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            type: "Prowlarr"
+            apikey: "c53bc3bd17c645c3a457e5342a02cd66"
+            useCredentials: true
+          {{ end }}
+
+          {{ if .Values.nzbhydra.enabled }}
+          - name: "NZBHydra"
+            logo: "assets/png/nzbhydra.png"
+            subtitle: "Manage Indexers"
+            {{ if .Values.nzbhydra.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-nzbhydra.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.autobrr.enabled }}
+          - name: "Autobrr"
+            logo: "assets/png/autobrr.png"
+            subtitle: "Manage Torrent Automation"
+            {{ if .Values.autobrr.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-autobrr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if or .Values.delugepia.enabled .Values.delugegluetun.enabled }}
+          - name: "Deluge"
+            logo: "assets/png/deluge.png"
+            subtitle: "Bittorrent client"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-deluge.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if or .Values.qbittorrentpia.enabled .Values.qbittorrentgluetun.enabled }}
+          - name: "Qbittorrent"
+            logo: "assets/png/qbittorrent.png"
+            subtitle: "Bittorrent client"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-qbittorrent.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            # type: "qBittorrent"
+            # rateInterval: 300 # Interval for updating the download and upload rates.
+            # torrentInterval: 600 # Interval for updating the torrent count.
+            {{ end }}
+
+          {{ if or .Values.rutorrentpia.enabled .Values.rutorrentgluetun.enabled }}
+          - name: "ruTorrent"
+            logo: "assets/png/rutorrent.png"
+            subtitle: "Bittorrent client"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-rutorrent.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            # xmlrpc: "https://{{ .Release.Name }}-rutorrent.elfhosted.com/plugins/rpc/rpc.php" # Reverse proxy for rTorrent's XML-RPC.
+            # type: "Rtorrent"
+            # rateInterval: 300 # Interval for updating the download and upload rates.
+            # torrentInterval: 600 # Interval for updating the torrent count.            
+            {{ end }}
+
+          {{ if .Values.pyload.enabled }}
+          - name: "Pyload"
+            logo: "assets/png/pyload.png"
+            subtitle: "Manage Downloads"
+            {{ if .Values.pyload.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-pyload.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.youtubedl.enabled }}
+          - name: "Youtube DL"
+            logo: "assets/png/youtubedl.png"
+            subtitle: "Download Youtube Videos"
+            {{ if .Values.youtubedl.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-youtubedl.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.rapidleech.enabled }}
+          - name: "Rapidleech"
+            icon: "fas fa-bolt-lightning"
+            subtitle: "Rapidly Leech"
+            {{ if .Values.rapidleech.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-rapidleech.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}   
+
+          {{ if .Values.rdtclient.enabled }}
+          - name: "RDT Client"
+            logo: "assets/png/real-debrid.png"
+            subtitle: "Manage Real Debrid services"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-rdtclient.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                    
+
+  tools.yml: |
+    ---
+    services:
+
+      - name: "General"
+        icon: "fas fa-toolbox"
+        items:
+
+          - name: "FileBrowser"
+            logo: "assets/png/filebrowser.png"
+            subtitle: "Manage Files"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+
+          {{ if .Values.minio.enabled }}
+          - name: "Minio"
+            logo: "assets/png/minio.png"
+            subtitle: "Manage Storage / Files"
+            {{ if .Values.minio.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-minio-console.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.privatebin.enabled }}
+          - name: "Privatebin"
+            logo: "assets/png/privatebin.png"
+            subtitle: "Minimalistic pastebin"
+            {{ if .Values.privatebin.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-privatebin.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.uptimekuma.enabled }}
+          - name: "Uptime Kuma"
+            logo: "assets/png/uptime-kuma.png"
+            subtitle: "Uptime Monitor"
+            {{ if .Values.uptimekuma.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-uptime-kuma.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.gotify.enabled }}
+          - name: "Gotify"
+            logo: "assets/png/gotify.png"
+            subtitle: "Gotify"
+            {{ if .Values.gotify.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-gotify.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.seafile_test.enabled }}
+          - name: "Seafile"
+            logo: "assets/png/seafile.png"
+            subtitle: "Securely sync data"
+            {{ if .Values.seafile.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-seafile.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.resiliosync.enabled }}
+          - name: "Resilio Sync"
+            logo: "assets/png/resiliosync.png"
+            subtitle: "Securely sync data"
+            {{ if .Values.resiliosync.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-resilio-sync.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.syncthing.enabled }}
+          - name: "Sync Thing"
+            logo: "assets/png/syncthing.png"
+            subtitle: "Securely sync data"
+            {{ if .Values.syncthing.sso.enabled }}
+            tag: "protected"
+            tagstyle: "is-success"
+            {{ else }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ end }}
+            url: "https://{{ .Release.Name }}-syncthing.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
+
+          {{ if .Values.thelounge.enabled }}
+          - name: "The Lounge"
+            logo: "assets/png/thelounge.png"
+            subtitle: "IRC client"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-thelounge.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.vaultwarden.enabled }}
+          - name: "Vaultwarden"
+            logo: "assets/png/vaultwarden.png"
+            subtitle: "Securely manage passwords / secrets"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-vaultwarden.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.mattermost.enabled }}
+          - name: "Mattermost"
+            logo: "assets/png/mattermost.png"
+            subtitle: "Team group chat"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-mattermost.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+      - name: "Rclone"
+        icon: "fas fa-truck"
+        items:
+
+          - name: "Rclone Browser"
+            logo: "assets/png/rclone.png"
+            subtitle: "Rclone Browser"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-rclonebrowser.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+
+          - name: "Rclone Remotes"
+            logo: "assets/png/rclone.png"
+            subtitle: "Rclone remotes"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/rclonebrowser/xdg/config/rclone/rclone.conf"
+            target: "_blank" # optional html tag target attribute            
+
+          - name: "Rclone UI"
+            logo: "assets/png/rclone.png"
+            subtitle: "Rclone UI"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-rcloneui.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+
+          - name: "Rclone FM"
+            logo: "assets/png/rclone.png"
+            subtitle: "Rclone File Manager"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-rclonefm.elfhosted.com"
+            target: "_blank" # optional html tag target attribute            

@@ -1,0 +1,30 @@
+{{ if or .Values.qbittorrentgluetun.enabled .Values.qbittorrentpia.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent
+  labels:
+    app.kubernetes.io/name: qbittorrent
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+{{ if .Values.qbittorrentgluetun.enabled }}
+  - port: 8000
+    targetPort: 8000
+    protocol: TCP
+    name: gluetun
+{{ end }}
+  selector:
+{{ if .Values.qbittorrentgluetun.enabled }}  
+    app.kubernetes.io/name: qbittorrentgluetun
+{{ else }}
+    app.kubernetes.io/name: qbittorrentpia
+{{ end }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

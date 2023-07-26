@@ -1,0 +1,21 @@
+{{ if .Values.nextpvr.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}.nextpvr.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}.nextpvr.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: nextpvr
+          kind: Service
+          port: 8866
+      middlewares:
+      {{- if .Values.nextpvr.sso.enabled }}
+        - name: {{ .Release.Name }}-traefik-forward-auth
+      {{- end }}    
+        - name: {{ .Release.Name }}-add-cors-for-homer
+        - name: error-pages
+          namespace: traefik        
+{{ end }}

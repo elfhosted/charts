@@ -1,0 +1,6250 @@
+# This controls whether our automation will auto-release this to stable during the daily maint window
+safeToRelease: false
+
+# This section just makes images easier to update / parse
+tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20230624@sha256:3a43385968a692fd1ec02bffdea62ddb888e48cb3b883332aa98b1747f4a532b
+  
+# And this makes the media / rclone mounts tidier.
+rclonea: &rclonea
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: rclone-a
+  mountPath: /storage/rclone-a
+rcloneb: &rcloneb
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: rclone-b
+  mountPath: /storage/rclone-b
+rclonec: &rclonec
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: rclone-c
+  mountPath: /storage/rclone-c
+gdrivea: &gdrivea
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: gdrive-a
+  mountPath: /storage/gdrive-a
+gdriveb: &gdriveb
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: gdrive-b
+  mountPath: /storage/gdrive-b
+gdrivec: &gdrivec
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: gdrive-c
+  mountPath: /storage/gdrive-c  
+rclone_mount_webdav_a: &rclone_mount_webdav_a
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: webdav-a
+  mountPath: /storage/webdav-a
+webdavb: &webdavb
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: webdav-b
+  mountPath: /storage/webdav-b
+webdavc: &webdavc
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: webdav-c
+  mountPath: /storage/webdav-c    
+storageboxa: &storageboxa
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: storagebox-a
+  mountPath: /storage/storagebox-a
+  subaccount: false
+storageboxb: &storageboxb
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: storagebox-b
+  mountPath: /storage/storagebox-b
+  subaccount: false
+storageboxc: &storageboxc
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: storagebox-c
+  mountPath: /storage/storagebox-c
+  subaccount: false
+premiumize: &premiumize
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: premiumize
+  mountPath: /storage/premiumize
+b2: &b2
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: b2
+  mountPath: /storage/b2  
+smbmounta: &smbmounta
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: smbmount-a
+  mountPath: /storage/smbmount-a
+smbmountb: &smbmountb
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: smbmount-b
+  mountPath: /storage/smbmount-b  
+smbmountc: &smbmountc
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: smbmount-c
+  mountPath: /storage/smbmount-c
+elfstorage: &elfstorage
+  size: 10
+  enabled: true # always enabled
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: elfstorage
+  mountPath: /storage/elfstorage
+tmp: &tmp
+  enabled: true
+  type: emptyDir
+  mountPath: /tmp
+  sizeLimit: 1Gi  
+
+# This simplfies the process of adding all the optional mounts to every app
+appmounts: &appmounts
+  tmp: *tmp      
+  elfstorage: *elfstorage
+  rclonea: *rclonea
+  rcloneb: *rcloneb
+  rclonec: *rclonec  
+  gdrivea: *gdrivea
+  gdriveb: *gdriveb
+  gdrivec: *gdrivec   
+  rclone_mount_webdav_a: *rclone_mount_webdav_a
+  webdavb: *webdavb
+  webdavc: *webdavc      
+  storageboxa: *storageboxa
+  storageboxb: *storageboxb
+  storageboxc: *storageboxc
+  premiumize: *premiumize
+  b2: *b2
+  smbmounta: *smbmounta
+  smbmountb: *smbmountb
+  smbmountc: *smbmountc
+
+# The entire bootstrap sidecar/additionalcontainer
+default_resources: &default_resources
+  requests:
+    cpu: 10m
+    memory: 1Mi
+  limits:
+    cpu: 1
+    memory: 1024Mi # just a safety net against bugs!  
+
+default_securitycontext: &default_securitycontext
+  seccompProfile:
+    type: RuntimeDefault
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  runAsUser: 568
+  runAsGroup: 568
+  capabilities:
+    drop:
+    - ALL  
+
+# We use this to provide env not only to bootstrap, but also to the torrent clients which use elfvpn
+# it's necessary since the wireguard configs are in S3
+bootstrap_env: &bootstrap_env
+- name: AWS_ACCESS_KEY_ID
+  valueFrom:
+    secretKeyRef:
+      key: access-key-id
+      name: b2-elfhosted-config-ro
+- name: AWS_SECRET_ACCESS_KEY
+  valueFrom:
+    secretKeyRef:
+      key: secret-key
+      name: b2-elfhosted-config-ro
+- name: S3_ENDPOINT_URL
+  value: https://s3.us-west-000.backblazeb2.com
+- name: K8S_APP_NAME
+  valueFrom:
+    fieldRef:
+      fieldPath: metadata.labels['app.kubernetes.io/name'] 
+- name: ELF_APP_NAME
+  valueFrom:
+    fieldRef:
+      fieldPath: metadata.labels['app.elfhosted.com/name']   
+
+bootstrap: &bootstrap
+  image: *tooling_image
+  imagePullPolicy: IfNotPresent
+  command:
+  - /bin/bash
+  - -c
+  - |
+    set -e
+
+    # Allows us to use app.elfhosted.com/name, but fall back to app.kubernetes.io/name if the former doesn't exist
+    if [[ -z "$ELF_APP_NAME" ]]; then
+      ELF_APP_NAME=$K8S_APP_NAME
+    fi
+
+    # look for commands - we match specific names in order of least-destructive
+    TIMESTAMP_NOW=$(date +%s)
+    if [[ -f /etc/elfbot/pause ]]; then
+      TIMESTAMP_COMMAND=$(cat /etc/elfbot/pause)
+      TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
+      if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
+        COMMAND=pause
+      fi
+    fi
+    
+    # If no command is set, then move onto the next possibility
+    if [[ -f /etc/elfbot/backup && ! -z "$COMMANDx" ]]; then
+      TIMESTAMP_COMMAND=$(cat /etc/elfbot/backup)
+      TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
+      if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
+        COMMAND=backup
+      fi
+    fi
+
+    # If no command is set, then move onto the next possibility
+    if [[ -f /etc/elfbot/reset && ! -z "$COMMANDx" ]]; then
+      TIMESTAMP_COMMAND=$(cat /etc/elfbot/reset)
+      TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
+      if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
+        COMMAND=reset
+      fi    
+    fi
+
+    case $COMMAND in
+
+      "pause")
+        echo "Recent pause command found, sleeping 5m.."
+        sleep 300
+        ;;
+
+      "reset")
+        echo "Recent reset command found, resetting"
+        rm -rf /config/*
+        ;;
+
+      "backup")
+        echo "Recent backup command found, backing up to /storage/elfstorage/backup/${ELF_APP_NAME}-${TIMESTAMP}"
+        mkdir -p /storage/elfstorage/backup
+        TIMESTAMP=$(printf '%(%Y-%m-%d--%H-%M)T\n' -1)
+        cp -rfp /config /storage/elfstorage/backup/$ELF_APP_NAME-$TIMESTAMP
+        ;;
+                  
+    esac
+    
+    if [[ ! -f /config/i-am-bootstrapped ]]
+    then
+      echo "Bootstrapping from goldilocks config..."
+      s5cmd sync s3://elfhosted-config/goldilocks/$ELF_APP_NAME/* /config/
+      touch /config/i-am-bootstrapped
+    fi  
+  volumeMounts:
+  - mountPath: /etc/elfbot
+    name: elfbot
+  - mountPath: /config
+    name: config  
+  - mountPath: /storage/elfstorage
+    name: elfstorage
+  env: *bootstrap_env
+  resources: *default_resources
+  securityContext: *default_securitycontext
+
+persistence:
+  size: 1000Gi
+
+themepark:
+  theme: default # the default themegarden theme
+
+# provide a default
+userId: 1
+
+# our VPN loadbalancerIP
+torrentLoadBalancerIP: 10.0.42.101
+
+minio:
+  sso:
+    enabled: true
+
+  image:
+    repository: quay.io/minio/minio
+    tag: RELEASE.2022-10-24T18-35-07Z # don't go beyond this point, or fs backend will stop working, per https://github.com/minio/docs/issues/624
+
+  enabled: false
+
+  ## Set default accesskey, secretkey, Minio config file path, volume mount path and
+  ## number of nodes (only used for Minio distributed mode)
+  ## AccessKey and secretKey is generated when not set
+  ## Distributed Minio ref: https://docs.minio.io/docs/distributed-minio-quickstart-guide
+  ##
+  accessKey: ""
+  secretKey: ""
+  certsPath: "/etc/minio/certs/"
+  configPathmc: "/etc/minio/mc/"
+  mountPath: "/export"
+
+  ## Create multiple buckets after minio install
+  ## Enabling `defaultBucket` will take priority over this list
+  ##
+  mode: standalone
+
+  # still debugging this
+  # environment:
+  #   MINIO_SERVER_URL: "https://{{ .Release.Name }}-minio.elfhosted.com"
+  #   MINIO_BROWSER_REDIRECT_URL: "https://{{ .Release.Name }}-minio-console.elfhosted.com"
+
+  # This matches the user used by the k8s-at-home charts
+  securityContext:
+    enabled: true
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+
+  users: []
+    # ## Username, password and policy to be assigned to the user
+    # ## Default policies are [readonly|readwrite|writeonly|consoleAdmin|diagnostics]
+    # ## Add new policies as explained here https://docs.min.io/docs/minio-multi-user-quickstart-guide.html
+    # ## NOTE: this will fail if LDAP is enabled in your MinIO deployment
+    # ## make sure to disable this if you are using LDAP.
+    # - accessKey: console
+    #   existingSecret: minio-user-credentials
+    #   existingSecretKey: password
+    #   policy: consoleAdmin
+
+  buckets: []
+
+  networkPolicy:
+    enabled: false
+    allowExternal: true
+
+  persistence:
+    enabled: true # What happens if I disable this?
+    size: 123Gi
+    mountPath: /data
+    existingClaim: byos
+
+  volumePermissions:
+    enabled: true
+
+  # Don't allow minio to overconsume resources
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+    limits:
+      cpu: 250m
+      memory: 2Gi
+
+  makeUserJob:
+    annotations:
+      kube-score/ignore: container-security-context-readonlyrootfilesystem
+    resources: *default_resources
+  makeBucketJob:
+    annotations:
+      kube-score/ignore: container-security-context-readonlyrootfilesystem
+    resources: *default_resources
+
+  ignoreChartChecksums: true
+
+rutorrentgluetun: &rutorrent
+  enabled: false
+  sso:
+    enabled: true
+  automountServiceAccountToken: false
+  image:
+      repository: ghcr.io/geek-cookbook/rutorrent
+      tag: 4.1.5-0.9.8-0.13.8@sha256:6b9f3572d9d740c307e3f455a22f41c6e179ffcd11ca4aada8683bc8645920b3
+  priorityClassName: tenant-low
+  podLabels:
+    app.elfhosted.com/name: rutorrent  
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rutorrent-config,rutorrent-gluetun-config,elfbot-rutorrent" # Reload the deployment every time the yaml config changes
+  securityContext:
+    # runAsUser: 568 # enforced in env vars
+    # runAsGroup: 568
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false
+
+  # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    # runAsUser: 568 # s6's fault
+    # runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /data/rtorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rutorrent   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-rutorrent 
+          optional: true            
+    shared:
+      enabled: true
+      mountPath: /shared
+      type: emptyDir
+      volumeSpec:
+        medium: Memory
+    port-range: # Used for dynamic port-forwarding
+      enabled: true
+      type: emptyDir
+      mountPath: /port-range
+      sizeLimit: 1Gi
+    custom-rtlocal:
+      enabled: "true"
+      mountPath: "/.rtlocal.rc-elfhosted"
+      subPath: ".rtlocal.rc-elfhosted"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rutorrent-config
+    custom-rtorrentrc:
+      enabled: "true"
+      mountPath: "/.rtorrent.rc-elfhosted"
+      subPath: ".rtorrent.rc-elfhosted"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rutorrent-config
+    custom-s6-init-05:
+      enabled: "true"
+      mountPath: "/etc/cont-init.d/05-apply-elfhosted-config.sh"
+      subPath: "05-apply-elfhosted-config.sh"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rutorrent-config
+          defaultMode: 0755
+    custom-s6-init-06:
+      enabled: "true"
+      mountPath: "/etc/cont-init.d/06-wait-for-vpn.sh"
+      subPath: "06-wait-for-vpn.sh"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rutorrent-config
+          defaultMode: 0755     
+    custom-s6-init-07:
+      enabled: "true"
+      mountPath: "/etc/cont-init.d/07-set-inbound-port.sh "
+      subPath: "07-set-inbound-port.sh "
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rutorrent-config
+          defaultMode: 0755
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: false # necessary for probes, but probes aren't working with vpn addon currently
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  env:
+    # -- Set the container timezone
+    PUID: 568
+    GUID: 568
+    RUTORRENT_PORT: 8080 # necessary for health checks
+    # S6_READ_ONLY_ROOT: 1 # this seems to break rutorrent :(
+    WAIT_FOR_VPN: "true"
+    PORT_FILE: /data/rtorrent/forwarded-port
+  initContainers:
+    bootstrap: *bootstrap
+  addons:
+    vpn: &rutorrent_addons_vpn
+      enabled: true
+      type: gluetun
+      gluetun:
+        image:
+          repository: docker.io/qmcgaw/gluetun
+          tag: pr-1543 # See https://github.com/qdm12/gluetun/issues/1488
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE      
+      envFrom:
+      - configMapRef:
+          name: rutorrent-gluetun-config
+      additionalVolumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      config: # We have to set this to null so that we can override with our own config
+
+      # The scripts that get run when the VPN connection opens/closes are defined here.
+      # The default scripts will write a string to represent the current connection state to a file.
+      # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
+      scripts:
+        up: |-
+          #!/bin/bash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/bash
+          echo "disconnected" > /shared/vpnstatus
+
+rutorrentpia:
+  <<: *rutorrent
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rutorrent-config,rutorrent-pia-config,elfbot-rutorrent" # Reload the deployment every time the yaml config changes
+  addons:
+    vpn:
+      <<: *rutorrent_addons_vpn
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest  
+      envFrom:
+      - configMapRef:
+          name: rutorrent-pia-config
+
+delugepia:
+  enabled: false
+  podLabels:
+    app.elfhosted.com/name: deluge  
+  sso:
+    enabled: true
+  automountServiceAccountToken: false
+  image:
+    repository: ghcr.io/geek-cookbook/deluge
+    tag: 2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
+  priorityClassName: tenant-normal
+
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+
+  # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-deluge,deluge-gluetun-config"
+
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-deluge   
+    shared:
+      enabled: true
+      mountPath: /shared
+      type: emptyDir
+      volumeSpec:
+        medium: Memory
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-deluge 
+          optional: true
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: false # necessary for probes, but probes aren't working with vpn addon currently
+  env:
+    # -- Set the container timezone
+    TZ: UTC
+    PUID: 568
+    PGID: 568
+    DELUGE_LOGLEVEL: "info"
+    WAIT_FOR_VPN: "true"
+
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      envFrom:
+      - configMapRef:
+          name: elfhosted-user-config
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /config/deluge/torrent_files
+
+        # Setup autobrr access to daemon
+        grep -q autobrr /config/auth || echo 'autobrr:c7RJKKt#KBcM5Z?a:10' >> /config/auth
+
+        JQ_FILTER=".listen_random_port=false"
+        JQ_FILTER="${JQ_FILTER} | .pre_allocate_storage=false"
+        JQ_FILTER="${JQ_FILTER} | .stop_seed_ratio=2"
+        JQ_FILTER="${JQ_FILTER} | .cache_size=52428"
+        JQ_FILTER="${JQ_FILTER} | .share_ratio_limit=2"
+        JQ_FILTER="${JQ_FILTER} | .stop_seed_at_ratio=true"
+
+        jq "${JQ_FILTER}" /config/core.conf > /config/core-new.conf
+        cp /config/core-new.conf /config/core.conf
+
+        # # Avoid session timeouts
+        # sed -i  "s/session_timeout:\".*/session_timeout\": 99999,/" /config/web.conf
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      env: *bootstrap_env
+      securityContext: *default_securitycontext
+  resources:
+    requests:
+      cpu: 10m
+      memory: 500Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  addons:
+    vpn:
+      enabled: true
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest      
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE          
+      type: gluetun 
+      envFrom:
+      - configMapRef:
+          name: deluge-pia-config
+      additionalVolumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      # IDK why these aren't inherited from the anchor, but we need to repeat them here    
+      scripts:
+        up: |-
+          #!/bin/bash
+          echo "connected" > /shared/vpnstatus
+        down: |-
+          #!/bin/bash
+          echo "disconnected" > /shared/vpnstatus
+  additionalContainers:
+    deluge-web:
+      image: ghcr.io/geek-cookbook/deluge:2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
+      command:
+      - /usr/bin/deluge-web
+      - -L
+      - info
+      - -d
+      - -c
+      - /config
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /tmp
+        name: tmp
+      env:
+        PYTHON_EGG_CACHE: /tmp/.cache
+
+delugegluetun:
+  enabled: false
+  podLabels:
+    app.elfhosted.com/name: deluge  
+  sso:
+    enabled: true
+  automountServiceAccountToken: false
+  image:
+    repository: ghcr.io/geek-cookbook/deluge
+    tag: 2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
+  priorityClassName: tenant-normal
+
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+
+  # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-deluge,deluge-gluetun-config"
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-deluge   
+    shared:
+      enabled: true
+      mountPath: /shared
+      type: emptyDir
+      volumeSpec:
+        medium: Memory
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-deluge 
+          optional: true              
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: false # necessary for probes, but probes aren't working with vpn addon currently
+  env:
+    # -- Set the container timezone
+    TZ: UTC
+    PUID: 568
+    PGID: 568
+    DELUGE_LOGLEVEL: "info"
+  extraEnvVars:
+  - name: PORT_FILE
+    valueFrom:
+      configMapKeyRef:
+        name: deluge-gluetun-config
+        key: PORT_FILE
+    optional: true
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      envFrom:
+      - configMapRef:
+          name: elfhosted-user-config
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /config/deluge/torrent_files
+
+        # Setup autobrr access to daemon
+        grep -q autobrr /config/auth || echo 'autobrr:c7RJKKt#KBcM5Z?a:10' >> /config/auth
+
+        JQ_FILTER=".listen_random_port=false"
+        JQ_FILTER="${JQ_FILTER} | .pre_allocate_storage=false"
+        JQ_FILTER="${JQ_FILTER} | .stop_seed_ratio=2"
+        JQ_FILTER="${JQ_FILTER} | .cache_size=52428"
+        JQ_FILTER="${JQ_FILTER} | .share_ratio_limit=2"
+        JQ_FILTER="${JQ_FILTER} | .stop_seed_at_ratio=true"
+
+        jq "${JQ_FILTER}" /config/core.conf > /config/core-new.conf
+        cp /config/core-new.conf /config/core.conf
+
+        # # Avoid session timeouts
+        # sed -i  "s/session_timeout:\".*/session_timeout\": 99999,/" /config/web.conf
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      env: *bootstrap_env
+      securityContext: *default_securitycontext
+  resources:
+    requests:
+      cpu: 10m
+      memory: 500Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  addons:
+    vpn:
+      enabled: true
+      type: gluetun
+      gluetun:
+        image:
+          repository: docker.io/qmcgaw/gluetun
+          tag: pr-1543 # See https://github.com/qdm12/gluetun/issues/1488
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE      
+      envFrom:
+      - configMapRef:
+          name: deluge-gluetun-config
+      additionalVolumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      config: # We have to set this to null so that we can override with our own config
+
+      # The scripts that get run when the VPN connection opens/closes are defined here.
+      # The default scripts will write a string to represent the current connection state to a file.
+      # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
+      scripts:
+        up: |-
+          #!/bin/bash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/bash
+          echo "disconnected" > /shared/vpnstatus
+  additionalContainers:
+    deluge-web:
+      image: ghcr.io/geek-cookbook/deluge:2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
+      command:
+      - /usr/bin/deluge-web
+      - -L
+      - info
+      - -d
+      - -c
+      - /config
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /tmp
+        name: tmp
+      env:
+        PYTHON_EGG_CACHE: /tmp/.cache
+
+qbittorrentgluetun: &qbittorrent
+  podLabels:
+    app.elfhosted.com/name: qbittorrent
+  enabled: false
+  sso:
+    enabled: true
+  automountServiceAccountToken: false
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/qbittorrent
+    tag: 4.5.4@sha256:e375595abbe7289a946c10b3b3fbf37c1cc3bc86dc821dd52bf9b27db85ae8b0
+  priorityClassName: tenant-normal
+  securityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false # doesn't seem to work well with entrypoint
+
+  # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-qbittorrent,qbittorrent-gluetun-config"
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-qbittorrent   
+    shared:
+      enabled: true
+      mountPath: /shared
+      type: emptyDir
+      volumeSpec:
+        medium: Memory
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-qbittorrent 
+          optional: true              
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      nameOverride: qbittorrent
+      enabled: true # necessary for probes, but probes aren't working with vpn addon currently
+  env:
+    # -- Set the container timezone
+    TZ: UTC
+    HOME: /config
+    XDG_CONFIG_HOME: /config
+    XDG_DATA_HOME: /config
+    WAIT_FOR_VPN: "true"
+  extraEnvVars:
+  - name: PORT_FILE
+    valueFrom:
+      configMapKeyRef:
+        name: qbittorrent-gluetun-config
+        key: PORT_FILE
+    optional: true
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /config/qBittorrent/torrent_files/complete
+        mkdir -p /config/qBittorrent/torrent_files/incomplete
+
+        # Enforce 1:1 seeding ratio, and then delete
+        sed -i  "s/Session\\\GlobalMaxRatio=.*/Session\\\GlobalMaxRatio=1/" /config/qBittorrent/qBittorrent.conf
+
+        # Permit TCP only
+        sed -i  "s/Session\\\BTProtocol=.*/Session\\\BTProtocol=TCP/" /config/qBittorrent/qBittorrent.conf
+
+        # Insist on tun0
+        sed -i  "s/Session\\\Interface=.*/Session\\\Interface=tun0/" /config/qBittorrent/qBittorrent.conf
+        sed -i  "s/Session\\\InterfaceName=.*/Session\\\InterfaceName=tun0/" /config/qBittorrent/qBittorrent.conf
+
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      securityContext: *default_securitycontext
+      resources: *default_resources
+  resources:
+    requests:
+      cpu: 10m
+      memory: 500Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  addons:
+    vpn: &qbittorrent_addons_vpn
+      enabled: true
+      type: gluetun
+      gluetun:
+        image:
+          repository: docker.io/qmcgaw/gluetun
+          tag: pr-1543 # See https://github.com/qdm12/gluetun/issues/1488
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE      
+      envFrom:
+      - configMapRef:
+          name: qbittorrent-gluetun-config
+      additionalVolumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      config: # We have to set this to null so that we can override with our own config
+
+      # The scripts that get run when the VPN connection opens/closes are defined here.
+      # The default scripts will write a string to represent the current connection state to a file.
+      # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
+      scripts:
+        up: |-
+          #!/bin/bash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/bash
+          echo "disconnected" > /shared/vpnstatus
+
+# Custom service for pia
+qbittorrentpia: 
+  <<: *qbittorrent
+  env:
+    PORT_FILE: /config/forwarded-port
+    WAIT_FOR_VPN: "true"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "qbittorrent-deluge,qbittorrent-pia-config"
+  addons:
+    vpn: 
+      <<: *qbittorrent_addons_vpn
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest  
+      envFrom:
+      - configMapRef:
+          name: qbittorrent-pia-config
+
+
+nzbget:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    repository: ghcr.io/geek-cookbook/nzbget
+    tag: 21.1@sha256:672dec2779dfa82d475d7c2adb4296e361e06bf2f972aa1dbe827a4229c18020
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-nzbget"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nzbget   
+    tmp:
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp
+      sizeLimit: 200Gi
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-nzbget 
+          optional: true             
+
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+
+sabnzbd:
+  enabled: false
+  hostname: sabnzbd # required to prevent whitelisting requirement per https://sabnzbd.org/wiki/extra/hostname-check.html
+  sso:
+    enabled: true
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/sabnzbd
+    tag: 4.0.3@sha256:146ed7d761e46ed1381b66ddfab566e99e79b9273479accc331b6b62c4572177
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-sabnzbd"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    runAsUser: 568
+    runAsGroup: 568
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sabnzbd   
+    tmp:
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp
+      sizeLimit: 200Gi # Don't allow > 200GB in temp files
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-sabnzbd 
+          optional: true          
+  
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/sh
+      - -c
+      - |
+        set -x
+        set -e
+
+        # fix host_whitelist
+        sed -i  's/goldilocks/{{ .Release.Name }}/g' /config/sabnzbd.ini
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      env: *bootstrap_env
+      securityContext: *default_securitycontext
+      resources: *default_resources
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1500m # if par threads is 1, this leaves 0.5cpu for downloading
+      memory: 1Gi
+  env:
+    HOST_WHITELIST_ENTRIES: "{{ .Release.Name }}.sabnzbd.elfhosted.com"
+    SABNZBD_UID: 568
+    SABNZBD_GID: 568
+
+tautulli:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/tautulli
+    tag: 2.12.5@sha256:f0019466c370181ea0541e5a8c7ecec193379f76449a472ec65e4277dace2be5
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-tautulli"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-tautulli   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-tautulli 
+          optional: true            
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 64Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  initContainers:
+    bootstrap: *bootstrap
+
+radarr:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/radarr-develop
+    tag: 4.7.2.7686@sha256:44b07f95ac24b9159ea7f8bdfd03b5458e6b993bdbd4b854a05cd4aa64166acd
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-radarr" # Reload the deployment every time the rclones change
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-radarr 
+          optional: true        
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/movies
+        mkdir -p /storage/elfstorage/backup/auto/radarr
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext        
+  resources:
+    requests:
+      cpu: 10m
+      memory: 256Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+radarr4k:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/radarr-develop
+    tag: 4.7.2.7686@sha256:44b07f95ac24b9159ea7f8bdfd03b5458e6b993bdbd4b854a05cd4aa64166acd
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-radarr4k" # Reload the deployment every time the rclones change
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr4k   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-radarr4k  
+          optional: true  
+           
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/movies4k    
+        mkdir -p /storage/elfstorage/backup/auto/radarr4k
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext        
+  resources:
+    requests:
+      cpu: 20m
+      memory: 256Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+ombi:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/ombi
+    tag: 4.39.1@sha256:c54eeb29bd44e8b6643c1d7206b5f61122e9449dac3b974eba3d1323f4ee2478
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-ombi"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    runAsNonRoot: true
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  sso:
+    enabled: true
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-ombi   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-ombi 
+          optional: true          
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes # need this for probes?
+  initContainers:
+    bootstrap: *bootstrap
+  resources:
+    requests:
+      cpu: 3m
+      memory: 150Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+bazarr:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/bazarr
+    tag: 1.2.4@sha256:f33baf6e5232f522ce7bb6d554c4aa4434175071c472186968fc8cd46d444453
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-bazarr"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    runAsUser: 568
+    runAsGroup: 568
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-bazarr   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-bazarr 
+          optional: true            
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/backup/auto/bazarr
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext     
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+bazarr4k:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/bazarr
+    tag: 1.2.4@sha256:f33baf6e5232f522ce7bb6d554c4aa4434175071c472186968fc8cd46d444453
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-bazarr4k"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    runAsUser: 568
+    runAsGroup: 568
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-bazarr4k   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-bazarr4k 
+          optional: true            
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/backup/auto/bazarr4k
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext       
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+
+autobrr:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/autobrr
+    tag: 1.27.1@sha256:06ab673242ef4d4a77ce00e1308a820cc49529f5a4b78d68d84c4b8124adea2b
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-autobrr"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true # doesn't seem to work with upgrades
+    allowPrivilegeEscalation: false
+    runAsUser: 568
+    runAsGroup: 568
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-autobrr   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-autobrr 
+          optional: true            
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 3
+      memory: 1Gi
+  initContainers:
+    bootstrap: *bootstrap     
+  # additionalContainers:
+  #   regbrr:
+  #     image: ghcr.io/geek-cookbook/docker-autobrr-helper:sha-0dcb44a
+  #     imagePullPolicy: IfNotPresent
+  #     command:
+  #     - /bin/sh
+  #     - -c
+  #     - |
+  #       while true
+  #       do
+  #         /regbrr.sh
+  #         sleep 1d
+  #       done
+  #     securityContext:
+  #       seccompProfile:
+  #         type: RuntimeDefault
+  #       readOnlyRootFilesystem: true # doesn't seem to work with upgrades
+  #       allowPrivilegeEscalation: false
+  #       runAsUser: 568
+  #       runAsGroup: 568
+  #     volumeMounts:
+  #     - mountPath: /config
+  #       name: config
+  #       subPath: autobrr
+
+filebrowser:
+  enabled: true
+  sso:
+    enabled: true
+  image:
+    repository: ghcr.io/geek-cookbook/filebrowser
+    tag: 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
+  env:
+    FB_DATABASE: /tmp/filebrowser.db
+    FB_CONFIG: /etc/filebrowser/.filebrowser.json # this would work implicitly anyway, but this way it's clear what's happening
+    FB_ADDRESS: 0.0.0.0
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    runAsUser: 568
+    runAsGroup: 568
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,filebrowser-elfbot-script,elfbot-filebrowser" # Reload the deployment every time the rclones change
+    strategy: RollingUpdate
+  # We will use this to alter configmaps to trigger pod restarts
+  serviceAccount:
+    create: true
+    name: filebrowser
+  automountServiceAccountToken: true
+  persistence:
+    <<: *appmounts    
+    dummy-storage: # so auto-provisioning doesn't break
+      enabled: true
+      type: emptyDir
+      sizeLimit: 1Gi
+    elfbot: 
+      enabled: true
+      type: emptyDir
+      sizeLimit: 1Gi      
+      mountPath: /elfbot
+    elfbot-script:
+      enabled: "true"
+      mountPath: "/usr/local/bin/elfbot"
+      subPath: "elfbot"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: filebrowser-elfbot-script
+          defaultMode: 0755   
+    elfbot-script-ucfirst:
+      enabled: "true"
+      mountPath: "/usr/local/bin/Elfbot" # make it easier for mobile users
+      subPath: "elfbot"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: filebrowser-elfbot-script
+          defaultMode: 0755                  
+
+
+    # We need one of these per-app. The global section will override the false enablement
+    autobrr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/autobrr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-autobrr
+    audiobookshelf:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/audiobookshelf/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-audiobookshelf
+    bazarr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/bazarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-bazarr
+    bazarr4k:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/bazarr4k/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-bazarr4k
+    calibreweb:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/calibreweb/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-calibreweb
+    calibre:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/calibre/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-calibre
+    deluge:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/deluge/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-deluge
+    delugepia:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/deluge/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-deluge          
+    delugegluetun:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/deluge/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-deluge          
+    emby:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/emby/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-emby
+    filebot:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/filebot/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-filebot
+    jellyseerr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/jellyseerr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jellyseerr                                                                                                                                      
+    pyload:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/pyload/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-pyload  
+    jellyfin:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/jellyfin/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jellyfin
+    plex:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/plex/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex      
+    jfa:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/jfa/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jfa
+    kavita:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/kavita/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-kavita
+    komga:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/komga/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-komga                                                      
+    lazylibrarian:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/lazylibrarian/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-lazylibrarian
+    lidarr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/lidarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-lidarr
+    mattermost:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/mattermost/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-mattermost
+    mylar:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/mylar/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-mylar
+    navidrome:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/navidrome/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-navidrome
+    nextpvr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/nextpvr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nextpvr
+    notifiarr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/notifiarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-notifiarr
+    nzbget:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/nzbget/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nzbget
+    ombi:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/ombi/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-ombi
+    overseerr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/overseerr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-overseerr
+    privatebin:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/privatebin/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-privatebin
+    prowlarr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/prowlarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-prowlarr
+    qbittorrent:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/qbittorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-qbittorrent  
+    qbittorrentpia:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/qbittorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-qbittorrent            
+    qbittorrentgluetun:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/qbittorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-qbittorrent            
+    radarr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/radarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr   
+    radarr4k:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/radarr4k/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr4k
+    rapidleech:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/rapidleech/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rapidleech
+    rclonebrowser:
+      enabled: true # this is always on
+      type: custom
+      mountPath: /storage/config/rclonebrowser/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rclonebrowser
+    readarr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/readarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarr
+    readarraudio:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/readarraudio/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarraudio
+    resiliosync:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/resiliosync/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-resiliosync
+    rpdb:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/rpdb/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rpdb
+    rutorrent:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/rutorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rutorrent
+    rutorrentpia:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/rutorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rutorrent          
+    rutorrentgluetun:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/rutorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rutorrent          
+    sabnzbd:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/sabnzbd/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sabnzbd
+    seafile:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/seafile/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-seafile
+    shoko:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/shoko/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-shoko
+    sonarr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/sonarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr   
+    sonarr4k:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/sonarr4k/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr4k
+    syncthing:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/syncthing/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-syncthing
+    tautulli:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/tautulli/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-tautulli
+    thelounge:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/thelounge/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-thelounge
+    uptimekuma:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/uptimekuma/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-uptimekuma
+    vaultwarden:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/vaultwarden/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-vaultwarden
+    xteve:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/xteve/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-xteve
+    youtubedl:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/youtubedl/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-youtubedl    
+    rdtclient:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/rdtclient/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rdtclient                                                                                                                                                                                                                                                                                                                                                                                                  
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8080 # this allows us to run as non-root
+
+  ingress:
+    main:
+      enabled: false
+  initContainers:
+    setup:
+      image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Delete tmp db if necessary
+        if [ -f /tmp/filebrowser.db ]
+        then
+          rm /tmp/filebrowser.db
+        fi
+
+        /filebrowser config init \
+          --disable-preview-resize \
+          --disable-thumbnails \
+          --disable-type-detection-by-header \
+          --branding.name="{{ .Release.Name }}, by ElfHosted 🧝 " \
+          --branding.files=/branding \
+          --branding.disableExternal \
+          --auth.method=noauth \
+          --lockPassword \
+          --database /tmp/filebrowser.db \
+          --root /storage \
+          --cache-dir /tmp
+
+        # allow zip, unzip, rar, unrar, ls, pwd, cd, mv
+        /filebrowser config set --database /tmp/filebrowser.db --commands zip,unzip,rar,unrar,ls,pwd,cd,mv,cp,ln,find,echo,grep,cat,touch,tar,gzip,rm,tree,du,mlocate,updatedb,locate,elfbot,Elfbot
+        # /filebrowser config set --database /tmp/filebrowser.db --shell 'vstat -c'
+
+        # now tell filebrowser about the user (who gets authenticated via the proxy)
+        /filebrowser users add 1 bogus --database /tmp/filebrowser.db
+
+
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmp
+      - mountPath: /storage
+        name: dummy-storage
+      resources: *default_resources
+      securityContext: *default_securitycontext
+  additionalContainers:
+    # this container exists to watch for restarts requested by elfbot, and to use create configmaps to trigger restarts using reloader
+    elfbot:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /usr/bin/dumb-init
+      - /bin/bash
+      - -c      
+      - |
+        set -e
+        set -x
+
+        inotifywait -m -e create --format "%f" /elfbot \
+          | while read APP
+            do
+              # put the contents of the file into the configmap which will trigger the restart
+              echo command received for ${APP} : [$(cat /elfbot/$APP)]
+              # create the configmap if it doesn't exist, since reloader only looks at _changes_ to configmaps
+              if ! $(kubectl get configmap -n {{ .Release.Namespace }} elfbot-${APP} 2>&1 >/dev/null); then
+                  kubectl create configmap -n {{ .Release.Namespace }} elfbot-${APP} --from-literal=elfbot_last_action=$(date +%s)
+                  sleep 10s
+              fi
+              
+              # If we were passed a key=value string in /etc/elfbot, then split it
+              if (cat /elfbot/$APP | grep -q =); then
+                KEY=$(cat /elfbot/$APP | cut -f1 -d=)
+                VALUE=$(cat /elfbot/$APP | cut -f2 -d=)
+              # If not, then it was just a simple command, like "backup"
+              else
+                KEY=$(cat /elfbot/$APP)
+                VALUE=$(date +%s)
+              fi
+
+              # patch the configmap with the latest key/value
+              kubectl patch configmap -n {{ .Release.Namespace }} elfbot-${APP} -p "{\"data\":{\"${KEY}\":\"${VALUE}\"}}"
+
+              # kubectl create configmap -n {{ .Release.Namespace }} \
+              # elfbot-${APP} --from-literal=$(cat /elfbot/$APP)=$(date +%s) --from-literal=elfbot_last_action=$(date +%s) -o yaml --dry-run=client \
+              # | kubectl apply -f -
+              rm /elfbot/$APP
+            done            
+      volumeMounts:
+      - mountPath: /elfbot
+        name: elfbot
+      resources: *default_resources
+      securityContext: *default_securitycontext      
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 200m
+      memory: 514Mi
+
+  # # not used currently
+  # config: |
+  #   {
+  #     "port": 8080,
+  #     "baseURL": "",
+  #     "address": "0.0.0.0",
+  #     "log": "stdout",
+  #     "database": "/tmp/filebrowser.db",
+  #     "root": "/elfhosted",
+  #     "enableExec": "true"
+  #   }
+
+
+
+uptimekuma:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    repository: ghcr.io/geek-cookbook/uptime-kuma
+    tag: 1.22.1@sha256:3b92986b3dec4580d93e4f7dfb3071b00b3a4257f383af76cd3be1fa14605705
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-uptimekuma"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /app/data/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-uptimekuma
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-uptimekuba 
+          optional: true            
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+  resources:
+    requests:
+      cpu: 10m
+      memory: 96Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+privatebin:
+  enabled: false
+  sso:
+    enabled: false
+  image:
+    repository: privatebin/fs
+    tag: 1.5.2
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-privatebin"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false # crashes privatebin, TBD to determine why, and whether an emptydir /tmpfs might help
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /srv/data
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-privatebin    
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-privatebin 
+          optional: true            
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 32Mi
+  config:
+    main:
+      discussion: false
+      opendiscussion: false
+      password: true
+      fileupload: true
+      burnafterreadingselected: false
+      defaultformatter: "plaintext"
+      syntaxhighlightingtheme: "sons-of-obsidian"
+      sizelimit: 1048576
+      template: "bootstrap-dark"
+      info: "Hosted with ❤️ by ElfHosted 🧝"
+      languageselection: true
+      languagedefault: "en"
+      # urlshortener: "https://shortener.example.com/api?link="
+      qrcode: false
+      icon: "none"
+      zerobincompatibility: false
+      # httpwarning: true
+      compression: "zlib"
+    expire:
+      default: "1week"
+    expire_options:
+      5min: 300
+      10min: 600
+      1hour: 3600
+      1day: 86400
+      1week: 604800
+    formatter_options:
+      plaintext: "Plain Text"
+      syntaxhighlighting: "Source Code"
+      markdown: "Markdown"
+    traffic:
+      limit: 10
+      # exemptedIp: "1.2.3.4,10.10.10/24"   
+  initContainers:
+    bootstrap: *bootstrap
+
+nzbhydra:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/nzbhydra2
+    tag: 5.1.10@sha256:2ecf80f5ddee763c2536d74b018decb45cbdee1752147e4c0dff5a0be837a091
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-nzbhydra"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    runAsUser: 568
+    runAsGroup: 568
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nzbhydra   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-nzbhydra 
+          optional: true            
+    tmp: *tmp
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for custom probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  initContainers:
+    bootstrap: *bootstrap
+
+calibreweb:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/calibre-web
+    tag: 0.6.20@sha256:1f18eb27c23de92199bb8dec449469991735db956a03e608af3c561135a92152
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-calibreweb"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    # readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  automountServiceAccountToken: false
+  environment:
+    CALIBRE_DBPATH: /config
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-calibreweb   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-calibreweb 
+          optional: true      
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 10
+      memory: 1Gi
+
+pyload:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/pyload-ng
+    tag: 0.5.0b3.dev71@sha256:17b0414059c2aad0ae0318244a4f024f3e54851430ad6d44bedba260466c78d2
+  env:
+    PUID: 568
+    PGID: 568
+    # S6_READ_ONLY_ROOT: 1
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-pyload"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false # again, s6
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts
+    run: # used for s6-init with non-root
+      enabled: true
+      type: emptyDir
+      mountPath: /run
+      sizeLimit: 1Gi
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-pyload 
+          optional: true  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-pyload
+    elfstorage: *elfstorage
+    rclonea: *rclonea
+    rcloneb: *rcloneb
+    rclonec: *rclonec  
+    storageboxa: *storageboxa
+    storageboxb: *storageboxb
+    storageboxc: *storageboxc
+    premiumize: *premiumize
+    b2: *b2
+    smbmounta: *smbmounta
+    smbmountb: *smbmountb
+    smbmountc: *smbmountc             
+  initContainers:
+    bootstrap: *bootstrap
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 40Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+lazylibrarian:
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/lazylibrarian
+    tag: rolling@sha256:ead3b7111577011f2b0016d30ba72aa95099a91906af753be9df780fc90e89ce
+  enabled: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-lazylibrarian"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-lazylibrarian   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-lazylibrarian 
+          optional: true
+
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+  resources:
+    requests:
+      cpu: 10m
+      memory: 96Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+mylar:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/mylar3
+    tag: 0.7.2@sha256:f3a4a6ad38862d6acf26ea70bdfca78711a7478f5edd9be6d70cfca3a5729c09
+  env:
+    PUID: 568
+    PGID: 568
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    # readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-mylar" # Reload the deployment every time the rclones change
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-mylar   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-mylar 
+          optional: true
+            
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/comics    
+        mkdir -p /storage/elfstorage/backup/auto/mylar
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext      
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+komga:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/komga
+    tag: 1.2.1@sha256:185ca92404e2a6d68e5c77601eb16c6f608337cb6990c876601429bd6038d569
+  env:
+    KOMGA_CONFIGDIR: /config
+    KOMGA_REMEMBERME_KEY: yesplease
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-komga" # Reload the deployment every time the rclones change  
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-komga   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-komga 
+          optional: true
+             
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+kavita:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/kavita
+    tag: 0.7.3.1@sha256:421e47a6c882276bcb3ace9e564ea744b2b8bb41ed716ede9fd95faad7b3b785
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-kavita" # Reload the deployment every time the rclones change
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /kavita/config
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-kavita   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-kavita 
+          optional: true
+  initContainers:
+    bootstrap: *bootstrap         
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 96Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+calibre:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    repository: ghcr.io/geek-cookbook/calibre
+    tag: 6.23.0@sha256:9c80ea73fb36bb995d899b3c794d0a4204be81ae55968bf1a1feec0c228994c6
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true # doesn't work with s6
+    allowPrivilegeEscalation: false # do we need this too?
+    runAsUser: 568
+    runAsGroup: 568
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-calibre"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-calibre   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-calibre 
+          optional: true
+    run: # used for s6-init with non-root
+      enabled: true
+      type: emptyDir
+      mountPath: /run
+      sizeLimit: 1Gi
+  env:
+    S6_READ_ONLY_ROOT: 1
+
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      ports:
+        http:
+          port: 8080
+  resources:
+    requests:
+      cpu: 10m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 4Gi
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/sh
+      - -c
+      - |
+        set -x
+        set -e
+        if [ ! -f /storage/elfstorage/books/metadata.db ]
+        then
+          echo "Copying sample Calibre DB files to /storage/elfstorage/books/..."
+          mkdir -p /storage/elfstorage/books
+          cp /config/metadata* /storage/elfstorage/books/
+        fi
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext
+
+sonarr:
+  service:
+    main:
+      enabled: false
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/sonarr-develop
+    tag: 4.0.0.577@sha256:9c65c777c92e96d383f74a032e2a0e22b384a6e0c49fcc99d83a25ea3db7784e
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-sonarr" # Reload the deployment every time the rclones change
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-sonarr 
+          optional: true      
+        
+  ingress:
+    main:
+      enabled: false
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/series    
+        mkdir -p /storage/elfstorage/backup/auto/sonarr
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext        
+  resources:
+    requests:
+      cpu: 10m
+      memory: 192Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+      
+
+sonarr4k:
+  service:
+    main:
+      enabled: false
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/sonarr-develop
+    tag: 4.0.0.577@sha256:9c65c777c92e96d383f74a032e2a0e22b384a6e0c49fcc99d83a25ea3db7784e
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-sonarr4k" # Reload the deployment every time the rclones change
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr4k   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-sonarr4k 
+          optional: true
+  ingress:
+    main:
+      enabled: false
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/series
+        mkdir -p /storage/elfstorage/backup/auto/sonarr4k
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext        
+  resources:
+    requests:
+      cpu: 10m
+      memory: 256Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+resiliosync:
+  service:
+    main:
+      enabled: false
+  command:
+  - rslsync
+  - --config
+  - /sync.conf
+  - --nodaemon
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/resilio-sync
+    tag: 2.7.3.1381-1@sha256:db8bda2d6cd2aba70cd3b6a0d118077857e1c5fee23df3716e2fb4baa95e2989
+  env:
+    PUID: 568
+    GUID: 568
+    S6_READ_ONLY_ROOT: 1
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false # another s6 containeir!
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-resiliosync"
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-resiliosync   
+    setup-config:
+      enabled: "true"
+      mountPath: "/sync.conf"
+      subPath: "sync.conf"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: resiliosync-config
+    run: # used for s6-init with non-root
+      enabled: true
+      type: emptyDir
+      mountPath: /run
+      sizeLimit: 1Gi
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-resiliosync 
+          optional: true      
+
+  initContainers:
+    bootstrap: *bootstrap         
+  ingress:
+    main:
+      enabled: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+prowlarr:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/prowlarr-develop
+    tag: 1.7.4.3769@sha256:f1f5e79eeaa0281a96fedf2d2172ec2038552ae36fa26063d0abc8d2d14697a1
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    # readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-prowlarr"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-prowlarr   
+    run: # used for s6-init with non-root
+      enabled: true
+      type: emptyDir
+      mountPath: /run
+      sizeLimit: 1Gi
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-prowlarr 
+          optional: true      
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/sh
+      - -c
+      - |
+        set -x
+        set -e
+        # Set auth to external
+        sed -i  "s|<AuthenticationMethod>None</AuthenticationMethod>|<AuthenticationMethod>External</AuthenticationMethod>|" /config/config.xml
+        mkdir -p /storage/elfstorage/backup/auto/prowlarr
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /storage/elfstorage
+        name: elfstorage        
+      resources: *default_resources
+      securityContext: *default_securitycontext
+  resources:
+    requests:
+      cpu: 60m
+      memory: 128Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+  env:
+    S6_READ_ONLY_ROOT: 1
+
+lidarr:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/lidarr-develop
+    tag: 1.3.1.3371@sha256:2a2e33023f1d376edce1b7424b2861e9fe025253e3926027fccfc11d8102118d
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    # readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-lidarr" # Reload the deployment every time the rclones change
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-lidarr   
+    s6:
+      enabled: true
+      type: emptyDir
+      mountPath: /var/run/s6
+      sizeLimit: 1Gi
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-lidarr 
+          optional: true      
+        
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/music    
+        mkdir -p /storage/elfstorage/backup/auto/lidarr
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext      
+  resources:
+    requests:
+      cpu: 20m
+      memory: 128Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+navidrome:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/navidrome
+    tag: 0.49.3@sha256:1e37fb56a053b9e61313061c38633d552a13a3bee5f6d9a1fc4a9f610a041008
+  sso:
+    enabled: true
+  priorityClassName: tenant-streaming
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-navidrome"
+  automountServiceAccountToken: false
+  env:
+    ND_MUSICFOLDER: /elfhosted/music
+    ND_DATAFOLDER: /config
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-navidrome   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-navidrome 
+          optional: true    
+  initContainers:
+    bootstrap: *bootstrap   
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/music    
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext       
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+readarr:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/readarr-nightly
+    tag: 0.2.4.1999@sha256:45f0560095d5e08442e5620beb40800b9598c93d1548b5c6526125e25d99ab9b
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-readarr" # Reload the deployment every time the rclones change
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarr   
+    tmp-readarr-backup:
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp/readarr_backup
+      sizeLimit: 32Mi
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-readarr 
+          optional: true      
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/books    
+        mkdir -p /storage/elfstorage/backup/auto/readarr
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext      
+  resources:
+    requests:
+      cpu: 20m
+      memory: 128Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+readarraudio:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/readarr-nightly
+    tag: 0.2.4.1999@sha256:45f0560095d5e08442e5620beb40800b9598c93d1548b5c6526125e25d99ab9b
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-readarraudio" # Reload the deployment every time the rclones change
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarraudio         
+    tmp-readarr-backup:
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp/readarr_backup
+      sizeLimit: 32Mi
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-readarraudio 
+          optional: true
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/audiobooks    
+        mkdir -p /storage/elfstorage/backup/auto/readarr4k
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext      
+  resources:
+    requests:
+      cpu: 20m
+      memory: 128Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+plex:
+  enabled: false
+  priorityClassName: tenant-streaming
+  securityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    privileged: true
+  podSecurityContext:
+    fsGroup: 568
+    fsGroupChangePolicy: "Always"
+    seccompProfile:
+      type: RuntimeDefault
+    supplementalGroups:
+    - 109    
+  automountServiceAccountToken: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-plex" # Reload the deployment every time the rclones change
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/plex
+    tag: rolling@sha256:5b7120001b200320505161832ccfae4e3adfb7f74c8129e4ddde4197e8b72993
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex    
+    transcode:
+      enabled: true
+      type: emptyDir
+      mountPath: /transcode
+      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-plex 
+          optional: true
+    render-device:
+      enabled: "true"
+      type: hostPath
+      hostPath: "/dev/dri/renderD128"
+      mountPath: "/dev/dri/renderD128"            
+    
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  env:
+    # PLEX_PREFERENCE_1: "FriendlyName=ElfHosted | {{ .Release.Name }}"
+    # PLEX_PREFERENCE_2: "FSEventLibraryPartialScanEnabled=1"
+    # PLEX_PREFERENCE_3: "FSEventLibraryUpdatesEnabled=1"
+    # PLEX_PREFERENCE_4: "ScannerLowPriority=1"
+    # PLEX_PREFERENCE_5: "ScheduledLibraryUpdatesEnabled=0"
+    # PLEX_PREFERENCE_6: "TranscodeCountLimit=3"
+    # PLEX_PREFERENCE_7: "TranscoderQuality=1"
+    # PLEX_PREFERENCE_8: "BackgroundTranscodeLowPriority=1"
+    # PLEX_PREFERENCE_9: "LongRunningJobThreads=1"
+    # PLEX_PREFERENCE_10: "TranscoderH264BackgroundPreset=ultrafast"
+    # PLEX_PREFERENCE_11: "RelayEnabled=0"
+    PLEX_PREFERENCE_12: "TranscoderTempDirectory=/transcode"
+    # PLEX_PREFERENCE_13: "MinutesAllowedPaused=30"
+    # PLEX_PREFERENCE_14: "GenerateIntroMarkerBehavior=scheduled"
+    # PLEX_PREFERENCE_15: "ButlerStartHour=5"
+    # PLEX_PREFERENCE_16: "ButlerEndHour=13"
+    ADVERTISE_IP: "https://{{ .Release.Name }}-plex.elfhosted.com:443"
+  resources:
+    requests:
+      cpu: "10m"
+      memory: 512Mi
+    limits:
+      cpu: "500m"
+      memory: 2048Mi
+  initContainers:
+    bootstrap: 
+      <<: *bootstrap
+      volumeMounts:
+      - mountPath: /etc/elfbot
+        name: elfbot
+      - mountPath: /config
+        name: config   
+
+jellyfin:
+  hostname: elfhosted
+  image:
+    repository: ghcr.io/geek-cookbook/jellyfin
+    tag: 10.8.10@sha256:3b1a56c1536e3b25f6275f308b3120bc3304f12ff2198ba9fbaa274617b572e2
+  enabled: false
+  priorityClassName: tenant-streaming
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+    privileged: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+    runAsUser: 568
+    runAsGroup: 568
+    supplementalGroups:
+    - 109
+  automountServiceAccountToken: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-jellyfin" # Reload the deployment every time the rclones change
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jellyfin    
+    transcode:
+      enabled: true
+      type: emptyDir
+      mountPath: /config/transcodes
+      sizeLimit: 50Gi # Don't allow > 10GB in transcoding files
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-jellyfin 
+          optional: true      
+    render-device:
+      enabled: "true"
+      type: hostPath
+      hostPath: "/dev/dri/renderD128"
+      mountPath: "/dev/dri/renderD128"               
+  initContainers:
+    bootstrap: *bootstrap   
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: "500m"
+      memory: 2Gi
+  additionalContainers:
+    jellyfixer:
+      image: quay.io/xsteadfastx/jellyfixer:latest
+      env:
+        JELLYFIXER_INTERNAL_URL: http://jellyfin:8096
+        JELLYFIXER_EXTERNAL_URL: https://{{ .Release.Name }}-jellyfin.elfhosted.com
+
+emby:
+  hostname: elfhosted
+  image:
+    registry: ghcr.io
+    repository: geek-cookbook/emby
+    tag: 4.7.13.0@sha256:d40b6dd5109452623266bd710cd3f78d258b30ed8b76ccc9f1a7f848056e2625
+  enabled: false
+  priorityClassName: tenant-streaming
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem:
+    privileged: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+    supplementalGroups:
+    - 109
+  automountServiceAccountToken: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-emby" # Reload the deployment every time the rclones change
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-emby   
+    transcode-temp:
+      enabled: true
+      type: emptyDir
+      mountPath: /config/transcoding-temp
+      sizeLimit: 50Gi # Don't allow > 10GB in transcoding files
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-emby 
+          optional: true      
+    render-device:
+      enabled: "true"
+      type: hostPath
+      hostPath: "/dev/dri/renderD128"
+      mountPath: "/dev/dri/renderD128"
+
+  initContainers:
+    bootstrap: *bootstrap  
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: "10m"
+      memory: 512Mi
+    limits:
+      cpu: "500m"
+      memory: 2048Mi
+
+homer:
+  priorityClassName: tenant-normal
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+    runAsNonRoot: false
+  podSecurityContext:
+    runAsNonRoot: false
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "Always"
+  automountServiceAccountToken: false
+  image:
+    repository: ghcr.io/geek-cookbook/tooling
+    tag: focal-20230605@sha256:dac41eb12f3762284fa6963ee5821688fdd40efdad710a2d9f8b3579fbc8f1cc
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  persistence:
+    <<: *appmounts  
+    config-yml:
+      enabled: "true"
+      subPath: "config.yml"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: homer-config
+    tools-yml:
+      enabled: "true"
+      subPath: "tools.yml"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: homer-config          
+    disk-usage:
+      enabled: "true"
+      mountPath: "/usr/local/bin/disk_usage.sh"
+      subPath: "disk_usage.sh"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: homer-config          
+    # We need one of these per-app. The global section will override the false enablement
+    autobrr:
+      enabled: false
+      type: custom
+      mountPath: /config/autobrr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-autobrr
+    audiobookshelf:
+      enabled: false
+      type: custom
+      mountPath: /config/audiobookshelf/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-audiobookshelf
+    bazarr:
+      enabled: false
+      type: custom
+      mountPath: /config/bazarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-bazarr
+    bazarr4k:
+      enabled: false
+      type: custom
+      mountPath: /config/bazarr4k/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-bazarr4k
+    calibreweb:
+      enabled: false
+      type: custom
+      mountPath: /config/calibreweb/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-calibreweb
+    calibre:
+      enabled: false
+      type: custom
+      mountPath: /config/calibre/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-calibre
+    deluge:
+      enabled: false
+      type: custom
+      mountPath: /config/deluge/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-deluge
+    delugepia:
+      enabled: false
+      type: custom
+      mountPath: /config/deluge/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-deluge          
+    delugegluetun:
+      enabled: false
+      type: custom
+      mountPath: /config/deluge/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-deluge          
+    emby:
+      enabled: false
+      type: custom
+      mountPath: /config/emby/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-emby
+    filebot:
+      enabled: false
+      type: custom
+      mountPath: /config/filebot/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-filebot
+    jellyseerr:
+      enabled: false
+      type: custom
+      mountPath: /config/jellyseerr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jellyseerr                                                                                                                                      
+    pyload:
+      enabled: false
+      type: custom
+      mountPath: /config/pyload/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-pyload  
+    jellyfin:
+      enabled: false
+      type: custom
+      mountPath: /config/jellyfin/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jellyfin
+    plex:
+      enabled: false
+      type: custom
+      mountPath: /config/plex/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex      
+    jfa:
+      enabled: false
+      type: custom
+      mountPath: /config/jfa/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jfa
+    kavita:
+      enabled: false
+      type: custom
+      mountPath: /config/kavita/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-kavita
+    komga:
+      enabled: false
+      type: custom
+      mountPath: /config/komga/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-komga                                                      
+    lazylibrarian:
+      enabled: false
+      type: custom
+      mountPath: /config/lazylibrarian/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-lazylibrarian
+    lidarr:
+      enabled: false
+      type: custom
+      mountPath: /config/lidarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-lidarr
+    mattermost:
+      enabled: false
+      type: custom
+      mountPath: /config/mattermost/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-mattermost
+    mylar:
+      enabled: false
+      type: custom
+      mountPath: /config/mylar/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-mylar
+    navidrome:
+      enabled: false
+      type: custom
+      mountPath: /config/navidrome/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-navidrome
+    nextpvr:
+      enabled: false
+      type: custom
+      mountPath: /config/nextpvr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nextpvr
+    notifiarr:
+      enabled: false
+      type: custom
+      mountPath: /config/notifiarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-notifiarr
+    nzbget:
+      enabled: false
+      type: custom
+      mountPath: /config/nzbget/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nzbget
+    ombi:
+      enabled: false
+      type: custom
+      mountPath: /config/ombi/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-ombi
+    overseerr:
+      enabled: false
+      type: custom
+      mountPath: /config/overseerr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-overseerr
+    privatebin:
+      enabled: false
+      type: custom
+      mountPath: /config/privatebin/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-privatebin
+    prowlarr:
+      enabled: false
+      type: custom
+      mountPath: /config/prowlarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-prowlarr
+    qbittorrent:
+      enabled: false
+      type: custom
+      mountPath: /config/qbittorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-qbittorrent  
+    qbittorrentpia:
+      enabled: false
+      type: custom
+      mountPath: /config/qbittorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-qbittorrent            
+    qbittorrentgluetun:
+      enabled: false
+      type: custom
+      mountPath: /config/qbittorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-qbittorrent            
+    radarr:
+      enabled: false
+      type: custom
+      mountPath: /config/radarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr   
+    radarr4k:
+      enabled: false
+      type: custom
+      mountPath: /config/radarr4k/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr4k
+    rapidleech:
+      enabled: false
+      type: custom
+      mountPath: /config/rapidleech/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rapidleech
+    rclonebrowser:
+      enabled: true # this is always on
+      type: custom
+      mountPath: /config/rclonebrowser/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rclonebrowser
+    readarr:
+      enabled: false
+      type: custom
+      mountPath: /config/readarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarr
+    readarraudio:
+      enabled: false
+      type: custom
+      mountPath: /config/readarraudio/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarraudio
+    resiliosync:
+      enabled: false
+      type: custom
+      mountPath: /config/resiliosync/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-resiliosync
+    rpdb:
+      enabled: false
+      type: custom
+      mountPath: /config/rpdb/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rpdb
+    rutorrent:
+      enabled: false
+      type: custom
+      mountPath: /config/rutorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rutorrent
+    rutorrentpia:
+      enabled: false
+      type: custom
+      mountPath: /config/rutorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rutorrent          
+    rutorrentgluetun:
+      enabled: false
+      type: custom
+      mountPath: /config/rutorrent/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rutorrent          
+    sabnzbd:
+      enabled: false
+      type: custom
+      mountPath: /config/sabnzbd/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sabnzbd
+    seafile:
+      enabled: false
+      type: custom
+      mountPath: /config/seafile/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-seafile
+    shoko:
+      enabled: false
+      type: custom
+      mountPath: /config/shoko/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-shoko
+    sonarr:
+      enabled: false
+      type: custom
+      mountPath: /config/sonarr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr   
+    sonarr4k:
+      enabled: false
+      type: custom
+      mountPath: /config/sonarr4k/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr4k
+    syncthing:
+      enabled: false
+      type: custom
+      mountPath: /config/syncthing/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-syncthing
+    tautulli:
+      enabled: false
+      type: custom
+      mountPath: /config/tautulli/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-tautulli
+    thelounge:
+      enabled: false
+      type: custom
+      mountPath: /config/thelounge/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-thelounge
+    uptimekuma:
+      enabled: false
+      type: custom
+      mountPath: /config/uptimekuma/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-uptimekuma
+    vaultwarden:
+      enabled: false
+      type: custom
+      mountPath: /config/vaultwarden/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-vaultwarden
+    xteve:
+      enabled: false
+      type: custom
+      mountPath: /config/xteve/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-xteve
+    youtubedl:
+      enabled: false
+      type: custom
+      mountPath: /config/youtubedl/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-youtubedl  
+    rdtclient:
+      enabled: false
+      type: custom
+      mountPath: /config/rdtclient/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rdtclient            
+    message:
+      enabled: true
+      type: emptyDir
+      mountPath: /www/assets/message
+    backgrounds:
+      enabled: true
+      type: emptyDir
+      mountPath: /www/assets/backgrounds  
+        
+  command:
+  - /bin/bash
+  - /usr/local/bin/disk_usage.sh
+  additionalContainers:
+    ui:
+      image: ghcr.io/geek-cookbook/homer:23.05.1@sha256:1d9d2a8dfa3ef269a116857574908724fbc5cd1c289854af05521e0a42c2622a
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+      - mountPath: /www/assets/config.yml
+        name: config-yml
+        subPath: "config.yml"
+      - mountPath: /www/assets/tools.yml
+        name: tools-yml
+        subPath: "tools.yml"  
+      - mountPath: /www/assets/message
+        name: message
+      resources: *default_resources
+      securityContext: *default_securitycontext
+
+  initContainers:
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # This needs to be refactored into each app
+        mkdir -p /storage/elfstorage/podcasts
+        mkdir -p /storage/elfstorage/video
+        mkdir -p /storage/elfstorage/audio
+        mkdir -p /storage/elfstorage/downloads/completed/Movies
+        mkdir -p /storage/elfstorage/downloads/completed/Series
+        mkdir -p /storage/elfstorage/downloads/completed/Music
+        mkdir -p /storage/elfstorage/downloads/completed/Books
+        mkdir -p /storage/elfstorage/downloads/completed/Comics
+        mkdir -p /storage/elfstorage/downloads/qbittorrent
+        mkdir -p /storage/elfstorage/downloads/completed/Comics
+        mkdir -p /config/filebrowser # we need this to avoid double-mounting a config file in filebrowser
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext
+
+
+  configmap:
+    config:
+      # -- Store homer configuration as a ConfigMap, but don't specify any config, since we'll supply our own
+      enabled: false
+  controller:
+    replicas: 1 # not sure we need 2 replicas anymore
+    strategy: RollingUpdate
+    # rollingUpdate:
+    #   unavailable: 1
+    annotations:
+      configmap.reloader.stakater.com/reload: "homer-config" # Reload the deployment every time the yaml config changes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 1Mi
+    limits:
+      cpu: 100m
+      memory: 64Mi 
+
+traefikforwardauth:
+  type: wordpress
+  whitelist: admin@elfhosted.com
+  priorityClassName: tenant-normal
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+  automountServiceAccountToken: false
+  # Default values for traefik-forward-auth.
+
+  controller:
+    replicas: 1
+    annotations:
+      configmap.reloader.stakater.com/reload: traefik-forward-auth-config
+    strategy: RollingUpdate
+  image:
+    repository: ghcr.io/geek-cookbook/traefik-forward-auth
+    pullPolicy: IfNotPresent
+    tag: 3.1.0@sha256:83d53518116c90e37dfa481da1dcfe30655f72b19fc7fc78b4da6209e4e5b17b
+
+  middleware:
+    # middleware.enabled -- Enable to deploy a preconfigured middleware
+    enabled: false
+
+  envFrom:
+  - configMapRef:
+      name: traefik-forward-auth-config
+
+  ingress:
+    main:
+      enabled: false
+
+  service:
+    main:
+      enabled: true # necessary for probes
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 6Mi
+    limits:
+      cpu: 1
+      memory: 32Mi
+
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - traefik-forward-auth
+        topologyKey: "kubernetes.io/hostname"
+
+
+gatus:
+  image:
+    repository: ghcr.io/geek-cookbook/gatus
+    tag: 5.5.1@sha256:4e719a26ed89de53a393d8c1f53123da456acb4462843968aa1e2ff874779ccf
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 20Mi
+    limits:
+      cpu: 2
+      memory: 64Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  controller:
+    strategy: RollingUpdate
+    # annotations:
+    #   configmap.reloader.stakater.com/reload: "gatus-config"    
+  env:
+    GATUS_CONFIG_PATH: /config/config.yaml 
+    SMTP_FROM: 'health@elfhosted.com'
+    SMTP_PORT: 587
+  persistence:
+    gatus-config:
+      enabled: "true"
+      mountPath: /config
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: gatus-config
+    data: # have to stick with this becauese of how it's named in the chart
+      enabled: true
+      type: custom
+      mountPath: /data/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-gatus     
+  envFrom:
+  - secretRef:
+      name: gatus-smtp-config
+  configmap:
+    config:
+      # -- Store homer configuration as a ConfigMap, but don't specify any config, since we'll supply our own
+      enabled: false
+
+
+gotify:
+  sso:
+    enabled: true
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/gotify
+    tag: 2.3.0@sha256:6f69d69fd8d854fb8b60147159b1f316684d62be423fee00733382e847b13f0d
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-gotify"
+  automountServiceAccountToken: false
+  env:
+    GOTIFY_SERVER_PORT: 8080
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 1
+      memory: 64Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /app/data/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-gotify   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-gotify 
+          optional: true      
+    tmp: *tmp # Avoids issues with readOnlyRootFilesystem
+  initContainers:
+    bootstrap: *bootstrap
+
+flaresolverr:
+  enabled: false
+  image:
+    registry: ghcr.io
+    repository: flaresolverr/flaresolverr
+    tag: v3.2.2
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false # makes node unhappy
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-flaresolverr"
+  persistence:
+    <<: *appmounts  
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-flaresolverr 
+          optional: true      
+    # config:
+    #   enabled: true
+    #   type: custom
+    #   mountPath: /app/data
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config        
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 1000
+    runAsGroup: 1000
+
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 256Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  # initContainers:
+  #   bootstrap: *bootstrap
+
+seafile_test:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    repository: ghcr.io/geek-cookbook/seafile
+    tag: 10.0.1@sha256:07c85638a5f6c14ae50441447f6ce926039251c7efb0accd1d206a274eb402d8
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false # doesn't seem to work with seafile, no output from container either
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    # runAsUser: 568
+    # runAsGroup: 568
+  automountServiceAccountToken: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-seafile"
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 4
+      memory: 128Mi
+  env:
+    # -- Set the container timezone
+    TIME_ZONE: Etc/UTC
+    # -- The hostname of your database
+    DB_HOST: "{{ .Release.Name }}-seafile-mariadb"
+    # -- The root password for mysql (used for initial setup)
+    DB_ROOT_PASSWD: seafilerootpass
+    # -- The initial admin user's email
+    SEAFILE_ADMIN_EMAIL: "{{ .Release.Name }}@elfhosted.com"
+    # -- The initial admin user's password
+    SEAFILE_ADMIN_PASSWORD: changeme
+    # -- The hostname for the server (set to your ingress hostname)
+    SEAFILE_SERVER_HOSTNAME: "{{ .Release.Name }}.seafile.elfhosted.com"
+    SEAFILE_SERVER_LETSENCRYPT: false
+    FORCE_HTTPS_IN_CONF: false
+    NON_ROOT: true
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # debug whether this gets us probes
+  mariadb:
+    enabled: true
+    architecture: standalone
+    nameOverride: seafile-mariadb
+    auth:
+      database: seafile
+      username: seafile
+      password: seafilepass
+      rootPassword: seafilerootpass
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: "seafile-mariadb" # can't use cephfs because of https://github.com/ceph/ceph-csi/issues/3723
+        # existingClaim: config
+        # subPath: seafile/database       
+      # readinessProbe:
+      #   enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+      # livenessProbe:
+      #   enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+      # startupProbe:
+      #   enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+      resources:
+        requests:
+          cpu: 5m
+          memory: 1Gi
+        limits:
+          cpu: 4
+          memory: 128Mi
+      containerSecurityContext:
+        enabled: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 568
+        runAsGroup: 568
+      podSecurityContext:
+        enabled: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+      extraVolumeMounts:
+      - mountPath: /opt/bitnami/mariadb/tmp/
+        name: tmp
+      extraVolumes:
+      - name: tmp
+        emptyDir:
+          sizeLimit: 1Gi
+  persistence:
+    # config:
+    #   enabled: true
+    #   type: custom
+    #   mountPath: /shared/seafile
+    #   subPath: seafile
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config
+    elfhosted:
+      enabled: true
+      type: custom
+      mountPath: /shared/seafile
+      subPath: seafile
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: media # we're stuckw with this
+
+xteve:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    registry: ghcr.io
+    repository: k8s-at-home/xteve
+    tag: v2.2.0.200
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-xteve"
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 256Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: false # necessary for probes
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-xteve   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-xteve 
+          optional: true      
+  initContainers:
+    bootstrap: *bootstrap 
+
+youtubedl:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    repository: ghcr.io/geek-cookbook/youtubedl-material-nightly
+    tag: "4.3.2@sha256:057a172284fdb540a79e42a2afe92ac2431db53a7bbc126be1d2653b0ca46a07"
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false # doesn't work because the node modules in /app try to create files
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-youtubedl"
+  env:
+    TZ: UTC
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 10
+      memory: 1024Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: false # necessary for probes
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /app/appdata
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-youtubedl   
+    pm2:
+      enabled: true
+      mountPath: /app/pm2
+      type: emptyDir
+      volumeSpec:
+        medium: Memory
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-youtubedl 
+          optional: true        
+          
+  initContainers:
+    bootstrap: *bootstrap
+
+thelounge:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    repository: ghcr.io/geek-cookbook/thelounge
+    tag: "4.4.1@sha256:5d5135a3a45fbbfdd51d725d853bf29ea99071e104cae2c5437aa3947c466a0e"
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-thelounge"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true # doesn't work because the node modules in /app try to create files
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  env:
+    TZ: UTC
+    THELOUNGE_HOME: /config/thelounge # avoids attempts to chown /config
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 40Mi
+    limits:
+      cpu: 100m
+      memory: 1024Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-thelounge   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-thelounge 
+          optional: true      
+  initContainers:
+    bootstrap: *bootstrap
+    create-user:
+      image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:5d5135a3a45fbbfdd51d725d853bf29ea99071e104cae2c5437aa3947c466a0e
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+
+        # If we don't already have a config, create one
+        if [ ! -f /config/thelounge/config.json ];
+        then
+          mkdir -p /config/thelounge
+          cp /config-bootstrap/* /config/thelounge/ -R
+        fi
+
+        # If we don't already have a user, create one
+        if [ ! -f /config/thelounge/users/${USERNAME}.json ];
+        then
+          thelounge add ${USERNAME} --password ${PASSWORD}
+        fi
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      env:
+      - name: THELOUNGE_HOME
+        value: /config/thelounge # avoids attempts to chown /config
+      - name: USERNAME
+        valueFrom:
+          configMapKeyRef:
+            name: elfhosted-user-config
+            key: USERNAME
+      - name: PASSWORD
+        value: ireadthedocs
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true
+
+
+unpackerr:
+  enabled: false
+  sso:
+    enabled: true
+  image:
+    repository: ghcr.io/geek-cookbook/unpackerr
+    tag: 0.11.2@sha256:6a8c5b27e76d9ae9206519538b6e8ac255660278b83e1a0bd5a54f8794ad2703
+  priorityClassName: tenant-low
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-unpackerr"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true # doesn't work because the node modules in /app try to create files
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  env:
+    # Avoid users using this to run commands?
+    UN_CMDHOOK_0_COMMAND: /bin/true
+
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 9898 # doesn't matter this doesn,t actually use ports
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-unpackerr   
+    example-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: unpackerr-config
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-unpackerr 
+          optional: true          
+              
+  initContainers:
+    bootstrap: *bootstrap
+    copy-example-config:
+      image: ghcr.io/geek-cookbook/unpackerr@sha256:014440a2a7e4499a9ce52be1388567d24fc515d8d00422434239b918c56a717a
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # If we don't already have an example config, create one
+        if [ ! -f /config/unpackerr.conf ];
+        then
+          cp /bootstrap/unpackerr.conf /config/
+        fi
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - name: example-config
+        mountPath: "/bootstrap/"
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true
+  additionalContainers:
+    podinfo:
+      image: stefanprodan/podinfo # used to run probes from gatus
+
+overseerr:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/overseerr
+    tag: 1.33.0@sha256:072bf44652f41e99549d802473aaa15f5cfff4edbb8b1c98b788545e8514cc1b
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-overseerr"
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    runAsNonRoot: true
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  sso:
+    enabled: true
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-overseerr   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-overseerr 
+          optional: true      
+    tmp: *tmp
+  initContainers:
+    bootstrap: *bootstrap 
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes # need this for probes?
+  resources:
+    requests:
+      cpu: 10m
+      memory: 175Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+jellyseerr:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/jellyseerr
+    tag: 1.5.0@sha256:f9d784bc6af932c8988a77687a1a6360b421aab7d7abfd2e6894c245ca99d442
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-jellyseerr"
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    runAsNonRoot: true
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  sso:
+    enabled: true
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jellyseerr   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-jellyseerr 
+          optional: true      
+    tmp: *tmp
+  initContainers:
+    bootstrap: *bootstrap 
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes # need this for probes?
+  resources:
+    requests:
+      cpu: 10m
+      memory: 160Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+audiobookshelf:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/audiobookshelf
+    tag: 2.3.3@sha256:201b04d5f28cc30d4b76fbc260295a918321dd136200c9652f32ff4a13e5142a
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    runAsNonRoot: true
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-audiobookshelf,rclones-changed"
+  sso:
+    enabled: true
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-audiobookshelf   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-audiobookshelf 
+          optional: true      
+  initContainers:
+    bootstrap: *bootstrap        
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes # need this for probes?
+  resources:
+    requests:
+      cpu: 10m
+      memory: 64Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+vaultwarden:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/vaultwarden
+    tag: 1.29.0@sha256:251e1fb0fe941fa3e85bdbbcf7960f73a2c619139b999dd4fdcc8d90271610ea
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    runAsNonRoot: true
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-vaultwarden"
+  automountServiceAccountToken: false
+  sso:
+    enabled: true
+  envFrom:
+  - configMapRef:
+      name: elfbot-vaultwarden
+      optional: true
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /data
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-vaultwarden   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-vaultwarden 
+          optional: true      
+    tmp: *tmp
+  initContainers:
+    bootstrap: *bootstrap  
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes # need this for probes?
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+
+notifiarr:
+  enabled: false
+  sso:
+    enabled: true
+  hostname: elfhosted
+  image:
+    repository: ghcr.io/geek-cookbook/notifiarr
+    tag: 0.5.2@sha256:c5c4640bfae8a3a064d6932ba49b05c872efec05db382e52f8c79900856f25cb
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true # doesn't work because the node modules in /app try to create files
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-notifiarr"
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 2
+      memory: 1024Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: false # necessary for probes
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-notifiarr   
+    example-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: notifiarr-config
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-notifiarr 
+          optional: true          
+  initContainers:
+    bootstrap: *bootstrap
+    copy-example-config:
+      image: ghcr.io/geek-cookbook/notifiarr:0.5.2@sha256:c5c4640bfae8a3a064d6932ba49b05c872efec05db382e52f8c79900856f25cb
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # If we don't already have an example config, create one
+        if [ ! -f /config/notifiarr.conf ];
+        then
+          cp /bootstrap/notifiarr.conf /config/
+        fi
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - name: example-config
+        mountPath: "/bootstrap/"
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true
+
+shoko:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/shokoserver
+    tag: v4.2.2@sha256:851c185c96dd0a05af2c73809748a96ebf5c7728e4d4dd175da7e80c4d61287b
+  env:
+    PUID: 568
+    PGID: 568
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-shoko"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true # again, s6
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /home/shoko/.shoko/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-shoko
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-shoko 
+          optional: true      
+  initContainers:
+    bootstrap: *bootstrap  
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 256Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+filebot:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/filebot-node
+    tag: 0.4.4@sha256:2a6313abcc5bc4e057d80900f2da1194d3ee6a5b334476825069f2bdebf6df99
+  env:
+    PUID: 568
+    PGID: 568
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-filebot"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true # again, s6
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /data
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-filebot    
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-filebot 
+          optional: true      
+    
+    tmp: # to avoid errors about storing java prefs
+      enabled: true
+      type: emptyDir
+      mountPath: /home/seedy
+      sizeLimit: 1Gi    
+  initContainers:
+    bootstrap: *bootstrap
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+nextpvr:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/nextpvr
+    tag: 10.8.10@sha256:bf007255f7f38a80c0151ea085d459b08dbf115acc6e7bd9de57c1e10669fd7a
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-nextpvr"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nextpvr   
+    recordings:
+      enabled: true
+      type: emptyDir
+      mountPath: /recordings
+      sizeLimit: 1Gi
+    buffer:
+      enabled: true
+      type: emptyDir
+      mountPath: /buffer
+      sizeLimit: 1Gi
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-nextpvr 
+          optional: true      
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+  initContainers:
+    bootstrap: *bootstrap
+
+rpdb:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/rpdb
+    tag: 0.2.7@sha256:79df0fc8dc74918a3c09154fb759a509cab218e80794765b1b44d5ee4a8bbdb9
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-rpdb"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /.config
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rpdb   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-rpdb 
+          optional: true      
+  initContainers:
+    bootstrap: *bootstrap   
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 40Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+
+plexmetamanager:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/plex-meta-manager
+    tag: v1.19.0@sha256:5847501532029eafe42a4d275c9e57999903bf6f2f41c1afa62cba9a4973f4cf
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-plexmetamanager"
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 9898 # doesn't matter this doesn,t actually use ports
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /app/config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plexmetamanager   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-plexmetamanager 
+          optional: true      
+    
+    example-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: plexmetamanager-config
+  initContainers:
+    bootstrap: *bootstrap
+    copy-example-config:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # If we don't already have an example config, create one
+        if [ ! -f /app/config/config.yml ];
+        then
+          cp /bootstrap/config.yml /app/config/
+        fi
+      volumeMounts:
+      - mountPath: /app/config
+        name: config
+      - name: example-config
+        mountPath: "/bootstrap/"
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true
+  ingress:
+    main:
+      enabled: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 150Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  probes:
+    liveness:
+      enabled: false
+    readiness:
+      enabled: false
+    startup:
+      enabled: false
+  additionalContainers:
+    podinfo:
+      image: stefanprodan/podinfo # used to run probes from gatus
+
+rclonebrowser:
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/rclonebrowser
+    tag: 1.63.1@sha256:5fa6a55c4959d16236fbd52efdf94bdaf26c4eefae070811f59847e57f111872
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config  "
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false # s6 and the way this is built prevents this currently
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    # runAsUser: 568 # runs s6 currently
+    # runAsGroup: 568
+    # fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  env:
+    APP_NICENESS: 19 # run at lowest niceness
+    S6_READ_ONLY_ROOT: 1
+    USER_ID: 568
+    GROUP_ID: 568
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rclonebrowser   
+    rclonefm-config:
+      enabled: "true"
+      mountPath: /var/lib/rclonefm/js/settings.js
+      subPath: "settings.js"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rclonefm-config     
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-rclonebrowser 
+          optional: true                 
+
+  ingress:
+    main:
+      enabled: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 150Mi
+    limits:
+      cpu: 150m
+      memory: 256Mi
+
+jfa:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/jfa-go
+    tag: v1.19.0@sha256:be4b3935a1e1a29fab0b6575f4727629c784eeeb0189c5ad2cb170f0310a1ded
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-jfa"
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    elfstorage: *elfstorage
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jfa   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-jfa 
+          optional: true 
+    tmp:
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp
+      sizeLimit: 1Gi                 
+  initContainers:
+    bootstrap: *bootstrap
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 150Mi
+    limits:
+      cpu: 2
+      memory: 1Gi
+
+mattermost:
+  enabled: false
+  # Default values for mattermost-team-edition.
+  # This is a YAML-formatted file.
+  # Declare variables to be passed into your templates.
+  image:
+    repository: mattermost/mattermost-team-edition
+    tag: 8.0.0@sha256:a7522d592c5abef09db5d8b95e9d9d614247e23ef3cde6d4311a5f0b30acbc0e
+    imagePullPolicy: IfNotPresent
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-mattermost"
+
+  initContainerImage:
+    repository: appropriate/curl
+    tag: latest
+    imagePullPolicy: IfNotPresent
+
+  ## Deployment Strategy
+  ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+  deploymentStrategy:
+    type: Recreate
+    rollingUpdate: null
+
+  ## How many old ReplicaSets for Mattermost Deployment you want to retain
+  revisionHistoryLimit: 1
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  ## ref: https://docs.gitlab.com/ee/install/requirements.html#storage
+  ##
+  persistence:
+    ## This volume persists generated data from users, like images, attachments...
+    ##
+    data:
+      enabled: true
+      size: 10Gi
+      ## If defined, volume.beta.kubernetes.io/storage-class: <storageClass>
+      ## Default: volume.alpha.kubernetes.io/storage-class: default
+      ##
+      # storageClass:
+      accessMode: ReadWriteOnce
+      existingClaim: "config-mattermost"
+      subPath: data
+    plugins:
+      enabled: false # these just end up under data anyway
+
+  service:
+    type: ClusterIP
+    externalPort: 8065
+    internalPort: 8065
+    annotations: {}
+    # loadBalancerIP:
+    loadBalancerSourceRanges: []
+
+  ingress:
+    enabled: false
+    path: /
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # certmanager.k8s.io/issuer:  your-issuer
+      # nginx.ingress.kubernetes.io/proxy-body-size: 50m
+      # nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+      # nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      # nginx.ingress.kubernetes.io/proxy-buffering: "on"
+      # nginx.ingress.kubernetes.io/configuration-snippet: |
+      #   proxy_cache mattermost_cache;
+      #   proxy_cache_revalidate on;
+      #   proxy_cache_min_uses 2;
+      #   proxy_cache_use_stale timeout;
+      #   proxy_cache_lock on;
+      #### To use the nginx cache you will need to set an http-snippet in the ingress-nginx configmap
+      #### http-snippet: |
+      ####     proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=mattermost_cache:10m max_size=3g inactive=120m use_temp_path=off;
+    hosts:
+      - mattermost.example.com
+    tls:
+      # - secretName: mattermost.example.com-tls
+      #   hosts:
+      #     - mattermost.example.com
+
+  route:
+    enabled: false
+
+  ## If use this please disable the mysql chart by setting mysql.enable to false
+  externalDB:
+    enabled: true
+
+    ## postgres or mysql
+    externalDriverType: "mysql"
+
+    ## postgres:  "<USERNAME>:<PASSWORD>@<HOST>:5432/<DATABASE_NAME>?sslmode=disable&connect_timeout=10"
+    ## mysql:     "<USERNAME>:<PASSWORD>@tcp(<HOST>:3306)/<DATABASE_NAME>?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s"
+    externalConnectionString: "mattermost:IUzI1NiJ9.eyJhdWQiOiIwMDk1MTkyYjhjZWIyYjVhNDQwMT@tcp(mattermost-mysql:3306)/mattermost?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s"
+
+  mysql:
+    nameOverride: mattermost-mysql
+    enabled: true
+    architecture: standalone
+    # nameOverride: mattermost-mariadb
+
+    commonAnnotations:
+      configmap.reloader.stakater.com/reload: "elfbot-mattermost"
+      
+    auth:
+      rootPassword: "3uAaJYGJLR3d2qbBM2FsSThJ"
+      database: "mattermost"
+      username: "mattermost"
+      password: "IUzI1NiJ9.eyJhdWQiOiIwMDk1MTkyYjhjZWIyYjVhNDQwMT"
+      
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: config-mattermost
+        subPath: database       
+      resources:
+        requests:
+          cpu: 5m
+          memory: 1Gi
+        limits:
+          cpu: 2
+          memory: 1024Mi
+      containerSecurityContext:
+        enabled: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 568
+        runAsGroup: 568
+      podSecurityContext:
+        enabled: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+      extraVolumeMounts:
+      - mountPath: /opt/bitnami/mysql/tmp/
+        name: tmp
+      extraVolumes:
+      - name: tmp
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: backup-database-script
+        configMap:
+          name: mattermost-backup
+      - name: elfstorage
+        persistentVolumeClaim:
+          claimName: elfstorage          
+      sidecars:
+        - name: backup-database
+          image: *tooling_image
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: 3uAaJYGJLR3d2qbBM2FsSThJ
+            - name: MYSQL_DATABASE
+              value: mattermost
+          volumeMounts:
+          - mountPath: /backup
+            name: elfstorage
+            subPath: backup/mattermost     
+          command:
+          - /usr/bin/dumb-init
+          - /bin/bash
+          - -c
+          - |
+
+            sleep 2m # give mysql time to start up
+            while true
+            do
+              now=$(date +"%s_%Y-%m-%d")
+              /usr/bin/mysqldump --opt -h mattermost-mysql -u root -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} > "/backup/${now}_${MYSQL_DATABASE}.sql"
+              sleep 1d
+            done
+
+  ## Additional pod annotations
+  extraPodAnnotations: {}
+
+  ## Additional env vars
+  extraEnvVars: []
+    # This is an example of extra env vars when using with the deployment with GitLab Helm Charts
+    # - name: POSTGRES_PASSWORD_GITLAB
+    #   valueFrom:
+    #     secretKeyRef:
+    #       # NOTE: Needs to be manually created
+    #       # kubectl create secret generic gitlab-postgresql-password --namespace <NAMESPACE> --from-literal postgres-password=<PASSWORD>
+    #       name: gitlab-postgresql-password
+    #       key: postgres-password
+    # - name: POSTGRES_USER_GITLAB
+    #   value: gitlab
+    # - name: POSTGRES_HOST_GITLAB
+    #   value: gitlab-postgresql
+    # - name: POSTGRES_PORT_GITLAB
+    #   value: "5432"
+    # - name: POSTGRES_DB_NAME_MATTERMOST
+    #   value: mm5
+    # - name: MM_SQLSETTINGS_DRIVERNAME
+    #   value: "postgres"
+    # - name: MM_SQLSETTINGS_DATASOURCE
+    #   value: postgres://$(POSTGRES_USER_GITLAB):$(POSTGRES_PASSWORD_GITLAB)@$(POSTGRES_HOST_GITLAB):$(POSTGRES_PORT_GITLAB)/$(POSTGRES_DB_NAME_MATTERMOST)?sslmode=disable&connect_timeout=10
+
+  ## Additional init containers
+  extraInitContainers: []
+    # This is an example of extra Init Container when using with the deployment with GitLab Helm Charts
+    # - name: bootstrap-database
+    #   image: "postgres:9.6-alpine"
+    #   imagePullPolicy: IfNotPresent
+    #   env:
+    #     - name: POSTGRES_PASSWORD_GITLAB
+    #       valueFrom:
+    #         secretKeyRef:
+    #           name: gitlab-postgresql-password
+    #           key: postgres-password
+    #     - name: POSTGRES_USER_GITLAB
+    #       value: gitlab
+    #     - name: POSTGRES_HOST_GITLAB
+    #       value: gitlab-postgresql
+    #     - name: POSTGRES_PORT_GITLAB
+    #       value: "5432"
+    #     - name: POSTGRES_DB_NAME_MATTERMOST
+    #       value: mm5
+    #   command:
+    #     - sh
+    #     - "-c"
+    #     - |
+    #       if PGPASSWORD=$POSTGRES_PASSWORD_GITLAB psql -h $POSTGRES_HOST_GITLAB -p $POSTGRES_PORT_GITLAB -U $POSTGRES_USER_GITLAB -lqt | cut -d \| -f 1 | grep -qw $POSTGRES_DB_NAME_MATTERMOST; then
+    #       echo "database already exist, exiting initContainer"
+    #       exit 0
+    #       else
+    #       echo "Database does not exist. creating...."
+    #       PGPASSWORD=$POSTGRES_PASSWORD_GITLAB createdb -h $POSTGRES_HOST_GITLAB -p $POSTGRES_PORT_GITLAB -U $POSTGRES_USER_GITLAB $POSTGRES_DB_NAME_MATTERMOST
+    #       echo "Done"
+    #       fi
+
+  # Add additional volumes and mounts, for example to add SAML keys in the app or other files the app server may need to access
+  extraVolumes: []
+    # - hostPath:
+    #     path: /var/log
+    #   name: varlog
+  extraVolumeMounts: []
+    # - name: varlog
+    #   mountPath: /host/var/log
+    #   readOnly: true
+
+  ## Node selector
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+  nodeSelector: {}
+
+  ## Affinity
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+  affinity: {}
+
+  ## Tolerations for pod assignment
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: []
+
+  ## Pod Security Context
+  ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  securityContext:
+    fsGroup: 2000
+    runAsGroup: 2000
+    runAsUser: 2000
+
+  serviceAccount:
+    create: false
+    name:
+    annotations: {}
+
+  ## Configuration
+  ## The config here will be injected as environment variables in the deployment
+  ## Please refer to https://docs.mattermost.com/administration/config-settings.html#configuration-in-database for more information
+  ## You can add any config here, but need to respect the format: MM_<GROUPSECTION>_<SETTING>. ie: MM_SERVICESETTINGS_ENABLECOMMANDS: false
+  config:
+    MM_PLUGINSETTINGS_CLIENTDIRECTORY: "./client/plugins"
+
+rapidleech:
+  enabled: false
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/rapidleech
+    tag: rolling@sha256:a7b5ccdf923a401870a744c41649b73513cfe923e8ee15a7cc2075293a5a3670
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-rapidleech"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    runAsUser: 568
+    runAsGroup: 568
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  persistence:
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rapidleech   
+    data:
+      enabled: false
+    elfstorage:
+      enabled: true
+      type: custom
+      mountPath: /var/www/html/files
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: elfstorage
+          subPath: downloads/completed
+    var-run:
+      enabled: true
+      mountPath: /var/run/
+      type: emptyDir
+      volumeSpec:
+        medium: Memory
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-rapidleech 
+          optional: true          
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 96Mi
+    limits:
+      cpu: 10m
+      memory: 1Gi
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # We need this file to exist
+        touch /config/files.lst
+        mkdir -p /storage/elfstorage/downloads/completed
+      volumeMounts:
+      - mountPath: /config
+        name: config      
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      resources: *default_resources
+      securityContext: *default_securitycontext        
+
+syncthing:
+  enabled: false
+  hostname: elfhosted
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/syncthing
+    tag: 1.23.6@sha256:1d41216dee7406ba4e3bfd2310023e5a7a6146fcabcbcc039259b6c64f3e4364
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-syncthing"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-syncthing   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-syncthing 
+          optional: true            
+              
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: ghcr.io/geek-cookbook/syncthing:1.23.6@sha256:1d41216dee7406ba4e3bfd2310023e5a7a6146fcabcbcc039259b6c64f3e4364
+      imagePullPolicy: IfNotPresent
+      envFrom:
+      - configMapRef:
+          name: elfhosted-user-config      
+      command:
+      - /bin/ash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Generate a new config if necessary
+        if [ ! -f /config/config.xml ]
+        then
+          # We are generating a new config
+          syncthing generate --config=/config
+        fi
+
+        # Apply the port every time (incase the user changes it and reboots)
+        sed -i  "s/<listenAddress>tcp.*/<listenAddress>tcp:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>/" /config/config.xml
+        sed -i  "s/<listenAddress>quic.*/<listenAddress>quic:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>/" /config/config.xml
+
+        # And if it's defaulted...
+        sed -i  "s/<<listenAddress>default<\/listenAddress>/<listenAddress>tcp:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>\n\t<listenAddress>quic:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>/" /config/config.xml
+
+        # Ignore the fact that we have no password set
+        grep '<insecureAdminAccess>true</insecureAdminAccess>' /config/config.xml || sed -i  "s/<\/gui>/<insecureAdminAccess>true<\/insecureAdminAccess>\n\t<\/gui>/" /config/config.xml
+
+        # Avoid foolish use of capital letters in default sync folder
+        sed -i  "s/\/storage\/elfstorage\/Sync/\/storage\/elfstorage\/syncthing/" /config/config.xml
+
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      resources: *default_resources
+      securityContext: *default_securitycontext
+
+rdtclient:
+  enabled: false
+  hostname: elfhosted
+  sso:
+    enabled: true
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/rdtclient
+    tag: v2.0.32@sha256:0d910712c8ce56c82e8f5a112836a2e2ec08523d940e97a898139a88f48d0cef
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "rdtclient-syncthing"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /data/db
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rdtclient   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-rdtclient 
+          optional: true            
+              
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  initContainers:
+    bootstrap: *bootstrap
+
+# This file must end on a newline

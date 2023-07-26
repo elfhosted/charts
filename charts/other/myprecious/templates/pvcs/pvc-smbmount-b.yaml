@@ -1,0 +1,14 @@
+{{ if .Values.smbmountb.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: smbmount-a
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: smbmount-{{ .Release.Name }}-b
+  storageClassName: smb
+{{ end }}

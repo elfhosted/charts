@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rclonebrowser
+  labels:
+    app.kubernetes.io/name: rclonebrowser
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5800
+    targetPort: 5800
+    protocol: TCP
+    name: http
+  - port: 5572
+    targetPort: 5572
+    protocol: TCP
+    name: rcloneui
+  - port: 5573
+    targetPort: 5573
+    protocol: TCP
+    name: rclonefm        
+  selector:
+    app.kubernetes.io/name: rclonebrowser
+    app.kubernetes.io/instance: {{ .Release.Name }}

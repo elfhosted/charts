@@ -1,0 +1,49 @@
+name: "My Precious: Stable Release"
+
+concurrency: helm-release
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: >
+          Briefly describe the changes effected in this update.
+        default: ""
+        required: true
+      notify_discord:
+        description: "Copy message to #announcments channels"
+        default: "false"
+        required: true
+jobs:
+  release:
+    name: Release a stable version of the myprecious chart
+    runs-on: [ self-hosted, actions-runner-elfhosted.com ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RENOVATE_TOKEN }}
+
+      - name: Bump semver to stable
+        id: bump_semver
+        run: |
+          NEW_VERSION=$(grep -E "^version" charts/other/myprecious/Chart.yaml |sed -r 's/(version: )([0-9]+)\.([0-9]+)\.([0-9]+)(.*)/echo version: \2.\3.$((\4+1))/ge')
+          sed -i -E "s/^version:.*/${NEW_VERSION}/g" charts/other/myprecious/Chart.yaml          
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: "Update myprecious to stable release ${{ steps.bump_semver.outputs.new_version }} - (${{ inputs.message }})"
+          token: ${{ secrets.RENOVATE_TOKEN }}
+
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
+

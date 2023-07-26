@@ -1,0 +1,33 @@
+{{ if .Values.smbmounta.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: smbmount-{{ .Release.Name }}-a
+  labels:
+    name: smbmount-{{ .Release.Name }}-a
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: smb
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+    - uid=0
+    - gid=0
+    - noperm
+    - mfsymlinks
+    - cache=strict
+    - noserverino  # required to prevent data corruption  
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: smb.csi.k8s.io
+    readOnly: false
+    volumeHandle: {{ .Values.smbmounta.hostname }}/{{ .Values.smbmounta.share }}##
+    volumeAttributes:
+      source: "//{{ .Values.smbmounta.hostname }}/{{ .Values.smbmounta.share }}"
+    nodeStageSecretRef:
+      name: smbcreds-smbmount-a
+      namespace: {{ .Release.Namespace }}
+{{ end }}

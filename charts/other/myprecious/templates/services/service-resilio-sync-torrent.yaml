@@ -1,0 +1,25 @@
+{{ if .Values.resiliosync.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: resilio-sync-torrent
+  labels:
+    app.kubernetes.io/name: resilio-sync
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  type: NodePort
+  ports:
+  - port: {{ add 31000 .Values.userId }}
+    targetPort: {{ add 31000 .Values.userId }}
+    protocol: TCP
+    name: resiliosync-tcp
+    nodePort:  {{ add 31000 .Values.userId }}
+  - port: {{ add 31000 .Values.userId }}
+    targetPort: {{ add 31000 .Values.userId }}
+    protocol: UDP
+    name: resiliosync-udp
+    nodePort:  {{ add 31000 .Values.userId }}    
+  selector:
+    app.kubernetes.io/name: resiliosync
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

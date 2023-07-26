@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-forward-auth-config
+data:
+  AUTH_HOST: "{{ .Release.Name }}.auth-me.elfhosted.com"
+  LIFETIME: '2764800' # 32 days
+  COOKIE_DOMAIN: "elfhosted.com"
+  COOKIE_NAME: "{{ .Release.Name }}.auth-me.elfhosted.com"
+  LOGOUT_REDIRECT: 'https://store.elfhosted.com/my-account/customer-logout/'
+  SCOPE: openid email
+  WHITELIST: "legolas@elfhosted.com,{{ .Values.traefikforwardauth.whitelist }}"
+  PROVIDER_URI: 'https://store.elfhosted.com/'
+  CLIENT_ID: XbLfjhaDz2Bnxce99YYhRkuxkzGrjjUr
+  CLIENT_SECRET: wAHba6W7gGsmWTHGAx8ztQsUYEv6usuf
+  ENCRYPTION_KEY: TR9vQgnPNKgdNRLWMeGgAWq7Yy52fbPu  

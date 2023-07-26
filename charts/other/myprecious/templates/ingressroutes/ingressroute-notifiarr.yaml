@@ -1,0 +1,38 @@
+{{ if .Values.notifiarr.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-notifiarr.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-notifiarr.elfhosted.com`) && PathPrefix(`/api/`)
+      kind: Rule
+      services:
+        - name: notifiarr
+          kind: Service
+          port: 5454      
+      middlewares:          
+        - name: error-pages
+          namespace: traefik
+    - match: Host(`{{ .Release.Name }}-notifiarr.elfhosted.com`) && PathPrefix(`/plex/`)
+      kind: Rule
+      services:
+        - name: notifiarr
+          kind: Service
+          port: 5454      
+      middlewares:          
+        - name: error-pages
+          namespace: traefik        
+    - match: Host(`{{ .Release.Name }}-notifiarr.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: notifiarr
+          kind: Service
+          port: 5454
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: {{ .Release.Name }}-add-x-webauth-user        
+        - name: error-pages
+          namespace: traefik     
+{{ end }}
+

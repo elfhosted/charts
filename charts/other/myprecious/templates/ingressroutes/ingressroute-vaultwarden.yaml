@@ -1,0 +1,19 @@
+{{ if .Values.vaultwarden.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-vaultwarden.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-vaultwarden.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: vaultwarden
+          kind: Service
+          port: 8000
+      middlewares:
+        {{ if ne "default" .Values.themepark.theme }}
+        - name: theme-park-vaultwarden-{{ .Values.themepark.theme }}
+          namespace: theme-park
+        {{ end }}
+{{ end }}

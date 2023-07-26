@@ -1,0 +1,20 @@
+{{ if .Values.autobrr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: autobrr
+  labels:
+    app.kubernetes.io/name: autobrr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 7474
+    targetPort: 7474
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: autobrr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

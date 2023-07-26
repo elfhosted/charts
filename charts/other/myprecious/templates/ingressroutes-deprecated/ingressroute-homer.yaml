@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}.elfhosted.com
+spec:
+  entryPoints:
+  - websecure
+  - web
+  routes:
+    - match: Host(`{{ .Release.Name }}.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: homer
+          kind: Service
+          port: 8080
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth

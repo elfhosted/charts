@@ -1,0 +1,20 @@
+{{ if .Values.calibreweb.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: calibreweb
+  labels:
+    app.kubernetes.io/name: calibreweb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8083
+    targetPort: 8083
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: calibreweb
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}    

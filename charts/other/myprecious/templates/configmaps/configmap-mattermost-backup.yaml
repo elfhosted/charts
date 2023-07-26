@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mattermost-backup
+data:
+  # This is mounted into the mattermost mysql pod to perform daily backups to /storage/elfstorage/backups/mattermost
+  daily: |
+    #!/bin/sh
+
+    now=$(date +"%s_%Y-%m-%d")
+    /usr/bin/mysqldump --opt -h ${MYSQL_HOST} -u ${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} > "/backup/${now}_${MYSQL_DATABASE}.sql"

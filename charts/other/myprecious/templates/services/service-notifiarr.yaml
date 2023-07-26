@@ -1,0 +1,20 @@
+{{ if .Values.notifiarr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: notifiarr
+  labels:
+    app.kubernetes.io/name: notifiarr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5454
+    targetPort: 5454
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: notifiarr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

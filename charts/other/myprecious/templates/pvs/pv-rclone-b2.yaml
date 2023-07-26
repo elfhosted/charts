@@ -1,0 +1,20 @@
+{{ if .Values.b2.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rclone-{{ .Release.Name }}-b2
+  labels:
+    name: rclone-{{ .Release.Name }}-b2
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: rclone
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: csi-rclone
+    volumeHandle: rclone-{{ .Release.Name }}-b2
+    volumeAttributes:
+      secretName: "{{ .Release.Name }}-b2"
+{{ end }}

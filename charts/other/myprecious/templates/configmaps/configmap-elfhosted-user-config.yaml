@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elfhosted-user-config
+data:
+  USERID: "{{ .Values.userId }}"
+  USERNAME: "{{ .Release.Name }}"
+
+  # altered to start user IDs at 236 for now
+  # PORT_RUTORRENT: "{{ add 1024 .Values.userId }}"
+  # PORT_QBITTORRENT: "{{ add 1280 .Values.userId }}"
+  # PORT_DELUGE: "{{ add 1536 .Values.userId }}"
+  PORT_SYNCTHING: "{{ add 30000 .Values.userId }}"
+  PORT_RESILIOSYNC: "{{ add 31000 .Values.userId }}"
+
+  PORT_RUTORRENT: "{{ add 788 .Values.userId }}"
+  PORT_QBITTORRENT: "{{ add 1044 .Values.userId }}"
+  PORT_DELUGE: "{{ add 1300 .Values.userId }}"

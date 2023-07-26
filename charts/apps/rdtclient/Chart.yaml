@@ -1,0 +1,21 @@
+---
+apiVersion: v2
+appVersion: v2.0.32
+description: TBC
+name: rdtclient
+version: 0.0.1
+kubeVersion: ">=1.16.0-0"
+home: https://github.com/rogerfar/rdt-client
+sources:
+  - https://github.com/rogerfar/rdt-client
+maintainers:
+  - name: funkypenguin
+    email: davidy@funkypenguin.co.nz
+dependencies:
+  - name: common
+    repository: http://chartmuseum.chartmuseum:8080
+    version: ~0.2.5
+annotations:
+  artifacthub.io/changes: |-
+    - kind: changed
+      description: Upgraded `common` chart dependency to version 4.5.2

@@ -1,0 +1,20 @@
+{{ if .Values.filebot.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: filebot
+  labels:
+    app.kubernetes.io/name: filebot
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5452
+    targetPort: 5452
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: filebot
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

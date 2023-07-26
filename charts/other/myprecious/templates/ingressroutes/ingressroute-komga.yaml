@@ -1,0 +1,21 @@
+{{ if .Values.komga.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-komga.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-komga.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: komga
+          kind: Service
+          port: 25600
+      middlewares:
+      {{- if .Values.komga.sso.enabled }}      
+        - name: {{ .Release.Name }}-traefik-forward-auth
+      {{- end }}        
+        - name: {{ .Release.Name }}-add-cors-for-homer  
+        - name: error-pages
+          namespace: traefik
+{{ end }}

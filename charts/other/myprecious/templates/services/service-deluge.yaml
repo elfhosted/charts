@@ -1,0 +1,34 @@
+{{ if or .Values.delugegluetun.enabled .Values.delugepia.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: deluge
+  labels:
+    app.kubernetes.io/name: deluge
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8112
+    targetPort: 8112
+    protocol: TCP
+    name: http
+  - port: 58846
+    targetPort: 58846
+    protocol: TCP
+    name: http-daemon
+{{ if .Values.delugegluetun.enabled }}
+  - port: 8000
+    targetPort: 8000
+    protocol: TCP
+    name: gluetun
+{{ end }}
+  selector:
+{{ if .Values.delugegluetun.enabled }}  
+    app.kubernetes.io/name: delugegluetun
+{{ else }}
+    app.kubernetes.io/name: delugepia
+{{ end }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

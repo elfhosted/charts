@@ -1,0 +1,20 @@
+{{ if .Values.radarr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: radarr
+  labels:
+    app.kubernetes.io/name: radarr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 7878
+    targetPort: 7878
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: radarr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}    

@@ -1,0 +1,8 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-strip-gluetun-prefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /gluetun

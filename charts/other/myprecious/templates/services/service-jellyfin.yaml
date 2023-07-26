@@ -1,0 +1,24 @@
+{{ if .Values.jellyfin.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin
+  labels:
+    app.kubernetes.io/name: jellyfin
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8096
+    targetPort: 8096
+    protocol: TCP
+    name: http
+  - port: 8088
+    targetPort: 8088
+    protocol: TCP
+    name: jellyfixer
+  selector:
+    app.kubernetes.io/name: jellyfin
+    app.kubernetes.io/instance: {{ .Release.Name }}    
+{{ end }}    

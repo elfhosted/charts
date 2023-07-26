@@ -1,0 +1,22 @@
+{{ if .Values.jellyseerr.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-jellyseerr.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-jellyseerr.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: jellyseerr
+          kind: Service
+          port: 5055
+      middlewares:
+        - name: {{ .Release.Name }}-add-cors-for-homer  
+        - name: error-pages
+          namespace: traefik
+        {{ if ne "default" .Values.themepark.theme }}
+        - name: theme-park-overseerr-{{ .Values.themepark.theme }}
+          namespace: theme-park
+        {{ end }}
+{{ end }}

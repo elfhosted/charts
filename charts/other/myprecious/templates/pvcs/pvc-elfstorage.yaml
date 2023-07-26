@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: elfstorage
+  annotations:
+    helm.sh/resource-policy: keep  
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.elfstorage.size }}Gi
+  storageClassName: ceph-filesystem

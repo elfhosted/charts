@@ -1,0 +1,319 @@
+apiVersion: v2
+name: myprecious
+description: Deploys the elfhosted charts
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templ  ates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 1.0.2039-pre-02
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+appVersion: 1.16.0
+
+home: https://elfhosted.com
+maintainers:
+  - name: funkypenguin
+    email: davidy@funkypenguin.co.nz
+
+dependencies:
+  - name: plex
+    version: ~6.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: plex.enabled
+  - name: emby
+    version: ~3.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: emby.enabled
+  - name: jellyfin
+    version: ~9.5.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: jellyfin.enabled
+  - name: nzbget
+    version: ~12.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: nzbget.enabled
+  - name: sabnzbd
+    version: ~9.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: sabnzbd.enabled
+  - name: radarr
+    version: ~16.3.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: radarr.enabled
+  - name: radarr
+    version: ~16.3.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: radarr4k.enabled
+    alias: radarr4k
+  - name: sonarr
+    version: ~16.3.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: sonarr.enabled
+  - name: sonarr
+    version: ~16.3.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: sonarr4k.enabled
+    alias: sonarr4k
+  - name: bazarr
+    version: ~10.6.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: bazarr.enabled
+  - name: bazarr
+    version: ~10.6.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: bazarr4k.enabled
+    alias: bazarr4k
+  - name: homer
+    version: ~8.0.0
+    repository: http://chartmuseum.chartmuseum:8080
+  - name: ombi
+    version: ~11.5.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: ombi.enabled
+  - name: traefik-forward-auth
+    version: ~2.2.0
+    repository: http://chartmuseum.chartmuseum:8080
+    alias: traefikforwardauth
+  - name: prowlarr
+    version: ~0.2.3
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: prowlarr.enabled
+  - name: tautulli
+    version: ~11.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: tautulli.enabled
+  - name: lidarr
+    version: ~14.2.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: lidarr.enabled
+  - name: readarr
+    version: ~6.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: readarr.enabled
+  - name: readarr
+    version: ~6.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: readarraudio.enabled
+    alias: readarraudio
+  - name: calibre-web
+    version: ~8.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: calibreweb.enabled
+    alias: calibreweb
+  - name: calibre
+    version: ~5.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: calibre.enabled
+  - name: navidrome
+    version: ~6.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    alias: navidrome
+    condition: navidrome.enabled
+  - name: lazylibrarian
+    version: ~7.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: lazylibrarian.enabled
+  - name: mylar
+    version: ~4.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: mylar.enabled
+  - name: komga
+    version: ~2.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: komga.enabled
+  - name: kavita
+    version: ~2.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: kavita.enabled
+  - name: rapidleech
+    version: ~2.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: rapidleech.enabled
+  # - name: deluge
+  #   version: ~5.4.0
+  #   repository: http://chartmuseum.chartmuseum:8080
+  #   condition: deluge.enabled
+  - name: deluge
+    version: ~5.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: delugepia.enabled
+    alias: delugepia
+  - name: deluge
+    version: ~5.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: delugegluetun.enabled
+    alias: delugegluetun        
+  # - name: qbittorrent
+  #   version: ~13.5.0
+  #   repository: http://chartmuseum.chartmuseum:8080
+  #   condition: qbittorrent.enabled
+  # For any gluetun-enabled products
+  - name: qbittorrent
+    version: ~13.5.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: qbittorrentgluetun.enabled
+    alias: qbittorrentgluetun
+  # Specifically for PIA's port-forwarding requirements (a separate image)
+  - name: qbittorrent
+    version: ~13.5.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: qbittorrentpia.enabled
+    alias: qbittorrentpia
+  - name: autobrr
+    version: ~1.1.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: autobrr.enabled
+  - name: filebrowser
+    version: ~1.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+  - name: nzbhydra2
+    version: ~10.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: nzbhydra.enabled
+    alias: nzbhydra
+  - name: privatebin
+    version: ~2.1.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: privatebin.enabled
+  - name: uptime-kuma
+    version: ~1.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: uptimekuma.enabled
+    alias: uptimekuma
+  - name: gotify
+    version: ~1.2.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: gotify.enabled
+  - name: gatus
+    version: 1.1.x
+    repository: http://chartmuseum.chartmuseum:8080
+  - name: flaresolverr
+    version: 5.4.x
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: flaresolverr.enabled
+  # - name: rtorrent-rutorrent
+  #   version: 1.1.x
+  #   repository: http://chartmuseum.chartmuseum:8080
+  #   condition: rutorrent.enabled
+  #   alias: rutorrent
+  - name: rtorrent-rutorrent
+    version: 1.1.x
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: rutorrentpia.enabled
+    alias: rutorrentpia
+  - name: rtorrent-rutorrent
+    version: 1.1.x
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: rutorrentgluetun.enabled
+    alias: rutorrentgluetun    
+  - name: pyload
+    version: 6.4.x
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: pyload.enabled
+  - name: seafile
+    version: 3.1.x
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: seafile_test.enabled
+  - name: resilio-sync
+    version: 5.4.x
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: resiliosync.enabled
+    alias: resiliosync
+  - name: xteve
+    version: 8.4.x
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: xteve.enabled
+    alias: xteve
+  - name: youtubedl-material
+    version: 4.4.x
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: youtubedl.enabled
+    alias: youtubedl
+  - name: thelounge
+    version: ~14.2.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: thelounge.enabled
+  - name: unpackerr
+    version: ~1.0.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: unpackerr.enabled
+  - name: overseerr
+    version: ~1.0.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: overseerr.enabled
+  - name: jellyseerr
+    version: ~1.2.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: jellyseerr.enabled
+  - name: audiobookshelf
+    version: ~1.1.3
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: audiobookshelf.enabled
+  - name: vaultwarden
+    version: ~2.1.2
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: vaultwarden.enabled
+  - name: notifiarr
+    version: ~0.0.1
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: notifiarr.enabled
+  - name: rpdb
+    version: ~2.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: rpdb.enabled
+  - name: jfa-go
+    version: ~2.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: jfa.enabled
+    alias: jfa
+  - name: shokoserver
+    version: ~0.0.1
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: shoko.enabled
+    alias: shoko
+  - name: plex-meta-manager
+    version: ~2.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: plexmetamanager.enabled
+    alias: plexmetamanager
+  - name: filebot-node
+    version: ~0.0.1
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: filebot.enabled
+    alias: filebot
+  - name: nextpvr
+    version: ~0.0.1
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: nextpvr.enabled
+  - name: rclonebrowser
+    version: ~0.0.1
+    repository: http://chartmuseum.chartmuseum:8080
+  - name: syncthing
+    version: ~3.5.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: syncthing.enabled
+  - name: rdtclient
+    version: ~0.0.1
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: rdtclient.enabled    
+  # - name: minio
+  #   version: 5.0.7 # 5.0.8 breaks user creation job
+  #   repository: https://charts.min.io/
+  #   condition: minio.enabled
+  - name: mattermost-team-edition
+    alias: mattermost
+    condition: mattermost.enabled
+    version: ~6.6.0
+    repository: http://chartmuseum.chartmuseum:8080

@@ -1,0 +1,20 @@
+{{ if .Values.seafile_test.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}.seafile.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}.seafile.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: seafile
+          kind: Service
+          port: 8000
+      middlewares:
+      {{- if .Values.seafile_test.sso.enabled }}      
+        - name: {{ .Release.Name }}-traefik-forward-auth
+      {{- end }}          
+        - name: error-pages
+          namespace: traefik
+{{ end }}

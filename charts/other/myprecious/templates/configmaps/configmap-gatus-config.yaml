@@ -1,0 +1,673 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gatus-config
+data:
+  config.yaml: |
+    storage:
+      type: sqlite
+      path: /data/data.db
+
+    alerting:
+      email:
+        from: "${SMTP_FROM}"
+        username: "${SMTP_USERNAME}"
+        password: "${SMTP_PASSWORD}"
+        host: "${SMTP_HOST}"
+        port: ${SMTP_PORT}
+        to: "{{ .Values.traefikforwardauth.whitelist }}"
+        default-alert:
+          description: |
+            
+            
+            See https://{{ .Release.Name }}-health.elfhosted.com for details, or
+            visit https://discord.elfhosted.com for status updates / help.
+
+            -- Sent with ❤️ from your friends at ElfHosted 🧝 
+            (https://elfhosted.com)
+          send-on-resolved: true
+          failure-threshold: 4
+          success-threshold: 1
+
+    maintenance:
+      start: 10:00 # 10am UTC = 10pm NZDT
+      duration: 1h        
+                              
+    endpoints:       
+
+      {{ if .Values.jellyfin.enabled }}
+      - name: jellyfin
+        group: consume-media
+        url: "http://jellyfin:8096"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email             
+      {{ end }} 
+
+      {{ if .Values.emby.enabled }}
+      - name: emby
+        group: consume-media
+        url: "http://emby:8096"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email             
+      {{ end }}    
+
+      {{ if .Values.plex.enabled }}
+      - name: plex
+        group: consume-media
+        url: "http://plex:32400"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 401"
+        alerts:
+          - type: email            
+      {{ end }}   
+
+      {{ if .Values.navidrome.enabled }}
+      - name: navidrome
+        group: consume-media
+        url: "http://navidrome:4533"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email          
+      {{ end }}  
+
+      {{ if .Values.calibreweb.enabled }}
+      - name: calibreweb
+        group: consume-media
+        url: "http://calibreweb:8083"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email          
+      {{ end }}   
+
+      {{ if .Values.calibre.enabled }}
+      - name: calibre
+        group: consume-media
+        url: "http://calibre:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email             
+      {{ end }}     
+
+      {{ if .Values.komga.enabled }}
+      - name: komga
+        group: consume-media
+        url: "http://komga:25600"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email             
+      {{ end }}   
+
+      {{ if .Values.kavita.enabled }}
+      - name: kavita
+        group: consume-media
+        url: "http://kavita:5000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email             
+      {{ end }}         
+
+      {{ if .Values.audiobookshelf.enabled }}
+      - name: audiobookshelf
+        group: consume-media
+        url: "http://audiobookshelf:8000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email          
+      {{ end }}         
+
+      {{ if .Values.radarr.enabled }}
+      - name: radarr
+        group: manage-media
+        url: "http://radarr:7878"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email             
+      {{ end }}    
+
+      {{ if .Values.radarr4k.enabled }}
+      - name: radarr4K
+        group: manage-media
+        url: "http://radarr4k:7878"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email          
+      {{ end }}         
+
+      {{ if .Values.sonarr.enabled }}
+      - name: sonarr
+        group: manage-media
+        url: "http://sonarr:8989"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email             
+      {{ end }}   
+
+      {{ if .Values.sonarr4k.enabled }}
+      - name: sonarr4K
+        group: manage-media
+        url: "http://sonarr4k:8989"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email             
+      {{ end }}          
+
+      {{ if .Values.lidarr.enabled }}
+      - name: lidarr
+        group: manage-media
+        url: "http://lidarr:8686"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}         
+
+      {{ if .Values.readarr.enabled }}
+      - name: readarr
+        group: manage-media
+        url: "http://readarr:8787"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}     
+
+      {{ if .Values.readarraudio.enabled }}
+      - name: readarraudio
+        group: manage-media
+        url: "http://readarraudio:8787"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}               
+
+      {{ if .Values.bazarr.enabled }}
+      - name: bazarr
+        group: manage-media
+        url: "http://bazarr:6767"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}  
+
+      {{ if .Values.bazarr4k.enabled }}
+      - name: bazarr4K
+        group: manage-media
+        url: "http://bazarr4k:6767"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}    
+
+      {{ if .Values.rpdb.enabled }}
+      - name: rpdb
+        group: manage-media
+        url: "http://rpdb:8750"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}                
+
+      {{ if .Values.ombi.enabled }}
+      - name: ombi
+        group: manage-media
+        url: "http://ombi:5000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}  
+
+      {{ if .Values.overseerr.enabled }}
+      - name: overseerr
+        group: manage-media
+        url: "http://overseerr:5055"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}  
+
+      {{ if .Values.jellyseerr.enabled }}
+      - name: jellyseerr
+        group: manage-media
+        url: "http://jellyseerr:5055"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}        
+
+      {{ if .Values.jfa.enabled }}
+      - name: jfa
+        group: manage-media
+        url: "http://jfa:8056"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email          
+      {{ end }}              
+
+      {{ if .Values.tautulli.enabled }}
+      - name: tautulli
+        group: manage-media
+        url: "http://tautulli:8181"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}   
+
+      {{ if .Values.xteve.enabled }}
+      - name: xteve
+        group: consume-media
+        url: "http://xteve:34400"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}   
+
+      {{ if .Values.nextpvr.enabled }}
+      - name: nextpvr
+        group: consume-media
+        url: "http://nextpvr:8866/js/utility.js"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}                
+
+      {{ if .Values.lazylibrarian.enabled }}
+      - name: lazylibrarian
+        group: manage-media
+        url: "http://lazylibrarian:5299"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}        
+
+      {{ if .Values.mylar.enabled }}
+      - name: mylar
+        group: manage-media
+        url: "http://mylar:8090"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }} 
+
+      {{ if .Values.notifiarr.enabled }}
+      - name: notifiarr
+        group: manage-media
+        url: "http://notifiarr:5454"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 401"
+        alerts:
+          - type: email               
+      {{ end }}
+
+      {{ if .Values.shoko.enabled }}
+      - name: shoko
+        group: manage-media
+        url: "http://shoko:8111"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}     
+
+      {{ if .Values.filebot.enabled }}
+      - name: filebot
+        group: manage-media
+        url: "http://filebot:5452"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}  
+
+      {{ if .Values.unpackerr.enabled }}
+      - name: unpackerr
+        group: manage-media
+        url: "http://unpackerr:9898"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}    
+
+      {{ if .Values.plexmetamanager.enabled }}
+      - name: plexmetamanager
+        group: manage-media
+        url: "http://plexmetamanager:9898"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}                               
+
+      {{ if .Values.nzbget.enabled }}
+      - name: nzbget
+        group: download-media
+        url: "http://nzbget:6789"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}
+
+      {{ if .Values.sabnzbd.enabled }}
+      - name: sabnzbd
+        group: download-media
+        url: "http://sabnzbd:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}    
+
+      {{ if .Values.prowlarr.enabled }}
+      - name: prowlarr
+        group: download-media
+        url: "http://prowlarr:9696"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}  
+
+      {{ if .Values.nzbhydra.enabled }}
+      - name: nzbhydra
+        group: download-media
+        url: "http://nzbhydra:5076"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}          
+
+      {{ if or .Values.delugepia.enabled .Values.delugegluetun.enabled }}
+      - name: deluge
+        group: download-media
+        url: "http://deluge:8112"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}   
+
+      {{ if or .Values.qbittorrentpia.enabled .Values.qbittorrentgluetun.enabled }}
+      - name: qbittorrent
+        group: download-media
+        url: "http://qbittorrent:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"     
+        alerts:
+          - type: email               
+      {{ end }}    
+
+      {{ if or .Values.rutorrentpia.enabled .Values.rutorrentgluetun.enabled }}
+      - name: rutorrent
+        group: download-media
+        url: "http://rutorrent:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}                
+
+      {{ if .Values.autobrr.enabled }}
+      - name: autobrr
+        group: download-media
+        url: "http://autobrr:7474"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}         
+
+      {{ if .Values.pyload.enabled }}
+      - name: pyload
+        group: download-media
+        url: "http://pyload:8000/_themes/pyplex/vendor/jQuery/jquery.min.js"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}  
+
+      {{ if .Values.rapidleech.enabled }}
+      - name: rapidleech
+        group: download-media
+        url: "http://rapidleech:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}  
+
+      {{ if .Values.rdtclient.enabled }}
+      - name: rdtclient
+        group: download-media
+        url: "http://rdtclient:6500"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}              
+
+      - name: filebrowser
+        group: tools
+        url: "http://filebrowser:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+
+      - name: rclonebrowser
+        group: tools
+        url: "http://rclonebrowser:5800"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+
+      - name: rcloneui
+        group: tools
+        url: "http://rclonebrowser:5572"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"   
+        alerts:
+          - type: email           
+
+      - name: rclonefm
+        group: tools
+        url: "http://rclonebrowser:5573"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"      
+        alerts:
+          - type: email                         
+
+      {{ if .Values.privatebin.enabled }}
+      - name: privatebin
+        group: tools
+        url: "http://privatebin:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}   
+           
+      {{ if .Values.uptimekuma.enabled }}
+      - name: uptimekuma
+        group: tools
+        url: "http://uptime-kuma:3001"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}        
+
+      {{ if .Values.gotify.enabled }}
+      - name: gotify
+        group: tools
+        url: "http://gotify:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}  
+
+      {{ if .Values.flaresolverr.enabled }}
+      - name: flaresolverr
+        group: tools
+        url: "http://flaresolverr:8191"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}    
+
+      {{ if .Values.seafile_test.enabled }}
+      - name: seafile
+        group: tools
+        url: "http://seafile:80"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+
+      - name: seafile-mariadb
+        group: tools
+        url: "tcp://{{ .Release.Name }}-seafile-mariadb:3306"
+        interval: 5m
+        conditions:
+          - "[CONNECTED] == true"   
+        alerts:
+          - type: email                    
+      {{ end }}    
+
+      {{ if .Values.resiliosync.enabled }}
+      - name: resiliosync
+        group: tools
+        url: "http://resilio-sync:8888"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}  
+
+      {{ if .Values.syncthing.enabled }}
+      - name: syncthing
+        group: tools
+        url: "http://syncthing:8384"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}          
+
+      {{ if .Values.thelounge.enabled }}
+      - name: thelounge
+        group: tools
+        url: "http://thelounge:9000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}                                
+
+      {{ if .Values.vaultwarden.enabled }}
+      - name: vaultwarden
+        group: tools
+        url: "http://vaultwarden:8000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}    
+
+      {{ if .Values.mattermost.enabled }}
+      - name: mattermost
+        group: tools
+        url: "http://mattermost:8065"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email                      
+      {{ end }}

@@ -1,0 +1,31 @@
+apiVersion: v2
+name: common
+description: Function library for Helm charts
+type: library
+version: 0.2.9
+kubeVersion: ">=1.16.0-0"
+keywords:
+  - common
+  - library
+home: https://github.com/geek-cookbook/elfhosted-charts/tree/main/charts/library/common
+maintainers:
+  - name: funkypenguin
+    email: davidy@funkypenguin.co.nz
+annotations:
+  artifacthub.io/changes: |-
+    - kind: fixed
+      description: Restore wireguard/openvpn vpn types which were deprecated upstream
+    - kind: fixed
+      description: Make sure service.monitor is optional.
+    - kind: removed
+      description: BREAKING - Removed support for the `openvpn` and `wireguard` VPN types.
+    - kind: added
+      description: Added support for adding serviceMonitors to services.
+    - kind: changed
+      description: ConfigMap checksum logic now only looks at ConfigMap data
+    - kind: changed
+      description: Explicitly convert defaultMode to decimal notation in code-server addon.
+    - kind: changed
+      description: Updated gluetun image to v3.31.1
+    - kind: changed
+      description: Updated code-server image to v4.7.0

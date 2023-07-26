@@ -1,0 +1,40 @@
+name: "My Precious: Stable Release (Scheduled)"
+
+concurrency: helm-release
+
+on:
+  schedule:
+    # 9:55am UTC is 21h55 NZDT, giving us 5 min to run before the maint window starts 10pm weekdays NZ time
+    - cron: '55 09 * * *'
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release a stable version of the myprecious chart
+    runs-on: [ self-hosted, actions-runner-elfhosted.com ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RENOVATE_TOKEN }}
+
+      - name: Check if safe to release (and we're on a -pre version currently)
+        id: safe_to_release
+        run: |
+          grep 'safeToRelease: true' charts/other/myprecious/values.yaml && (grep ^version charts/other/myprecious/Chart.yaml | grep pre)          
+
+      - name: Bump semver to stable
+        id: bump_semver
+        run: |
+          NEW_VERSION=$(grep -E "^version" charts/other/myprecious/Chart.yaml |sed -r 's/(version: )([0-9]+)\.([0-9]+)\.([0-9]+)(.*)/echo version: \2.\3.$((\4+1))/ge')
+          sed -i -E "s/^version:.*/${NEW_VERSION}/g" charts/other/myprecious/Chart.yaml          
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+        if: steps.safe_to_release.outcome == 'success'
+
+      - name: commit changes back
+        uses: stefanzweifel/git-auto-commit-action@v4
+        if: steps.safe_to_release.outcome == 'success'
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
+

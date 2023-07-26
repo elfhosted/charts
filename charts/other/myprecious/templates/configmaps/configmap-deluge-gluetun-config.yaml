@@ -1,0 +1,34 @@
+{{ if .Values.delugegluetun.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deluge-gluetun-config
+data:
+
+  # These are used by the gluetun image
+  VPN_SERVICE_PROVIDER: "{{ .Values.delugegluetun.VPN_SERVICE_PROVIDER | default }}"
+  VPN_TYPE: "{{ .Values.delugegluetun.VPN_TYPE | default }}"
+  VPN_ENDPOINT_IP: "{{ .Values.delugegluetun.VPN_ENDPOINT_IP | default }}"
+  VPN_ENDPOINT_PORT: "{{ .Values.delugegluetun.VPN_ENDPOINT_PORT | default }}"
+  OPENVPN_USER: "{{ .Values.delugegluetun.OPENVPN_USER | default }}"
+  OPENVPN_PASSWORD: "{{ .Values.delugegluetun.OPENVPN_PASSWORD | default }}"
+  WIREGUARD_PUBLIC_KEY: "{{ .Values.delugegluetun.WIREGUARD_PUBLIC_KEY | default }}"
+  WIREGUARD_PRIVATE_KEY: "{{ .Values.delugegluetun.WIREGUARD_PRIVATE_KEY | default }}"
+  WIREGUARD_PRESHARED_KEY: "{{ .Values.delugegluetun.WIREGUARD_PRESHARED_KEY | default }}"
+  WIREGUARD_ADDRESSES: "{{ .Values.delugegluetun.WIREGUARD_ADDRESSES | default }}"
+  SERVER_COUNTRIES: "{{ .Values.delugegluetun.SERVER_COUNTRIES | default }}"
+  SERVER_CITIES: "{{ .Values.delugegluetun.SERVER_CITIES | default }}"
+  OPENVPN_CUSTOM_CONFIG: "{{ .Values.delugegluetun.OPENVPN_CUSTOM_CONFIG | default }}"
+  SERVER_REGIONS: "{{ .Values.delugegluetun.SERVER_REGIONS | default }}"
+  VPN_PORT_FORWARDING: "{{ .Values.delugegluetun.VPN_PORT_FORWARDING | default false }}"
+  VPN_PORT_FORWARDING_PROVIDER: "{{ .Values.delugegluetun.VPN_PORT_FORWARDING_PROVIDER | default false }}"
+  VPN_PORT_FORWARDING_STATUS_FILE: /config/forwarded-port
+  POST_UP: /gluetun/scripts/up.sh
+  PRE_DOWN: /gluetun/scripts/down.sh
+
+  # This is used by our custom deluge image, and aligns with the PIA env vars
+  PORT_FILE: "{{ .Values.delugegluetun.PORT_FILE | default }}"
+  
+  # Avoid breaking kube probes
+  FIREWALL_INPUT_PORTS: "8112"
+{{ end }}

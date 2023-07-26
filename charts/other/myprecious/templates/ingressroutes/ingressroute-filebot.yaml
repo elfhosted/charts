@@ -1,0 +1,32 @@
+{{ if .Values.filebot.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-filebot.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-filebot.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: filebot
+          kind: Service
+          port: 5452
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth 
+        - name: {{ .Release.Name }}-add-cors-for-homer
+        - name: error-pages
+          namespace: traefik        
+    - match: Host(`{{ .Release.Name }}-filebot.elfhosted.com`) && PathPrefix(`/task`)
+      kind: Rule
+      services:
+        - name: filebot
+          kind: Service
+          port: 5452
+      middlewares:
+      {{- if .Values.filebot.sso.enabled }}
+        - name: {{ .Release.Name }}-traefik-forward-auth
+      {{- end }}           
+        - name: {{ .Release.Name }}-add-cors-for-homer
+        - name: error-pages
+          namespace: traefik
+{{ end }}

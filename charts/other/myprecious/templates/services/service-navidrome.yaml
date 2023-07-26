@@ -1,0 +1,20 @@
+{{ if .Values.navidrome.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: navidrome
+  labels:
+    app.kubernetes.io/name: navidrome
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 4533
+    targetPort: 4533
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: navidrome
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

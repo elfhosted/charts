@@ -1,0 +1,15 @@
+{{ if or .Values.delugegluetun.enabled .Values.delugepia.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-deluge
+  annotations:
+    helm.sh/resource-policy: keep  
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-filesystem
+{{ end }}

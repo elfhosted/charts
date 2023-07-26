@@ -1,0 +1,16 @@
+{{ if .Values.b2.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: b2
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: rclone-{{ .Release.Name }}-b2
+{{ end }}

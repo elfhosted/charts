@@ -1,0 +1,20 @@
+{{ if .Values.rdtclient.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: rdtclient
+  labels:
+    app.kubernetes.io/name: rdtclient
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 6500
+    targetPort: 6500
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: rdtclient
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

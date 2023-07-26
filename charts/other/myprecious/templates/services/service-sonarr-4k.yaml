@@ -1,0 +1,20 @@
+{{ if .Values.sonarr4k.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr4k
+  labels:
+    app.kubernetes.io/name: sonarr4k
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8989
+    targetPort: 8989
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: sonarr4k
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

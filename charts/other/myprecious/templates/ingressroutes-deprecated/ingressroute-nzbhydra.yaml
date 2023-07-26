@@ -1,0 +1,24 @@
+{{ if .Values.nzbhydra.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}.nzbhydra.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}.nzbhydra.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: nzbhydra
+          kind: Service
+          port: 5076
+      middlewares:
+      {{- if .Values.nzbhydra.sso.enabled }}      
+        - name: {{ .Release.Name }}-traefik-forward-auth
+      {{- end }}         
+        - name: error-pages
+          namespace: traefik
+        {{ if ne "default" .Values.themepark.theme }}
+        - name: theme-park-nzbhydra2-{{ .Values.themepark.theme }}
+          namespace: theme-park
+        {{ end }}
+{{ end }}

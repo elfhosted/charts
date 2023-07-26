@@ -1,0 +1,20 @@
+{{ if .Values.lidarr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: lidarr
+  labels:
+    app.kubernetes.io/name: lidarr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8686
+    targetPort: 8686
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: lidarr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

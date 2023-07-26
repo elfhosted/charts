@@ -1,0 +1,17 @@
+{{ if .Values.privatebin.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-privatebin.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-privatebin.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: privatebin
+          kind: Service
+          port: 8080
+      middlewares:
+        - name: error-pages
+          namespace: traefik
+{{ end }}

@@ -1,0 +1,15 @@
+{{ if .Values.pyload.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-pyload
+  annotations:
+    helm.sh/resource-policy: keep  
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Mi
+  storageClassName: ceph-filesystem
+{{ end }}

@@ -1,0 +1,16 @@
+{{ if .Values.rclone_mount_webdav_a.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: webdav-a
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: rclone-{{ .Release.Name }}-webdav-a
+{{ end }}

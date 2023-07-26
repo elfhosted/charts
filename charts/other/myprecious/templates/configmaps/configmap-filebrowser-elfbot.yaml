@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebrowser-elfbot-script
+data:
+  elfbot: |
+    #!/bin/bash
+
+    if [[ $# -lt 2 ]]; then 
+        echo "usage: elfbot <command> <app> <optional>"
+        echo
+        echo '<app> must match an app found in /config'
+        echo
+        echo "valid commands are:"
+        echo
+        echo "elfbot restart <app>              : restarts an app"
+        echo "elfbot pause <app>                : stop an app, wait 5 min, and restart it"
+        echo "elfbot reset <app> [--yesiamsure] : resets an app to defaults"
+        echo "elfbot backup <app>               : creates a dated backup folder in under /config/<app>"
+        echo "elfbot claim plex <token>         : claims a plex server"
+        echo "elfbot env <app> <key>=<value>    : set an env var inside an app (advanced beta feature)"
+    fi
+
+    if [[ ! -d "/storage/config/$2" && $2 -ne "all" ]]; then
+        echo "WARNING: /config/$2 does not exist. This may not work..."
+    fi
+
+    case $1 in
+
+        "restart")
+            echo "restarting $2..."
+            echo restart > /elfbot/$2
+            ;;
+
+        "pause")
+            echo "pausing $2 for 5 min..."
+            echo pause > /elfbot/$2
+            ;;     
+
+        "env")
+            if [[ "$#" -lt 3 ]]; then  
+                echo syntax is "elfbot env KEY=VALUE"
+                exit 1
+            fi
+            echo "adding $3 to env for $2, triggering a restart..."
+            echo $3 > /elfbot/$2
+            ;;                        
+
+        "reset")
+            if [[ "$3" != "--yesiamsure" ]]; then
+                echo potentially dangerous! add \'--yesiamsure\' after your reset command to force
+                exit 1
+            fi      
+            echo reset > /elfbot/$2
+            echo "resetting $2..."
+            ;;
+
+        "backup")   
+            if [[ "$2" == "all" ]]; then
+                APPS=$(ls /storage/config)
+                echo "Backing up multiple apps, restarting each with a 1 min delay, this may take a while..."
+                SLEEP=1m
+            else
+                APPS=$2 # if we're just backing up one app
+                SLEEP=0s
+            fi  
+
+            for APP in $APPS
+            do
+                if [[ "$APP" == "filebrowser" ]]; then
+                    echo "skipping filebrowser (we're using it right now!)..."
+                elif [[ "$APP" == "backup" ]]; then
+                    echo "skipping /config/backup (no backup-ception for us!)..."                
+                else
+                    # FREE_SPACE=$(df -P /storage/config | grep config | awk  '{print $4}')
+                    # NEEDED_SPACE=$(du -s /storage/config/$APP)
+
+                    # if [[ "$FREE_SPACE" -lt "$NEEDED_SPACE" ]]; then
+                    #     echo "Error - not enough free space for backup. We need $NEEDED_SPACE bytes, but we only have $FREE_SPACE remaining :("
+                    # else
+                        TIMESTAMP=$(printf '%(%Y-%m-%d--%H-%M)T\n' -1)
+                        echo backup > /elfbot/$APP
+                        echo "restarting $APP, backup will be saved as /storage/elfstorage/backups/$APP-$TIMESTAMP ..."
+                        sleep $SLEEP
+                    # fi
+                fi
+            done
+            ;;       
+
+        "claim")
+            if [[ "$#" -lt 3 ]]; then  
+                echo plex claim token missing, get one from https://www.plex.tv/claim/
+                exit 1
+            fi       
+            if [[ ! "$3" =~ "claim-" ]]; then  
+                echo plex claim token invalid, get one from https://www.plex.tv/claim/
+                exit 1
+            fi   
+            if [[ "$2" = "plex" ]]; then
+                echo "attempting plex claim with token [$3]..."
+                /usr/local/bin/claim-plex-server.sh $3
+                echo "restarting plex..."
+                echo restart > /elfbot/$2
+            else
+                echo "this command is only for claiming plex"
+            fi
+            ;;         
+
+    esac
+
+

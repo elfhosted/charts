@@ -1,0 +1,24 @@
+---
+apiVersion: v2
+appVersion: 1.2.1
+description: Unpacks archives
+name: jellyseerr
+version: 1.2.1
+kubeVersion: ">=1.16.0-0"
+keywords:
+  - unpackerr
+home: https://github.com/Fallenbagel/jellyseerr
+icon: https://github.com/Fallenbagel/jellyseerr/raw/develop/public/logo_full.svg
+sources:
+  - https://github.com/Fallenbagel/jellyseerr
+maintainers:
+  - name: funkypenguin
+    email: davidy@funkypenguin.co.nz
+dependencies:
+  - name: common
+    repository: http://chartmuseum.chartmuseum:8080
+    version: ~0.2.5
+annotations:
+  artifacthub.io/changes: |-
+    - kind: changed
+      description: Upgraded `common` chart dependency to version 0.2.2
