@@ -3618,7 +3618,7 @@ plex:
       cpu: "10m"
       memory: 512Mi
     limits:
-      cpu: "500m"
+      cpu: "2"
       memory: 2048Mi
   initContainers:
     bootstrap: 
