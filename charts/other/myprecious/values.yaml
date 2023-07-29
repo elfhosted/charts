@@ -5125,7 +5125,7 @@ vaultwarden:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/vaultwarden
-    tag: 1.29.0@sha256:251e1fb0fe941fa3e85bdbbcf7960f73a2c619139b999dd4fdcc8d90271610ea
+    tag: 1.29.1@sha256:b12e47b974734dbdfe6bd7a9d539f83bd1cda577d09c50833f15cbb5e7e0a465
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
