@@ -1930,6 +1930,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-nzbget
+    nzbhydra:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/nzbhydra/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nzbhydra          
     ombi:
       enabled: false
       type: custom
@@ -3999,6 +4006,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-nzbget
+    nzbhydra:
+      enabled: false
+      type: custom
+      mountPath: /config/nzbhydra/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nzbhydra         
     ombi:
       enabled: false
       type: custom
