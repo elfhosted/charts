@@ -4875,7 +4875,7 @@ unpackerr:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/unpackerr
-    tag: 0.11.2@sha256:6a8c5b27e76d9ae9206519538b6e8ac255660278b83e1a0bd5a54f8794ad2703
+    tag: 0.12.0@sha256:ac00914c3fcd08e67eb7cc0bee50d8c2d1e196a9af595ab12d01d21a1ab13b80
   priorityClassName: tenant-low
   controller:
     annotations:
