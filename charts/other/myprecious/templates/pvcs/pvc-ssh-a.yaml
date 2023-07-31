@@ -1,4 +1,4 @@
-{{ if .Values.rclone_mount_ssh_a.enabled }}
+{{ if .Values.rclonemountssha.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
