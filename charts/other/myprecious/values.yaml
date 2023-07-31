@@ -500,13 +500,22 @@ rutorrentgluetun: &rutorrent
           defaultMode: 0755     
     custom-s6-init-07:
       enabled: "true"
-      mountPath: "/etc/cont-init.d/07-set-inbound-port.sh "
+      mountPath: "/etc/cont-init.d/07-set-inbound-port.sh"
       subPath: "07-set-inbound-port.sh "
       type: "custom"
       volumeSpec:
         configMap:
           name: rutorrent-config
           defaultMode: 0755
+    custom-s6-init-08:
+      enabled: "true"
+      mountPath: "/etc/cont-init.d/08-mam-cookies.sh"
+      subPath: "08-mam-cookies.sh "
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rutorrent-config
+          defaultMode: 0755          
   ingress:
     main:
       enabled: false
@@ -582,164 +591,7 @@ rutorrentpia:
       - configMapRef:
           name: rutorrent-pia-config
 
-delugepia:
-  enabled: false
-  podLabels:
-    app.elfhosted.com/name: deluge  
-  sso:
-    enabled: true
-  automountServiceAccountToken: false
-  image:
-    repository: ghcr.io/geek-cookbook/deluge
-    tag: 2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
-  priorityClassName: tenant-normal
-
-  securityContext:
-    seccompProfile:
-      type: RuntimeDefault
-    readOnlyRootFilesystem: true
-
-  # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
-  podSecurityContext:
-    seccompProfile:
-      type: RuntimeDefault
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
-  controller:
-    annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-deluge,deluge-gluetun-config"
-
-  persistence:
-    <<: *appmounts  
-    config:
-      enabled: true
-      type: custom
-      mountPath: /config/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-deluge   
-    shared:
-      enabled: true
-      mountPath: /shared
-      type: emptyDir
-      volumeSpec:
-        medium: Memory
-    elfbot:
-      enabled: "true"
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: elfbot-deluge 
-          optional: true
-  ingress:
-    main:
-      enabled: false
-  service:
-    main:
-      enabled: false # necessary for probes, but probes aren't working with vpn addon currently
-  env:
-    # -- Set the container timezone
-    TZ: UTC
-    PUID: 568
-    PGID: 568
-    DELUGE_LOGLEVEL: "info"
-    WAIT_FOR_VPN: "true"
-
-  initContainers:
-    bootstrap: *bootstrap
-    setup:
-      image: *tooling_image
-      imagePullPolicy: IfNotPresent
-      envFrom:
-      - configMapRef:
-          name: elfhosted-user-config
-      command:
-      - /bin/bash
-      - -c
-      - |
-        set -x
-        set -e
-
-        mkdir -p /config/deluge/torrent_files
-
-        # Setup autobrr access to daemon
-        grep -q autobrr /config/auth || echo 'autobrr:c7RJKKt#KBcM5Z?a:10' >> /config/auth
-
-        JQ_FILTER=".listen_random_port=false"
-        JQ_FILTER="${JQ_FILTER} | .pre_allocate_storage=false"
-        JQ_FILTER="${JQ_FILTER} | .stop_seed_ratio=2"
-        JQ_FILTER="${JQ_FILTER} | .cache_size=52428"
-        JQ_FILTER="${JQ_FILTER} | .share_ratio_limit=2"
-        JQ_FILTER="${JQ_FILTER} | .stop_seed_at_ratio=true"
-
-        jq "${JQ_FILTER}" /config/core.conf > /config/core-new.conf
-        cp /config/core-new.conf /config/core.conf
-
-        # # Avoid session timeouts
-        # sed -i  "s/session_timeout:\".*/session_timeout\": 99999,/" /config/web.conf
-      volumeMounts:
-      - mountPath: /config
-        name: config
-      env: *bootstrap_env
-      securityContext: *default_securitycontext
-  resources:
-    requests:
-      cpu: 10m
-      memory: 500Mi
-    limits:
-      cpu: 500m
-      memory: 1Gi
-  addons:
-    vpn:
-      enabled: true
-      gluetun:
-        image:
-          repository: thrnz/docker-wireguard-pia
-          tag: latest      
-      securityContext:
-        runAsUser: 0
-        capabilities:
-          add:
-            - NET_ADMIN
-            - SYS_MODULE          
-      type: gluetun 
-      envFrom:
-      - configMapRef:
-          name: deluge-pia-config
-      additionalVolumeMounts:
-      - mountPath: /config
-        name: config
-      - mountPath: /storage/elfstorage
-        name: elfstorage
-      # IDK why these aren't inherited from the anchor, but we need to repeat them here    
-      scripts:
-        up: |-
-          #!/bin/bash
-          echo "connected" > /shared/vpnstatus
-        down: |-
-          #!/bin/bash
-          echo "disconnected" > /shared/vpnstatus
-  additionalContainers:
-    deluge-web:
-      image: ghcr.io/geek-cookbook/deluge:2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
-      command:
-      - /usr/bin/deluge-web
-      - -L
-      - info
-      - -d
-      - -c
-      - /config
-      volumeMounts:
-      - mountPath: /config
-        name: config
-      - mountPath: /tmp
-        name: tmp
-      env:
-        PYTHON_EGG_CACHE: /tmp/.cache
-
-delugegluetun:
+delugegluetun: &deluge
   enabled: false
   podLabels:
     app.elfhosted.com/name: deluge  
@@ -788,7 +640,15 @@ delugegluetun:
       volumeSpec:
         configMap:
           name: elfbot-deluge 
-          optional: true              
+          optional: true  
+    elfscripts:
+      enabled: "true"
+      mountPath: "/elfscripts/"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: deluge-elfscripts
+          defaultMode: 0755                           
   ingress:
     main:
       enabled: false
@@ -853,7 +713,7 @@ delugegluetun:
       cpu: 500m
       memory: 1Gi
   addons:
-    vpn:
+    vpn: &deluge_addons_vpn
       enabled: true
       type: gluetun
       gluetun:
@@ -904,6 +764,22 @@ delugegluetun:
         name: tmp
       env:
         PYTHON_EGG_CACHE: /tmp/.cache
+
+delugepia:
+  <<: *deluge
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "deluge-config,deluge-pia-config,elfbot-deluge" # Reload the deployment every time the yaml config changes
+  addons:
+    vpn:
+      <<: *deluge_addons_vpn
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest  
+      envFrom:
+      - configMapRef:
+          name: deluge-pia-config
 
 qbittorrentgluetun: &qbittorrent
   podLabels:
@@ -957,7 +833,15 @@ qbittorrentgluetun: &qbittorrent
       volumeSpec:
         configMap:
           name: elfbot-qbittorrent 
-          optional: true              
+          optional: true
+    elfscripts:
+      enabled: "true"
+      mountPath: "/elfscripts/"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: qbittorrent-elfscripts
+          defaultMode: 0755                  
   ingress:
     main:
       enabled: false
