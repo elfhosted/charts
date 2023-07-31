@@ -54,6 +54,27 @@ rclone_mount_webdav_a: &rclone_mount_webdav_a
     persistentVolumeClaim:
       claimName: webdav-a
   mountPath: /storage/webdav-a
+rclone_mount_ssh_a: &rclone_mount_ssh_a
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: ssh-a
+  mountPath: /storage/ssh-a  
+rclone_mount_ssh_b: &rclone_mount_ssh_b
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: ssh-b
+  mountPath: /storage/ssh-b  
+rclone_mount_ssh_c: &rclone_mount_ssh_c
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: ssh-c
+  mountPath: /storage/ssh-c  
 webdavb: &webdavb
   enabled: false
   type: custom
@@ -152,8 +173,7 @@ appmounts: &appmounts
   gdriveb: *gdriveb
   gdrivec: *gdrivec   
   rclone_mount_webdav_a: *rclone_mount_webdav_a
-  webdavb: *webdavb
-  webdavc: *webdavc      
+  rclone_mount_ssh_a: *rclone_mount_ssh_a  
   storageboxa: *storageboxa
   storageboxb: *storageboxb
   storageboxc: *storageboxc

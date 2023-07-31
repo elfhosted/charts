@@ -1,0 +1,20 @@
+{{ if .Values.rclone_mount_ssh_a.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rclone-{{ .Release.Name }}-ssh-a
+  labels:
+    name: rclone-{{ .Release.Name }}-ssh-a
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: rclone
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: csi-rclone
+    volumeHandle: rclone-{{ .Release.Name }}-ssh-a
+    volumeAttributes:
+      secretName: "{{ .Release.Name }}-ssh-a"
+{{ end }}
