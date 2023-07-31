@@ -38,7 +38,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true,
-      "excludePackagePatterns": ["^filebrowser"]
+      "excludePackagePatterns": ["filebrowser"]
     },
     {
       "matchPackagePatterns": ["minor"],
@@ -46,7 +46,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true,
-      "excludePackagePatterns": ["^filebrowser"]
+      "excludePackagePatterns": ["filebrowser"]
     }    
   ],
   // since we version by bumping, each PR needs to be rebased every time we merge
