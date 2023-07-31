@@ -1280,7 +1280,7 @@ radarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr-develop
-    tag: 4.7.2.7686@sha256:44b07f95ac24b9159ea7f8bdfd03b5458e6b993bdbd4b854a05cd4aa64166acd
+    tag: 4.7.3.7731@sha256:c8dc23feb40fd1118a894ca58e07c186b4e8ec7380ade0019202ad6113d90a12
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1353,7 +1353,7 @@ radarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr-develop
-    tag: 4.7.2.7686@sha256:44b07f95ac24b9159ea7f8bdfd03b5458e6b993bdbd4b854a05cd4aa64166acd
+    tag: 4.7.3.7731@sha256:c8dc23feb40fd1118a894ca58e07c186b4e8ec7380ade0019202ad6113d90a12
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1629,7 +1629,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.27.1@sha256:06ab673242ef4d4a77ce00e1308a820cc49529f5a4b78d68d84c4b8124adea2b
+    tag: 1.28.0@sha256:c26d2c4d8989933068c283f8167c6ed4b1ad115d2e8a27d38b3aa29f8d4d86c9
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -2971,7 +2971,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.582@sha256:cda89cd14f5ac656df3529a02d0924032eff78f0a87d6cfe84a6cb3fd7b920c6
+    tag: 4.0.0.585@sha256:5633271ccc421db49af46b3ecaaa6bddad6ffb8c22178a40e2eb3c7aeae65dd3
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3044,7 +3044,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.582@sha256:cda89cd14f5ac656df3529a02d0924032eff78f0a87d6cfe84a6cb3fd7b920c6
+    tag: 4.0.0.585@sha256:5633271ccc421db49af46b3ecaaa6bddad6ffb8c22178a40e2eb3c7aeae65dd3
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3188,7 +3188,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.7.4.3769@sha256:f1f5e79eeaa0281a96fedf2d2172ec2038552ae36fa26063d0abc8d2d14697a1
+    tag: 1.8.0.3805@sha256:9a8243b68211928c0b1703aa4e3e30a4cd15822dead0dbc3c61dca599587fec3
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3419,7 +3419,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.0.2091@sha256:a445f34e5b01a067efe2c9aea1e8c23031225bbb89b89d92121ac72413a5247b
+    tag: 0.3.1.2092@sha256:2bdf97f1c1cfe4a3dd4bbbecdce77ca92d9b696eebab2f06190744ebea371ae8
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3497,7 +3497,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.0.2091@sha256:a445f34e5b01a067efe2c9aea1e8c23031225bbb89b89d92121ac72413a5247b
+    tag: 0.3.1.2092@sha256:2bdf97f1c1cfe4a3dd4bbbecdce77ca92d9b696eebab2f06190744ebea371ae8
   securityContext:
     seccompProfile:
       type: RuntimeDefault
