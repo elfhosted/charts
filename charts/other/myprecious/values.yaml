@@ -4390,7 +4390,7 @@ flaresolverr:
   image:
     registry: ghcr.io
     repository: flaresolverr/flaresolverr
-    tag: v3.2.2
+    tag: v3.3.0
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
