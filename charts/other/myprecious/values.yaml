@@ -2762,7 +2762,7 @@ calibre:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/calibre
-    tag: 6.23.0@sha256:d9d0eb79a2feaf9f64a8eb009d026c0e1f3230b8e874b9fa556139527801b71b
+    tag: 6.24.0@sha256:d3d4986d11c545ed872b4be7c4b42d5d2b35b0d2172b3dcbf1f962ba3f27abc3
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
