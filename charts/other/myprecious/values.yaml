@@ -5057,7 +5057,7 @@ openbooks:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/openbooks
-    tag: 4.5.0@sha256:b256d71b10c2ddd76cb4ff72c6b18a27926c4c9abab709adf2e29a475bfc7819
+    tag: 4.5.0@sha256:023a8ae99bebc2908845e012db2bf2d60f896d1be54a7cc3106165c129bf0b14
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
