@@ -517,7 +517,18 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email           
-      {{ end }}              
+      {{ end }}    
+
+      {{ if .Values.openbooks.enabled }}
+      - name: openbooks
+        group: download-media
+        url: "http://openbooks:8000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}    
 
       - name: filebrowser
         group: tools

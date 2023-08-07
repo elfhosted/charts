@@ -1,0 +1,23 @@
+---
+apiVersion: v2
+appVersion: "4.5.0"
+description: Openbooks allows you to download ebooks from irc.irchighway.net quickly and easily
+name: openbooks
+version: 0.0.1
+kubeVersion: ">= 1.16.0-0"
+keywords:
+  - books
+home: https://github.com/evan-buss/openbooks
+sources:
+  - https://github.com/evan-buss/openbooks
+maintainers:
+  - name: funkypenguin
+    email: davidy@funkypenguin.co.nz
+dependencies:
+  - name: common
+    repository: http://chartmuseum.chartmuseum:8080
+    version: ~0.2.5
+annotations:
+  artifacthub.io/changes: |-
+    - kind: changed
+      description: Upgraded `common` chart dependency to version 4.4.2

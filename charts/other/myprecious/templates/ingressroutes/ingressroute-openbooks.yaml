@@ -1,0 +1,20 @@
+{{ if .Values.openbooks.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-openbooks.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-openbooks.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: openbooks
+          kind: Service
+          port: 8000
+      middlewares:
+      {{- if .Values.openbooks.sso.enabled }}      
+        - name: {{ .Release.Name }}-traefik-forward-auth
+      {{- end }}        
+        - name: error-pages
+          namespace: traefik
+{{ end }}

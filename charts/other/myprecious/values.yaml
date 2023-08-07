@@ -1848,6 +1848,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-ombi
+    openbooks:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/openbooks/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-openbooks          
     overseerr:
       enabled: false
       type: custom
@@ -3924,6 +3931,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-ombi
+    openbooks:
+      enabled: false
+      type: custom
+      mountPath: /config/openbooks/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-openbooks          
     overseerr:
       enabled: false
       type: custom
@@ -5038,6 +5052,62 @@ audiobookshelf:
     limits:
       cpu: 2
       memory: 1Gi
+
+openbooks:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/openbooks
+    tag: 4.5.0@sha256:b256d71b10c2ddd76cb4ff72c6b18a27926c4c9abab709adf2e29a475bfc7819
+  priorityClassName: tenant-low
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    runAsNonRoot: true
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-openbooks"
+  sso:
+    enabled: true
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-openbooks   
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-openbooks 
+          optional: true      
+  initContainers:
+    bootstrap: *bootstrap        
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes # need this for probes?
+  resources:
+    requests:
+      cpu: 10m
+      memory: 64Mi
+    limits:
+      cpu: 2
+      memory: 1Gi      
 
 vaultwarden:
   enabled: false

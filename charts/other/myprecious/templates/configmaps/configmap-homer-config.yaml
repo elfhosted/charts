@@ -899,7 +899,17 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-rdtclient.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}                    
+          {{ end }}     
+
+          {{ if .Values.openbooks.enabled }}
+          - name: "Openbooks"
+            icon: "fas fa-book-open-reader"
+            subtitle: "Manage Book Downloads"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-openbooks.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                              
 
   tools.yml: |
     ---
