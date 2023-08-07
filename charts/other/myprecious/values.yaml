@@ -5071,22 +5071,22 @@ openbooks:
     runAsNonRoot: true
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
-    command:
-    - /bin/bash
-    - -c
-    - |
-      set -x
-      set -e
-      sleep 5s
-      ./openbooks server \
-        --dir /storage/elfstorage/downloads/completed \
-        --port 8000 \
-        --name elfhosted-user \
-        --tls=false \
-        --persist \
-        --server irc.irchighway.net:6661 \
-        --no-browser-downloads \
-        --debug
+  command:
+  - /bin/bash
+  - -c
+  - |
+    set -x
+    set -e
+    sleep 5s
+    ./openbooks server \
+      --dir /storage/elfstorage/downloads/completed \
+      --port 8000 \
+      --name elfhosted-user \
+      --tls=false \
+      --persist \
+      --server irc.irchighway.net:6661 \
+      --no-browser-downloads \
+      --debug
   automountServiceAccountToken: false
   controller:
     annotations:
