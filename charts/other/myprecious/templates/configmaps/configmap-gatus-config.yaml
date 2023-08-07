@@ -93,7 +93,7 @@ data:
       {{ if .Values.calibre.enabled }}
       - name: calibre
         group: consume-media
-        url: "http://calibre:8080"
+        url: "http://calibre:8081"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
