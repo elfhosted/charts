@@ -898,7 +898,7 @@ qbittorrentgluetun: &qbittorrent
       memory: 500Mi
     limits:
       cpu: 500m
-      memory: 1Gi
+      memory: 1200Mi # .2 GB for headroom
   addons:
     vpn: &qbittorrent_addons_vpn
       enabled: true
