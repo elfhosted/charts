@@ -791,7 +791,7 @@ qbittorrentgluetun: &qbittorrent
   image:
     registry: ghcr.io
     repository: geek-cookbook/qbittorrent
-    tag: 4.5.4@sha256:e375595abbe7289a946c10b3b3fbf37c1cc3bc86dc821dd52bf9b27db85ae8b0
+    tag: 4.5.4@sha256:693caf9e26df44f2bdc2c276390bea6bee486b50dcbb3785215c434bd3685643
   priorityClassName: tenant-normal
   securityContext:
     runAsUser: 568
@@ -1593,7 +1593,7 @@ filebrowser:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/filebrowser
-    tag: 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
+    tag: 2.24.2@sha256:9e84e0fff94256c82a78986d9735d4bf6793d70053bf23589c483b527758fc6f
   env:
     FB_DATABASE: /tmp/filebrowser.db
     FB_CONFIG: /etc/filebrowser/.filebrowser.json # this would work implicitly anyway, but this way it's clear what's happening
@@ -2077,7 +2077,7 @@ filebrowser:
       enabled: false
   initContainers:
     setup:
-      image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
+      image: ghcr.io/geek-cookbook/filebrowser:2.24.2@sha256:9e84e0fff94256c82a78986d9735d4bf6793d70053bf23589c483b527758fc6f
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
@@ -2660,7 +2660,7 @@ komga:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/komga
-    tag: 1.3.0@sha256:83d502af8f39e31948f239cc2aaec82f386d6ea346f9fde942d0993a7dae46f0
+    tag: 1.3.1@sha256:6f9ace0336ae749339a9d29f115f0937c33b85e7badf33aecffe45da9af667cb
   env:
     KOMGA_CONFIGDIR: /config
     KOMGA_REMEMBERME_KEY: yesplease
@@ -2862,7 +2862,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.602@sha256:10ae5b86e9187d6474a39369f6fa341d3733b83a6fa28578fb96009b15fa0734
+    tag: 4.0.0.603@sha256:5ac84a42fa5e94969a4dc5193280b43f50e13060196766d9c98a49dd71f89991
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2935,7 +2935,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.602@sha256:10ae5b86e9187d6474a39369f6fa341d3733b83a6fa28578fb96009b15fa0734
+    tag: 4.0.0.603@sha256:5ac84a42fa5e94969a4dc5193280b43f50e13060196766d9c98a49dd71f89991
   securityContext:
     seccompProfile:
       type: RuntimeDefault
