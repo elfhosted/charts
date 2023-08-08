@@ -1593,7 +1593,7 @@ filebrowser:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/filebrowser
-    tag: 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
+    tag: 2.24.2@sha256:9e84e0fff94256c82a78986d9735d4bf6793d70053bf23589c483b527758fc6f
   env:
     FB_DATABASE: /tmp/filebrowser.db
     FB_CONFIG: /etc/filebrowser/.filebrowser.json # this would work implicitly anyway, but this way it's clear what's happening
@@ -2077,7 +2077,7 @@ filebrowser:
       enabled: false
   initContainers:
     setup:
-      image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
+      image: ghcr.io/geek-cookbook/filebrowser:2.24.2@sha256:9e84e0fff94256c82a78986d9735d4bf6793d70053bf23589c483b527758fc6f
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
