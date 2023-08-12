@@ -5615,6 +5615,9 @@ plexmetamanager:
     podinfo:
       image: stefanprodan/podinfo # used to run probes from gatus
 
+rclonewebdav:
+  enabled: false # we need a default
+  
 rclonebrowser:
   sso:
     enabled: true
