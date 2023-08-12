@@ -5621,7 +5621,7 @@ rclonebrowser:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/rclonebrowser
-    tag: 1.63.1@sha256:4f3f7477989e34e1e3f497449122998850caee69f7ce104674ff66e30f2d5784
+    tag: 1.63.1@sha256:1e1bef7d6bfbb2c23c47c7342f4e50af8824e7617d5667260000d08f0c2d9290
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config  "
