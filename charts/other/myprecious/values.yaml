@@ -5624,7 +5624,7 @@ rclonebrowser:
     tag: 1.63.1@sha256:1e1bef7d6bfbb2c23c47c7342f4e50af8824e7617d5667260000d08f0c2d9290
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config  "
+      configmap.reloader.stakater.com/reload: "elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
   podAnnotations:
     kubernetes.io/egress-bandwidth: "10M"
   securityContext:
