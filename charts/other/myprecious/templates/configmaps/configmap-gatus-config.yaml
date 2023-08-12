@@ -562,7 +562,18 @@ data:
         conditions:
           - "[STATUS] == 200"      
         alerts:
-          - type: email                         
+          - type: email
+
+      {{ if .Values.rclonewebdav.enabled }}
+      - name: rclonewebdav
+        group: tools
+        url: "http://rclonebrowser:5574"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 401"      
+        alerts:
+          - type: email   
+      {{ end }}                                
 
       {{ if .Values.privatebin.enabled }}
       - name: privatebin

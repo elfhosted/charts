@@ -1096,4 +1096,14 @@ data:
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-rclonefm.elfhosted.com"
-            target: "_blank" # optional html tag target attribute            
+            target: "_blank" # optional html tag target attribute   
+
+          {{ if .Values.rclonewebdav.enabled }}
+          - name: "Rclone WebDAV"
+            logo: "assets/png/rclone.png"
+            subtitle: "Rclone WebDAV"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-rclonewebdav.elfhosted.com"
+            target: "_blank" # optional html tag target attribute      
+          {{ end }}                  
