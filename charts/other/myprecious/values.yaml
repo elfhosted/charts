@@ -5643,7 +5643,10 @@ rclonebrowser:
     APP_NICENESS: 19 # run at lowest niceness
     S6_READ_ONLY_ROOT: 1
     USER_ID: 568
-    GROUP_ID: 568
+    GROUP_ID: 568     
+  envFrom:
+  - configMapRef:
+      name: elfhosted-user-config
   persistence:
     <<: *appmounts  
     config:

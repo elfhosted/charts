@@ -6,6 +6,10 @@ data:
   USERID: "{{ .Values.userId }}"
   USERNAME: "{{ .Release.Name }}"
 
+  WEBDAV_USERNAME: {{ .Release.Name }}
+  # If we haven't got a webdav password, leave it blank, which will break login (intentionally)
+  WEBDAV_PASSWORD: {{ .Values.rclonewebdav.password | default }}
+
   # altered to start user IDs at 236 for now
   # PORT_RUTORRENT: "{{ add 1024 .Values.userId }}"
   # PORT_QBITTORRENT: "{{ add 1280 .Values.userId }}"
