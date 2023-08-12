@@ -943,7 +943,7 @@ qbittorrentpia:
     WAIT_FOR_VPN: "true"
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "qbittorrent-deluge,qbittorrent-pia-config"
+      configmap.reloader.stakater.com/reload: "elfbot-qbittorrent,qbittorrent-pia-config"
   addons:
     vpn: 
       <<: *qbittorrent_addons_vpn
@@ -5625,6 +5625,8 @@ rclonebrowser:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config  "
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "10M"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
