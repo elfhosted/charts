@@ -343,13 +343,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Listen to Books/Podcasts"
-            {{ if .Values.audiobookshelf.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-audiobookshelf.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
