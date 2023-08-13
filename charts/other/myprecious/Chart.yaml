@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templ  ates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.2107-pre-01
+version: 1.0.2107-pre-02
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -225,7 +225,7 @@ dependencies:
   - name: seafile
     version: 3.1.x
     repository: http://chartmuseum.chartmuseum:8080
-    condition: seafile_test.enabled
+    condition: seafile.enabled
   - name: resilio-sync
     version: 5.4.x
     repository: http://chartmuseum.chartmuseum:8080

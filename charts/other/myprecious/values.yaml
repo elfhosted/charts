@@ -4452,7 +4452,7 @@ flaresolverr:
   # initContainers:
   #   bootstrap: *bootstrap
 
-seafile_test:
+seafile:
   enabled: false
   sso:
     enabled: true
@@ -4549,22 +4549,23 @@ seafile_test:
         emptyDir:
           sizeLimit: 1Gi
   persistence:
-    # config:
-    #   enabled: true
-    #   type: custom
-    #   mountPath: /shared/seafile
-    #   subPath: seafile
-    #   volumeSpec:
-    #     persistentVolumeClaim:
-    #       claimName: config
-    elfhosted:
+    <<: *appmounts  
+    config:
       enabled: true
       type: custom
       mountPath: /shared/seafile
-      subPath: seafile
       volumeSpec:
         persistentVolumeClaim:
-          claimName: media # we're stuckw with this
+          claimName: config-seafile
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-seafile 
+          optional: true                
+  initContainers:
+    bootstrap: *bootstrap 
 
 xteve:
   enabled: false
@@ -5617,7 +5618,7 @@ plexmetamanager:
 
 rclonewebdav:
   enabled: false # we need a default
-  
+
 rclonebrowser:
   sso:
     enabled: true

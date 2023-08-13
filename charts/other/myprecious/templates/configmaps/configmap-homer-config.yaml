@@ -987,7 +987,7 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
-          {{ if .Values.seafile_test.enabled }}
+          {{ if .Values.seafile.enabled }}
           - name: "Seafile"
             logo: "assets/png/seafile.png"
             subtitle: "Securely sync data"
