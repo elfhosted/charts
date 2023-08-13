@@ -18,10 +18,10 @@ dependencies:
   - name: common
     repository: http://chartmuseum.chartmuseum:8080
     version: ~0.2.5
-  - name: mariadb
-    version: 11.5.3
-    repository: https://charts.bitnami.com/bitnami
-    condition: mariadb.enabled
+  - name: mysql
+    version: 9.10.4
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: mysql.enabled
 annotations:
   artifacthub.io/changes: |-
     - kind: changed

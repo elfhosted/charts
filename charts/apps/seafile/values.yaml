@@ -19,7 +19,7 @@ env:
   # -- Set the container timezone
   TIME_ZONE: Etc/UTC
   # -- The hostname of your database
-  DB_HOST: seafile-mariadb
+  DB_HOST: seafile-mysql
   # -- The root password for mysql (used for initial setup)
   DB_ROOT_PASSWD: seafilerootpass
   # -- The initial admin user's email

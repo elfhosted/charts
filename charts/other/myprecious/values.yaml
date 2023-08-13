@@ -4467,8 +4467,8 @@ seafile:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    # runAsUser: 568
-    # runAsGroup: 568
+    runAsUser: 568
+    runAsGroup: 568
   automountServiceAccountToken: false
   controller:
     annotations:
@@ -4502,34 +4502,31 @@ seafile:
   service:
     main:
       enabled: true # debug whether this gets us probes
-  mariadb:
+  mysql:
+    nameOverride: seafile-mysql
     enabled: true
     architecture: standalone
-    nameOverride: seafile-mariadb
+    commonAnnotations:
+      configmap.reloader.stakater.com/reload: "elfbot-seafile"
+      
     auth:
-      database: seafile
-      username: seafile
-      password: seafilepass
-      rootPassword: seafilerootpass
+      rootPassword: "wLu5UUuT@3Zu33eT"
+      database: "seafile"
+      username: "seafile"
+      password: "nXCXSmqU4TMk3okD"
+      
     primary:
       persistence:
         enabled: true
-        existingClaim: "seafile-mariadb" # can't use cephfs because of https://github.com/ceph/ceph-csi/issues/3723
-        # existingClaim: config
-        # subPath: seafile/database       
-      # readinessProbe:
-      #   enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
-      # livenessProbe:
-      #   enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
-      # startupProbe:
-      #   enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+        existingClaim: config-seafile
+        subPath: database       
       resources:
         requests:
           cpu: 5m
           memory: 1Gi
         limits:
-          cpu: 4
-          memory: 128Mi
+          cpu: 2
+          memory: 1024Mi
       containerSecurityContext:
         enabled: true
         seccompProfile:
@@ -4542,12 +4539,43 @@ seafile:
         runAsGroup: 568
         fsGroup: 568
       extraVolumeMounts:
-      - mountPath: /opt/bitnami/mariadb/tmp/
+      - mountPath: /opt/bitnami/mysql/tmp/
         name: tmp
       extraVolumes:
       - name: tmp
         emptyDir:
           sizeLimit: 1Gi
+      - name: backup-database-script
+        configMap:
+          name: seafile-backup
+      - name: elfstorage
+        persistentVolumeClaim:
+          claimName: elfstorage          
+      sidecars:
+        - name: backup-database
+          image: *tooling_image
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: wLu5UUuT@3Zu33eT
+            - name: MYSQL_DATABASE
+              value: seafile
+          volumeMounts:
+          - mountPath: /backup
+            name: elfstorage
+            subPath: backup/seafile     
+          command:
+          - /usr/bin/dumb-init
+          - /bin/bash
+          - -c
+          - |
+
+            sleep 2m # give mysql time to start up
+            while true
+            do
+              now=$(date +"%s_%Y-%m-%d")
+              /usr/bin/mysqldump --opt -h mattermost-mysql -u root -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} > "/backup/${now}_${MYSQL_DATABASE}.sql"
+              sleep 1d
+            done
   persistence:
     <<: *appmounts  
     config:
@@ -4557,6 +4585,7 @@ seafile:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-seafile
+        subPath: data             
     elfbot:
       enabled: "true"
       type: "custom"
