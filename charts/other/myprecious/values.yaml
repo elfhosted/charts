@@ -3079,7 +3079,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.8.1.3837@sha256:be374ef441573ee069d6b2a8df8e86bef384662ef9fc8a022c19b3446e98a5ed
+    tag: 1.8.2.3860@sha256:1de93a4f912fd1beda4a6d9a16680beb0da3d2ea187cbb7c9fd37f10b42d760b
   securityContext:
     seccompProfile:
       type: RuntimeDefault
