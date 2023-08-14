@@ -6319,7 +6319,6 @@ jdownloader:
   - configMapRef:
       name: jdownloader-config    
   persistence:
-    <<: *appmounts  
     config:
       enabled: true
       type: custom
@@ -6327,13 +6326,14 @@ jdownloader:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jdownloader   
-    elfbot:
-      enabled: "true"
-      type: "custom"
+    elfstorage:
+      enabled: true # always enabled
+      type: custom
       volumeSpec:
-        configMap:
-          name: elfbot-jdownloader 
-          optional: true            
+        persistentVolumeClaim:
+          claimName: elfstorage
+      mountPath: /output
+      subPath: downloads/completed/jdownloader
   ingress:
     main:
       enabled: false
