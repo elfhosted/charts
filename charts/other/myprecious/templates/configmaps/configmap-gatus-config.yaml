@@ -530,6 +530,17 @@ data:
           - type: email           
       {{ end }}    
 
+      {{ if .Values.jdownloader.enabled }}
+      - name: jdownloader
+        group: manage-media
+        url: "http://jdownloader:9898"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}     
+
       - name: filebrowser
         group: tools
         url: "http://filebrowser:8080"
