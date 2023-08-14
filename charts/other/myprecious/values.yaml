@@ -6334,6 +6334,13 @@ jdownloader:
           claimName: elfstorage
       mountPath: /output
       subPath: downloads/completed/jdownloader
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-jdownloader 
+          optional: true           
   ingress:
     main:
       enabled: false
