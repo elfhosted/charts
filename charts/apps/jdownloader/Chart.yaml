@@ -2,7 +2,7 @@
 apiVersion: v2
 appVersion: "v23.06.1"
 description: Self-hosted audiobook server for managing and playing your audiobooks
-name: audiobookshelf
+name: jdownloader
 version: 0.0.1
 kubeVersion: ">= 1.16.0-0"
 keywords:
