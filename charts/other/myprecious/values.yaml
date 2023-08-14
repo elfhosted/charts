@@ -6292,7 +6292,7 @@ rdtclient:
 
 jdownloader:
   enabled: false
-  runtimeClassName: kata-fc
+  runtimeClassName: kata
   priorityClassName: tenant-low
   image:
     repository: jlesage/jdownloader-2
@@ -6339,7 +6339,10 @@ jdownloader:
       enabled: false
   service:
     main:
-      enabled: false # necessary for probes
+      enabled: true # necessary for probes
+      ports:
+        local-myjd:
+          port: 3129
   resources:
     requests:
       cpu: 10m

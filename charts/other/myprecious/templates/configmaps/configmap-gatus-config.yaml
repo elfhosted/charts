@@ -533,7 +533,7 @@ data:
       {{ if .Values.jdownloader.enabled }}
       - name: jdownloader
         group: manage-media
-        url: "http://jdownloader:9898"
+        url: "http://jdownloader:3129"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
