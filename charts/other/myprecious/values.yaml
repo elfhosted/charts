@@ -6049,6 +6049,7 @@ mattermost:
     MM_PLUGINSETTINGS_CLIENTDIRECTORY: "./client/plugins"
 
 rapidleech:
+  runtimeClass: kata
   enabled: false
   sso:
     enabled: true
