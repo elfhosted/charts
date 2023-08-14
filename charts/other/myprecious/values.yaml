@@ -6341,7 +6341,7 @@ jdownloader:
     main:
       enabled: true # necessary for probes
       ports:
-        local-myjd:
+        http:
           port: 3129
   resources:
     requests:
