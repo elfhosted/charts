@@ -6327,19 +6327,19 @@ jdownloader:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jdownloader   
-    # elfbot:
-    #   enabled: "true"
-    #   type: "custom"
-    #   volumeSpec:
-    #     configMap:
-    #       name: elfbot-jdownloader 
-    #       optional: true            
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-jdownloader 
+          optional: true            
   ingress:
     main:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
+      enabled: false # necessary for probes
   resources:
     requests:
       cpu: 10m
@@ -6347,10 +6347,10 @@ jdownloader:
     limits:
       cpu: 1
       memory: 1Gi
-  # initContainers:
-  #   bootstrap: *bootstrap
-  additionalContainers:
-    podinfo:
-      image: stefanprodan/podinfo # used to run probes from gatus
+  initContainers:
+    bootstrap: *bootstrap
+  # additionalContainers:
+  #   podinfo:
+  #     image: stefanprodan/podinfo # used to run probes from gatus
 
 # This file must end on a newline
