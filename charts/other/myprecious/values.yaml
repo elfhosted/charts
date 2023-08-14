@@ -6342,7 +6342,7 @@ jdownloader:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 3129
+          port: 9898
   resources:
     requests:
       cpu: 10m
@@ -6350,10 +6350,10 @@ jdownloader:
     limits:
       cpu: 1
       memory: 1Gi
-  # initContainers:
-  #   bootstrap: *bootstrap
-  # additionalContainers:
-  #   podinfo:
-  #     image: stefanprodan/podinfo # used to run probes from gatus
+  initContainers:
+    bootstrap: *bootstrap
+  additionalContainers:
+    podinfo:
+      image: stefanprodan/podinfo # used to run probes from gatus
 
 # This file must end on a newline
