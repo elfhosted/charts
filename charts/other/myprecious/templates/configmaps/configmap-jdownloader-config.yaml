@@ -4,7 +4,8 @@ kind: ConfigMap
 metadata:
   name: jdownloader-config
 data:
-  MYJDOWNLOADER_EMAIL: {{ .Values.jdownloader.MYJDOWNLOADER_EMAIL | default }}
-  MYJDOWNLOADER_PASSWORD: {{ .Values.jdownloader.MYJDOWNLOADER_PASSWORD | default }}
-  MYJDOWNLOADER_DEVICE_NAME: {{ .Release.Name }}.elfhosted.com
+  MYJD_USER: {{ .Values.jdownloader.MYJDOWNLOADER_EMAIL | default }}
+  MYJD_PASSWORD: {{ .Values.jdownloader.MYJDOWNLOADER_PASSWORD | default }}
+  MYJD_DEVICE_NAME: {{ .Release.Name }}.elfhosted.com
+  XDG_DOWNLOAD_DIR: {{ .Values.jdownloader.DOWNLOAD_DIR | default "/storage/elfstorage/downloads/completed" }}
 {{ end }}
