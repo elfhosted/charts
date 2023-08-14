@@ -6314,7 +6314,7 @@ jdownloader:
   automountServiceAccountToken: false
   env:
     JDOWNLOADER_HEADLESS: 1
-    APP_NICENESS: 19
+    APP_NICENESS: 18
   envFrom:
   - configMapRef:
       name: jdownloader-config    
