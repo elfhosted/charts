@@ -1,0 +1,24 @@
+---
+apiVersion: v2
+appVersion: "v23.06.1"
+description: Self-hosted audiobook server for managing and playing your audiobooks
+name: audiobookshelf
+version: 0.0.1
+kubeVersion: ">= 1.16.0-0"
+keywords:
+  - jdownloader
+home: https://github.com/k8s-at-home/charts/tree/master/charts/stable/jdownloader
+icon: https://github.com/jlesage/docker-jdownloader-2/blob/master/static/Logo.png
+sources:
+  - https://github.com/jlesage/docker-jdownloader-2
+maintainers:
+  - name: funkypenguin
+    email: davidy@funkypenguin.co.nz
+dependencies:
+  - name: common
+    repository: http://chartmuseum.chartmuseum:8080
+    version: ~0.2.5
+annotations:
+  artifacthub.io/changes: |-
+    - kind: changed
+      description: Upgraded `common` chart dependency to version 4.4.2
