@@ -6347,8 +6347,8 @@ jdownloader:
     limits:
       cpu: 1
       memory: 1Gi
-  initContainers:
-    bootstrap: *bootstrap
+  # initContainers:
+  #   bootstrap: *bootstrap
   # additionalContainers:
   #   podinfo:
   #     image: stefanprodan/podinfo # used to run probes from gatus
