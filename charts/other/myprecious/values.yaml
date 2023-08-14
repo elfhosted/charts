@@ -6292,11 +6292,11 @@ rdtclient:
 
 jdownloader:
   enabled: false
-  runtimeClassName: kata
+  runtimeClassName: kata-fc
   priorityClassName: tenant-low
   image:
-    repository: tdeutsch/jdownloader-headless
-    tag: latest@sha256:bccde31abb85f91dded1f18839bae6fba71b0466a292594f96e65c81385efebd
+    repository: jlesage/jdownloader-2
+    tag: v23.06.1
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-jdownloader"
