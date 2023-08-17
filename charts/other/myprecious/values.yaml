@@ -507,15 +507,16 @@ rutorrentgluetun: &rutorrent
         configMap:
           name: rutorrent-config
           defaultMode: 0755
-    custom-s6-init-08:
-      enabled: "true"
-      mountPath: "/etc/cont-init.d/08-mam-cookies.sh"
-      subPath: "08-mam-cookies.sh "
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: rutorrent-config
-          defaultMode: 0755          
+    # temporarily disabled until we can cook a new image
+    # custom-s6-init-08:
+    #   enabled: "true"
+    #   mountPath: "/etc/cont-init.d/08-mam-cookies.sh"
+    #   subPath: "08-mam-cookies.sh "
+    #   type: "custom"
+    #   volumeSpec:
+    #     configMap:
+    #       name: rutorrent-config
+    #       defaultMode: 0755          
   ingress:
     main:
       enabled: false
@@ -882,6 +883,9 @@ qbittorrentgluetun: &qbittorrent
 
         # Permit TCP only
         sed -i  "s/Session\\\BTProtocol=.*/Session\\\BTProtocol=TCP/" /config/qBittorrent/qBittorrent.conf
+
+        # Disable CSRF protection so that Homer can show qBit stats
+        sed -i  "s/WebUI\\\CSRFProtection=.*/WebUI\\\CSRFProtection=false/" /config/qBittorrent/qBittorrent.conf
 
         # Insist on tun0
         sed -i  "s/Session\\\Interface=.*/Session\\\Interface=tun0/" /config/qBittorrent/qBittorrent.conf
