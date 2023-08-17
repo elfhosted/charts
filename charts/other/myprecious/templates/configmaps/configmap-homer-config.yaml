@@ -754,6 +754,7 @@ data:
             type: "SABnzbd"
             apikey: 8flkbru7ncdps3dzzgk48q2msz41m4on
             downloadInterval: 60000 # (Optional) Interval (in ms) for updating the download count - so this would be 1m
+            useCredentials: true
           {{ end }}
 
           {{ if .Values.prowlarr.enabled }}
@@ -822,9 +823,10 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-qbittorrent.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-            # type: "qBittorrent"
-            # rateInterval: 300 # Interval for updating the download and upload rates.
-            # torrentInterval: 600 # Interval for updating the torrent count.
+            type: "qBittorrent"
+            rateInterval: 300 # Interval for updating the download and upload rates.
+            torrentInterval: 600 # Interval for updating the torrent count.
+            useCredentials: true
             {{ end }}
 
           {{ if or .Values.rutorrentpia.enabled .Values.rutorrentgluetun.enabled }}
@@ -835,10 +837,11 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-rutorrent.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-            # xmlrpc: "https://{{ .Release.Name }}-rutorrent.elfhosted.com/plugins/rpc/rpc.php" # Reverse proxy for rTorrent's XML-RPC.
-            # type: "Rtorrent"
-            # rateInterval: 300 # Interval for updating the download and upload rates.
-            # torrentInterval: 600 # Interval for updating the torrent count.            
+            xmlrpc: "https://{{ .Release.Name }}-rutorrent.elfhosted.com/plugins/rpc/rpc.php" # Reverse proxy for rTorrent's XML-RPC.
+            type: "Rtorrent"
+            rateInterval: 300 # Interval for updating the download and upload rates.
+            torrentInterval: 600 # Interval for updating the torrent count.            
+            useCredentials: true
             {{ end }}
 
           {{ if .Values.pyload.enabled }}

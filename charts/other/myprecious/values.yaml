@@ -6292,6 +6292,7 @@ rdtclient:
 
 jdownloader:
   enabled: false
+  hostname: elfhosted
   runtimeClassName: kata
   priorityClassName: tenant-low
   image:
@@ -6314,7 +6315,7 @@ jdownloader:
   automountServiceAccountToken: false
   env:
     JDOWNLOADER_HEADLESS: 1
-    APP_NICENESS: 18
+    APP_NICENESS: 19
   envFrom:
   - configMapRef:
       name: jdownloader-config    
@@ -6355,7 +6356,7 @@ jdownloader:
       cpu: 10m
       memory: 10Mi
     limits:
-      cpu: 1
+      cpu: 0.5
       memory: 1Gi
   initContainers:
     bootstrap: *bootstrap
