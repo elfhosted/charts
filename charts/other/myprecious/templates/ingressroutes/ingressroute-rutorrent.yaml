@@ -13,7 +13,18 @@ spec:
           port: 8080
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
-        - name: {{ .Release.Name }}-add-cors-for-homer
         - name: error-pages
           namespace: traefik
+    - match: Host(`{{ .Release.Name }}-rutorrent.elfhosted.com`) && Path(`/RPC2`)
+      kind: Rule
+      services:
+        - name: rutorrent
+          kind: Service
+          port: 8080
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: {{ .Release.Name }}-rutorrent-rpc-path-compatibility
+        - name: {{ .Release.Name }}-add-cors-for-homer
 {{ end }}
+
+

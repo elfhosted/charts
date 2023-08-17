@@ -1,0 +1,9 @@
+{{ if or .Values.rutorrentgluetun.enabled .Values.rutorrentpia.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-rutorrent-rpc-path-compatibility
+spec:
+  replacePath:
+    path: /plugins/rpc/rpc.php
+{{ end }}
