@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templ  ates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.2126-pre-04
+version: 1.0.2126-pre-05
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -141,10 +141,6 @@ dependencies:
     version: ~2.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: rapidleech.enabled
-  # - name: deluge
-  #   version: ~5.4.0
-  #   repository: http://chartmuseum.chartmuseum:8080
-  #   condition: deluge.enabled
   - name: deluge
     version: ~5.4.0
     repository: http://chartmuseum.chartmuseum:8080
@@ -155,11 +151,6 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080
     condition: delugegluetun.enabled
     alias: delugegluetun        
-  # - name: qbittorrent
-  #   version: ~13.5.0
-  #   repository: http://chartmuseum.chartmuseum:8080
-  #   condition: qbittorrent.enabled
-  # For any gluetun-enabled products
   - name: qbittorrent
     version: ~13.5.0
     repository: http://chartmuseum.chartmuseum:8080
@@ -203,11 +194,6 @@ dependencies:
     version: 5.4.x
     repository: http://chartmuseum.chartmuseum:8080
     condition: flaresolverr.enabled
-  # - name: rtorrent-rutorrent
-  #   version: 1.1.x
-  #   repository: http://chartmuseum.chartmuseum:8080
-  #   condition: rutorrent.enabled
-  #   alias: rutorrent
   - name: rtorrent-rutorrent
     version: 1.1.x
     repository: http://chartmuseum.chartmuseum:8080

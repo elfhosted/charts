@@ -837,7 +837,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-rutorrent.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-            xmlrpc: "https://{{ .Release.Name }}-rutorrent.elfhosted.com/plugins/rpc/rpc.php" # Reverse proxy for rTorrent's XML-RPC.
+            xmlrpc: "https://{{ .Release.Name }}-rutorrent.elfhosted.com" # Homer will automatically suffix /RPC2 to this, which we catch in our ingressroute.
             type: "Rtorrent"
             rateInterval: 30000 # Interval for updating the download and upload rates.
             torrentInterval: 60000 # Interval for updating the torrent count.            
