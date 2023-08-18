@@ -4493,7 +4493,7 @@ seafile:
     # -- Set the container timezone
     TIME_ZONE: Etc/UTC
     # -- The hostname of your database
-    DB_HOST: "{{ .Release.Name }}-seafile-mariadb"
+    DB_HOST: "{{ .Release.Name }}-seafile-mysql"
     # -- The root password for mysql (used for initial setup)
     DB_ROOT_PASSWD: seafilerootpass
     # -- The initial admin user's email
