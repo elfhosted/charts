@@ -10,11 +10,11 @@ data:
     do
 
       # Once for all of /config...
-      tree --du -hF -s  /config/ -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config -T "🧝 ElfHosted [/config] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config.html
+      timeout 300 tree --du -hF -s  /config/ -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config -T "🧝 ElfHosted [/config] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config.html
 
       for STORAGE_PATH in $(ls /config); do
         # And again per-app /config...
-        tree --du -hF -s  /config/${STORAGE_PATH} -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/${STORAGE_PATH} -T "🧝 ElfHosted [/config/${STORAGE_PATH}] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config-${STORAGE_PATH}.html
+       timeout 300 tree --du -hF -s  /config/${STORAGE_PATH} -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/${STORAGE_PATH} -T "🧝 ElfHosted [/config/${STORAGE_PATH}] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config-${STORAGE_PATH}.html
 
         df -Ph /config/${STORAGE_PATH} | sed s/%//g > /www/assets/message/disk_space_${STORAGE_PATH}.txt
         PERCENTAGE_USED=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | sed s/%//g | awk '{print $5}' | tail -n1)
@@ -837,11 +837,11 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-rutorrent.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-            # xmlrpc: "https://{{ .Release.Name }}-rutorrent.elfhosted.com" # Homer will automatically suffix /RPC2 to this, which we catch in our ingressroute.
-            # type: "Rtorrent"
-            # rateInterval: 30000 # Interval for updating the download and upload rates.
-            # torrentInterval: 60000 # Interval for updating the torrent count.            
-            # useCredentials: true
+            xmlrpc: "https://{{ .Release.Name }}-rutorrent.elfhosted.com" # Homer will automatically suffix /RPC2 to this, which we catch in our ingressroute.
+            type: "Rtorrent"
+            rateInterval: 30000 # Interval for updating the download and upload rates.
+            torrentInterval: 60000 # Interval for updating the torrent count.            
+            useCredentials: true
             {{ end }}
 
           {{ if .Values.pyload.enabled }}
