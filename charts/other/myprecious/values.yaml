@@ -2771,17 +2771,18 @@ calibre:
   enabled: false
   sso:
     enabled: true
+  runtimeClassName: kata
   image:
-    repository: ghcr.io/geek-cookbook/calibre
-    tag: 6.24.0@sha256:d3d4986d11c545ed872b4be7c4b42d5d2b35b0d2172b3dcbf1f962ba3f27abc3
+    repository: quay.io/linuxserver/calibre:6.24.0
+    tag: 6.24.0@sha256:6433c5c051b7efaa17326d16cb9ba455990b0a47b4669ef38e431960fb3f7a98
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: true # doesn't work with s6
+    readOnlyRootFilesystem: false # doesn't work with s6
     allowPrivilegeEscalation: false # do we need this too?
-    runAsUser: 568
-    runAsGroup: 568
+    # runAsUser: 568
+    # runAsGroup: 568
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2813,8 +2814,10 @@ calibre:
       mountPath: /run
       sizeLimit: 1Gi
   env:
-    S6_READ_ONLY_ROOT: 1
-
+    UID: 568
+    GID: 568
+    TITLE: Calibre | ElfHosted
+    START_DOCKER: false
   ingress:
     main:
       enabled: false
