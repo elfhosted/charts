@@ -2294,10 +2294,10 @@ privatebin:
   resources:
     requests:
       cpu: 10m
-      memory: 32Mi
+      memory: 64Mi
     limits:
       cpu: 100m
-      memory: 32Mi
+      memory: 128Mi
   config:
     main:
       discussion: false
@@ -4520,9 +4520,9 @@ seafile:
       
     auth:
       rootPassword: "wLu5UUuT@3Zu33eT"
-      # database: "seafile"
-      # username: "seafile"
-      # password: "nXCXSmqU4TMk3okD"
+      database: "seafile"
+      username: "seafile"
+      password: "nXCXSmqU4TMk3okD"
       
     primary:
       persistence:
