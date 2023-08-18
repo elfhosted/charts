@@ -12,6 +12,7 @@ spec:
           kind: Service
           port: 8080
       middlewares:
+        - name: {{ .Release.Name }}-add-cors-for-homer
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
           namespace: traefik
@@ -22,9 +23,9 @@ spec:
           kind: Service
           port: 8080
       middlewares:
+        - name: {{ .Release.Name }}-add-cors-for-homer
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: {{ .Release.Name }}-rutorrent-rpc-path-compatibility
-        - name: {{ .Release.Name }}-add-cors-for-homer
 {{ end }}
 
 
