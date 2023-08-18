@@ -2814,10 +2814,11 @@ calibre:
       mountPath: /run
       sizeLimit: 1Gi
   env:
-    UID: 568
-    GID: 568
+    PUID: 568
+    PGID: 568
     TITLE: Calibre | ElfHosted
     START_DOCKER: false
+    # CLI_ARGS: "--with-library=/storage/elfstorage/books"
   ingress:
     main:
       enabled: false
