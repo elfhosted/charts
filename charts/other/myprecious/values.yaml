@@ -4495,7 +4495,7 @@ seafile:
     # -- The hostname of your database
     DB_HOST: "{{ .Release.Name }}-seafile-mysql"
     # -- The root password for mysql (used for initial setup)
-    DB_ROOT_PASSWD: seafilerootpass
+    DB_ROOT_PASSWD: wLu5UUuT@3Zu33eT
     # -- The initial admin user's email
     SEAFILE_ADMIN_EMAIL: "{{ .Release.Name }}@elfhosted.com"
     # -- The initial admin user's password
@@ -4520,9 +4520,9 @@ seafile:
       
     auth:
       rootPassword: "wLu5UUuT@3Zu33eT"
-      database: "seafile"
-      username: "seafile"
-      password: "nXCXSmqU4TMk3okD"
+      # database: "seafile"
+      # username: "seafile"
+      # password: "nXCXSmqU4TMk3okD"
       
     primary:
       persistence:
