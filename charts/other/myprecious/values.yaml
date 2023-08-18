@@ -4462,8 +4462,9 @@ flaresolverr:
 
 seafile:
   enabled: false
+  runtimeClassName: kata
   sso:
-    enabled: true
+    enabled: false
   image:
     repository: ghcr.io/geek-cookbook/seafile
     tag: 10.0.1@sha256:07c85638a5f6c14ae50441447f6ce926039251c7efb0accd1d206a274eb402d8
@@ -4475,8 +4476,8 @@ seafile:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    runAsUser: 568
-    runAsGroup: 568
+    # runAsUser: 568 # has to run as root, see https://github.com/haiwen/seafile-docker/issues/86
+    # runAsGroup: 568
   automountServiceAccountToken: false
   controller:
     annotations:
@@ -4503,7 +4504,7 @@ seafile:
     SEAFILE_SERVER_HOSTNAME: "{{ .Release.Name }}.seafile.elfhosted.com"
     SEAFILE_SERVER_LETSENCRYPT: false
     FORCE_HTTPS_IN_CONF: false
-    NON_ROOT: true
+    NON_ROOT: true # yes, and with our custom image, this runs the seafile/seahub components as user 568
   ingress:
     main:
       enabled: false
