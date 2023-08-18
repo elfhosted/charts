@@ -10,7 +10,7 @@ spec:
       services:
         - name: calibre
           kind: Service
-          port: 8081
+          port: 8080
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth          
         - name: {{ .Release.Name }}-add-cors-for-homer
