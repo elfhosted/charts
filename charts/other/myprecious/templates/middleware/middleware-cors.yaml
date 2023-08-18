@@ -13,3 +13,4 @@ spec:
     accessControlAllowCredentials: true
     accessControlMaxAge: 100
     addVaryHeader: true
+    accessControlAllowHeaders: "*"
