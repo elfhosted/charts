@@ -149,7 +149,7 @@ smbmountc: &smbmountc
       claimName: smbmount-c
   mountPath: /storage/smbmount-c
 elfstorage: &elfstorage
-  size: 10
+  size: 100
   enabled: true # always enabled
   type: custom
   volumeSpec:
@@ -507,16 +507,15 @@ rutorrentgluetun: &rutorrent
         configMap:
           name: rutorrent-config
           defaultMode: 0755
-    # temporarily disabled until we can cook a new image
-    # custom-s6-init-08:
-    #   enabled: "true"
-    #   mountPath: "/etc/cont-init.d/08-mam-cookies.sh"
-    #   subPath: "08-mam-cookies.sh "
-    #   type: "custom"
-    #   volumeSpec:
-    #     configMap:
-    #       name: rutorrent-config
-    #       defaultMode: 0755          
+    custom-s6-init-08:
+      enabled: "true"
+      mountPath: "/etc/cont-init.d/08-mam-cookies.sh"
+      subPath: "08-mam-cookies.sh "
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rutorrent-config
+          defaultMode: 0755          
   ingress:
     main:
       enabled: false

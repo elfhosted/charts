@@ -158,7 +158,7 @@ data:
     echo "Waiting for VPN to be connected..."
     while ! grep -s -q "connected" /shared/vpnstatus; do
         # Also account for gluetun-style http controller
-        if (curl -s http://localhost:8000/v1/openvpn/status | grep -q running); then
+        if (/usr/local/bin/curl -s http://localhost:8000/v1/openvpn/status | grep -q running); then
             break
         fi    
         echo "VPN not connected"
@@ -194,5 +194,5 @@ data:
     # Apply the port
     if [[ -f "/data/rtorrent/.mam.cookies" ]]; then
         # Apply the dynamic seedbox request
-        curl -c /data/rtorrent/.mam.cookies -b /data/rtorrent/.mam.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php
+        /usr/local/bin/curl -c /data/rtorrent/.mam.cookies -b /data/rtorrent/.mam.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php
     fi 
