@@ -4524,6 +4524,12 @@ seafile:
       password: "nXCXSmqU4TMk3okD"
       
     primary:
+      readinessProbe:
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+      livenessProbe:
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+      startupProbe:
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try    
       persistence:
         enabled: true
         existingClaim: config-seafile
