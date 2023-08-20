@@ -4591,15 +4591,15 @@ seafile:
               sleep 1d
             done
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
-      mountPath: /shared/seafile
+      mountPath: /shared
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-seafile
-        subPath: data             
+      subPath: data             
     elfbot:
       enabled: "true"
       type: "custom"
