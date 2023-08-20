@@ -13,7 +13,7 @@ data:
   # -- The initial admin user's email
   SEAFILE_ADMIN_EMAIL: "{{ .Values.traefikforwardauth.whitelist }}"
   # -- The initial admin user's password
-  SEAFILE_ADMIN_PASSWORD: "{{ .Values.seafile.initialPassword | default changeme }}"
+  SEAFILE_ADMIN_PASSWORD: "{{ .Values.seafile.initialPassword | default 'changeme' }}"
   # -- The hostname for the server (set to your ingress hostname)
   SEAFILE_SERVER_HOSTNAME: "{{ .Release.Name }}-seafile.elfhosted.com"
   SEAFILE_SERVER_LETSENCRYPT: false
