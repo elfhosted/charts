@@ -10,11 +10,11 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 8000
-    targetPort: 8000
+  - port: 80
+    targetPort: 80
     protocol: TCP
     name: http
   selector:
     app.kubernetes.io/name: seafile
     app.kubernetes.io/instance: {{ .Release.Name }}
-{{ end }}    
+{{ end }}
