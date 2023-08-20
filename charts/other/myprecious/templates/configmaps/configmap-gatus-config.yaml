@@ -640,9 +640,9 @@ data:
         alerts:
           - type: email           
 
-      - name: seafile-mariadb
+      - name: seafile-mysql
         group: tools
-        url: "tcp://{{ .Release.Name }}-seafile-mariadb:3306"
+        url: "tcp://{{ .Release.Name }}-seafile-mysql:3306"
         interval: 5m
         conditions:
           - "[CONNECTED] == true"   
