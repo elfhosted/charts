@@ -5,6 +5,20 @@ metadata:
   name: {{ .Release.Name }}-rutorrent.elfhosted.com
 spec:
   routes:
+{{ if .Values.rutorrentgluetun.enabled }}
+    - match: Host(`{{ .Release.Name }}.rutorrent.elfhosted.com`) && PathPrefix(`/gluetun/`)
+      kind: Rule
+      services:
+        - name: qbittorrent
+          kind: Service
+          port: 8001 # gluetun admin ui, adjusted for rutorrent
+      middlewares:
+        - name: {{ .Release.Name }}-add-cors-for-homer
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: {{ .Release.Name }}-strip-gluetun-prefix
+        - name: error-pages
+          namespace: traefik
+{{ end }}  
     - match: Host(`{{ .Release.Name }}-rutorrent.elfhosted.com`)
       kind: Rule
       services:
