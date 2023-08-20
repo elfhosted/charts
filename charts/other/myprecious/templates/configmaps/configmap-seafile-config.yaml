@@ -6,3 +6,16 @@ data:
   ccnet.conf: |
     [General]
     SERVICE_URL=https://{{ .Release.Name }}-seafile.elfhosted.com
+  # -- The hostname of your database
+  DB_HOST: "{{ .Release.Name }}-seafile-mysql"
+  # -- The root password for mysql (used for initial setup)
+  DB_ROOT_PASSWD: wLu5UUuT@3Zu33eT
+  # -- The initial admin user's email
+  SEAFILE_ADMIN_EMAIL: "{{ .Values.traefikforwardauth.whitelist }}"
+  # -- The initial admin user's password
+  SEAFILE_ADMIN_PASSWORD: "{{ .Values.seafile.initialPassword | default changeme }}"
+  # -- The hostname for the server (set to your ingress hostname)
+  SEAFILE_SERVER_HOSTNAME: "{{ .Release.Name }}-seafile.elfhosted.com"
+  SEAFILE_SERVER_LETSENCRYPT: false
+  FORCE_HTTPS_IN_CONF: false
+  NON_ROOT: true # yes, and with our custom image, this runs the seafile/seahub components as user 568    
