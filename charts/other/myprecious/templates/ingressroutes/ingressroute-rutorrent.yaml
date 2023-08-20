@@ -11,7 +11,7 @@ spec:
       services:
         - name: qbittorrent
           kind: Service
-          port: 8001 # gluetun admin ui, adjusted for rutorrent
+          port: 8042 # gluetun admin ui, adjusted for rutorrent
       middlewares:
         - name: {{ .Release.Name }}-add-cors-for-homer
         - name: {{ .Release.Name }}-traefik-forward-auth
