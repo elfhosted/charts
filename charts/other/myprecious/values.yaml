@@ -4495,6 +4495,8 @@ seafile:
     DB_HOST: "{{ .Release.Name }}-seafile-mysql"
     # -- The hostname for the server (set to your ingress hostname)
     SEAFILE_SERVER_HOSTNAME: "{{ .Release.Name }}-seafile.elfhosted.com"
+    # -- The initial admin user's password
+    SEAFILE_ADMIN_PASSWORD: 'changeme'
     SEAFILE_SERVER_LETSENCRYPT: false
     FORCE_HTTPS_IN_CONF: false
     NON_ROOT: true # yes, and with our custom image, this runs the seafile/seahub components as user 568
