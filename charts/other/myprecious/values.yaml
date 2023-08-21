@@ -4486,7 +4486,7 @@ seafile:
       cpu: 10m
       memory: 128Mi
     limits:
-      cpu: 4
+      cpu: "500m"
       memory: 128Mi
   env:
     # -- Set the container timezone
@@ -4503,7 +4503,7 @@ seafile:
     SEAFILE_SERVER_HOSTNAME: "{{ .Release.Name }}-seafile.elfhosted.com"
     SEAFILE_SERVER_LETSENCRYPT: false
     FORCE_HTTPS_IN_CONF: false
-    NON_ROOT: true # yes, and with our custom image, this runs the seafile/seahub components as user 568
+    # NON_ROOT: true # yes, and with our custom image, this runs the seafile/seahub components as user 568
   ingress:
     main:
       enabled: false
@@ -5122,10 +5122,11 @@ openbooks:
     set -x
     set -e
     sleep 5s
+    USER=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo '')
     ./openbooks server \
       --dir /storage/elfstorage/downloads/completed \
       --port 8000 \
-      --name elfhosted-user \
+      --name $USER \
       --tls=false \
       --persist \
       --server irc.irchighway.net:6661 \
