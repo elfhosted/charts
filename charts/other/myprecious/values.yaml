@@ -4503,7 +4503,7 @@ seafile:
     # -- The hostname for the server (set to your ingress hostname)
     SEAFILE_SERVER_HOSTNAME: "{{ .Release.Name }}-seafile.elfhosted.com"
     SEAFILE_SERVER_LETSENCRYPT: false
-    FORCE_HTTPS_IN_CONF: false
+    FORCE_HTTPS_IN_CONF: true
     NON_ROOT: true # yes, and with our custom image, this runs the seafile/seahub components as user 568
   envFrom:
   - configMapRef:

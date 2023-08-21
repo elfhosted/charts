@@ -6,6 +6,7 @@ metadata:
 data:
 
   # These are used by the gluetun image
+  DOT: "off"
   VPN_SERVICE_PROVIDER: "{{ .Values.delugegluetun.VPN_SERVICE_PROVIDER | default }}"
   VPN_TYPE: "{{ .Values.delugegluetun.VPN_TYPE | default }}"
   VPN_ENDPOINT_IP: "{{ .Values.delugegluetun.VPN_ENDPOINT_IP | default }}"

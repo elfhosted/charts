@@ -6,6 +6,7 @@ metadata:
 data:
 
   # These are used by the gluetun image
+  DOT: "off"
   VPN_SERVICE_PROVIDER: "{{ .Values.qbittorrentgluetun.VPN_SERVICE_PROVIDER | default }}"
   VPN_TYPE: "{{ .Values.qbittorrentgluetun.VPN_TYPE | default }}"
   VPN_ENDPOINT_IP: "{{ .Values.qbittorrentgluetun.VPN_ENDPOINT_IP | default }}"
