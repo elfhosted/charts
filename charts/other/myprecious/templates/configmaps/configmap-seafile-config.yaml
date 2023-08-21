@@ -3,6 +3,10 @@ kind: ConfigMap
 metadata:
   name: seafile-config
 data:
+  # -- The initial admin user's email
+  SEAFILE_ADMIN_EMAIL: "{{ .Values.traefik_forward_auth.whitelist }}"
+    # -- The initial admin user's password
+  SEAFILE_ADMIN_PASSWORD: "{{ .Values.seafile.initialPassword | default 'changeme' }}"
   ccnet.conf: |
     [General]
     SERVICE_URL=https://{{ .Release.Name }}-seafile.elfhosted.com
