@@ -4519,6 +4519,7 @@ seafile:
       configmap.reloader.stakater.com/reload: "elfbot-seafile"
     auth:
       existingSecret: "seafile-mysql-credentials"
+      rootPassword: "ignored-because-we-provide-existing-secret"
     primary:
       readinessProbe:
         enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
