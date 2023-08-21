@@ -2869,7 +2869,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.644@sha256:4bcb2542e827597c6f08802e1c1ba6f889ffad83a43fe7e1213eb8572de138a1
+    tag: 4.0.0.642@sha256:ad618d0f70902745bac5e9c212fd845d24126b104d19a4d5531bf3b84b978333
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2942,7 +2942,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.644@sha256:4bcb2542e827597c6f08802e1c1ba6f889ffad83a43fe7e1213eb8572de138a1
+    tag: 4.0.0.642@sha256:ad618d0f70902745bac5e9c212fd845d24126b104d19a4d5531bf3b84b978333
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3317,7 +3317,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2176@sha256:359f63d4ad50ce2cefcff19c2361171af41ff078cbeed77016a0ca651c83bf32
+    tag: 0.3.4.2173@sha256:17cfa1f22f0fcae9359bc1f98d7a3555282503af2134a0c525db403d9e48e3b8
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3395,7 +3395,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2176@sha256:359f63d4ad50ce2cefcff19c2361171af41ff078cbeed77016a0ca651c83bf32
+    tag: 0.3.4.2173@sha256:17cfa1f22f0fcae9359bc1f98d7a3555282503af2134a0c525db403d9e48e3b8
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4493,16 +4493,16 @@ seafile:
     TIME_ZONE: Etc/UTC
     # -- The hostname of your database
     DB_HOST: "{{ .Release.Name }}-seafile-mysql"
+    # -- The root password for mysql (used for initial setup)
+    DB_ROOT_PASSWD: wLu5UUuT@3Zu33eT
+    # -- The initial admin user's password
+    SEAFILE_ADMIN_PASSWORD: changeme
     # -- The hostname for the server (set to your ingress hostname)
     SEAFILE_SERVER_HOSTNAME: "{{ .Release.Name }}-seafile.elfhosted.com"
-    # -- The initial admin user's password
-    SEAFILE_ADMIN_PASSWORD: 'changeme'
     SEAFILE_SERVER_LETSENCRYPT: false
     FORCE_HTTPS_IN_CONF: false
     NON_ROOT: true # yes, and with our custom image, this runs the seafile/seahub components as user 568
   envFrom:
-  - secretRef:
-      name: seafile-mysql-credentials
   - configMapRef:
       name: seafile-config
   ingress:
@@ -4517,9 +4517,13 @@ seafile:
     architecture: standalone
     commonAnnotations:
       configmap.reloader.stakater.com/reload: "elfbot-seafile"
+      
     auth:
-      existingSecret: "seafile-mysql-credentials"
-      rootPassword: "ignored-because-we-provide-existing-secret"
+      rootPassword: "wLu5UUuT@3Zu33eT"
+      database: "seafile"
+      username: "seafile"
+      password: "nXCXSmqU4TMk3okD"
+      
     primary:
       readinessProbe:
         enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
