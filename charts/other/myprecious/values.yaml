@@ -4504,7 +4504,7 @@ seafile:
     SEAFILE_SERVER_HOSTNAME: "{{ .Release.Name }}-seafile.elfhosted.com"
     SEAFILE_SERVER_LETSENCRYPT: false
     FORCE_HTTPS_IN_CONF: false
-    SEAFILE_ADMIN_EMAIL: # reset here because we're grabbing it from the configmap later
+    SEAFILE_ADMIN_EMAIL: null # reset here because we're grabbing it from the configmap later
     NON_ROOT: true # yes, and with our custom image, this runs the seafile/seahub components as user 568
   envFrom:
   - configMapRef:
