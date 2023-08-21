@@ -4511,6 +4511,9 @@ seafile:
   service:
     main:
       enabled: true # debug whether this gets us probes
+  memcached:
+    nameOverride: memcached
+    enabled: true
   mysql:
     nameOverride: seafile-mysql
     enabled: true
