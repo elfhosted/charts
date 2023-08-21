@@ -9,5 +9,5 @@ spec:
   - ReadWriteMany
   resources:
     requests:
-      storage: {{ .Values.elfstorage.size }}Gi
+      storage: {{ add 100 (mul 1000 .Values.elfstoragetb.quantity ) }}Gi # default to 100Gi, but let users buy more in 1TB "chunks"
   storageClassName: ceph-filesystem

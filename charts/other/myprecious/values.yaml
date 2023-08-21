@@ -149,7 +149,6 @@ smbmountc: &smbmountc
       claimName: smbmount-c
   mountPath: /storage/smbmount-c
 elfstorage: &elfstorage
-  size: 100
   enabled: true # always enabled
   type: custom
   volumeSpec:
@@ -307,8 +306,9 @@ bootstrap: &bootstrap
   resources: *default_resources
   securityContext: *default_securitycontext
 
-persistence:
-  size: 1000Gi
+# This lets users buy blocks of 1TB storage, and add it to their 100Gi
+elfstoragetb:
+  quantity: 0
 
 themepark:
   theme: default # the default themegarden theme
