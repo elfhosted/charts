@@ -5246,7 +5246,7 @@ notifiarr:
   hostname: elfhosted
   image:
     repository: ghcr.io/geek-cookbook/notifiarr
-    tag: 0.5.2@sha256:c5c4640bfae8a3a064d6932ba49b05c872efec05db382e52f8c79900856f25cb
+    tag: 0.6.0@sha256:ee40243d0e3b787027813f2979b0c665939e8c48908793424a68846c5828e2cf
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -5302,7 +5302,7 @@ notifiarr:
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
-      image: ghcr.io/geek-cookbook/notifiarr:0.5.2@sha256:c5c4640bfae8a3a064d6932ba49b05c872efec05db382e52f8c79900856f25cb
+      image: ghcr.io/geek-cookbook/notifiarr:0.6.0@sha256:ee40243d0e3b787027813f2979b0c665939e8c48908793424a68846c5828e2cf
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
