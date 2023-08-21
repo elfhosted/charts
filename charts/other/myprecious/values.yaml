@@ -309,6 +309,9 @@ bootstrap: &bootstrap
 # This lets users buy blocks of 1TB storage, and add it to their 100Gi
 elfstoragetb:
   quantity: 0
+# And this lets a user buy a bundle (different SKU), and then still add more elfstorage later
+elfstoragetbbundled:
+  quantity: 0  
 
 themepark:
   theme: default # the default themegarden theme
