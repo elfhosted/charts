@@ -1,0 +1,20 @@
+{{ if .Values.seafile.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: seafile-memcached
+  labels:
+    app.kubernetes.io/name: seafile-memcached
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 11211
+    targetPort: 11211
+    protocol: TCP
+    name: memcache
+  selector:
+    app.kubernetes.io/name: seafile-memcached
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}
