@@ -4316,11 +4316,11 @@ gatus:
   automountServiceAccountToken: false
   resources:
     requests:
-      cpu: 10m
+      cpu: 1m
       memory: 20Mi
     limits:
-      cpu: 10m
-      memory: 256Mi
+      cpu: 20m
+      memory: 128Mi
   ingress:
     main:
       enabled: false
