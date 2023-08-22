@@ -794,7 +794,7 @@ qbittorrentgluetun: &qbittorrent
   image:
     registry: ghcr.io
     repository: geek-cookbook/qbittorrent
-    tag: 4.5.4@sha256:54776f6940b46bedae4638a4f55a5c6e79b9fe49d055c1b42b547e2013fcf4d8
+    tag: 4.5.4@sha256:1d6643c13c8963fe8708bfd1f53702d0621bc707f50bd5711e44614005af7255
   priorityClassName: tenant-normal
   securityContext:
     runAsUser: 568
@@ -3325,7 +3325,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2177@sha256:bb94d7cc864d4cf6871815bf083f6c8563ec786e166ceab637565b57630e332e
+    tag: 0.3.4.2178@sha256:02f8600bbda3173e2b4941c9029bfad918f353ae28c956af885c7e80935c03a1
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3403,7 +3403,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2177@sha256:bb94d7cc864d4cf6871815bf083f6c8563ec786e166ceab637565b57630e332e
+    tag: 0.3.4.2178@sha256:02f8600bbda3173e2b4941c9029bfad918f353ae28c956af885c7e80935c03a1
   securityContext:
     seccompProfile:
       type: RuntimeDefault
