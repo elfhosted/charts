@@ -877,6 +877,11 @@ qbittorrentgluetun: &qbittorrent
         set -x
         set -e
 
+        # Remove the lockfile if it exists
+        if [[ -f /config/qBittorrent/lockfile ]]; then
+          rm /config/qBittorrent/lockfile
+        fi
+
         mkdir -p /config/qBittorrent/torrent_files/complete
         mkdir -p /config/qBittorrent/torrent_files/incomplete
 
