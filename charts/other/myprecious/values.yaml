@@ -4305,6 +4305,7 @@ gatus:
     repository: ghcr.io/geek-cookbook/gatus
     tag: 5.5.1@sha256:4e719a26ed89de53a393d8c1f53123da456acb4462843968aa1e2ff874779ccf
   priorityClassName: tenant-low
+  runtimeClassName: kata-fc
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4318,8 +4319,8 @@ gatus:
       cpu: 10m
       memory: 20Mi
     limits:
-      cpu: 2
-      memory: 64Mi
+      cpu: 10m
+      memory: 256Mi
   ingress:
     main:
       enabled: false
@@ -4328,8 +4329,8 @@ gatus:
       enabled: true # necessary for probes
   controller:
     strategy: RollingUpdate
-    # annotations:
-    #   configmap.reloader.stakater.com/reload: "gatus-config"    
+    annotations:
+      configmap.reloader.stakater.com/reload: "gatus-config"    
   env:
     GATUS_CONFIG_PATH: /config/config.yaml 
     SMTP_FROM: 'health@elfhosted.com'
