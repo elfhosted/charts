@@ -4305,7 +4305,6 @@ gatus:
     repository: ghcr.io/geek-cookbook/gatus
     tag: 5.5.1@sha256:4e719a26ed89de53a393d8c1f53123da456acb4462843968aa1e2ff874779ccf
   priorityClassName: tenant-low
-  runtimeClassName: kata-fc
   securityContext:
     seccompProfile:
       type: RuntimeDefault
