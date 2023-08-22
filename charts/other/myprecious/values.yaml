@@ -6337,7 +6337,7 @@ jdownloader:
       type: RuntimeDefault
     # runAsUser: 568
     # runAsGroup: 568
-    # fsGroup: 568
+    fsGroup: 568 # need this so that the bootstrap can run 
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   env:
