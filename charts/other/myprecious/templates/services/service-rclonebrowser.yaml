@@ -20,7 +20,11 @@ spec:
   - port: 5573
     targetPort: 5573
     protocol: TCP
-    name: rclonefm     
+    name: rclonefm    
+  - port: 5575
+    targetPort: 5575
+    protocol: TCP
+    name: rcloneweb       
 {{ if .Values.rclonewebdav.enabled }}
   - port: 5574
     targetPort: 5574

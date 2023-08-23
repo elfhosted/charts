@@ -5743,8 +5743,8 @@ rclonebrowser:
         set -e
 
         # Migrate from rclonebrowser
-        if [[ ! -f xdg/config/rclone/rclone.conf ]]; then
-          cp xdg/config/rclone/rclone.conf /config/
+        if [[ ! -f /config/xdg/config/rclone/rclone.conf ]]; then
+          cp /config/xdg/config/rclone/rclone.conf /config/
         fi
 
         # add local remote if it doesn't exist
