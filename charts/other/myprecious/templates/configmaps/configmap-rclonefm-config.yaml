@@ -6,7 +6,7 @@ data:
   settings.js: |
     export const guiVersion = "0.4.0";
     export const rcloneSettings = {
-        host: "https://{{.Release.Name}}-rclonefm.elfhosted.com",
+        host: "https://{{.Release.Name}}-rcloneui.elfhosted.com",
         // null if --rc-no-auth, otherwise what is set in --rc-user
         user: null,
         // null if --rc-no-auth, otherwise what is set in --rc-pass
@@ -24,8 +24,8 @@ data:
         "/operations/deletefile"
     ];
     export const remotes = {
-        "someExampleRemote": {
-            "startingFolder": "path/to/some/path/there",
+        "storage": {
+            "startingFolder": "/storage",
             "canQueryDisk": true,
             "pathToQueryDisk": ""
         }
