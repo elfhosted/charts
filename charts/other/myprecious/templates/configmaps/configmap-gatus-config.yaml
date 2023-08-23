@@ -568,15 +568,6 @@ data:
         alerts:
           - type: email
 
-      - name: rcloneweb
-        group: tools
-        url: "http://rclonebrowser:5575"
-        interval: 5m
-        conditions:
-          - "[STATUS] == 200"      
-        alerts:
-          - type: email
-
       {{ if .Values.rclonewebdav.enabled }}
       - name: rclonewebdav
         group: tools
