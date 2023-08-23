@@ -5681,7 +5681,7 @@ rclonebrowser:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.63.1@sha256:1eac200fa40acd765dcc630f9806111cec0376668dd2c0bcb7cfdbe3f4993f9f
+    tag: 1.63.1@sha256:c5fd5786b12beb5e30c639896e2c410895d475ae1ec2a45cc8450768a71316ba
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
@@ -5730,7 +5730,27 @@ rclonebrowser:
       volumeSpec:
         configMap:
           name: elfbot-rclonebrowser 
-          optional: true                 
+          optional: true                           
+  initContainers:
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Migrate from rclonebrowser
+        if [[ -f xdg/config/rclone/rclone.conf ]]; then
+          cp xdg/config/rclone/rclone.conf /config/
+        fi
+      volumeMounts:
+      - mountPath: /config
+        name: config      
+      resources: *default_resources
+      securityContext: *default_securitycontext              
   service:
     main:
       enabled: true # necessary for probes
