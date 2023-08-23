@@ -5731,7 +5731,12 @@ rclonebrowser:
         configMap:
           name: elfbot-rclonebrowser 
           optional: true                 
-
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5572
   ingress:
     main:
       enabled: false

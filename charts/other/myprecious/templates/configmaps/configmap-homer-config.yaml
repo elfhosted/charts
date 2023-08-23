@@ -1077,14 +1077,6 @@ data:
         icon: "fas fa-truck"
         items:
 
-          - name: "Rclone Browser"
-            logo: "assets/png/rclone.png"
-            subtitle: "Rclone Browser"
-            tag: "protected"
-            tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-rclonebrowser.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-
           - name: "Rclone Remotes"
             logo: "assets/png/rclone.png"
             subtitle: "Rclone remotes"

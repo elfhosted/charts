@@ -550,13 +550,6 @@ data:
         alerts:
           - type: email           
 
-      - name: rclonebrowser
-        group: tools
-        url: "http://rclonebrowser:5800"
-        interval: 5m
-        conditions:
-          - "[STATUS] == 200"
-
       - name: rcloneui
         group: tools
         url: "http://rclonebrowser:5572"
