@@ -5757,6 +5757,7 @@ rclonebrowser:
         type = alias
         remote = /storage
         fi
+        EOF
 
       volumeMounts:
       - mountPath: /config
