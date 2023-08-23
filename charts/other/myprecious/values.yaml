@@ -5743,9 +5743,19 @@ rclonebrowser:
         set -e
 
         # Migrate from rclonebrowser
-        if [[ -f xdg/config/rclone/rclone.conf ]]; then
+        if [[ ! -f xdg/config/rclone/rclone.conf ]]; then
           cp xdg/config/rclone/rclone.conf /config/
         fi
+
+        # add local remote if it doesn't exist
+        grep -q '/storage' /config/rclone.conf
+        if [[ $? -gt 0 ]]; then
+        cat << EOF >> /config/rclone.conf
+        [storage]
+        type = alias
+        remote = /storage
+        fi
+
       volumeMounts:
       - mountPath: /config
         name: config      
@@ -5939,6 +5949,12 @@ mattermost:
       password: "IUzI1NiJ9.eyJhdWQiOiIwMDk1MTkyYjhjZWIyYjVhNDQwMT"
       
     primary:
+      readinessProbe:
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+      livenessProbe:
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+      startupProbe:
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try    
       persistence:
         enabled: true
         existingClaim: config-mattermost
