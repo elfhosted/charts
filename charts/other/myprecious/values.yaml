@@ -5753,7 +5753,7 @@ rclonebrowser:
       securityContext: *default_securitycontext              
   service:
     main:
-      enabled: true # necessary for probes
+      enabled: false # necessary for probes
       ports:
         http:
           port: 5572
