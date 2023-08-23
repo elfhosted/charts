@@ -5743,11 +5743,13 @@ rclonebrowser:
         set -e
 
         # Migrate from rclonebrowser
-        if [[ ! -f /config/xdg/config/rclone/rclone.conf ]]; then
+        if [[ -f /config/xdg/config/rclone/rclone.conf ]]; then
           cp /config/xdg/config/rclone/rclone.conf /config/
+          mv /config/xdg /config/xdg_migrated_safe_to_delete
         fi
 
         # add local remote if it doesn't exist
+        touch /config/rclone.conf
         grep -q '/storage' /config/rclone.conf
         if [[ $? -gt 0 ]]; then
         cat << EOF >> /config/rclone.conf

@@ -1101,6 +1101,14 @@ data:
             url: "https://{{ .Release.Name }}-rclonefm.elfhosted.com"
             target: "_blank" # optional html tag target attribute   
 
+          - name: "Rclone Web"
+            logo: "assets/png/rclone.png"
+            subtitle: "Rclone Web"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-rcloneweb.elfhosted.com"
+            target: "_blank" # optional html tag target attribute               
+
           {{ if .Values.rclonewebdav.enabled }}
           - name: "Rclone WebDAV"
             logo: "assets/png/rclone.png"
