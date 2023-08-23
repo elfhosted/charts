@@ -4494,7 +4494,7 @@ seafile:
       cpu: 10m
       memory: 128Mi
     limits:
-      cpu: 500m
+      cpu: 1024m
       memory: 512Mi
   env:
     # -- Set the container timezone
