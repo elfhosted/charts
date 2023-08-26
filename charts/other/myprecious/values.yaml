@@ -3626,7 +3626,7 @@ jellyfin:
       cpu: 10m
       memory: 512Mi
     limits:
-      cpu: "500m"
+      cpu: 1
       memory: 2Gi
   additionalContainers:
     jellyfixer:
@@ -3699,7 +3699,7 @@ emby:
       cpu: "10m"
       memory: 512Mi
     limits:
-      cpu: "500m"
+      cpu: 1
       memory: 2048Mi
 
 homer:
