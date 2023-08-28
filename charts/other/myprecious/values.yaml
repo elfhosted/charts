@@ -177,7 +177,8 @@ appmounts: &appmounts
   rclonec: *rclonec  
   gdrivea: *gdrivea
   gdriveb: *gdriveb
-  gdrivec: *gdrivec   
+  gdrivec: *gdrivec 
+  onedrivea: *onedrivea   
   rclonemountwebdava: *rclonemountwebdava
   rclonemountssha: *rclonemountssha  
   storageboxa: *storageboxa
