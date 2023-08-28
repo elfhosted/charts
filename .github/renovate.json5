@@ -16,6 +16,7 @@
   "automerge": true,
   "automergeType": "pr",
   "platformAutomerge": true,
+  "prConcurrentLimit": 0,
   "ignoreTests": false,
   "packageRules": [
     {
