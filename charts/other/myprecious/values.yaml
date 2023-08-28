@@ -5396,7 +5396,7 @@ filebot:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/filebot-node
-    tag: 0.4.4@sha256:2a6313abcc5bc4e057d80900f2da1194d3ee6a5b334476825069f2bdebf6df99
+    tag: 0.4.5@sha256:79107d2a05c0fc9e351562e950ae1e747fe4f1ea3412476f822e780feb10f656
   env:
     PUID: 568
     PGID: 568
