@@ -13,11 +13,11 @@ data:
     do
 
       # Once for all of /config...
-      timeout 300 tree --du -hF -s  /config/ -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config -T "🧝 ElfHosted [/config] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config.html
+      tree --du -hF -s  /config/ -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config -T "🧝 ElfHosted [/config] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config.html
 
       for STORAGE_PATH in $(ls /config); do
         # And again per-app /config...
-       timeout 300 tree --du -hF -s  /config/${STORAGE_PATH} -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/${STORAGE_PATH} -T "🧝 ElfHosted [/config/${STORAGE_PATH}] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config-${STORAGE_PATH}.html
+        tree --du -hF -s  /config/${STORAGE_PATH} -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/${STORAGE_PATH} -T "🧝 ElfHosted [/config/${STORAGE_PATH}] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config-${STORAGE_PATH}.html
 
         df -Ph /config/${STORAGE_PATH} | sed s/%//g > /www/assets/message/disk_space_${STORAGE_PATH}.txt
         PERCENTAGE_USED=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | sed s/%//g | awk '{print $5}' | tail -n1)
@@ -49,7 +49,7 @@ data:
       
       cat /dev/null > /www/assets/message/message_details.html
       # And once for everything else...
-      for STORAGE_PATH in $(ls /storage); do
+      for STORAGE_PATH in $(ls /storage | grep -E 'elfstorage|storagebox|smb'); do
         tree --du -hF -s  /storage/$STORAGE_PATH/  -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/$STORAGE_PATH -T "🧝 ElfHosted [/storage/$STORAGE_PATH] usage for {{ .Release.Name }}" > /www/assets/message/disk-usage-$STORAGE_PATH.html
 
         # Summarize 
@@ -1077,20 +1077,12 @@ data:
         icon: "fas fa-truck"
         items:
 
-          - name: "Rclone Browser"
-            logo: "assets/png/rclone.png"
-            subtitle: "Rclone Browser"
-            tag: "protected"
-            tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-rclonebrowser.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-
           - name: "Rclone Remotes"
             logo: "assets/png/rclone.png"
             subtitle: "Rclone remotes"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/rclonebrowser/xdg/config/rclone/rclone.conf"
+            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/rclonebrowser/rclone.conf"
             target: "_blank" # optional html tag target attribute            
 
           - name: "Rclone UI"
@@ -1107,7 +1099,7 @@ data:
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-rclonefm.elfhosted.com"
-            target: "_blank" # optional html tag target attribute   
+            target: "_blank" # optional html tag target attribute               
 
           {{ if .Values.rclonewebdav.enabled }}
           - name: "Rclone WebDAV"

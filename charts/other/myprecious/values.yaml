@@ -794,7 +794,7 @@ qbittorrentgluetun: &qbittorrent
   image:
     registry: ghcr.io
     repository: geek-cookbook/qbittorrent
-    tag: 4.5.4@sha256:1d6643c13c8963fe8708bfd1f53702d0621bc707f50bd5711e44614005af7255
+    tag: 4.5.4@sha256:54776f6940b46bedae4638a4f55a5c6e79b9fe49d055c1b42b547e2013fcf4d8
   priorityClassName: tenant-normal
   securityContext:
     runAsUser: 568
@@ -3626,7 +3626,7 @@ jellyfin:
       cpu: 10m
       memory: 512Mi
     limits:
-      cpu: "500m"
+      cpu: 1
       memory: 2Gi
   additionalContainers:
     jellyfixer:
@@ -3699,7 +3699,7 @@ emby:
       cpu: "10m"
       memory: 512Mi
     limits:
-      cpu: "500m"
+      cpu: 1
       memory: 2048Mi
 
 homer:
@@ -4494,7 +4494,7 @@ seafile:
       cpu: 10m
       memory: 128Mi
     limits:
-      cpu: 500m
+      cpu: 1024m
       memory: 512Mi
   env:
     # -- Set the container timezone
@@ -5680,8 +5680,8 @@ rclonebrowser:
     enabled: true
   priorityClassName: tenant-low
   image:
-    repository: ghcr.io/geek-cookbook/rclonebrowser
-    tag: 1.63.1@sha256:1e1bef7d6bfbb2c23c47c7342f4e50af8824e7617d5667260000d08f0c2d9290
+    repository: ghcr.io/geek-cookbook/rclone
+    tag: 1.63.1@sha256:c5fd5786b12beb5e30c639896e2c410895d475ae1ec2a45cc8450768a71316ba
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
@@ -5730,8 +5730,46 @@ rclonebrowser:
       volumeSpec:
         configMap:
           name: elfbot-rclonebrowser 
-          optional: true                 
+          optional: true                           
+  initContainers:
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
 
+        # Migrate from rclonebrowser
+        if [[ -f /config/xdg/config/rclone/rclone.conf ]]; then
+          cp /config/xdg/config/rclone/rclone.conf /config/
+          mv /config/xdg /config/xdg_migrated_safe_to_delete
+        fi
+
+        # # add local remote if it doesn't exist
+        # touch /config/rclone.conf
+        # grep -q '/storage' /config/rclone.conf
+        # if [[ $? -gt 0 ]]; then
+        # cat << EOF >> /config/rclone.conf
+        # [storage]
+        # type = alias
+        # remote = /storage
+        # fi
+        # EOF
+
+      volumeMounts:
+      - mountPath: /config
+        name: config      
+      resources: *default_resources
+      securityContext: *default_securitycontext              
+  service:
+    main:
+      enabled: false # necessary for probes
+      ports:
+        http:
+          port: 5572
   ingress:
     main:
       enabled: false
@@ -5914,6 +5952,12 @@ mattermost:
       password: "IUzI1NiJ9.eyJhdWQiOiIwMDk1MTkyYjhjZWIyYjVhNDQwMT"
       
     primary:
+      readinessProbe:
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+      livenessProbe:
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
+      startupProbe:
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try    
       persistence:
         enabled: true
         existingClaim: config-mattermost
@@ -6337,7 +6381,7 @@ jdownloader:
       type: RuntimeDefault
     # runAsUser: 568
     # runAsGroup: 568
-    # fsGroup: 568
+    fsGroup: 568 # need this so that the bootstrap can run 
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   env:

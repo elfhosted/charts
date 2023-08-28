@@ -24,8 +24,8 @@ data:
         "/operations/deletefile"
     ];
     export const remotes = {
-        "someExampleRemote": {
-            "startingFolder": "path/to/some/path/there",
+        "storage": {
+            "startingFolder": "/storage",
             "canQueryDisk": true,
             "pathToQueryDisk": ""
         }
