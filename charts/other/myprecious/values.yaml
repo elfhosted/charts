@@ -2214,7 +2214,7 @@ uptimekuma:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/uptime-kuma
-    tag: 1.23.0@sha256:0e4a0d218f6e6bfa9ca0304a372e7c0148aab7af75b2a808931dbf05f8cd41ba
+    tag: 1.23.1@sha256:49cbb135e115ab84b4dbce27eeca0896773b24758dfe835ba79f707789eb3ca6
   priorityClassName: tenant-low
   controller:
     annotations:
