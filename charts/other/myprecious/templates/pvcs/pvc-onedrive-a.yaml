@@ -1,0 +1,16 @@
+{{ if .Values.onedrivea.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: onedrive-a
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: rclone-{{ .Release.Name }}-onedrive-a
+{{ end }}
