@@ -7,7 +7,8 @@
   "pinDigests": true,
   "ignorePaths": ["charts/apps/**","charts/library/**","charts/other/app-template"],  
   "allowedPostUpgradeCommands": ["./scripts/bump-myprecious.sh"],
-  "prConcurrentLimit": 1,
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
   "postUpgradeTasks": {
     "commands": ["./scripts/bump-myprecious.sh"],
     "fileFilters": ["charts/other/myprecious/Chart.yaml"],
@@ -16,7 +17,6 @@
   "automerge": true,
   "automergeType": "pr",
   "platformAutomerge": true,
-  "prConcurrentLimit": 0,
   "ignoreTests": false,
   "packageRules": [
     {
