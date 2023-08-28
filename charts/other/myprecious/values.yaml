@@ -3640,7 +3640,7 @@ emby:
   image:
     registry: ghcr.io
     repository: geek-cookbook/emby
-    tag: 4.7.13.0@sha256:d40b6dd5109452623266bd710cd3f78d258b30ed8b76ccc9f1a7f848056e2625
+    tag: 4.7.14.0@sha256:ccdad65c7c631f60f9b1859e748d075b5923249b0f6b1f2c6058ad8942417fcc
   enabled: false
   priorityClassName: tenant-streaming
   securityContext:
