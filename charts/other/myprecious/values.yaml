@@ -330,93 +330,45 @@ userId: 1
 # our VPN loadbalancerIP
 torrentLoadBalancerIP: 10.0.42.101
 
-minio:
-  sso:
-    enabled: true
-
-  image:
-    repository: quay.io/minio/minio
-    tag: RELEASE.2022-10-24T18-35-07Z # don't go beyond this point, or fs backend will stop working, per https://github.com/minio/docs/issues/624
-
+# these are the "exposed" services which allow users to override SSO
+# by themselves, they do nothing, but they allow us to selectively disable
+# SSO on ingressroutes, or to use non-standard API keys in Homer
+radarrexposed:
+  enabled: false
+  apikey: 041776c8d5f74bf295aa486d9d51c33a
+radarr4kexposed:
+  enabled: false
+  apikey: 7da5d4ba79804527b78a78b68c7a0781
+sonarrrexposed:
+  enabled: false
+  apikey: a6f1c7d07fab4be49c5c1cb545f85a76
+sonarr4kexposed:
+  enabled: false
+  apikey: e4f93c115169484bbed19821f7ac8e49
+lidarrexposed:
+  enabled: false
+  apikey: 0e68e28531a249659737513d3102bfe9
+readarrexposed:
+  enabled: false
+  apikey: ada51fcb59014c14970fe66d6206ed67
+readarraudioexposed:
+  enabled: false
+  apikey: 1696174031db48ba983ec288c00353a5
+prowlarrexposed:
+  enabled: false
+  apikey: c53bc3bd17c645c3a457e5342a02cd66
+qbittorrentexposed:
+  enabled: false
+delugeexposed:
+  enabled: false
+rutorrentexposed:
+  enabled: false
+sabnzbdexposed:
+  enabled: false
+  apikey: 8flkbru7ncdps3dzzgk48q2msz41m4on
+nzbgetexposed:
   enabled: false
 
-  ## Set default accesskey, secretkey, Minio config file path, volume mount path and
-  ## number of nodes (only used for Minio distributed mode)
-  ## AccessKey and secretKey is generated when not set
-  ## Distributed Minio ref: https://docs.minio.io/docs/distributed-minio-quickstart-guide
-  ##
-  accessKey: ""
-  secretKey: ""
-  certsPath: "/etc/minio/certs/"
-  configPathmc: "/etc/minio/mc/"
-  mountPath: "/export"
-
-  ## Create multiple buckets after minio install
-  ## Enabling `defaultBucket` will take priority over this list
-  ##
-  mode: standalone
-
-  # still debugging this
-  # environment:
-  #   MINIO_SERVER_URL: "https://{{ .Release.Name }}-minio.elfhosted.com"
-  #   MINIO_BROWSER_REDIRECT_URL: "https://{{ .Release.Name }}-minio-console.elfhosted.com"
-
-  # This matches the user used by the k8s-at-home charts
-  securityContext:
-    enabled: true
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
-    seccompProfile:
-      type: RuntimeDefault
-    readOnlyRootFilesystem: true
-
-  users: []
-    # ## Username, password and policy to be assigned to the user
-    # ## Default policies are [readonly|readwrite|writeonly|consoleAdmin|diagnostics]
-    # ## Add new policies as explained here https://docs.min.io/docs/minio-multi-user-quickstart-guide.html
-    # ## NOTE: this will fail if LDAP is enabled in your MinIO deployment
-    # ## make sure to disable this if you are using LDAP.
-    # - accessKey: console
-    #   existingSecret: minio-user-credentials
-    #   existingSecretKey: password
-    #   policy: consoleAdmin
-
-  buckets: []
-
-  networkPolicy:
-    enabled: false
-    allowExternal: true
-
-  persistence:
-    enabled: true # What happens if I disable this?
-    size: 123Gi
-    mountPath: /data
-    existingClaim: byos
-
-  volumePermissions:
-    enabled: true
-
-  # Don't allow minio to overconsume resources
-  resources:
-    requests:
-      cpu: 10m
-      memory: 50Mi
-    limits:
-      cpu: 250m
-      memory: 2Gi
-
-  makeUserJob:
-    annotations:
-      kube-score/ignore: container-security-context-readonlyrootfilesystem
-    resources: *default_resources
-  makeBucketJob:
-    annotations:
-      kube-score/ignore: container-security-context-readonlyrootfilesystem
-    resources: *default_resources
-
-  ignoreChartChecksums: true
 
 rutorrentgluetun: &rutorrent
   enabled: false

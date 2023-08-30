@@ -359,17 +359,17 @@ data:
           - name: "Radarr"
             logo: "assets/png/radarr.png"
             subtitle: "Manage Movies"
-            {{ if .Values.radarr.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.radarrexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-radarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             type: "Radarr"
-            apikey: "041776c8d5f74bf295aa486d9d51c33a"
+            apikey: "{{ .Values.radarrexposed.apikey }}"
             useCredentials: true
           {{ end }}
 
@@ -377,17 +377,17 @@ data:
           - name: "Radarr 4K"
             logo: "assets/png/radarr.png"
             subtitle: "Manage Movies (4K)"
-            {{ if .Values.radarr4k.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.radarr4kexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-radarr4k.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             type: "Radarr"
-            apikey: "7da5d4ba79804527b78a78b68c7a0781"
+            apikey: "{{ .Values.radarrexposed.apikey }}"
             useCredentials: true
           {{ end }}
 
@@ -395,17 +395,17 @@ data:
           - name: "Sonarr"
             logo: "assets/png/sonarr.png"
             subtitle: "Manage Series"
-            {{ if .Values.sonarr.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.sonarrexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-sonarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             type: "Sonarr"
-            apikey: "a6f1c7d07fab4be49c5c1cb545f85a76"
+            apikey: "{{ .Values.sonarrexposed.apikey }}"
             useCredentials: true
           {{ end }}
 
@@ -413,17 +413,17 @@ data:
           - name: "Sonarr 4K"
             logo: "assets/png/sonarr.png"
             subtitle: "Manage Series (4K)"
-            {{ if .Values.sonarr4k.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.sonarr4kexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-sonarr4k.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             type: "Sonarr"
-            apikey: "e4f93c115169484bbed19821f7ac8e49"
+            apikey: "{{ .Values.sonarr4kexposed.apikey }}"
             useCredentials: true
           {{ end }}
 
@@ -431,17 +431,17 @@ data:
           - name: "Lidarr"
             logo: "assets/png/lidarr.png"
             subtitle: "Manage Music"
-            {{ if .Values.lidarr.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.lidarrexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-lidarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             type: "Lidarr"
-            apikey: "0e68e28531a249659737513d3102bfe9"
+            apikey: "{{ .Values.lidarrexposed.apikey }}"
             useCredentials: true
           {{ end }}
 
@@ -449,17 +449,17 @@ data:
           - name: "Readarr"
             logo: "assets/png/readarr.png"
             subtitle: "Manage Books"
-            {{ if .Values.readarr.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.readarrexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-readarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             # type: "Readarr"
-            # apikey: "ada51fcb59014c14970fe66d6206ed67"
+            # apikey: "{{ .Values.readarrexposed.apikey }}"
             # useCredentials: true
           {{ end }}
 
@@ -467,17 +467,17 @@ data:
           - name: "Readarr (Audio)"
             logo: "assets/png/readarr.png"
             subtitle: "Manage Audio Books"
-            {{ if .Values.readarraudio.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.readarraudioexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-readarraudio.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             # type: "Readarr"
-            # apikey: "1696174031db48ba983ec288c00353a5"
+            # apikey: "{{ .Values.readarraudioexposed.apikey }}"
             # useCredentials: true
           {{ end }}
 
@@ -486,12 +486,12 @@ data:
           - name: "Bazarr"
             logo: "assets/png/bazarr.png"
             subtitle: "Manage Subtitles"
-            {{ if .Values.bazarr.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.bazarrexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-bazarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
@@ -501,12 +501,12 @@ data:
           - name: "Bazarr 4K"
             logo: "assets/png/bazarr.png"
             subtitle: "Manage Subtitles (4K)"
-            {{ if .Values.bazarr4k.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.bazarr4kexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-bazarr4k.elfhosted.com"
             target: "_blank" # optional html tag target attribute
@@ -730,12 +730,12 @@ data:
           - name: "NZBGet"
             logo: "assets/png/nzbget.png"
             subtitle: "Usenet client"
-            {{ if .Values.nzbget.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.nzbgetexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-nzbget.elfhosted.com"
             target: "_blank" # optional html tag target attribute
@@ -745,17 +745,17 @@ data:
           - name: "SABnzbd"
             logo: "assets/png/sabnzbd.png"
             subtitle: "Usenet client"
-            {{ if .Values.sabnzbd.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.sabnzbdexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-sabnzbd.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             type: "SABnzbd"
-            apikey: 8flkbru7ncdps3dzzgk48q2msz41m4on
+            apikey: "{{ .Values.sabnzbdexposed.apikey }}"
             downloadInterval: 60000 # (Optional) Interval (in ms) for updating the download count - so this would be 1m
             useCredentials: true
           {{ end }}
@@ -764,17 +764,17 @@ data:
           - name: "Prowlarr"
             logo: "assets/png/prowlarr.png"
             subtitle: "Manage Indexers"
-            {{ if .Values.prowlarr.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
+            {{ if .Values.prowlarrexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
+            {{ else }}
+            tag: "protected"
+            tagstyle: "is-success"
             {{ end }}
             url: "https://{{ .Release.Name }}-prowlarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             type: "Prowlarr"
-            apikey: "c53bc3bd17c645c3a457e5342a02cd66"
+            apikey: "{{ .Values.prowlarrexposed.apikey }}"
             useCredentials: true
           {{ end }}
 
@@ -812,8 +812,13 @@ data:
           - name: "Deluge"
             logo: "assets/png/deluge.png"
             subtitle: "Bittorrent client"
+            {{ if .Values.delugeexposed.enabled }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ else }}
             tag: "protected"
             tagstyle: "is-success"
+            {{ end }}
             url: "https://{{ .Release.Name }}-deluge.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -822,8 +827,13 @@ data:
           - name: "Qbittorrent"
             logo: "assets/png/qbittorrent.png"
             subtitle: "Bittorrent client"
+            {{ if .Values.qbittorrentexposed.enabled }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ else }}
             tag: "protected"
             tagstyle: "is-success"
+            {{ end }}
             url: "https://{{ .Release.Name }}-qbittorrent.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             type: "qBittorrent"
@@ -836,8 +846,13 @@ data:
           - name: "ruTorrent"
             logo: "assets/png/rutorrent.png"
             subtitle: "Bittorrent client"
+            {{ if .Values.rutorrentexposed.enabled }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ else }}
             tag: "protected"
             tagstyle: "is-success"
+            {{ end }}
             url: "https://{{ .Release.Name }}-rutorrent.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             # xmlrpc: "https://{{ .Release.Name }}-rutorrent.elfhosted.com" # Homer will automatically suffix /RPC2 to this, which we catch in our ingressroute.
