@@ -339,7 +339,7 @@ radarrexposed:
 radarr4kexposed:
   enabled: false
   apikey: 7da5d4ba79804527b78a78b68c7a0781
-sonarrrexposed:
+sonarrexposed:
   enabled: false
   apikey: a6f1c7d07fab4be49c5c1cb545f85a76
 sonarr4kexposed:
