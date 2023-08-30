@@ -6399,4 +6399,6 @@ jdownloader:
     podinfo:
       image: stefanprodan/podinfo # used to run probes from gatus
 
+nextcloud:
+  enabled: false
 # This file must end on a newline

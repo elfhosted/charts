@@ -953,21 +953,6 @@ data:
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com"
             target: "_blank" # optional html tag target attribute
 
-          {{ if .Values.minio.enabled }}
-          - name: "Minio"
-            logo: "assets/png/minio.png"
-            subtitle: "Manage Storage / Files"
-            {{ if .Values.minio.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
-            url: "https://{{ .Release.Name }}-minio-console.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-          {{ end }}
-
           {{ if .Values.privatebin.enabled }}
           - name: "Privatebin"
             logo: "assets/png/privatebin.png"
@@ -1010,6 +995,16 @@ data:
             tagstyle: "is-danger"
             {{ end }}
             url: "https://{{ .Release.Name }}-gotify.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.nextcloud.enabled }}
+          - name: "NextCloud"
+            logo: "assets/png/nextcloud.png"
+            subtitle: "Collaborate in the Cloud"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-nextcloud.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
