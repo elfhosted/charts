@@ -20,6 +20,7 @@ spec:
         - name: theme-park-lidarr-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
+    {{- if not .Values.lidarrexposed.enabled }}
     - match: Host(`{{ .Release.Name }}-lidarr.elfhosted.com`) && PathPrefix(`/api/`)
       kind: Rule
       services:
@@ -27,10 +28,8 @@ spec:
           kind: Service
           port: 8686
       middlewares:
-      {{- if .Values.lidarr.sso.enabled }}
-        - name: {{ .Release.Name }}-traefik-forward-auth
-      {{- end }}    
         - name: {{ .Release.Name }}-add-cors-for-homer 
         - name: error-pages
-          namespace: traefik                 
+          namespace: traefik
+    {{ end }}
 {{ end }}

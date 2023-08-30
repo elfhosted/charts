@@ -26,7 +26,9 @@ spec:
           kind: Service
           port: 8080
       middlewares:
+        {{- if not .Values.qbittorrentexposed.enabled }}
         - name: {{ .Release.Name }}-traefik-forward-auth
+        {{ end }}
         - name: {{ .Release.Name }}-add-cors-for-homer
         - name: error-pages
           namespace: traefik

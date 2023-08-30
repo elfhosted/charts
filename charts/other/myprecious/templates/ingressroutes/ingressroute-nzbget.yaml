@@ -12,7 +12,7 @@ spec:
           kind: Service
           port: 6789
       middlewares:
-      {{- if .Values.nzbget.sso.enabled }}
+      {{- if not .Values.nzbgetexposed.enabled }}
         - name: {{ .Release.Name }}-traefik-forward-auth
       {{- end }}
         - name: {{ .Release.Name }}-add-cors-for-homer

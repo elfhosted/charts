@@ -20,6 +20,7 @@ spec:
         - name: theme-park-sonarr-4k-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
+    {{ if .Values.sonarr4kexposed.enabled }}
     - match: Host(`{{ .Release.Name }}-sonarr4k.elfhosted.com`) && PathPrefix(`/api/`)
       kind: Rule
       services:
@@ -27,8 +28,6 @@ spec:
           kind: Service
           port: 8989
       middlewares:
-      {{- if .Values.sonarr4k.sso.enabled }}
-        - name: {{ .Release.Name }}-traefik-forward-auth
-      {{- end }}    
         - name: {{ .Release.Name }}-add-cors-for-homer
+    {{ end }}
 {{ end }}
