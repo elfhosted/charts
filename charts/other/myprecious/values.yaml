@@ -1,5 +1,5 @@
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: false
+safeToRelease: true
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20230624@sha256:3a43385968a692fd1ec02bffdea62ddb888e48cb3b883332aa98b1747f4a532b
@@ -6401,5 +6401,5 @@ jdownloader:
 
 nextcloud:
   enabled: false
-  
+
 # This file must end on a newline
