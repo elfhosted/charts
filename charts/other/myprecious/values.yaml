@@ -357,6 +357,10 @@ readarraudioexposed:
 prowlarrexposed:
   enabled: false
   apikey: c53bc3bd17c645c3a457e5342a02cd66
+bazarrexposed:
+  enabled: false
+bazarr4kexposed:
+  enabled: false
 qbittorrentexposed:
   enabled: false
 delugeexposed:
