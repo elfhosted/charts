@@ -758,7 +758,7 @@ qbittorrentgluetun: &qbittorrent
   image:
     registry: ghcr.io
     repository: geek-cookbook/qbittorrent
-    tag: 4.5.4@sha256:4a2f0c99c01fc043e584ac33908860656afd44d3dfc72e4735e37fc37e4edb8f
+    tag: 4.5.5@sha256:1fd020aeaffa61143d12ed1edae8e22aaf5e5b4950b0f527bbf44c6c9c08ad08
   priorityClassName: tenant-normal
   securityContext:
     runAsUser: 568
@@ -2841,7 +2841,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.651@sha256:f0d4b9966d8379808d9ea161347ab3e06ae5dcacc93712fa3cb5b22b9d9f5c33
+    tag: 4.0.0.657@sha256:08f85a8769ea89881eb376f8b37931cca8ae9ffd18f610bab1a3a54194378161
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2914,7 +2914,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.651@sha256:f0d4b9966d8379808d9ea161347ab3e06ae5dcacc93712fa3cb5b22b9d9f5c33
+    tag: 4.0.0.657@sha256:08f85a8769ea89881eb376f8b37931cca8ae9ffd18f610bab1a3a54194378161
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3058,7 +3058,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.8.4.3884@sha256:73db990073ccb17e5dd50044d01e2523d86cc2eade1d1ec259b7c2db6cbcf183
+    tag: 1.8.5.3896@sha256:e497cc65fdccde63e99e157afdb241e6b421714243128c2e0492f26edefbade3
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3289,7 +3289,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2187@sha256:e4f8910c4deaca5ba35074638bff57bc6f18d9a42cb4b7c7e2a52b6a16cf3fcb
+    tag: 0.3.4.2195@sha256:af9e0dc3d1655ff03b8ab82a15ab6f1ac196cdd12d6c89b55ebd9d58ba88a4c2
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3367,7 +3367,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2187@sha256:e4f8910c4deaca5ba35074638bff57bc6f18d9a42cb4b7c7e2a52b6a16cf3fcb
+    tag: 0.3.4.2195@sha256:af9e0dc3d1655ff03b8ab82a15ab6f1ac196cdd12d6c89b55ebd9d58ba88a4c2
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4383,7 +4383,7 @@ flaresolverr:
   image:
     registry: ghcr.io
     repository: flaresolverr/flaresolverr
-    tag: v3.3.2
+    tag: v3.3.4
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -5150,7 +5150,7 @@ vaultwarden:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/vaultwarden
-    tag: 1.29.1@sha256:b12e47b974734dbdfe6bd7a9d539f83bd1cda577d09c50833f15cbb5e7e0a465
+    tag: 1.29.2@sha256:7dcbe5fe5ef051c76dddce872409409a4fe4367db79a94b205f825e26f3699f1
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -5812,7 +5812,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 8.1.0@sha256:f9bc0efb5ebe0f137c3d5448a9b9c4de274cae727872a34440fe9442c7302042
+    tag: 8.1.1@sha256:9d4945e61f7808aebceb0fb11f57a9c386eb7083c86f771d18f9c7a913e591a5
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
@@ -6276,7 +6276,7 @@ rdtclient:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.32@sha256:0d910712c8ce56c82e8f5a112836a2e2ec08523d940e97a898139a88f48d0cef
+    tag: v2.0.34@sha256:44ea372fb9054d7bc16a529692d25e97bc4f375db3429b4cd1caa3fbdb0b2c2b
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-rdtclient"
