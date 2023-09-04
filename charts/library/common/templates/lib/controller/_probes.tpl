@@ -1,11 +1,11 @@
 {{/*
 Probes selection logic.
 */}}
-{{- define "common.controller.probes" -}}
-{{- $primaryService := get .Values.service (include "common.service.primary" .) -}}
+{{- define "geek-cookbook.common.controller.probes" -}}
+{{- $primaryService := get .Values.service (include "geek-cookbook.common.service.primary" .) -}}
 {{- $primaryPort := "" -}}
 {{- if $primaryService -}}
-  {{- $primaryPort = get $primaryService.ports (include "common.classes.service.ports.primary" (dict "serviceName" (include "common.service.primary" .) "values" $primaryService)) -}}
+  {{- $primaryPort = get $primaryService.ports (include "geek-cookbook.common.classes.service.ports.primary" (dict "serviceName" (include "geek-cookbook.common.service.primary" .) "values" $primaryService)) -}}
 {{- end -}}
 
 {{- range $probeName, $probe := .Values.probes }}

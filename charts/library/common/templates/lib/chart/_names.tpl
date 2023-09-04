@@ -1,5 +1,5 @@
 {{/* Expand the name of the chart */}}
-{{- define "common.names.name" -}}
+{{- define "geek-cookbook.common.names.name" -}}
   {{- $globalNameOverride := "" -}}
   {{- if hasKey .Values "global" -}}
     {{- $globalNameOverride = (default $globalNameOverride .Values.global.nameOverride) -}}
@@ -12,8 +12,8 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "common.names.fullname" -}}
-  {{- $name := include "common.names.name" . -}}
+{{- define "geek-cookbook.common.names.fullname" -}}
+  {{- $name := include "geek-cookbook.common.names.name" . -}}
   {{- $globalFullNameOverride := "" -}}
   {{- if hasKey .Values "global" -}}
     {{- $globalFullNameOverride = (default $globalFullNameOverride .Values.global.fullnameOverride) -}}
@@ -31,21 +31,21 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 {{/* Create chart name and version as used by the chart label */}}
-{{- define "common.names.chart" -}}
+{{- define "geek-cookbook.common.names.chart" -}}
   {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/* Create the name of the ServiceAccount to use */}}
-{{- define "common.names.serviceAccountName" -}}
+{{- define "geek-cookbook.common.names.serviceAccountName" -}}
   {{- if .Values.serviceAccount.create -}}
-    {{- default (include "common.names.fullname" .) .Values.serviceAccount.name -}}
+    {{- default (include "geek-cookbook.common.names.fullname" .) .Values.serviceAccount.name -}}
   {{- else -}}
     {{- default "default" .Values.serviceAccount.name -}}
   {{- end -}}
 {{- end -}}
 
 {{/* Return the properly cased version of the controller type */}}
-{{- define "common.names.controllerType" -}}
+{{- define "geek-cookbook.common.names.controllerType" -}}
   {{- if eq .Values.controller.type "deployment" -}}
     {{- print "Deployment" -}}
   {{- else if eq .Values.controller.type "daemonset" -}}

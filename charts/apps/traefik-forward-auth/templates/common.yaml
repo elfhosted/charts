@@ -1,11 +1,11 @@
 {{/* Make sure all variables are set properly */}}
-{{- include "common.values.setup" . }}
+{{- include "geek-cookbook.common.values.setup" . }}
 
 {{/*
 If there's an existing secret, reuse it, otherwise generate a new one.
 */}}
 {{- define "traefik-forward-auth.secret" -}}
-{{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "common.names.fullname" .) ) -}}
+{{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "geek-cookbook.common.names.fullname" .) ) -}}
   {{- if $secret -}}
     {{-  index $secret "data" "secret" -}}
   {{- else -}}
@@ -20,10 +20,10 @@ env:
   SECRET:
     valueFrom:
       secretKeyRef:
-        name: {{ include "common.names.fullname" . }}
+        name: {{ include "geek-cookbook.common.names.fullname" . }}
         key: secret
 {{- end }}
 {{- end -}}
 {{- $_ := mergeOverwrite .Values (include "traefik-forward-auth.harcodedValues" . | fromYaml) -}}
 
-{{ include "common.all" . }}
+{{ include "geek-cookbook.common.all" . }}

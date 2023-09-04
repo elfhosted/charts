@@ -1,5 +1,5 @@
 {{/* Volumes included by the controller */}}
-{{- define "common.controller.volumeMounts" -}}
+{{- define "geek-cookbook.common.controller.volumeMounts" -}}
   {{- range $persistenceIndex, $persistenceItem := .Values.persistence }}
     {{- $globalVar := get $.Values.global (printf "%s" $persistenceIndex) }}
     {{ $globalOverride := "" }}

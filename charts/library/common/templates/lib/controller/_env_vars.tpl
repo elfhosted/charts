@@ -1,7 +1,7 @@
 {{/*
 Environment variables used by containers.
 */}}
-{{- define "common.controller.env_vars" -}}
+{{- define "geek-cookbook.common.controller.env_vars" -}}
   {{- $values := .Values.env -}}
   {{- if hasKey . "ObjectValues" -}}
     {{- with .ObjectValues.env -}}

@@ -2,14 +2,14 @@
 This template serves as a blueprint for all PersistentVolumeClaim objects that are created
 within the common library.
 */}}
-{{- define "common.classes.pvc" -}}
+{{- define "geek-cookbook.common.classes.pvc" -}}
 {{- $values := .Values.persistence -}}
 {{- if hasKey . "ObjectValues" -}}
   {{- with .ObjectValues.persistence -}}
     {{- $values = . -}}
   {{- end -}}
 {{ end -}}
-{{- $pvcName := include "common.names.fullname" . -}}
+{{- $pvcName := include "geek-cookbook.common.names.fullname" . -}}
 {{- if and (hasKey $values "nameOverride") $values.nameOverride -}}
   {{- if not (eq $values.nameOverride "-") -}}
     {{- $pvcName = printf "%v-%v" $pvcName $values.nameOverride -}}
@@ -20,14 +20,14 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ $pvcName }}
-  {{- with (merge ($values.labels | default dict) (include "common.labels" $ | fromYaml)) }}
+  {{- with (merge ($values.labels | default dict) (include "geek-cookbook.common.labels" $ | fromYaml)) }}
   labels: {{- toYaml . | nindent 4 }}
   {{- end }}
   annotations:
     {{- if $values.retain }}
     "helm.sh/resource-policy": keep
     {{- end }}
-    {{- with (merge ($values.annotations | default dict) (include "common.annotations" $ | fromYaml)) }}
+    {{- with (merge ($values.annotations | default dict) (include "geek-cookbook.common.annotations" $ | fromYaml)) }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:

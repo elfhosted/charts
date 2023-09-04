@@ -1,14 +1,14 @@
 {{/*
 The Secret object to be created.
 */}}
-{{- define "common.secret" }}
+{{- define "geek-cookbook.common.secret" }}
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "common.names.fullname" . }}
-  labels: {{- include "common.labels" $ | nindent 4 }}
-  annotations: {{- include "common.annotations" $ | nindent 4 }}
+  name: {{ include "geek-cookbook.common.names.fullname" . }}
+  labels: {{- include "geek-cookbook.common.labels" $ | nindent 4 }}
+  annotations: {{- include "geek-cookbook.common.annotations" $ | nindent 4 }}
 type: Opaque
 {{- with .Values.secret }}
 stringData:

@@ -1,6 +1,6 @@
 {{- /* The main container included in the controller */ -}}
-{{- define "common.controller.mainContainer" -}}
-- name: {{ include "common.names.fullname" . }}
+{{- define "geek-cookbook.common.controller.mainContainer" -}}
+- name: {{ include "geek-cookbook.common.names.fullname" . }}
   {{- if .Values.image.registry }}
   image: {{ printf "%s/%s:%s" .Values.image.registry .Values.image.repository (default .Chart.AppVersion .Values.image.tag) | quote }}
   {{- else }}
@@ -40,7 +40,7 @@
 
   {{- with .Values.env }}
   env:
-    {{- get (fromYaml (include "common.controller.env_vars" $)) "env" | toYaml | nindent 4 -}}
+    {{- get (fromYaml (include "geek-cookbook.common.controller.env_vars" $)) "env" | toYaml | nindent 4 -}}
   {{- end }}
   {{- if or .Values.envFrom .Values.secret }}
   envFrom:
@@ -49,16 +49,16 @@
     {{- end }}
     {{- if .Values.secret }}
     - secretRef:
-        name: {{ include "common.names.fullname" . }}
+        name: {{ include "geek-cookbook.common.names.fullname" . }}
     {{- end }}
   {{- end }}
   ports:
-  {{- include "common.controller.ports" . | trim | nindent 4 }}
-  {{- with (include "common.controller.volumeMounts" . | trim) }}
+  {{- include "geek-cookbook.common.controller.ports" . | trim | nindent 4 }}
+  {{- with (include "geek-cookbook.common.controller.volumeMounts" . | trim) }}
   volumeMounts:
     {{- nindent 4 . }}
   {{- end }}
-  {{- include "common.controller.probes" . | trim | nindent 2 }}
+  {{- include "geek-cookbook.common.controller.probes" . | trim | nindent 2 }}
   {{- with .Values.resources }}
   resources:
     {{- toYaml . | nindent 4 }}

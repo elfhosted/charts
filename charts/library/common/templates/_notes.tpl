@@ -1,13 +1,13 @@
 {{/*
 Default NOTES.txt content.
 */}}
-{{- define "common.notes.defaultNotes" -}}
+{{- define "geek-cookbook.common.notes.defaultNotes" -}}
 
-{{- $primaryIngress := get .Values.ingress (include "common.ingress.primary" .) -}}
-{{- $primaryService := get .Values.service (include "common.service.primary" .) -}}
+{{- $primaryIngress := get .Values.ingress (include "geek-cookbook.common.ingress.primary" .) -}}
+{{- $primaryService := get .Values.service (include "geek-cookbook.common.service.primary" .) -}}
 {{- $primaryPort := "" -}}
 {{- if $primaryService -}}
-  {{- $primaryPort = get $primaryService.ports (include "common.classes.service.ports.primary" (dict "serviceName" (include "common.service.primary" .) "values" $primaryService)) -}}
+  {{- $primaryPort = get $primaryService.ports (include "geek-cookbook.common.classes.service.ports.primary" (dict "serviceName" (include "geek-cookbook.common.service.primary" .) "values" $primaryService)) -}}
 {{- end -}}
 
 {{- $prefix := "http" -}}
@@ -39,16 +39,16 @@ Default NOTES.txt content.
 {{- else if and $primaryService $primaryPort }}
 1. Get the application URL by running these commands:
 {{- if contains "NodePort" $primaryService.type }}
-  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "common.names.fullname" . }})
+  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "geek-cookbook.common.names.fullname" . }})
   export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
   echo {{ $prefix }}://$NODE_IP:$NODE_PORT
 {{- else if contains "LoadBalancer" $primaryService.type }}
      NOTE: It may take a few minutes for the LoadBalancer IP to be available.
-           You can watch the status of by running 'kubectl get svc -w {{ include "common.names.fullname" . }}'
-  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "common.names.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+           You can watch the status of by running 'kubectl get svc -w {{ include "geek-cookbook.common.names.fullname" . }}'
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "geek-cookbook.common.names.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
   echo {{ $prefix }}://$SERVICE_IP:{{ $primaryPort.port }}
 {{- else if contains "ClusterIP" $primaryService.type }}
-  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "common.names.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
+  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "geek-cookbook.common.names.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
   echo "Visit {{ $prefix }}://127.0.0.1:8080 to use your application"
   kubectl port-forward $POD_NAME 8080:{{ $primaryPort.port }}
 {{- end }}

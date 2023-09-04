@@ -1,1 +1,1 @@
-{{ include "common.all" . }}
+{{ include "geek-cookbook.common.all" . }}

@@ -1,15 +1,15 @@
 {{/*
 The promtail config to be included.
 */}}
-{{- define "common.addon.promtail.configmap" -}}
+{{- define "geek-cookbook.common.addon.promtail.configmap" -}}
 {{- if .Values.addons.promtail.enabled }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "common.names.fullname" . }}-promtail
-  labels: {{- include "common.labels" $ | nindent 4 }}
-  annotations: {{- include "common.annotations" $ | nindent 4 }}
+  name: {{ include "geek-cookbook.common.names.fullname" . }}-promtail
+  labels: {{- include "geek-cookbook.common.labels" $ | nindent 4 }}
+  annotations: {{- include "geek-cookbook.common.annotations" $ | nindent 4 }}
 data:
   promtail.yaml: |
     server:

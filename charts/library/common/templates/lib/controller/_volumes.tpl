@@ -1,7 +1,7 @@
 {{/*
 Volumes included by the controller.
 */}}
-{{- define "common.controller.volumes" -}}
+{{- define "geek-cookbook.common.controller.volumes" -}}
 {{- range $index, $persistence := .Values.persistence }}
 {{- $globalVar := get $.Values.global (printf "%s" $index) }}
 {{ $globalOverride := "" }}
@@ -13,7 +13,7 @@ Volumes included by the controller.
 {{- if $globalOverride }}
 - name: {{ $index }}
   {{- if eq (default "pvc" $persistence.type) "pvc" }}
-    {{- $pvcName := (include "common.names.fullname" $) -}}
+    {{- $pvcName := (include "geek-cookbook.common.names.fullname" $) -}}
     {{- if $persistence.existingClaim }}
       {{- /* Always prefer an existingClaim if that is set */}}
       {{- $pvcName = $persistence.existingClaim -}}
@@ -21,10 +21,10 @@ Volumes included by the controller.
       {{- /* Otherwise refer to the PVC name */}}
       {{- if $persistence.nameOverride -}}
         {{- if not (eq $persistence.nameOverride "-") -}}
-          {{- $pvcName = (printf "%s-%s" (include "common.names.fullname" $) $persistence.nameOverride) -}}
+          {{- $pvcName = (printf "%s-%s" (include "geek-cookbook.common.names.fullname" $) $persistence.nameOverride) -}}
         {{- end -}}
       {{- else -}}
-        {{- $pvcName = (printf "%s-%s" (include "common.names.fullname" $) $index) -}}
+        {{- $pvcName = (printf "%s-%s" (include "geek-cookbook.common.names.fullname" $) $index) -}}
       {{- end -}}
     {{- end }}
   persistentVolumeClaim:

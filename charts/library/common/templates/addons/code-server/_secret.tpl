@@ -1,15 +1,15 @@
 {{/*
 The OpenVPN credentials secrets to be included.
 */}}
-{{- define "common.addon.codeserver.deployKeySecret" -}}
+{{- define "geek-cookbook.common.addon.codeserver.deployKeySecret" -}}
 {{- if or .Values.addons.codeserver.git.deployKey .Values.addons.codeserver.git.deployKeyBase64 }}
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: {{ template "common.names.fullname" . }}-deploykey
-  labels: {{- include "common.labels" $ | nindent 4 }}
-  annotations: {{- include "common.annotations" $ | nindent 4 }}
+  labels: {{- include "geek-cookbook.common.labels" $ | nindent 4 }}
+  annotations: {{- include "geek-cookbook.common.annotations" $ | nindent 4 }}
 type: Opaque
 {{- if .Values.addons.codeserver.git.deployKey }}
 stringData:

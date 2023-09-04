@@ -1,5 +1,5 @@
 {{/* Make sure all variables are set properly */}}
-{{- include "common.values.setup" . }}
+{{- include "geek-cookbook.common.values.setup" . }}
 
 {{/* Append the hardcoded settings */}}
 {{- define "ghost.hardcodedValues" -}}
@@ -13,4 +13,4 @@ persistence:
 {{- $_ := mergeOverwrite .Values (include "ghost.hardcodedValues" . | fromYaml) -}}
 
 {{/* Render the templates */}}
-{{ include "common.all" . }}
+{{ include "geek-cookbook.common.all" . }}

@@ -1,7 +1,7 @@
 {{/*
 The Wireguard sidecar container to be inserted.
 */}}
-{{- define "common.addon.wireguard.container" -}}
+{{- define "geek-cookbook.common.addon.wireguard.container" -}}
 name: wireguard
 image: "{{ .Values.addons.vpn.wireguard.image.repository }}:{{ .Values.addons.vpn.wireguard.image.tag }}"
 imagePullPolicy: {{ .Values.addons.vpn.wireguard.pullPolicy }}

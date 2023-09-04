@@ -2,8 +2,8 @@
 This template serves as a blueprint for all configMap objects that are created
 within the common library.
 */}}
-{{- define "common.classes.configmap" -}}
-  {{- $fullName := include "common.names.fullname" . -}}
+{{- define "geek-cookbook.common.classes.configmap" -}}
+  {{- $fullName := include "geek-cookbook.common.names.fullname" . -}}
   {{- $configMapName := $fullName -}}
   {{- $values := .Values.configmap -}}
 
@@ -21,10 +21,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ $configMapName }}
-  {{- with (merge ($values.labels | default dict) (include "common.labels" $ | fromYaml)) }}
+  {{- with (merge ($values.labels | default dict) (include "geek-cookbook.common.labels" $ | fromYaml)) }}
   labels: {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with (merge ($values.annotations | default dict) (include "common.annotations" $ | fromYaml)) }}
+  {{- with (merge ($values.annotations | default dict) (include "geek-cookbook.common.annotations" $ | fromYaml)) }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
 data:

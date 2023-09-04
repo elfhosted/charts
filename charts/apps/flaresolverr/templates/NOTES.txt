@@ -1,1 +1,1 @@
-{{- include "common.notes.defaultNotes" . -}}
+{{- include "geek-cookbook.common.notes.defaultNotes" . -}}

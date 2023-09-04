@@ -1,12 +1,12 @@
 {{- /*
 The pod definition included in the controller.
 */ -}}
-{{- define "common.controller.pod" -}}
+{{- define "geek-cookbook.common.controller.pod" -}}
   {{- with .Values.imagePullSecrets }}
 imagePullSecrets:
     {{- toYaml . | nindent 2 }}
   {{- end }}
-serviceAccountName: {{ include "common.names.serviceAccountName" . }}
+serviceAccountName: {{ include "geek-cookbook.common.names.serviceAccountName" . }}
 automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
   {{- with .Values.podSecurityContext }}
 securityContext:
@@ -52,7 +52,7 @@ initContainers:
       {{- end }}
       {{- if $container.env -}}
         {{- $_ := set $ "ObjectValues" (dict "env" $container.env) -}}
-        {{- $newEnv := fromYaml (include "common.controller.env_vars" $) -}}
+        {{- $newEnv := fromYaml (include "geek-cookbook.common.controller.env_vars" $) -}}
         {{- $_ := unset $.ObjectValues "env" -}}
         {{- $_ := set $container "env" $newEnv.env }}
       {{- end }}
@@ -61,7 +61,7 @@ initContainers:
     {{- tpl (toYaml $initContainers) $ | nindent 2 }}
   {{- end }}
 containers:
-  {{- include "common.controller.mainContainer" . | nindent 2 }}
+  {{- include "geek-cookbook.common.controller.mainContainer" . | nindent 2 }}
   {{- with .Values.additionalContainers }}
     {{- $additionalContainers := list }}
     {{- range $name, $container := . }}
@@ -70,7 +70,7 @@ containers:
       {{- end }}
       {{- if $container.env -}}
         {{- $_ := set $ "ObjectValues" (dict "env" $container.env) -}}
-        {{- $newEnv := fromYaml (include "common.controller.env_vars" $) -}}
+        {{- $newEnv := fromYaml (include "geek-cookbook.common.controller.env_vars" $) -}}
         {{- $_ := set $container "env" $newEnv.env }}
         {{- $_ := unset $.ObjectValues "env" -}}
       {{- end }}
@@ -78,7 +78,7 @@ containers:
     {{- end }}
     {{- tpl (toYaml $additionalContainers) $ | nindent 2 }}
   {{- end }}
-  {{- with (include "common.controller.volumes" . | trim) }}
+  {{- with (include "geek-cookbook.common.controller.volumes" . | trim) }}
 volumes:
     {{- nindent 2 . }}
   {{- end }}

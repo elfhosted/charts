@@ -1,7 +1,7 @@
 {{/*
 The OpenVPN sidecar container to be inserted.
 */}}
-{{- define "common.addon.openvpn.container" -}}
+{{- define "geek-cookbook.common.addon.openvpn.container" -}}
 name: openvpn
 image: "{{ .Values.addons.vpn.openvpn.image.repository }}:{{ .Values.addons.vpn.openvpn.image.tag }}"
 imagePullPolicy: {{ .Values.addons.vpn.openvpn.pullPolicy }}
@@ -27,7 +27,7 @@ envFrom:
     {{- if .Values.addons.vpn.openvpn.authSecret }}
       name: {{ .Values.addons.vpn.openvpn.authSecret }}
     {{- else }}
-      name: {{ include "common.names.fullname" . }}-openvpn
+      name: {{ include "geek-cookbook.common.names.fullname" . }}-openvpn
     {{- end }}
 {{- end }}
 {{- if or .Values.addons.vpn.configFile .Values.addons.vpn.configFileSecret .Values.addons.vpn.scripts.up .Values.addons.vpn.scripts.down .Values.addons.vpn.additionalVolumeMounts .Values.persistence.shared.enabled }}

@@ -2,21 +2,21 @@
 This template serves as a blueprint for horizontal pod autoscaler objects that are created
 using the common library.
 */}}
-{{- define "common.classes.hpa" -}}
+{{- define "geek-cookbook.common.classes.hpa" -}}
   {{- if .Values.autoscaling.enabled -}}
-    {{- $hpaName := include "common.names.fullname" . -}}
-    {{- $targetName := include "common.names.fullname" . }}
+    {{- $hpaName := include "geek-cookbook.common.names.fullname" . -}}
+    {{- $targetName := include "geek-cookbook.common.names.fullname" . }}
 ---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ $hpaName }}
-  labels: {{- include "common.labels" $ | nindent 4 }}
-  annotations: {{- include "common.annotations" $ | nindent 4 }}
+  labels: {{- include "geek-cookbook.common.labels" $ | nindent 4 }}
+  annotations: {{- include "geek-cookbook.common.annotations" $ | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
-    kind: {{ include "common.names.controllerType" . }}
+    kind: {{ include "geek-cookbook.common.names.controllerType" . }}
     name: {{ .Values.autoscaling.target | default $targetName }}
   minReplicas: {{ .Values.autoscaling.minReplicas | default 1 }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas | default 3 }}

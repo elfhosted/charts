@@ -2,8 +2,8 @@
 This template serves as a blueprint for all Ingress objects that are created
 within the common library.
 */}}
-{{- define "common.classes.ingress" -}}
-  {{- $fullName := include "common.names.fullname" . -}}
+{{- define "geek-cookbook.common.classes.ingress" -}}
+  {{- $fullName := include "geek-cookbook.common.names.fullname" . -}}
   {{- $ingressName := $fullName -}}
   {{- $values := .Values.ingress -}}
 
@@ -17,22 +17,22 @@ within the common library.
     {{- $ingressName = printf "%v-%v" $ingressName $values.nameOverride -}}
   {{- end -}}
 
-  {{- $primaryService := get .Values.service (include "common.service.primary" .) -}}
+  {{- $primaryService := get .Values.service (include "geek-cookbook.common.service.primary" .) -}}
   {{- $defaultServiceName := $fullName -}}
   {{- if and (hasKey $primaryService "nameOverride") $primaryService.nameOverride -}}
     {{- $defaultServiceName = printf "%v-%v" $defaultServiceName $primaryService.nameOverride -}}
   {{- end -}}
-  {{- $defaultServicePort := get $primaryService.ports (include "common.classes.service.ports.primary" (dict "values" $primaryService)) -}}
-  {{- $isStable := include "common.capabilities.ingress.isStable" . }}
+  {{- $defaultServicePort := get $primaryService.ports (include "geek-cookbook.common.classes.service.ports.primary" (dict "values" $primaryService)) -}}
+  {{- $isStable := include "geek-cookbook.common.capabilities.ingress.isStable" . }}
 ---
-apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
+apiVersion: {{ include "geek-cookbook.common.capabilities.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ $ingressName }}
-  {{- with (merge ($values.labels | default dict) (include "common.labels" $ | fromYaml)) }}
+  {{- with (merge ($values.labels | default dict) (include "geek-cookbook.common.labels" $ | fromYaml)) }}
   labels: {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with (merge ($values.annotations | default dict) (include "common.annotations" $ | fromYaml)) }}
+  {{- with (merge ($values.annotations | default dict) (include "geek-cookbook.common.annotations" $ | fromYaml)) }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:

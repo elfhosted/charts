@@ -1,11 +1,11 @@
-{{- include "common.values.setup" . -}}
+{{- include "geek-cookbook.common.values.setup" . -}}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ template "common.names.fullname" . }}-config
   labels:
-  {{- include "common.labels" . | nindent 4 }}
+  {{- include "geek-cookbook.common.labels" . | nindent 4 }}
 data:
   conf.php: |
     ;<?php http_response_code(403); /*

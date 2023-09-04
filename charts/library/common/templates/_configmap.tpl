@@ -1,7 +1,7 @@
 {{/*
 Renders the configMap objects required by the chart.
 */}}
-{{- define "common.configmap" -}}
+{{- define "geek-cookbook.common.configmap" -}}
   {{- /* Generate named configMaps as required */ -}}
   {{- range $name, $configmap := .Values.configmap }}
     {{- if $configmap.enabled -}}
@@ -13,7 +13,7 @@ Renders the configMap objects required by the chart.
       {{ end -}}
 
       {{- $_ := set $ "ObjectValues" (dict "configmap" $configmapValues) -}}
-      {{- include "common.classes.configmap" $ }}
+      {{- include "geek-cookbook.common.classes.configmap" $ }}
     {{- end }}
   {{- end }}
 {{- end }}

@@ -1,32 +1,32 @@
 {{/*
 Renders the Service objects required by the chart.
 */}}
-{{- define "common.service" -}}
+{{- define "geek-cookbook.common.service" -}}
   {{- /* Generate named services as required */ -}}
   {{- range $name, $service := .Values.service -}}
     {{- if $service.enabled -}}
       {{- $serviceValues := $service -}}
 
       {{/* set the default nameOverride to the service name */}}
-      {{- if and (not $serviceValues.nameOverride) (ne $name (include "common.service.primary" $)) -}}
+      {{- if and (not $serviceValues.nameOverride) (ne $name (include "geek-cookbook.common.service.primary" $)) -}}
         {{- $_ := set $serviceValues "nameOverride" $name -}}
       {{ end -}}
 
       {{/* Include the Service class */}}
       {{- $_ := set $ "ObjectValues" (dict "service" $serviceValues) -}}
-      {{- include "common.classes.service" $ | nindent 0 -}}
+      {{- include "geek-cookbook.common.classes.service" $ | nindent 0 -}}
 
       {{/* Include a serviceMonitor if required */}}
       {{- if ($service.monitor).enabled | default false -}}
         {{- $_ := set $ "ObjectValues" (dict "serviceMonitor" $serviceValues.monitor) -}}
         {{- $_ := set $.ObjectValues.serviceMonitor "nameOverride" $serviceValues.nameOverride -}}
 
-        {{- $serviceName := include "common.names.fullname" $ -}}
+        {{- $serviceName := include "geek-cookbook.common.names.fullname" $ -}}
         {{- if and (hasKey $serviceValues "nameOverride") $serviceValues.nameOverride -}}
           {{- $serviceName = printf "%v-%v" $serviceName $serviceValues.nameOverride -}}
         {{ end -}}
         {{- $_ := set $.ObjectValues.serviceMonitor "serviceName" $serviceName -}}
-        {{- include "common.classes.serviceMonitor" $ | nindent 0 -}}
+        {{- include "geek-cookbook.common.classes.serviceMonitor" $ | nindent 0 -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
@@ -35,7 +35,7 @@ Renders the Service objects required by the chart.
 {{/*
 Return the primary service object
 */}}
-{{- define "common.service.primary" -}}
+{{- define "geek-cookbook.common.service.primary" -}}
   {{- $enabledServices := dict -}}
   {{- range $name, $service := .Values.service -}}
     {{- if $service.enabled -}}
