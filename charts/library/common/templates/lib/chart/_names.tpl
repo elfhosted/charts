@@ -1,17 +1,10 @@
 {{/* Expand the name of the chart */}}
-
-{{/* Replaced with the simplified version below this (from bitnami/common) to avoid conflicts */}}
-
-{{- define "common.names.oldname" -}}
+{{- define "common.names.name" -}}
   {{- $globalNameOverride := "" -}}
   {{- if hasKey .Values "global" -}}
     {{- $globalNameOverride = (default $globalNameOverride .Values.global.nameOverride) -}}
   {{- end -}}
   {{- default .Chart.Name (default .Values.nameOverride $globalNameOverride) | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "common.names.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
