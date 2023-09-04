@@ -968,6 +968,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
+          {{ if .Values.miniflux.enabled }}
+          - name: "Miniflux"
+            logo: "assets/png/miniflux.png"
+            subtitle: "Minimalistic RSS reader"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-miniflux.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
           {{ if .Values.uptimekuma.enabled }}
           - name: "Uptime Kuma"
             logo: "assets/png/uptime-kuma.png"

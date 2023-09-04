@@ -6402,4 +6402,6 @@ jdownloader:
 nextcloud:
   enabled: false
 
+miniflux:
+  enabled: false
 # This file must end on a newline

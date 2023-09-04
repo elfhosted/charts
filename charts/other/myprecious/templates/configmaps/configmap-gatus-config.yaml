@@ -588,7 +588,18 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email           
-      {{ end }}   
+      {{ end }}  
+
+      {{ if .Values.miniflux.enabled }}
+      - name: miniflux
+        group: tools
+        url: "http://miniflux:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}         
            
       {{ if .Values.uptimekuma.enabled }}
       - name: uptimekuma
