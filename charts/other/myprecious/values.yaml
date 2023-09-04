@@ -6404,4 +6404,36 @@ nextcloud:
 
 miniflux:
   enabled: false
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/miniflux
+    tag: 2.0.47
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-miniflux,miniflux-config"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1500m # if par threads is 1, this leaves 0.5cpu for downloading
+      memory: 1Gi
+  envFrom:
+  - configMapRef:
+      name: miniflux-config
+  postgresql:
+    nameOverride: miniflux-postgresql
+
 # This file must end on a newline
