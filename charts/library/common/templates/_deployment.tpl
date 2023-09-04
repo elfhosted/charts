@@ -39,7 +39,7 @@ spec:
       {{- include "geek-cookbook.common.labels.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with include ("common.podAnnotations") . }}
+      {{- with include ("geek-cookbook.common.podAnnotations") . }}
       annotations:
         {{- . | nindent 8 }}
       {{- end }}

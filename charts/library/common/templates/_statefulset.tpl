@@ -34,7 +34,7 @@ spec:
   serviceName: {{ include "geek-cookbook.common.names.fullname" . }}
   template:
     metadata:
-      {{- with include ("common.podAnnotations") . }}
+      {{- with include ("geek-cookbook.common.podAnnotations") . }}
       annotations:
         {{- . | nindent 8 }}
       {{- end }}
