@@ -7,4 +7,5 @@ data:
   DATABASE_URL: postgres://miniflux:miniflux@{{ .Release.Name }}-miniflux-postgresql/miniflux?sslmode=disable
   LISTEN_ADDR: "0.0.0.0:8080"
   BASE_URL: https://{{ .Release.Name }}-miniflux.elfhosted.com  
+  RUN_MIGRATIONS: "1"
 {{ end }}
