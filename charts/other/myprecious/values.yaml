@@ -6442,6 +6442,7 @@ miniflux:
       username: miniflux
       password: miniflux
       database: miniflux    
+      postgresPassword: miniflux
     primary:
       persistence:
         enabled: true
@@ -6465,5 +6466,5 @@ miniflux:
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568
-                
+
 # This file must end on a newline
