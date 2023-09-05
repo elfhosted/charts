@@ -6469,7 +6469,7 @@ miniflux:
         runAsGroup: 568
         fsGroup: 568
       extraVolumeMounts:
-      - mountPath: /opt/bitnami/postgresql/tmp/
+      - mountPath: /opt/bitnami/postgresql/conf/
         name: tmp
       extraVolumes:
       - name: tmp
