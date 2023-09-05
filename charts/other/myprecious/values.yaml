@@ -6438,5 +6438,9 @@ miniflux:
   postgresql:
     enabled: true
     nameOverride: miniflux-postgresql
+    auth:
+      username: miniflux
+      password: miniflux
+      database: miniflux    
 
 # This file must end on a newline
