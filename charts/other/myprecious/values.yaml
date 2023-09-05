@@ -6470,8 +6470,13 @@ miniflux:
         fsGroup: 568
       extraVolumeMounts:
       - mountPath: /opt/bitnami/postgresql/conf/
-        name: tmp
+        name: conf
+      - mountPath: /opt/bitnami/postgresql/tmp/
+        name: tmp        
       extraVolumes:
+      - name: conf
+        emptyDir:
+          sizeLimit: 1Gi
       - name: tmp
         emptyDir:
           sizeLimit: 1Gi
