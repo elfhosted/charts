@@ -6503,11 +6503,12 @@ miniflux:
           - -c
           - |
 
+            set +e # for debug
             sleep 2m # give postgres time to start up
             while true
             do
               now=$(date +"%s_%Y-%m-%d")
-              PGPASSWORD=$POSTGRES_PASSWORD pg_dump -U $POSTGRES_USER -d $POSTGRES_DB -F c -f /backup/${now}_${POSTGRES_DATABASE}.psql"]'
+              PGPASSWORD=$POSTGRES_PASSWORD pg_dump -U $POSTGRES_USER -d $POSTGRES_DB -F c -f /backup/${now}_${POSTGRES_DATABASE}.psql
               sleep 1d
             done
 
