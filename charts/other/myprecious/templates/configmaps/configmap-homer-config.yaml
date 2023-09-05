@@ -972,8 +972,8 @@ data:
           - name: "Miniflux"
             logo: "assets/png/miniflux.png"
             subtitle: "Minimalistic RSS reader"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-miniflux.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}

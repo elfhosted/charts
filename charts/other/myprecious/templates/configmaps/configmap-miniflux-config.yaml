@@ -8,4 +8,7 @@ data:
   LISTEN_ADDR: "0.0.0.0:8080"
   BASE_URL: https://{{ .Release.Name }}-miniflux.elfhosted.com  
   RUN_MIGRATIONS: "1"
+  CREATE_ADMIN: "1"
+  ADMIN_USERNAME: {{ .Release.Name }}
+  ADMIN_PASSWORD: yesireadthedocs
 {{ end }}

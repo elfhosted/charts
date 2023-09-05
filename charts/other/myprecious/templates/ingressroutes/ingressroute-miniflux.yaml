@@ -12,7 +12,6 @@ spec:
           kind: Service
           port: 8080
       middlewares:
-        - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
           namespace: traefik
 {{ end }}
