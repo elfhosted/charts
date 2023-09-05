@@ -6480,6 +6480,9 @@ miniflux:
       - name: tmp
         emptyDir:
           sizeLimit: 1Gi
+      - name: elfstorage
+        persistentVolumeClaim:
+          claimName: elfstorage
       sidecars:
         - name: backup-database
           image: *tooling_image
