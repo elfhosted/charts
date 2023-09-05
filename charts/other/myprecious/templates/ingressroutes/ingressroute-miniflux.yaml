@@ -1,0 +1,18 @@
+{{ if .Values.miniflux.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-miniflux.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-miniflux.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: miniflux
+          kind: Service
+          port: 8080
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}
