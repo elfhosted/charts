@@ -6487,10 +6487,12 @@ miniflux:
         - name: backup-database
           image: *tooling_image
           env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: 3uAaJYGJLR3d2qbBM2FsSThJ
-            - name: MYSQL_DATABASE
-              value: mattermost
+            - name: POSTGRES_PASSWORD
+              value: miniflux
+            - name: POSTGRES_DATABASE
+              value: miniflux
+            - name: POSTGRES_USER
+              value: miniflux              
           volumeMounts:
           - mountPath: /backup
             name: elfstorage
@@ -6505,7 +6507,7 @@ miniflux:
             while true
             do
               now=$(date +"%s_%Y-%m-%d")
-              /usr/bin/mysqldump --opt -h mattermost-mysql -u root -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} > "/backup/${now}_${MYSQL_DATABASE}.sql"
+              PGPASSWORD=$POSTGRES_PASSWORD pg_dump -U $POSTGRES_USER -d $POSTGRES_DB -F c -f /backup/${now}_${POSTGRES_DATABASE}.psql"]'
               sleep 1d
             done
 
