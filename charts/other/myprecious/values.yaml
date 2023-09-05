@@ -6438,6 +6438,8 @@ miniflux:
   postgresql:
     enabled: true
     nameOverride: miniflux-postgresql
+    commonAnnotations:
+      configmap.reloader.stakater.com/reload: "elfbot-miniflux"    
     auth:
       username: miniflux
       password: miniflux
@@ -6466,5 +6468,12 @@ miniflux:
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568
+      extraVolumeMounts:
+      - mountPath: /opt/bitnami/postgresql/tmp/
+        name: tmp
+      extraVolumes:
+      - name: tmp
+        emptyDir:
+          sizeLimit: 1Gi
 
 # This file must end on a newline
