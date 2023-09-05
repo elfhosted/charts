@@ -6433,7 +6433,8 @@ miniflux:
   envFrom:
   - configMapRef:
       name: miniflux-config
-  # postgresql:
-  #   nameOverride: miniflux-postgresql
+  postgresql:
+    enabled: true
+    nameOverride: miniflux-postgresql
 
 # This file must end on a newline
