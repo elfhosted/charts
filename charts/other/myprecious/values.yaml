@@ -1265,6 +1265,7 @@ radarr4k:
 
         mkdir -p /storage/elfstorage/movies4k    
         mkdir -p /storage/elfstorage/backup/auto/radarr4k
+        mkdir -p "/storage/elfstorage/downloads/completed/Movies 4K"
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
@@ -2961,6 +2962,7 @@ sonarr4k:
 
         mkdir -p /storage/elfstorage/series
         mkdir -p /storage/elfstorage/backup/auto/sonarr4k
+        mkdir -p "/storage/elfstorage/downloads/completed/Series 4K"
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage

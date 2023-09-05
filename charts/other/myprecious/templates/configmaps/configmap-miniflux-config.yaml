@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: miniflux-config
 data:
-  DATABASE_URL: "user=postgres password=postgres dbname=miniflux-postgresql sslmode=disable"
+  DATABASE_URL: "user=postgres password=postgres dbname={{ .Release.Name }}-miniflux-postgresql sslmode=disable"
   LISTEN_ADDR: "0.0.0.0:8080"
   BASE_URL: https://{{ .Release.Name }}-miniflux.elfhosted.com  
 {{ end }}
