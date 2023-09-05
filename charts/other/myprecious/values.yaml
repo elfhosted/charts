@@ -6446,5 +6446,24 @@ miniflux:
       persistence:
         enabled: true
         existingClaim: config-miniflux
-        subPath: database       
+        subPath: database
+      resources:
+        requests:
+          cpu: 5m
+          memory: 1Gi
+        limits:
+          cpu: 2
+          memory: 1024Mi
+      containerSecurityContext:
+        enabled: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 568
+        runAsGroup: 568
+      podSecurityContext:
+        enabled: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+                
 # This file must end on a newline
