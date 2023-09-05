@@ -7,7 +7,7 @@ spec:
   - websecure
   - web
   routes:
-    - match: Host(`{{ .Release.Name }}-elfhosted.com`)
+    - match: Host(`{{ .Release.Name }}.elfhosted.com`)
       kind: Rule
       services:
         - name: homer
