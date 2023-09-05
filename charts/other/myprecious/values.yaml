@@ -6480,5 +6480,30 @@ miniflux:
       - name: tmp
         emptyDir:
           sizeLimit: 1Gi
+      sidecars:
+        - name: backup-database
+          image: *tooling_image
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: 3uAaJYGJLR3d2qbBM2FsSThJ
+            - name: MYSQL_DATABASE
+              value: mattermost
+          volumeMounts:
+          - mountPath: /backup
+            name: elfstorage
+            subPath: backup/miniflux     
+          command:
+          - /usr/bin/dumb-init
+          - /bin/bash
+          - -c
+          - |
+
+            sleep 2m # give postgres time to start up
+            while true
+            do
+              now=$(date +"%s_%Y-%m-%d")
+              /usr/bin/mysqldump --opt -h mattermost-mysql -u root -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} > "/backup/${now}_${MYSQL_DATABASE}.sql"
+              sleep 1d
+            done
 
 # This file must end on a newline

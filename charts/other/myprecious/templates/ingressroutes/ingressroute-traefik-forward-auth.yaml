@@ -1,13 +1,13 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Release.Name }}-auth-me.elfhosted.com
+  name: {{ .Release.Name }}.auth-me.elfhosted.com
 spec:
   entryPoints:
   - websecure
   - web
   routes:
-    - match: Host(`{{ .Release.Name }}-auth-me.elfhosted.com`)
+    - match: Host(`{{ .Release.Name }}.auth-me.elfhosted.com`)
       kind: Rule
       services:
       - name: {{ .Release.Name }}-traefikforwardauth
