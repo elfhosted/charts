@@ -6442,5 +6442,9 @@ miniflux:
       username: miniflux
       password: miniflux
       database: miniflux    
-
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: config-miniflux
+        subPath: database       
 # This file must end on a newline
