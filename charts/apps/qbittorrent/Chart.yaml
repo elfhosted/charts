@@ -19,7 +19,7 @@ maintainers:
 dependencies:
   - name: common
     repository: http://chartmuseum.chartmuseum:8080
-    version: ~0.2.5
+    version: ~0.2.10
 annotations:
   artifacthub.io/changes: |-
     - kind: changed
