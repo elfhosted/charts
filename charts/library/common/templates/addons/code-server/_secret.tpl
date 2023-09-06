@@ -7,7 +7,7 @@ The OpenVPN credentials secrets to be included.
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ template "common.names.fullname" . }}-deploykey
+  name: {{ template "geek-cookbook.common.names.fullname" . }}-deploykey
   labels: {{- include "geek-cookbook.common.labels" $ | nindent 4 }}
   annotations: {{- include "geek-cookbook.common.annotations" $ | nindent 4 }}
 type: Opaque

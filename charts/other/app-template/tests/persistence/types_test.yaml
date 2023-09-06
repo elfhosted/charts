@@ -54,7 +54,7 @@ tests:
         configmap:
           enabled: true
           type: configMap
-          name: "{{ include \"common.names.fullname\" $ }}-config"
+          name: "{{ include \"geek-cookbook.common.names.fullname\" $ }}-config"
     asserts:
       - documentIndex: 0
         isKind:

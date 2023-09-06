@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "common.names.fullname" . }}-config
+  name: {{ template "geek-cookbook.common.names.fullname" . }}-config
   labels:
   {{- include "geek-cookbook.common.labels" . | nindent 4 }}
 data:
