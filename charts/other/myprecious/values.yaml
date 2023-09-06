@@ -1138,8 +1138,8 @@ radarr:
   priorityClassName: tenant-low
   image:
     registry: ghcr.io
-    repository: geek-cookbook/radarr-develop
-    tag: 4.7.5.7809@sha256:fb807691e9c6b70b01ae9ad9814d861a89d2eff6f0a843eb7d20a65362cb7da4
+    repository: geek-cookbook/radarr
+    tag: 4.7.5.7809@sha256:4d33fce20061f1a698e92541c99f0524a360acb3c094e49616f30b6a42281a78
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1211,8 +1211,8 @@ radarr4k:
   priorityClassName: tenant-low
   image:
     registry: ghcr.io
-    repository: geek-cookbook/radarr-develop
-    tag: 4.7.5.7809@sha256:fb807691e9c6b70b01ae9ad9814d861a89d2eff6f0a843eb7d20a65362cb7da4
+    repository: geek-cookbook/radarr
+    tag: 4.7.5.7809@sha256:4d33fce20061f1a698e92541c99f0524a360acb3c094e49616f30b6a42281a78
   securityContext:
     seccompProfile:
       type: RuntimeDefault
