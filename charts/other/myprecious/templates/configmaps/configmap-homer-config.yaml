@@ -267,13 +267,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Listen to Music"
-            {{ if .Values.navidrome.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-navidrome.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -284,13 +279,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Read Books"
-            {{ if .Values.calibreweb.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-calibre-web.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -312,13 +302,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Read Comics / Books"
-            {{ if .Values.komga.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-komga.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -329,13 +314,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Read Comics / Books"
-            {{ if .Values.kavita.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-kavita.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -526,13 +506,8 @@ data:
           - name: "Ombi"
             logo: "assets/png/ombi.png"
             subtitle: "Manage Requests"
-            {{ if .Values.ombi.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-ombi.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -541,13 +516,8 @@ data:
           - name: "Overseerr"
             logo: "assets/png/overseerr.png"
             subtitle: "Manage Requests"
-            {{ if .Values.overseerr.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-overseerr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -576,13 +546,8 @@ data:
           - name: "LazyLibrarian"
             logo: "assets/png/lazylibrarian.png"
             subtitle: "Manage Books"
-            {{ if .Values.lazylibrarian.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-lazylibrarian.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             {{ end }}
@@ -591,13 +556,8 @@ data:
           - name: "Mylar"
             logo: "assets/png/mylar.png"
             subtitle: "Manage Comics"
-            {{ if .Values.mylar.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-mylar.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -608,13 +568,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Plex Statistics"
-            {{ if .Values.tautulli.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-tautulli.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -637,13 +592,8 @@ data:
             # Alternatively a fa icon can be provided:
             icon: "fas fa-tv"
             subtitle: "Live TV Proxy"
-            {{ if .Values.nextpvr.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-nextpvr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}          
@@ -866,13 +816,8 @@ data:
           - name: "Pyload"
             logo: "assets/png/pyload.png"
             subtitle: "Manage Downloads"
-            {{ if .Values.pyload.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-pyload.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -1022,13 +967,8 @@ data:
           - name: "Seafile"
             logo: "assets/png/seafile.png"
             subtitle: "Securely sync data"
-            {{ if .Values.seafile.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-seafile.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}

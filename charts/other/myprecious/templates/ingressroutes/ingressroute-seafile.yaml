@@ -11,10 +11,7 @@ spec:
         - name: seafile
           kind: Service
           port: 80
-      middlewares:
-      {{- if .Values.seafile.sso.enabled }}      
-        - name: {{ .Release.Name }}-traefik-forward-auth
-      {{- end }}          
+      middlewares:    
         - name: error-pages
           namespace: traefik
 {{ end }}

@@ -12,9 +12,7 @@ spec:
           kind: Service
           port: 8000
       middlewares:
-      {{- if .Values.pyload.sso.enabled }}
         - name: {{ .Release.Name }}-traefik-forward-auth
-      {{- end }}      
         - name: error-pages
           namespace: traefik
 {{ end }}
