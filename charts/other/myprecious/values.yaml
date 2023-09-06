@@ -4909,7 +4909,7 @@ overseerr:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/overseerr
-    tag: 1.33.0@sha256:072bf44652f41e99549d802473aaa15f5cfff4edbb8b1c98b788545e8514cc1b
+    tag: 1.33.2@sha256:c3892b01b21b1a320670408e838ecef35bf052d9228a6cd89605efc1784f9ac2
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
