@@ -25,6 +25,8 @@ spec:
           port: 5454
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
-        - name: {{ .Release.Name }}-add-x-webauth-user
+        - name: {{ .Release.Name }}-add-x-webauth-user        
+        - name: error-pages
+          namespace: traefik     
 {{ end }}
 
