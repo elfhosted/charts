@@ -20,4 +20,14 @@ spec:
         - name: theme-park-readarr-audio-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
+    {{ if .Values.readarraudioexposed.enabled }}
+    - match: Host(`{{ .Release.Name }}-readarraudio.elfhosted.com`) && PathPrefix(`/api/`)
+      kind: Rule
+      services:
+        - name: readarraudio
+          kind: Service
+          port: 8787
+      middlewares:
+        - name: {{ .Release.Name }}-add-cors-for-homer
+    {{ end }}        
 {{ end }}

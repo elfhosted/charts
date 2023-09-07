@@ -11,4 +11,6 @@ spec:
         - name: resilio-sync
           kind: Service
           port: 8888
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth          
 {{ end }}

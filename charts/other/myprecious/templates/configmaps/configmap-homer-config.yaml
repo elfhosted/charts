@@ -604,13 +604,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Discord-based notifications"
-            {{ if .Values.notifiarr.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-notifiarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -621,13 +616,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Manage Anime"
-            {{ if .Values.shoko.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-shoko.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -638,13 +628,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Automate Media Management"
-            {{ if .Values.filebot.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-filebot.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -732,13 +717,8 @@ data:
           - name: "NZBHydra"
             logo: "assets/png/nzbhydra.png"
             subtitle: "Manage Indexers"
-            {{ if .Values.nzbhydra.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-nzbhydra.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -747,13 +727,8 @@ data:
           - name: "Autobrr"
             logo: "assets/png/autobrr.png"
             subtitle: "Manage Torrent Automation"
-            {{ if .Values.autobrr.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-autobrr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -826,13 +801,8 @@ data:
           - name: "Youtube DL"
             logo: "assets/png/youtubedl.png"
             subtitle: "Download Youtube Videos"
-            {{ if .Values.youtubedl.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-youtubedl.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -841,13 +811,8 @@ data:
           - name: "Rapidleech"
             icon: "fas fa-bolt-lightning"
             subtitle: "Rapidly Leech"
-            {{ if .Values.rapidleech.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-rapidleech.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}   
@@ -902,13 +867,8 @@ data:
           - name: "Privatebin"
             logo: "assets/png/privatebin.png"
             subtitle: "Minimalistic pastebin"
-            {{ if .Values.privatebin.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-privatebin.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -927,13 +887,8 @@ data:
           - name: "Uptime Kuma"
             logo: "assets/png/uptime-kuma.png"
             subtitle: "Uptime Monitor"
-            {{ if .Values.uptimekuma.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-uptime-kuma.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -942,13 +897,8 @@ data:
           - name: "Gotify"
             logo: "assets/png/gotify.png"
             subtitle: "Gotify"
-            {{ if .Values.gotify.sso.enabled }}
-            tag: "protected"
-            tagstyle: "is-success"
-            {{ else }}
             tag: "public"
             tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-gotify.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -977,13 +927,8 @@ data:
           - name: "Resilio Sync"
             logo: "assets/png/resiliosync.png"
             subtitle: "Securely sync data"
-            {{ if .Values.resiliosync.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-resilio-sync.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
@@ -992,13 +937,8 @@ data:
           - name: "Sync Thing"
             logo: "assets/png/syncthing.png"
             subtitle: "Securely sync data"
-            {{ if .Values.syncthing.sso.enabled }}
             tag: "protected"
             tagstyle: "is-success"
-            {{ else }}
-            tag: "public"
-            tagstyle: "is-danger"
-            {{ end }}
             url: "https://{{ .Release.Name }}-syncthing.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}          

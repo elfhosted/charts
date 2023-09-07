@@ -20,4 +20,14 @@ spec:
         - name: theme-park-readarr-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
+    {{ if .Values.readarrexposed.enabled }}
+    - match: Host(`{{ .Release.Name }}-readarr.elfhosted.com`) && PathPrefix(`/api/`)
+      kind: Rule
+      services:
+        - name: readarr
+          kind: Service
+          port: 8787
+      middlewares:
+        - name: {{ .Release.Name }}-add-cors-for-homer
+    {{ end }}        
 {{ end }}

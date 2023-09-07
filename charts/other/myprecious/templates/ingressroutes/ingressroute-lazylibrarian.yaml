@@ -12,9 +12,7 @@ spec:
           kind: Service
           port: 5299
       middlewares:
-      {{- if .Values.lazylibrarian.sso.enabled }}
         - name: {{ .Release.Name }}-traefik-forward-auth
-      {{- end }}      
         - name: {{ .Release.Name }}-add-cors-for-homer
         - name: error-pages
           namespace: traefik
