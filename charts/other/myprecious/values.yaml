@@ -2693,7 +2693,7 @@ kavita:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/kavita
-    tag: 0.7.3.1@sha256:421e47a6c882276bcb3ace9e564ea744b2b8bb41ed716ede9fd95faad7b3b785
+    tag: 0.7.8@sha256:3e78029134f71653c40fb7b915124a6c72845b67dbe1036e26b2bfc353a426cb
   securityContext:
     seccompProfile:
       type: RuntimeDefault
