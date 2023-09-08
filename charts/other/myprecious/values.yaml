@@ -2746,7 +2746,7 @@ calibre:
   runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 6.25.0@sha256:83e7e704c8214b1e42846d6a3e4655722784b3d5bedf3d48f25769b70eef60a7
+    tag: 6.26.0@sha256:a4cb993280b264c635643b38ee9060fdb89c2ea2691ec35f99a4fba9cb56dfb9
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -2842,7 +2842,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.657@sha256:08f85a8769ea89881eb376f8b37931cca8ae9ffd18f610bab1a3a54194378161
+    tag: 4.0.0.664@sha256:647cd1074b66595b8a6f9cb4841c25568076df1528e7ef0c63160c48c0e2ed74
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2915,7 +2915,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.657@sha256:08f85a8769ea89881eb376f8b37931cca8ae9ffd18f610bab1a3a54194378161
+    tag: 4.0.0.664@sha256:647cd1074b66595b8a6f9cb4841c25568076df1528e7ef0c63160c48c0e2ed74
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3291,7 +3291,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2203@sha256:2a954fd18f430505e2e5eca0f46cd5b67ece271f21522f253923a5eca016ce3a
+    tag: 0.3.4.2207@sha256:4540a93622e69357bc5a0f3512a1f1617639e6f620751b192911d6a9bb8d07db
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3369,7 +3369,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2203@sha256:2a954fd18f430505e2e5eca0f46cd5b67ece271f21522f253923a5eca016ce3a
+    tag: 0.3.4.2207@sha256:4540a93622e69357bc5a0f3512a1f1617639e6f620751b192911d6a9bb8d07db
   securityContext:
     seccompProfile:
       type: RuntimeDefault
