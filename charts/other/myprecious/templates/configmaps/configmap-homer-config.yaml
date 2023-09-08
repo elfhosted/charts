@@ -957,8 +957,8 @@ data:
           - name: "Vaultwarden"
             logo: "assets/png/vaultwarden.png"
             subtitle: "Securely manage passwords / secrets"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-vaultwarden.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
