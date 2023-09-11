@@ -2225,7 +2225,7 @@ privatebin:
     enabled: false
   image:
     repository: privatebin/fs
-    tag: 1.5.2
+    tag: 1.6.0
   priorityClassName: tenant-low
   controller:
     annotations:
