@@ -6549,6 +6549,12 @@ joplin:
   envFrom:
   - configMapRef:
       name: joplin-config
+  persistence:
+    logs:
+      enabled: true
+      type: emptyDir
+      mountPath: /home/elfie/packages/server/logs
+      sizeLimit: 1Gi  
   postgresql:
     enabled: true
     nameOverride: joplin-postgresql
