@@ -708,3 +708,14 @@ data:
         alerts:
           - type: email                      
       {{ end }}
+
+      {{ if .Values.joplin.enabled }}
+      - name: joplin
+        group: tools
+        url: "http://joplin:22300"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email                      
+      {{ end }}      

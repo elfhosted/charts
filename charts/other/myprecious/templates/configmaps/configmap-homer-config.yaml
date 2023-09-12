@@ -973,6 +973,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
+          {{ if .Values.joplin.enabled }}
+          - name: "Joplin"
+            logo: "assets/png/joplin.png"
+            subtitle: "Take notes"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-joplin.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
+
       - name: "Rclone"
         icon: "fas fa-truck"
         items:

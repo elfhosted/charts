@@ -6518,4 +6518,112 @@ miniflux:
               sleep 1d
             done
 
+joplin:
+  enabled: false
+  priorityClassName: tenant-low
+  image:
+    repository: ghcr.io/geek-cookbook/joplin
+    tag: v2.12.16
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-joplin,joplin-config"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1500m # if par threads is 1, this leaves 0.5cpu for downloading
+      memory: 1Gi
+  envFrom:
+  - configMapRef:
+      name: joplin-config
+  postgresql:
+    enabled: true
+    nameOverride: joplin-postgresql
+    commonAnnotations:
+      configmap.reloader.stakater.com/reload: "elfbot-joplin"    
+    auth:
+      username: joplin
+      password: joplin
+      database: joplin    
+      postgresPassword: joplin
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: config-joplin
+        subPath: database
+      resources:
+        requests:
+          cpu: 5m
+          memory: 1Gi
+        limits:
+          cpu: 2
+          memory: 1024Mi
+      containerSecurityContext:
+        enabled: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 568
+        runAsGroup: 568
+      podSecurityContext:
+        enabled: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+      extraVolumeMounts:
+      - mountPath: /opt/bitnami/postgresql/conf/
+        name: conf
+      - mountPath: /opt/bitnami/postgresql/tmp/
+        name: tmp        
+      extraVolumes:
+      - name: conf
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: elfstorage
+        persistentVolumeClaim:
+          claimName: elfstorage
+      sidecars:
+        - name: backup-database
+          image: *tooling_image
+          env:
+            - name: POSTGRES_PASSWORD
+              value: joplin
+            - name: POSTGRES_DATABASE
+              value: joplin
+            - name: POSTGRES_USER
+              value: joplin              
+          volumeMounts:
+          - mountPath: /backup
+            name: elfstorage
+            subPath: backup/miniflux     
+          command:
+          - /usr/bin/dumb-init
+          - /bin/bash
+          - -c
+          - |
+
+            set +e # for debug
+            sleep 2m # give postgres time to start up
+            while true
+            do
+              now=$(date +"%s_%Y-%m-%d")
+              PGPASSWORD=$POSTGRES_PASSWORD pg_dump -U $POSTGRES_USER -h localhost -d $POSTGRES_DATABASE -F c -f /backup/${now}_${POSTGRES_DATABASE}.psql
+              sleep 1d
+            done
+
 # This file must end on a newline
