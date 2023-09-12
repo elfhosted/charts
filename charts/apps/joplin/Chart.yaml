@@ -16,7 +16,7 @@ maintainers:
     email: davidy@funkypenguin.co.nz
 dependencies:
   - name: postgresql
-    version: 15.x
+    version: 12.x
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: common
