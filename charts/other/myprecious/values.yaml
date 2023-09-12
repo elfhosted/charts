@@ -6555,6 +6555,11 @@ joplin:
       type: emptyDir
       mountPath: /home/elfie/packages/server/logs
       sizeLimit: 1Gi  
+    temp:
+      enabled: true
+      type: emptyDir
+      mountPath: /home/elfie/packages/server/temp
+      sizeLimit: 1Gi        
   postgresql:
     enabled: true
     nameOverride: joplin-postgresql
