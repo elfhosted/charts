@@ -367,7 +367,7 @@ data:
             url: "https://{{ .Release.Name }}-radarr4k.elfhosted.com"
             target: "_blank" # optional html tag target attribute
             type: "Radarr"
-            apikey: "{{ .Values.radarrexposed.apikey }}"
+            apikey: "{{ .Values.radarr4kexposed.apikey }}"
             useCredentials: true
           {{ end }}
 
