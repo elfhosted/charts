@@ -2334,11 +2334,11 @@ nzbhydra:
     fsGroupChangePolicy: "OnRootMismatch"
   probes:
     liveness:
-      custom: false
+      enabled: false
     startup:
-      custom: false
+      enabled: false
     readiness:
-      custom: false
+      enabled: false
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts  
