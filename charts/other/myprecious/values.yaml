@@ -2332,7 +2332,13 @@ nzbhydra:
       type: RuntimeDefault
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
-
+  probes:
+    liveness:
+      custom: false
+    startup:
+      custom: false
+    readiness:
+      custom: false
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts  
