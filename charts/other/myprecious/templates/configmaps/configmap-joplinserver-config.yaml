@@ -12,6 +12,5 @@ data:
   POSTGRES_USER: joplinserver
   POSTGRES_PORT: '5432'
   POSTGRES_HOST: {{ .Release.Name }}-joplinserver-postgresql
-  # Rather keep it all in postgres
-  # STORAGE_DRIVER: Type=Filesystem; Path=/config
+  STORAGE_DRIVER: Type=Filesystem; Path=/config
 {{ end }}
