@@ -12,4 +12,5 @@ data:
   POSTGRES_USER: joplin
   POSTGRES_PORT: '5432'
   POSTGRES_HOST: {{ .Release.Name }}-joplin-postgresql
+  STORAGE_DRIVER: Type=Filesystem; Path=/config
 {{ end }}

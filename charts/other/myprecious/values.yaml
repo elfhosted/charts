@@ -6574,6 +6574,14 @@ joplin:
       type: emptyDir
       mountPath: /home/elfie/packages/server/temp
       sizeLimit: 1Gi        
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-joplin
+      subPath: data
   postgresql:
     enabled: true
     nameOverride: joplin-postgresql
