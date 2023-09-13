@@ -974,9 +974,9 @@ data:
           {{ end }}
 
           {{ if .Values.joplin.enabled }}
-          - name: "Joplin"
+          - name: "Joplin Server"
             logo: "assets/png/joplin.png"
-            subtitle: "Take notes"
+            subtitle: "Manage Joplin Sync"
             tag: "public"
             tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-joplin.elfhosted.com"
