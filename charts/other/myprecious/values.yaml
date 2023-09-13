@@ -1,5 +1,5 @@
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: true
+safeToRelease: false
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20230801@sha256:daaf77687540a2d7bfd5802eda1d79cb5a0b4e26444a9577d43efe0ce537c60c
@@ -1733,10 +1733,10 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex      
-    joplin:
+    joplinserver:
       enabled: false
       type: custom
-      mountPath: /storage/config/joplin/
+      mountPath: /storage/config/joplin-server/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-joplinserver
@@ -3841,13 +3841,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jfa
-    joplin:
+    joplinserver:
       enabled: false
       type: custom
-      mountPath: /config/joplin/
+      mountPath: /config/joplin-server/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-joplin          
+          claimName: config-joplinserver        
     kavita:
       enabled: false
       type: custom
