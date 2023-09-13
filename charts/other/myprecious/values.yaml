@@ -6540,7 +6540,7 @@ joplinserver:
     tag: v2.12.1@sha256:9e04ef0512c6e94789eb9598a50adfa33b6e69a80be911be31f89a0f243e7075
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-joplin,joplin-config"
+      configmap.reloader.stakater.com/reload: "elfbot-joplinserver,joplinserver-config"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6574,7 +6574,7 @@ joplinserver:
       subPath: data
   postgresql:
     enabled: true
-    nameOverride: joplin-postgresql
+    nameOverride: joplinserver-postgresql
     commonAnnotations:
       configmap.reloader.stakater.com/reload: "elfbot-joplinserver"    
     auth:

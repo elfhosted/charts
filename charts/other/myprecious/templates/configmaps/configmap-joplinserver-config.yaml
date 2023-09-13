@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: joplin-config
+  name: joplinserver-config
 data:
   APP_PORT: '22300'
   APP_BASE_URL: https://{{ .Release.Name}}-joplin-server.elfhosted.com
