@@ -2,11 +2,11 @@
 apiVersion: v2
 appVersion: v2.12.16
 description: Joplin is a free, open source note taking and to-do application, which can handle a large number of notes organised into notebooks.
-name: joplin
+name: joplinserver
 version: 0.0.1
 kubeVersion: ">=1.16.0-0"
 keywords:
-  - joplin
+  - joplinserver
 home: https://joplinapp.org/
 icon: https://raw.githubusercontent.com/laurent22/joplin/dev/Assets/LinuxIcons/256x256.png
 sources:

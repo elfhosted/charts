@@ -973,7 +973,7 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
-          {{ if .Values.joplin.enabled }}
+          {{ if .Values.joplinserver.enabled }}
           - name: "Joplin Server"
             logo: "assets/png/joplin.png"
             subtitle: "Manage Joplin Sync"

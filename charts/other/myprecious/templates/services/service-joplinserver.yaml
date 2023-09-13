@@ -1,10 +1,10 @@
-{{ if .Values.joplin.enabled }}
+{{ if .Values.joplinserver.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: joplin
+  name: joplinserver
   labels:
-    app.kubernetes.io/name: joplin
+    app.kubernetes.io/name: joplinserver
     app.kubernetes.io/instance: {{ .Release.Name }}
   annotations:
 spec:
@@ -15,6 +15,6 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.kubernetes.io/name: joplin
+    app.kubernetes.io/name: joplinserver
     app.kubernetes.io/instance: {{ .Release.Name }}
 {{ end }}

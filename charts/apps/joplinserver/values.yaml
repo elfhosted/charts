@@ -6,7 +6,7 @@
 
 image:
   # -- image repository
-  repository: ghcr.io/geek-cookbook/joplin
+  repository: ghcr.io/geek-cookbook/joplinserver
   # -- image tag
   tag: v2.12.16
   # -- image pull policy
@@ -47,9 +47,9 @@ persistence:
 # @default -- See values.yaml
 postgresql:
   enabled: false
-  postgresqlUsername: joplin
-  postgresqlPassword: joplin
-  postgresqlDatabase: joplin
+  postgresqlUsername: joplinserver
+  postgresqlPassword: joplinserver
+  postgresqlDatabase: joplinserver
   persistence:
     enabled: false
     # storageClass: ""

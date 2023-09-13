@@ -1,14 +1,14 @@
-{{ if .Values.joplin.enabled }}
+{{ if .Values.joplinserver.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Release.Name }}-joplin.elfhosted.com
+  name: {{ .Release.Name }}-joplin-server.elfhosted.com
 spec:
   routes:
-    - match: Host(`{{ .Release.Name }}-joplin.elfhosted.com`)
+    - match: Host(`{{ .Release.Name }}-joplin-server.elfhosted.com`)
       kind: Rule
       services:
-        - name: joplin
+        - name: joplinserver
           kind: Service
           port: 22300
       middlewares:

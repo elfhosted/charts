@@ -1,8 +1,8 @@
-{{ if .Values.joplin.enabled }}
+{{ if .Values.joplinserver.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: config-joplin
+  name: config-joplinserver
   annotations:
     helm.sh/resource-policy: keep  
 spec:

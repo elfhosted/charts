@@ -311,8 +311,8 @@ dependencies:
     condition: miniflux.enabled
     version: ~0.0.2
     repository: http://chartmuseum.chartmuseum:8080    
-  - name: joplin
-    condition: joplin.enabled
+  - name: joplinserver
+    condition: joplinserver.enabled
     version: ~0.0.1
     repository: http://chartmuseum.chartmuseum:8080        
   - name: nextcloud

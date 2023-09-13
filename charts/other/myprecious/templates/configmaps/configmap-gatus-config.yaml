@@ -709,8 +709,8 @@ data:
           - type: email                      
       {{ end }}
 
-      {{ if .Values.joplin.enabled }}
-      - name: joplin
+      {{ if .Values.joplinserver.enabled }}
+      - name: joplinserver
         group: tools
         url: "https://{{ .Release.Name}}-joplin.elfhosted.com"
         interval: 5m

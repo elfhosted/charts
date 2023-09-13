@@ -1,0 +1,17 @@
+{{ if .Values.joplinserver.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: joplin-config
+data:
+  APP_PORT: '22300'
+  APP_BASE_URL: https://{{ .Release.Name}}-joplin-server.elfhosted.com
+  DB_CLIENT: pg
+  POSTGRES_PASSWORD: joplinserver
+  POSTGRES_DATABASE: joplinserver
+  POSTGRES_USER: joplinserver
+  POSTGRES_PORT: '5432'
+  POSTGRES_HOST: {{ .Release.Name }}-joplinserver-postgresql
+  # Rather keep it all in postgres
+  # STORAGE_DRIVER: Type=Filesystem; Path=/config
+{{ end }}

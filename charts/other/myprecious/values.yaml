@@ -1739,7 +1739,7 @@ filebrowser:
       mountPath: /storage/config/joplin/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-joplin
+          claimName: config-joplinserver
     jfa:
       enabled: false
       type: custom
@@ -6562,7 +6562,7 @@ joplin:
       memory: 1Gi
   envFrom:
   - configMapRef:
-      name: joplin-config
+      name: joplinserver-config
   persistence:
     config:
       enabled: true
@@ -6570,22 +6570,22 @@ joplin:
       mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-joplin
+          claimName: config-joplinserver
       subPath: data
   postgresql:
     enabled: true
     nameOverride: joplin-postgresql
     commonAnnotations:
-      configmap.reloader.stakater.com/reload: "elfbot-joplin"    
+      configmap.reloader.stakater.com/reload: "elfbot-joplinserver"    
     auth:
-      username: joplin
-      password: joplin
-      database: joplin    
-      postgresPassword: joplin
+      username: joplinserver
+      password: joplinserver
+      database: joplinserver
+      postgresPassword: joplinserver
     primary:
       persistence:
         enabled: true
-        existingClaim: config-joplin
+        existingClaim: config-joplinserver
         subPath: database
       resources:
         requests:
@@ -6625,9 +6625,9 @@ joplin:
           image: *tooling_image
           env:
             - name: POSTGRES_PASSWORD
-              value: joplin
+              value: joplinserver
             - name: POSTGRES_DATABASE
-              value: joplin
+              value: joplinserver
             - name: POSTGRES_USER
               value: joplin              
           volumeMounts:
