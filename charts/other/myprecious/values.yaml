@@ -6544,7 +6544,7 @@ joplin:
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: true
+    readOnlyRootFilesystem: false # breaks migrations
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6564,21 +6564,6 @@ joplin:
   - configMapRef:
       name: joplin-config
   persistence:
-    logs:
-      enabled: true
-      type: emptyDir
-      mountPath: /home/elfie/packages/server/logs
-      sizeLimit: 1Gi  
-    temp:
-      enabled: true
-      type: emptyDir
-      mountPath: /home/elfie/packages/server/temp
-      sizeLimit: 1Gi        
-    migrations:
-      enabled: true
-      type: emptyDir
-      mountPath: /home/elfie/packages/server/dist/migrations
-      sizeLimit: 1Gi
     config:
       enabled: true
       type: custom

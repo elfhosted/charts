@@ -11,4 +11,7 @@ spec:
         - name: joplin
           kind: Service
           port: 22300
+      middlewares:
+        - name: error-pages
+          namespace: traefik
 {{ end }}
