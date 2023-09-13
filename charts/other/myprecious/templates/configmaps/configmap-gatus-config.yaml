@@ -712,7 +712,7 @@ data:
       {{ if .Values.joplin.enabled }}
       - name: joplin
         group: tools
-        url: "http://joplin:22300"
+        url: "https://{{ .Release.Name}}-joplin.elfhosted.com"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
