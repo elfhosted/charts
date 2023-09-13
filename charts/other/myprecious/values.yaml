@@ -6532,7 +6532,7 @@ miniflux:
               sleep 1d
             done
 
-joplin:
+joplinserver:
   enabled: false
   priorityClassName: tenant-low
   image:
