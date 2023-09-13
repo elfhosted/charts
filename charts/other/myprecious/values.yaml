@@ -6574,6 +6574,11 @@ joplin:
       type: emptyDir
       mountPath: /home/elfie/packages/server/temp
       sizeLimit: 1Gi        
+    migrations:
+      enabled: true
+      type: emptyDir
+      mountPath: /home/elfie/packages/server/dist/migrations
+      sizeLimit: 1Gi
     config:
       enabled: true
       type: custom
