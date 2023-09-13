@@ -1733,6 +1733,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex      
+    joplin:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/joplin/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-joplin
     jfa:
       enabled: false
       type: custom
@@ -3834,6 +3841,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jfa
+    joplin:
+      enabled: false
+      type: custom
+      mountPath: /config/joplin/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-joplin          
     kavita:
       enabled: false
       type: custom
