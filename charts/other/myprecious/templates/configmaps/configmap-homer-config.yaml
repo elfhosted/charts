@@ -979,7 +979,7 @@ data:
             subtitle: "Manage Joplin Sync"
             tag: "public"
             tagstyle: "is-danger"
-            url: "https://{{ .Release.Name }}-joplin.elfhosted.com"
+            url: "https://{{ .Release.Name }}-joplin-server.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}          
 
