@@ -3639,10 +3639,6 @@ plexpia: &plex
         configMap:
           name: elfbot-plex 
           optional: true              
-  service:
-    main:
-      nameOverride: plex
-      enabled: true 
   addons:
     vpn: 
       <<: *plex_addons_vpn

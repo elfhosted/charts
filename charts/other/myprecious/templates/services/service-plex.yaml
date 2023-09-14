@@ -15,6 +15,6 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.kubernetes.io/name: plex
+    app.elfhosted.com/name: plex
     app.kubernetes.io/instance: {{ .Release.Name }}
 {{ end }}
