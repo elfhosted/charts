@@ -3639,10 +3639,10 @@ plexpia: &plex
         configMap:
           name: elfbot-plex 
           optional: true              
-  # service:
-  #   main:
-  #     nameOverride: plex
-  #     enabled: true # necessary for probes, but probes aren't working with vpn addon currently
+  service:
+    main:
+      nameOverride: plex
+      enabled: true 
   addons:
     vpn: 
       <<: *plex_addons_vpn
