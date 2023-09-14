@@ -3542,6 +3542,7 @@ plex: &plex
         name: config   
 
 plexgluetun: &plex
+  enabled: false
   podLabels:
     app.elfhosted.com/name: plex
   controller:
@@ -3610,6 +3611,7 @@ plexgluetun: &plex
           echo "disconnected" > /shared/vpnstatus
 
 plexpia: &plex
+  enabled: false
   podLabels:
     app.elfhosted.com/name: plex
   controller:
