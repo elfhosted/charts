@@ -1,4 +1,4 @@
-{{ if .Values.plex.enabled }}
+{{ if or .Values.plex.enabled .Values.plexgluetun.enabled .Values.plexpia.enabled }}
 apiVersion: v1
 kind: Service
 metadata:

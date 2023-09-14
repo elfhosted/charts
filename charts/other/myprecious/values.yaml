@@ -3452,7 +3452,7 @@ readarraudio:
       cpu: 2
       memory: 1Gi
 
-plex:
+plex: &plex
   enabled: false
   priorityClassName: tenant-streaming
   securityContext:
@@ -3540,6 +3540,77 @@ plex:
         name: elfbot
       - mountPath: /config
         name: config   
+
+plexgluetun: &plex
+  podLabels:
+    app.elfhosted.com/name: plex
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-plex,plex-gluetun-config"
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex   
+    shared:
+      enabled: true
+      mountPath: /shared
+      type: emptyDir
+      volumeSpec:
+        medium: Memory
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-plex 
+          optional: true              
+  # service:
+  #   main:
+  #     nameOverride: plex
+  #     enabled: true # necessary for probes, but probes aren't working with vpn addon currently
+  addons:
+    vpn: &qbittorrent_addons_vpn
+      enabled: true
+      type: gluetun
+      gluetun:
+        image:
+          repository: docker.io/qmcgaw/gluetun
+          tag: pr-1543 # See https://github.com/qdm12/gluetun/issues/1488
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE      
+      envFrom:
+      - configMapRef:
+          name: plex-gluetun-config
+      additionalVolumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      config: # We have to set this to null so that we can override with our own config
+
+      # The scripts that get run when the VPN connection opens/closes are defined here.
+      # The default scripts will write a string to represent the current connection state to a file.
+      # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
+      scripts:
+        up: |-
+          #!/bin/bash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/bash
+          echo "disconnected" > /shared/vpnstatus
+
+plexpia: &plex
+  enabled: false
 
 jellyfin:
   hostname: elfhosted

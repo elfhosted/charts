@@ -57,7 +57,7 @@ data:
           - type: email             
       {{ end }}    
 
-      {{ if .Values.plex.enabled }}
+      {{ if or .Values.plex.enabled .Values.plexgluetun.enabled .Values.plexpia.enabled }}
       - name: plex
         group: consume-media
         url: "http://plex:32400"

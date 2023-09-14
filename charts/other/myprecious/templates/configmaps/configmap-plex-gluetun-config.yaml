@@ -1,0 +1,36 @@
+{{ if .Values.plexgluetun.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plex-gluetun-config
+data:
+
+  # These are used by the gluetun image
+  DOT: "off"
+  VPN_SERVICE_PROVIDER: "{{ .Values.plexgluetun.VPN_SERVICE_PROVIDER | default }}"
+  VPN_TYPE: "{{ .Values.plexgluetun.VPN_TYPE | default }}"
+  VPN_ENDPOINT_IP: "{{ .Values.plexgluetun.VPN_ENDPOINT_IP | default }}"
+  VPN_ENDPOINT_PORT: "{{ .Values.plexgluetun.VPN_ENDPOINT_PORT | default }}"
+  OPENVPN_USER: "{{ .Values.plexgluetun.OPENVPN_USER | default }}"
+  OPENVPN_PASSWORD: "{{ .Values.plexgluetun.OPENVPN_PASSWORD | default }}"
+  WIREGUARD_PUBLIC_KEY: "{{ .Values.plexgluetun.WIREGUARD_PUBLIC_KEY | default }}"
+  WIREGUARD_PRIVATE_KEY: "{{ .Values.plexgluetun.WIREGUARD_PRIVATE_KEY | default }}"
+  WIREGUARD_PRESHARED_KEY: "{{ .Values.plexgluetun.WIREGUARD_PRESHARED_KEY | default }}"
+  WIREGUARD_ADDRESSES: "{{ .Values.plexgluetun.WIREGUARD_ADDRESSES | default }}"
+  SERVER_COUNTRIES: "{{ .Values.plexgluetun.SERVER_COUNTRIES | default }}"
+  SERVER_CITIES: "{{ .Values.plexgluetun.SERVER_CITIES | default }}"
+  OPENVPN_CUSTOM_CONFIG: "{{ .Values.plexgluetun.OPENVPN_CUSTOM_CONFIG | default }}"
+  SERVER_REGIONS: "{{ .Values.plexgluetun.SERVER_REGIONS | default }}"
+  VPN_PORT_FORWARDING: "{{ .Values.plexgluetun.VPN_PORT_FORWARDING | default false }}"
+  VPN_PORT_FORWARDING_PROVIDER: "{{ .Values.plexgluetun.VPN_PORT_FORWARDING_PROVIDER | default false }}"
+  VPN_PORT_FORWARDING_STATUS_FILE: /config/forwarded-port
+  POST_UP: /gluetun/scripts/up.sh
+  PRE_DOWN: /gluetun/scripts/down.sh
+
+  # This is used by our custom qbit image, and aligns with the PIA env vars
+  PORT_FILE: "{{ .Values.plexgluetun.PORT_FILE | default }}"
+  # PORT_FILE: /config/forwarded-port
+
+  # Avoid breaking kube probes
+  FIREWALL_INPUT_PORTS: "8080"
+{{ end }}
