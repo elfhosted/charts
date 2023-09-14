@@ -3574,7 +3574,7 @@ plexgluetun: &plex
   #     nameOverride: plex
   #     enabled: true # necessary for probes, but probes aren't working with vpn addon currently
   addons:
-    vpn: &qbittorrent_addons_vpn
+    vpn: &plex_addons_vpn
       enabled: true
       type: gluetun
       gluetun:
@@ -3610,7 +3610,47 @@ plexgluetun: &plex
           echo "disconnected" > /shared/vpnstatus
 
 plexpia: &plex
-  enabled: false
+  podLabels:
+    app.elfhosted.com/name: plex
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-plex,plex-pia-config"
+  persistence:
+    <<: *appmounts  
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex   
+    shared:
+      enabled: true
+      mountPath: /shared
+      type: emptyDir
+      volumeSpec:
+        medium: Memory
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-plex 
+          optional: true              
+  # service:
+  #   main:
+  #     nameOverride: plex
+  #     enabled: true # necessary for probes, but probes aren't working with vpn addon currently
+  addons:
+    vpn: 
+      <<: *plex_addons_vpn
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest  
+      envFrom:
+      - configMapRef:
+          name: qbittorrent-pia-config
 
 jellyfin:
   hostname: elfhosted
