@@ -1733,6 +1733,20 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex      
+    plexpia:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/plex/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex     
+    plexgluetun:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/plex/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex                     
     joplinserver:
       enabled: false
       type: custom
@@ -3942,7 +3956,21 @@ homer:
       mountPath: /config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex      
+          claimName: config-plex    
+    plexpia:
+      enabled: false
+      type: custom
+      mountPath: /config/plex/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex    
+    plexgluetun:
+      enabled: false
+      type: custom
+      mountPath: /config/plex/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex                          
     jfa:
       enabled: false
       type: custom
