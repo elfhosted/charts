@@ -7,7 +7,6 @@ data:
 
   # These are used by the gluetun image
   DOT: "off"
-  FIREWALL_INPUT_PORTS: "32400"
   FIREWALL_OUTBOUND_SUBNETS: 10.2.0.0/15,10.43.0.0/16
   VPN_SERVICE_PROVIDER: "{{ .Values.plexgluetun.VPN_SERVICE_PROVIDER | default }}"
   VPN_TYPE: "{{ .Values.plexgluetun.VPN_TYPE | default }}"
@@ -34,5 +33,5 @@ data:
   # PORT_FILE: /config/forwarded-port
 
   # Avoid breaking kube probes
-  FIREWALL_INPUT_PORTS: "8080"
+  FIREWALL_INPUT_PORTS: "32400"
 {{ end }}
