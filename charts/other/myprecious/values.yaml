@@ -1569,7 +1569,7 @@ filebrowser:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/filebrowser
-    tag: 2.24.2@sha256:9e84e0fff94256c82a78986d9735d4bf6793d70053bf23589c483b527758fc6f
+    tag: 2.25.0@sha256:bbdcb01752c443b46c9c7ee7dc6b379535320494ad37624933209283f3b70636
   env:
     FB_DATABASE: /tmp/filebrowser.db
     FB_CONFIG: /etc/filebrowser/.filebrowser.json # this would work implicitly anyway, but this way it's clear what's happening
@@ -2074,7 +2074,7 @@ filebrowser:
       enabled: false
   initContainers:
     setup:
-      image: ghcr.io/geek-cookbook/filebrowser:2.24.2@sha256:9e84e0fff94256c82a78986d9735d4bf6793d70053bf23589c483b527758fc6f
+      image: ghcr.io/geek-cookbook/filebrowser:2.25.0@sha256:bbdcb01752c443b46c9c7ee7dc6b379535320494ad37624933209283f3b70636
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
@@ -3487,7 +3487,7 @@ plex: &plex
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
-    tag: rolling@sha256:3846f5772609572fcb91a44a17effd31a3da811d9cb5f2688a846581125c918a
+    tag: rolling@sha256:f083cdf91396780e1e8baa81dc95ce5d8330456120e98efdee249d9456535f6e
   persistence:
     <<: *appmounts  
     config:
