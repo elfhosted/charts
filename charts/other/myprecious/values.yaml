@@ -3587,7 +3587,7 @@ plexgluetun: &plex
   service:
     main:
       nameOverride: plex
-      enabled: false # necessary for probes, but probes aren't working with vpn addon currently
+      enabled: true # necessary for probes, but probes aren't working with vpn addon currently
   addons:
     vpn: &plex_addons_vpn
       enabled: true
