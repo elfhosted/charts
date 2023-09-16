@@ -2401,7 +2401,7 @@ calibreweb:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/calibre-web
-    tag: 0.6.20@sha256:08201596ffe7ffeba072d145e998661dd02d4f0ea7ede5272de03147931d4e2c
+    tag: 0.6.20@sha256:b0a808504c60d8e6f185add9357d3c64c72d26897ac5a7bac417a60bdaa8227d
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-calibreweb"
