@@ -3469,6 +3469,8 @@ readarraudio:
 plex: &plex
   enabled: false
   priorityClassName: tenant-streaming
+  podLabels:
+    app.elfhosted.com/name: plex  
   securityContext:
     runAsUser: 568
     runAsGroup: 568
