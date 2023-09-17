@@ -1342,7 +1342,7 @@ bazarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
-    tag: 1.2.4@sha256:f33baf6e5232f522ce7bb6d554c4aa4434175071c472186968fc8cd46d444453
+    tag: 1.3.0@sha256:a05eb420ae3b98c5c83d5f53c479c885675da71d2ed6e93129bbd6144938407f
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -1415,7 +1415,7 @@ bazarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
-    tag: 1.2.4@sha256:f33baf6e5232f522ce7bb6d554c4aa4434175071c472186968fc8cd46d444453
+    tag: 1.3.0@sha256:a05eb420ae3b98c5c83d5f53c479c885675da71d2ed6e93129bbd6144938407f
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -2401,7 +2401,7 @@ calibreweb:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/calibre-web
-    tag: 0.6.20@sha256:1f18eb27c23de92199bb8dec449469991735db956a03e608af3c561135a92152
+    tag: 0.6.20@sha256:b0a808504c60d8e6f185add9357d3c64c72d26897ac5a7bac417a60bdaa8227d
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-calibreweb"
@@ -3318,7 +3318,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2207@sha256:4540a93622e69357bc5a0f3512a1f1617639e6f620751b192911d6a9bb8d07db
+    tag: 0.3.5.2217@sha256:f4fa3e947ac96cbc785d480b0779f634521b2bc5f612262ad42360d73451f816
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3396,7 +3396,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.4.2207@sha256:4540a93622e69357bc5a0f3512a1f1617639e6f620751b192911d6a9bb8d07db
+    tag: 0.3.5.2217@sha256:f4fa3e947ac96cbc785d480b0779f634521b2bc5f612262ad42360d73451f816
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6568,7 +6568,7 @@ miniflux:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/miniflux
-    tag: 2.0.47
+    tag: 2.0.48
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-miniflux,miniflux-config"
