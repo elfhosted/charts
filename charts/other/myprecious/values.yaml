@@ -4489,7 +4489,7 @@ gotify:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/gotify
-    tag: 2.3.0@sha256:6f69d69fd8d854fb8b60147159b1f316684d62be423fee00733382e847b13f0d
+    tag: 2.4.0@sha256:ba635bebcbb625e17d5bf8d251be2c71f032ee80e77cbd4cbc1a6d93ee518523
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
