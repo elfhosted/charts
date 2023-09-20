@@ -5913,7 +5913,7 @@ jfa:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/jfa-go
-    tag: v1.19.0@sha256:be4b3935a1e1a29fab0b6575f4727629c784eeeb0189c5ad2cb170f0310a1ded
+    tag: v1.19.1@sha256:6d632df6c28d310035ebfc58263586f223417f45ac29214ca23410ea4b12d331
   securityContext:
     seccompProfile:
       type: RuntimeDefault
