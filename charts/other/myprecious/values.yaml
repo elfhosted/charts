@@ -6437,7 +6437,7 @@ rdtclient:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.37@sha256:0f54abfbfeb8674b199fa2a785bf5ba34b5b9765f1ef9dda222724dac19b7610
+    tag: v2.0.38@sha256:b79a8579bd497cc238e2ac4d699c232b292de37209e3196aed977836654d60c3
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-rdtclient"
