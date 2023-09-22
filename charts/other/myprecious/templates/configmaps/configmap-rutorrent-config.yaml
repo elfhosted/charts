@@ -111,7 +111,7 @@ data:
     pieces.hash.on_completion.set = no
 
     # Set whether the client should try to connect to UDP trackers
-    trackers.use_udp.set = no
+    trackers.use_udp.set = yes
 
     # Set the max amount of memory address space used to mapping file chunks. This refers to memory mapping, not
     # physical memory allocation. Default: 1GB (max_memory_usage)
