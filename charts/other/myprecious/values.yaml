@@ -1489,7 +1489,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.29.0@sha256:4c8be916f9617584bafe50c66fde558dabb6e34c6c9876573bf4de8aaaee0301
+    tag: 1.30.0@sha256:b0caa152e5d0e879062149e81a5a026530d1c1cf978b59f8b8e90dfb5f80ad26
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -2336,7 +2336,7 @@ nzbhydra:
   image:
     registry: ghcr.io
     repository: geek-cookbook/nzbhydra2
-    tag: 5.1.11@sha256:e9c5678afefe77af66b8268d2ac8225c908e08fa23fee5f24b323bdd6897c2b8
+    tag: 5.2.0@sha256:9f54fe6b01a5b76399f02cb623111ef155beba101c12b0539e4aadf77c78a775
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -3670,7 +3670,7 @@ jellyfin:
   hostname: elfhosted
   image:
     repository: ghcr.io/geek-cookbook/jellyfin
-    tag: 10.8.10@sha256:3b1a56c1536e3b25f6275f308b3120bc3304f12ff2198ba9fbaa274617b572e2
+    tag: 10.8.11@sha256:31520ab97355812e2da626e55d8af51db39a916973bdc458ad5e1738188c41dd
   enabled: false
   priorityClassName: tenant-streaming
   securityContext:
@@ -5585,7 +5585,7 @@ nextpvr:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/nextpvr
-    tag: 10.8.10@sha256:bf007255f7f38a80c0151ea085d459b08dbf115acc6e7bd9de57c1e10669fd7a
+    tag: 10.8.11@sha256:1a9220511cb3d281f6d137c970a30186b5e388a92564d6254ec5b393b47192a0
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-nextpvr"
