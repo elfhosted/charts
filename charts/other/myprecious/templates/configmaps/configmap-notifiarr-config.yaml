@@ -43,7 +43,7 @@ data:
     debug = false
     max_body = 0 # maximum body size for debug logs. 0 = no limit.
 
-    host_id = "{{ .Release.Name }}.notifiarr.elfhosted.com}}"
+    host_id = "{{ .Release.Name }}.notifiarr.elfhosted.com"
 
     ## All API paths start with /api. This does not affect incoming /plex webhooks.
     ## Change it to /somethingelse/api by setting urlbase to "/somethingelse"
