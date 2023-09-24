@@ -3670,7 +3670,7 @@ jellyfin:
   hostname: elfhosted
   image:
     repository: ghcr.io/geek-cookbook/jellyfin
-    tag: 10.8.10@sha256:3b1a56c1536e3b25f6275f308b3120bc3304f12ff2198ba9fbaa274617b572e2
+    tag: 10.8.11@sha256:31520ab97355812e2da626e55d8af51db39a916973bdc458ad5e1738188c41dd
   enabled: false
   priorityClassName: tenant-streaming
   securityContext:
