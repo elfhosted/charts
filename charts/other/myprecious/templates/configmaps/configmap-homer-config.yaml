@@ -438,9 +438,9 @@ data:
             {{ end }}
             url: "https://{{ .Release.Name }}-readarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-            # type: "Readarr"
-            # apikey: "{{ .Values.readarrexposed.apikey }}"
-            # useCredentials: true
+            type: "Readarr"
+            apikey: "{{ .Values.readarrexposed.apikey }}"
+            useCredentials: true
           {{ end }}
 
           {{ if .Values.readarraudio.enabled }}
@@ -456,9 +456,9 @@ data:
             {{ end }}
             url: "https://{{ .Release.Name }}-readarraudio.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-            # type: "Readarr"
-            # apikey: "{{ .Values.readarraudioexposed.apikey }}"
-            # useCredentials: true
+            type: "Readarr"
+            apikey: "{{ .Values.readarraudioexposed.apikey }}"
+            useCredentials: true
           {{ end }}
 
 
