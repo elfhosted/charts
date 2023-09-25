@@ -29,4 +29,9 @@ spec:
         - name: theme-park-jellyfin-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
+  tls:
+    secretName: letsencrypt-wildcard-cert-infra.elfhosted.com
+    options:
+      name: opt
+      namespace: letsencrypt-wildcard-cert        
 {{ end }}
