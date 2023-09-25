@@ -214,7 +214,7 @@ data:
 
       - name: "Logout"
         icon: "fas fa-lock"
-        url: https://{{ .Release.Name }}.auth-me.elfhosted.com/_oauth/logout
+        url: https://{{ .Release.Name }}-auth-me.elfhosted.com/_oauth/logout
 
     # Services
     # First level array represents a group.
