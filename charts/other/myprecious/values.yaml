@@ -350,10 +350,10 @@ lidarrexposed:
   apikey: 0e68e28531a249659737513d3102bfe9
 readarrexposed:
   enabled: false
-  apikey: ada51fcb59014c14970fe66d6206ed67
+  apikey: 74b033ff59964011b8a32c014fdb9b68
 readarraudioexposed:
   enabled: false
-  apikey: 1696174031db48ba983ec288c00353a5
+  apikey: 8496cefe2c6b46ee921e18caddf6a943
 prowlarrexposed:
   enabled: false
   apikey: c53bc3bd17c645c3a457e5342a02cd66
