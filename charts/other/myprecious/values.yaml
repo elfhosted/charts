@@ -4302,7 +4302,7 @@ homer:
   - /usr/local/bin/disk_usage.sh
   additionalContainers:
     ui:
-      image: ghcr.io/geek-cookbook/homer:23.05.1@sha256:1d9d2a8dfa3ef269a116857574908724fbc5cd1c289854af05521e0a42c2622a
+      image: ghcr.io/geek-cookbook/homer:23.09.1@sha256:60ee41ddfbd3c99d62f4802482af8c47dbab028723b9b3551f66de9fc3f07db8
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /www/assets/config.yml
