@@ -1,0 +1,20 @@
+{{ if .Values.tdarr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: tdarr
+  labels:
+    app.kubernetes.io/name: 
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8265
+    targetPort: 8265
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: tdarr
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

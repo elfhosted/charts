@@ -1,0 +1,18 @@
+{{ if .Values.tdarr.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-tdarr.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-tdarr.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: tdarr
+          kind: Service
+          port: 8265
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth      
+        - name: error-pages
+          namespace: traefik
+{{ end }}
