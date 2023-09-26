@@ -993,7 +993,7 @@ sabnzbd:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sabnzbd
-    tag: 4.0.3@sha256:146ed7d761e46ed1381b66ddfab566e99e79b9273479accc331b6b62c4572177
+    tag: 4.1.0@sha256:c2fec7d8609a138a12fed06756a12c0bb798d628592e24162bd9b19ae39b0f37
   priorityClassName: tenant-low
   controller:
     annotations:
