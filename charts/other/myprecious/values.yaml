@@ -6827,6 +6827,7 @@ tdarr:
     PUID: 568
     PGID: 568
   persistence:
+    <<: *appmounts    
     config:
       enabled: true
       type: custom
