@@ -660,9 +660,9 @@ data:
 
           {{ if .Values.tdarr.enabled }}
           - name: "Tdarr"
-            # logo: "assets/png/tdarr.png"
+            logo: "assets/png/tdarr.png"
             # Alternatively a fa icon can be provided:
-            icon: "fas fa-photo-film"
+            # icon: "fas fa-photo-film"
             subtitle: "Transcode Media"
             tag: "protected"
             tagstyle: "is-success"
