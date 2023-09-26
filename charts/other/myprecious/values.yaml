@@ -6831,7 +6831,7 @@ tdarr:
     config:
       enabled: true
       type: custom
-      mountPath: /config
+      mountPath: /app/configs
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-tdarr   
@@ -6841,7 +6841,17 @@ tdarr:
       volumeSpec:
         configMap:
           name: elfbot-tdarr 
-          optional: true           
+          optional: true     
+    render-device:
+      enabled: "true"
+      type: hostPath
+      hostPath: "/dev/dri/renderD128"
+      mountPath: "/dev/dri/renderD128"            
+    transcode:
+      enabled: true
+      type: emptyDir
+      mountPath: /temp
+      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files           
   ingress:
     main:
       enabled: false
