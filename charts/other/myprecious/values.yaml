@@ -6828,12 +6828,13 @@ tdarr:
     PGID: 568
     inContainer: "true"
     internalNode: "true"
+    nodeName: tdarr-node-elfhosted
   persistence:
     <<: *appmounts    
     config:
       enabled: true
       type: custom
-      mountPath: /app/configs
+      mountPath: /app/server
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-tdarr   
@@ -6852,7 +6853,7 @@ tdarr:
     transcode:
       enabled: true
       type: emptyDir
-      mountPath: /temp
+      mountPath: /transcode
       sizeLimit: 50Gi # Don't allow > 50GB in transcoding files           
   ingress:
     main:
