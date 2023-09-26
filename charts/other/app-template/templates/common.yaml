@@ -4,10 +4,10 @@
 {{- define "app-template.hardcodedValues" -}}
 
 # Set the nameOverride based on the release name if no override has been set
-{{ if not .Values.global.nameOverride }}
-global:
-  nameOverride: "{{ .Release.Name }}"
-{{ end }}
+# {{ if not .Values.global.nameOverride }}
+# global:
+#   nameOverride: "{{ .Release.Name }}"
+# {{ end }}
 
 {{- end -}}
 {{- $_ := mergeOverwrite .Values (include "app-template.hardcodedValues" . | fromYaml) -}}
