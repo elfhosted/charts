@@ -656,7 +656,19 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/plex-meta-manager/"
             target: "_blank" # optional html tag target attribute
-          {{ end }}          
+          {{ end }}      
+
+          {{ if .Values.tdarr.enabled }}
+          - name: "Tdarr"
+            # logo: "assets/png/tdarr.png"
+            # Alternatively a fa icon can be provided:
+            icon: "fas fa-photo-film"
+            subtitle: "Transcode Media"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-tdarr.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                    
 
       - name: "Download Media"
         icon: "fas fa-cloud-arrow-down"
