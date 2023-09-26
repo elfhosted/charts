@@ -6854,7 +6854,7 @@ tdarr:
       enabled: true
       type: emptyDir
       mountPath: /transcode
-      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files           
+      sizeLimit: 200Gi # Don't allow > 200GB in transcoding files           
   ingress:
     main:
       enabled: false
