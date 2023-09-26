@@ -6815,6 +6815,7 @@ tdarr:
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
+    privileged: true
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6825,10 +6826,10 @@ tdarr:
   automountServiceAccountToken: false
   env:
     PUID: 568
-    PGID: 568
+    PGID: 109 # for access to the DRI
     inContainer: "true"
     internalNode: "true"
-    nodeName: tdarr-node-elfhosted
+    nodeName: elfnode
   persistence:
     <<: *appmounts    
     config:
@@ -6866,10 +6867,10 @@ tdarr:
           port: 8265
   resources:
     requests:
-      cpu: 10m
-      memory: 10Mi
+      cpu: 150m
+      memory: 500Mi
     limits:
-      cpu: 0.5
+      cpu: 250m # deliberately hobble the CPU in favor of GPU transcoding
       memory: 1Gi
   initContainers:
     bootstrap: *bootstrap
