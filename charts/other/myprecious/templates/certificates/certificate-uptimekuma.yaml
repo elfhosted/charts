@@ -1,0 +1,14 @@
+{{- if and .Values.uptimekuma.enabled (not (eq .Values.uptimekuma.custom_domain "")) }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: custom-domain-uptimekuma-{{ .Values.uptimekuma.custom_domain }}
+spec:
+  secretName: cert-{{ .Values.uptimekuma.custom_domain }}
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: {{ .Values.uptimekuma.custom_domain }}
+  dnsNames:
+  - {{ .Values.uptimekuma.custom_domain }}
+{{ end }}  
