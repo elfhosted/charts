@@ -373,7 +373,7 @@ sabnzbdexposed:
 nzbgetexposed:
   enabled: false
 
-uptimekuma_customdomain:
+uptimekumacustomdomain:
   enabled: false
 
 rutorrentgluetun: &rutorrent

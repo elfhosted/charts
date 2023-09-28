@@ -1,14 +1,14 @@
-{{- if .Values.uptimekuma_customdomain.enabled }}
+{{- if .Values.uptimekumacustomdomain.enabled }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: custom-domain-uptimekuma-{{ .Values.uptimekuma_customdomain.cname }}
+  name: custom-domain-uptimekuma-{{ .Values.uptimekumacustomdomain.cname }}
 spec:
-  secretName: cert-{{ .Values.uptimekuma_customdomain.cname }}
+  secretName: cert-{{ .Values.uptimekumacustomdomain.cname }}
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: {{ .Values.uptimekuma_customdomain.cname }}
+  commonName: {{ .Values.uptimekumacustomdomain.cname }}
   dnsNames:
-  - {{ .Values.uptimekuma_customdomain.cname }}
+  - {{ .Values.uptimekumacustomdomain.cname }}
 {{ end }}  
