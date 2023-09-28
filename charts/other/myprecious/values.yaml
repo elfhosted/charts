@@ -3566,7 +3566,8 @@ plex: &plex
       - mountPath: /config
         name: config   
 
-plexgluetun: &plex
+plexgluetun: 
+  <<: *plex
   enabled: false
   podLabels:
     app.elfhosted.com/name: plex
@@ -3635,7 +3636,8 @@ plexgluetun: &plex
           #!/bin/bash
           echo "disconnected" > /shared/vpnstatus
 
-plexpia: &plex
+plexpia: 
+  <<: *plex
   enabled: false
   podLabels:
     app.elfhosted.com/name: plex
