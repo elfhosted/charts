@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.uptimekumacustomdomain.cname }}
 spec:
   routes:
-    - match: Host(`{{ .Values.uptimekumacustomdomain.cname }}`)
+    - match: Host(`bananapants.com`)
       kind: Rule
       services:
         - name: uptime-kuma
