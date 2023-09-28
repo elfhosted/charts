@@ -1,11 +1,11 @@
-{{- if .Values.uptimekumacustomdomain.enabled }}
+{{- if .Values.uptimekuma_customdomain.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Values.uptimekumacustomdomain.cname }}
+  name: {{ .Values.uptimekuma_customdomain.cname }}
 spec:
   routes:
-    - match: Host(`bananapants.com`)
+    - match: Host(`{{ .Values.uptimekuma_customdomain.cname }}`)
       kind: Rule
       services:
         - name: uptime-kuma
