@@ -18,4 +18,6 @@ spec:
         - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
+  tls:
+    secretName: cert-{{ .Values.uptimekumacustomdomain.cname }}
 {{ end }}

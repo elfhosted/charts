@@ -43,7 +43,7 @@ data:
     debug = false
     max_body = 0 # maximum body size for debug logs. 0 = no limit.
 
-    host_id = "{{ .Release.Name }}.notifiarr.elfhosted.com"
+    host_id = "{{ .Release.Name }}-notifiarr.elfhosted.com"
 
     ## All API paths start with /api. This does not affect incoming /plex webhooks.
     ## Change it to /somethingelse/api by setting urlbase to "/somethingelse"
@@ -58,8 +58,7 @@ data:
     ## Set this to your reverse proxy server's IP or network. If you leave off the mask,
     ## then /32 or /128 is assumed depending on IP version. Empty by default. Example:
     ##
-    upstreams = [ "10.1.0.0/16" ] # for ElfHosted's inbound proxy
-
+    upstreams = [ "10.2.0.0/15" ] # for ElfHosted's Traefik pods
     ## If you provide a cert and key file (pem) paths, this app will listen with SSL/TLS.
     ## Uncomment both lines and add valid file paths. Make sure this app can read them.
     ##
@@ -115,7 +114,7 @@ data:
     [[lidarr]]
     name     = "Lidarr | ElfHosted" # Set a name to enable checks of your service.
     url      = "http://lidarr:8686/"
-    api_key  = "0753ec3479f742c89690a6ca285e78e3"
+    api_key  = "0e68e28531a249659737513d3102bfe9"
 
 
     [[prowlarr]]
@@ -137,12 +136,12 @@ data:
     [[readarr]]
     name      = "Readarr | ElfHosted" # Set a name to enable checks of your service.
     url       = "http://readarr:8787/"
-    api_key   = "ada51fcb59014c14970fe66d6206ed67"
+    api_key   = "74b033ff59964011b8a32c014fdb9b68"
 
     [[readarr]]
     name      = "Readarr Audio | ElfHosted" # Set a name to enable checks of your service.
     url       = "http://readarraudio:8787/"
-    api_key   = "1696174031db48ba983ec288c00353a5"    
+    api_key   = "8496cefe2c6b46ee921e18caddf6a943"    
 
     [[sonarr]]
     name      = "Sonarr | ElfHosted"  # Set a name to enable checks of your service.
@@ -180,10 +179,10 @@ data:
     pass     = ""
 
 
-    #[[sabnzbd]]
-    #name     = ""  # Set a name to enable checks of this application.
-    #url      = "http://sabnzbd:8080/"
-    #api_key  = ""
+    [[sabnzbd]]
+    name     = SABnzbd | ElfHosted"  # Set a name to enable checks of this application.
+    url      = "http://sabnzbd:8080/"
+    api_key  = "8flkbru7ncdps3dzzgk48q2msz41m4on"
 
 
     #################
