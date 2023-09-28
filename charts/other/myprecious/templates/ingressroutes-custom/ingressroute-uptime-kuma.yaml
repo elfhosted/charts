@@ -1,12 +1,11 @@
-{{- if .Values.uptimekuma.enabled }}
-{{- if not (eq .Values.uptimekuma.custom_domain "") }}
+{{- if .Values.uptimekuma_customdomain.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Values.uptimekuma.custom_domain }}
+  name: {{ .Values.uptimekuma_customdomain.cname }}
 spec:
   routes:
-    - match: Host(`{{ .Values.uptimekuma.custom_domain`)
+    - match: Host(`{{ .Values.uptimekuma_customdomain.cname }}`)
       kind: Rule
       services:
         - name: uptime-kuma
@@ -18,6 +17,5 @@ spec:
         {{ if ne "default" .Values.themepark.theme }}
         - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
           namespace: theme-park
-        {{ end }}       
-{{ end }}
+        {{ end }}
 {{ end }}
