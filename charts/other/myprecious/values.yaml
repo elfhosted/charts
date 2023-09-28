@@ -2246,8 +2246,8 @@ uptimekuma:
       cpu: 10m
       memory: 96Mi
     limits:
-      cpu: 1
-      memory: 1Gi
+      cpu: 100m
+      memory: 200Mi
 
 privatebin:
   enabled: false
