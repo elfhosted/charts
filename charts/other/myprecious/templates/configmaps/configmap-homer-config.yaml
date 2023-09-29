@@ -899,9 +899,13 @@ data:
           - name: "Uptime Kuma"
             logo: "assets/png/uptime-kuma.png"
             subtitle: "Uptime Monitor"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
+            {{- if .Values.uptimekumacustomdomain.enabled }}
+            url: "https://{{ .Values.uptimekumacustomdomain.cname }}"
+            {{- else }}
             url: "https://{{ .Release.Name }}-uptime-kuma.elfhosted.com"
+            {{- end }}
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
