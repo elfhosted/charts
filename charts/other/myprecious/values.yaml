@@ -375,6 +375,8 @@ nzbgetexposed:
 
 uptimekumacustomdomain:
   enabled: false
+mattermostcustomdomain:
+  enabled: false
 
 rutorrentgluetun: &rutorrent
   enabled: false

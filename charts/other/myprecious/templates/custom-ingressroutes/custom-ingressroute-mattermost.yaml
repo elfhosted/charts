@@ -1,0 +1,19 @@
+{{- if .Values.mattermostcustomdomain.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Values.mattermostcustomdomain.cname }}
+spec:
+  routes:
+    - match: Host(`{{ .Values.mattermostcustomdomain.cname }}`)
+      kind: Rule
+      services:
+        - name: mattermost
+          kind: Service
+          port: 8065
+      middlewares:
+        - name: error-pages
+          namespace: traefik
+  tls:
+    secretName: cert-{{ .Values.mattermostcustomdomain.cname }}
+{{ end }}

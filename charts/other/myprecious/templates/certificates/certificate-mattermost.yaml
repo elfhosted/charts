@@ -1,0 +1,14 @@
+{{- if .Values.mattermostcustomdomain.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: custom-domain-mattermost-{{ .Values.mattermostcustomdomain.cname }}
+spec:
+  secretName: cert-{{ .Values.mattermostcustomdomain.cname }}
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: {{ .Values.mattermostcustomdomain.cname }}
+  dnsNames:
+  - {{ .Values.mattermostcustomdomain.cname }}
+{{ end }}  
