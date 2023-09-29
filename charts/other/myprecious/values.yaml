@@ -377,6 +377,8 @@ uptimekumacustomdomain:
   enabled: false
 mattermostcustomdomain:
   enabled: false
+vaultwardencustomdomain:
+  enabled: false  
 
 rutorrentgluetun: &rutorrent
   enabled: false
