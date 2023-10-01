@@ -5204,7 +5204,7 @@ audiobookshelf:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/audiobookshelf
-    tag: 2.4.3@sha256:447ad61da285482ff9faeff57a4f564d58ff07c288c96361d0d9dbc2f9cc92b2
+    tag: 2.4.4@sha256:5123398cf32293a9afbb04f1ff2f4661c528fb218c7d5cf41a8202d23eb939f0
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
