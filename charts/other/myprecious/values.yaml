@@ -3676,10 +3676,10 @@ plexpia:
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
-          tag: latest  
+          tag: latest
       envFrom:
       - configMapRef:
-          name: qbittorrent-pia-config
+          name: plex-pia-config
 
 jellyfin:
   hostname: elfhosted
