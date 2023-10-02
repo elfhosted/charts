@@ -2882,7 +2882,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.686@sha256:d9b9a2970c925a7572b85bba2b273f02d8cae1c38a515682e367bfee7fd3954d
+    tag: 4.0.0.688@sha256:6e2b47a7752d9f80167591ce914c5b6f34d6ef65aa431c1d0431461cded6cf58
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2955,7 +2955,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.686@sha256:d9b9a2970c925a7572b85bba2b273f02d8cae1c38a515682e367bfee7fd3954d
+    tag: 4.0.0.688@sha256:6e2b47a7752d9f80167591ce914c5b6f34d6ef65aa431c1d0431461cded6cf58
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5204,7 +5204,7 @@ audiobookshelf:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/audiobookshelf
-    tag: 2.4.3@sha256:447ad61da285482ff9faeff57a4f564d58ff07c288c96361d0d9dbc2f9cc92b2
+    tag: 2.4.4@sha256:5123398cf32293a9afbb04f1ff2f4661c528fb218c7d5cf41a8202d23eb939f0
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -6815,7 +6815,7 @@ tdarr:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/haveagitgat/tdarr
-    tag: 2.12.01
+    tag: 2.13.01
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-tdarr"
