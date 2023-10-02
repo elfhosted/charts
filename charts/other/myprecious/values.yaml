@@ -242,7 +242,6 @@ bootstrap: &bootstrap
   - -c
   - |
     set -e
-    set -x
 
     # Allows us to use app.elfhosted.com/name, but fall back to app.kubernetes.io/name if the former doesn't exist
     if [[ -z "$ELF_APP_NAME" ]]; then
