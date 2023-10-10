@@ -259,7 +259,7 @@ bootstrap: &bootstrap
     fi
     
     # If no command is set, then move onto the next possibility
-    if [[ -f /etc/elfbot/backup && ! -z "$COMMANDx" ]]; then
+    if [[ -f /etc/elfbot/backup && -z "$COMMAND" ]]; then
       TIMESTAMP_COMMAND=$(cat /etc/elfbot/backup)
       TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
       if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
@@ -268,7 +268,7 @@ bootstrap: &bootstrap
     fi
 
     # If no command is set, then move onto the next possibility
-    if [[ -f /etc/elfbot/reset && ! -z "$COMMANDx" ]]; then
+    if [[ -f /etc/elfbot/reset && -z "$COMMAND" ]]; then
       TIMESTAMP_COMMAND=$(cat /etc/elfbot/reset)
       TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
       if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
