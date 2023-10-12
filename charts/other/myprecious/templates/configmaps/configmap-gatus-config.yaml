@@ -30,7 +30,7 @@ data:
           success-threshold: 1
 
     maintenance:
-      start: 9:00 # 10am UTC = 10pm NZDT
+      start: 09:00 # 10am UTC = 10pm NZDT
       duration: 1h        
                               
     endpoints:       
