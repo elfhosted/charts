@@ -3339,7 +3339,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.8.2266@sha256:d669899f2c0e50d6718665fabe5abc9d7969f5d35dd77f3e558f33641c00d90c
+    tag: 0.3.8.2267@sha256:60e45530c942a196772d1b345e3812e4438636a35f5373b38803cc8061916571
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3417,7 +3417,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.8.2266@sha256:d669899f2c0e50d6718665fabe5abc9d7969f5d35dd77f3e558f33641c00d90c
+    tag: 0.3.8.2267@sha256:60e45530c942a196772d1b345e3812e4438636a35f5373b38803cc8061916571
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6003,7 +6003,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 9.0.1@sha256:5f76d13e65167e4462dee108ac525348656db89ab1ea2647fc7cefd1bc7fc6d2
+    tag: 9.1.0@sha256:9a6427b6da27e25c9280dfe9bca55afe8b06bb50a8417f7ee1ad73e00aefe536
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
