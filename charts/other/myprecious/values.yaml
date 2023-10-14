@@ -5,6 +5,13 @@ safeToRelease: true
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20230801@sha256:daaf77687540a2d7bfd5802eda1d79cb5a0b4e26444a9577d43efe0ce537c60c
   
 # And this makes the media / rclone mounts tidier.
+rclonecustoma: &rclonecustoma
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: custom-a
+  mountPath: /storage/custom-a
 rclonea: &rclonea
   enabled: false
   type: custom
@@ -172,6 +179,7 @@ tmp: &tmp
 appmounts: &appmounts
   tmp: *tmp      
   elfstorage: *elfstorage
+  rclonecustoma: *rclonecustoma
   rclonea: *rclonea
   rcloneb: *rcloneb
   rclonec: *rclonec  
