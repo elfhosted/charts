@@ -5,8 +5,6 @@ metadata:
   name: config-qbittorrent
   annotations:
     helm.sh/resource-policy: keep
-  labels:
-    velero.io/snapshot-volume: "true"
 spec:
   accessModes:
   - ReadWriteMany

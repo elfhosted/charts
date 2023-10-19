@@ -3,6 +3,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: webdav-a
+  labels:
+    velero.io/exclude-from-backup: "true"
 spec:
   accessModes:
   - ReadWriteMany
