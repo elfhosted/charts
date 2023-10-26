@@ -1212,6 +1212,8 @@ radarr:
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
+      - mountPath: /config
+        name: config        
       resources: *default_resources
       securityContext: *default_securitycontext        
   resources:
@@ -1291,6 +1293,8 @@ radarr4k:
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
+      - mountPath: /config
+        name: config        
       resources: *default_resources
       securityContext: *default_securitycontext        
   resources:
