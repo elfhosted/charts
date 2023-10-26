@@ -772,7 +772,7 @@ qbittorrentgluetun: &qbittorrent
   image:
     registry: ghcr.io
     repository: geek-cookbook/qbittorrent
-    tag: 4.5.5@sha256:1fd020aeaffa61143d12ed1edae8e22aaf5e5b4950b0f527bbf44c6c9c08ad08
+    tag: 4.6.0@sha256:85b13ffc4e17837b9f0c6cfde522cba21ae57215ef790144558bd73f00398576
   priorityClassName: tenant-normal
   securityContext:
     runAsUser: 568
@@ -1153,7 +1153,7 @@ radarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
-    tag: 4.7.5.7809@sha256:bf5b3265e674e75f450e2537d756ab227108a140a3e9f6a0a0ed9a60046d9197
+    tag: 5.0.3.8127@sha256:52d59178ff8eedb79bc65ffffda86e0df680224bfe4dfed431a5f9992ca7ba80
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1226,7 +1226,7 @@ radarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
-    tag: 4.7.5.7809@sha256:bf5b3265e674e75f450e2537d756ab227108a140a3e9f6a0a0ed9a60046d9197
+    tag: 5.0.3.8127@sha256:52d59178ff8eedb79bc65ffffda86e0df680224bfe4dfed431a5f9992ca7ba80
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2422,7 +2422,7 @@ calibreweb:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/calibre-web
-    tag: 0.6.20@sha256:b0a808504c60d8e6f185add9357d3c64c72d26897ac5a7bac417a60bdaa8227d
+    tag: 0.6.21@sha256:f020940a67792fd31c73c163b360a40d47be1bd4d332fc6bd6eb709e68ad0c06
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-calibreweb"
@@ -2552,7 +2552,7 @@ lazylibrarian:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
-    tag: rolling@sha256:d1c19adb9b7beea53a54d17ffd824ff6f5f55e2690b5e4947b18b63b30833356
+    tag: rolling@sha256:042f2552e0981ebcb8850fd8ea9abc0ecbe43a261dc899744299d4ba88aa281c
   enabled: false
   controller:
     annotations:
@@ -2794,7 +2794,7 @@ calibre:
   runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 6.29.0@sha256:9bc8d79fc0efd1ff36b67db19459a51c91b2b65c4fe1e2c4cf81a9e2140b19f4
+    tag: 6.29.0@sha256:ab07af98f95c04694f34d1be3d1580f224507f65b2a8ec577a4374914c317023
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -3108,7 +3108,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.9.4.4039@sha256:7ea26d5a1394b906825c724f114ae57c0f47c6b14d3e3ca4764a03354d68af6e
+    tag: 1.10.0.4047@sha256:61c35055ad1d44613e84d7fe9b5064fa10f9c26af97840966a98b2e5a427b623
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4332,7 +4332,7 @@ homer:
   - /usr/local/bin/disk_usage.sh
   additionalContainers:
     ui:
-      image: ghcr.io/geek-cookbook/homer:23.09.1@sha256:60ee41ddfbd3c99d62f4802482af8c47dbab028723b9b3551f66de9fc3f07db8
+      image: ghcr.io/geek-cookbook/homer:23.10.1@sha256:7d042dc3540e1002ac28aa23ef29adb74e07ec365ce2b7f427d48a60b4e05aa6
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /www/assets/config.yml
@@ -6823,7 +6823,7 @@ tdarr:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/haveagitgat/tdarr
-    tag: 2.13.01
+    tag: 2.14.01
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-tdarr"
