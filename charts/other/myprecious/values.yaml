@@ -1095,7 +1095,7 @@ tautulli:
   image:
     registry: ghcr.io
     repository: geek-cookbook/tautulli
-    tag: 2.13.1@sha256:88b76b2c30dbb2ee6af6b8da718e1fbee7c6c3c03a1740d8ae060c04f7bb887e
+    tag: 2.13.2@sha256:7a4e301be7ad0bc984026ec3492ee703646333b98aca6cacac157eb4c596e36b
   priorityClassName: tenant-low
   controller:
     annotations:
