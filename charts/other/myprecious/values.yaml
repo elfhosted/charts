@@ -1095,7 +1095,7 @@ tautulli:
   image:
     registry: ghcr.io
     repository: geek-cookbook/tautulli
-    tag: 2.13.1@sha256:88b76b2c30dbb2ee6af6b8da718e1fbee7c6c3c03a1740d8ae060c04f7bb887e
+    tag: 2.13.2@sha256:7a4e301be7ad0bc984026ec3492ee703646333b98aca6cacac157eb4c596e36b
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -1515,7 +1515,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.31.0@sha256:c83a38a4a2d99d39c812baadded53d05deca8aabb7c5117f654faf9db4332572
+    tag: 1.33.0@sha256:81e9835336bdc458f413a0f77d375db205e803f6cee98a26358c31d1347436a0
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -2696,7 +2696,7 @@ komga:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/komga
-    tag: 1.6.2@sha256:093d413b99c360088dacdf6872af57dbdafab081b34b6e8862df0d410e1d8ec0
+    tag: 1.7.0@sha256:2563f0ee1efc71e41bbdbea5fbdf828030b206147e7d63bec2b8ac16d7f68f89
   env:
     KOMGA_CONFIGDIR: /config
     KOMGA_REMEMBERME_KEY: yesplease
@@ -2753,7 +2753,7 @@ kavita:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/kavita
-    tag: 0.7.9@sha256:501fdc4676cb82dcccc3f0b9a02b28d5bf0f78fa512c4b4cb611c25553c2245d
+    tag: 0.7.10@sha256:1fd74f6586c1775001e285b261954cba0ba7bad4eea5fda7b4418fca44343465
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2806,7 +2806,7 @@ calibre:
   runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 6.29.0@sha256:ab07af98f95c04694f34d1be3d1580f224507f65b2a8ec577a4374914c317023
+    tag: 6.29.0@sha256:9cbf2db5b746e1ebb6b65a6cadb5bc22e6b786634731c112c1a9c0025b213383
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -2902,7 +2902,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.700@sha256:a054be10c3940b861201a41befa0c07862d68d92c03ca1d0803de16d7c7bb35e
+    tag: 4.0.0.710@sha256:f13a78de2549e400a1f65b09ab1e6d25b3bca79315e9551167f3f0af4a3f986e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2975,7 +2975,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.700@sha256:a054be10c3940b861201a41befa0c07862d68d92c03ca1d0803de16d7c7bb35e
+    tag: 4.0.0.710@sha256:f13a78de2549e400a1f65b09ab1e6d25b3bca79315e9551167f3f0af4a3f986e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3120,7 +3120,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.10.0.4047@sha256:61c35055ad1d44613e84d7fe9b5064fa10f9c26af97840966a98b2e5a427b623
+    tag: 1.10.1.4059@sha256:cb2ef51199711086780e29c1d4ff620398dd2fe1e94b2e196cae185e63527ed9
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3351,7 +3351,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.9.2272@sha256:d9cd37e36268df0167a628bfcbc40f5e59453fef5b849650cb39d3c24d90f4fd
+    tag: 0.3.10.2287@sha256:5c1a46aafbd5cd626bfa93b86453f8bba804c55c963885265d6c0c141245c5f9
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3429,7 +3429,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.9.2272@sha256:d9cd37e36268df0167a628bfcbc40f5e59453fef5b849650cb39d3c24d90f4fd
+    tag: 0.3.10.2287@sha256:5c1a46aafbd5cd626bfa93b86453f8bba804c55c963885265d6c0c141245c5f9
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3522,7 +3522,7 @@ plex: &plex
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
-    tag: rolling@sha256:1319260f752d19d7920c859294c3147a7d9c28a10976349ac55babbaaad41c6e
+    tag: rolling@sha256:92492f2309502eb6e44586705fd4ede08e89aa7159e9f0bd6895405c61e8a980
   persistence:
     <<: *appmounts  
     config:
@@ -5224,7 +5224,7 @@ audiobookshelf:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/audiobookshelf
-    tag: 2.4.4@sha256:5123398cf32293a9afbb04f1ff2f4661c528fb218c7d5cf41a8202d23eb939f0
+    tag: 2.5.0@sha256:9f71f7a84a18e516cb092055d8eca6f22576cca196a5f905ccc9ab7f35f5b513
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -6015,7 +6015,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 9.1.0@sha256:9a6427b6da27e25c9280dfe9bca55afe8b06bb50a8417f7ee1ad73e00aefe536
+    tag: 9.1.1@sha256:a1a3daab6557eb61c269eb3c2ae16f9b731e1d94889e528f0b08e6ad3b1130e9
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
@@ -6835,7 +6835,7 @@ tdarr:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/haveagitgat/tdarr
-    tag: 2.14.01
+    tag: 2.14.02
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-tdarr"
