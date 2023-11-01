@@ -3293,7 +3293,7 @@ navidrome:
       configmap.reloader.stakater.com/reload: "elfbot-navidrome"
   automountServiceAccountToken: false
   env:
-    ND_MUSICFOLDER: /elfhosted/music
+    ND_MUSICFOLDER: /storage/elfstorage/music
     ND_DATAFOLDER: /config
   persistence:
     <<: *appmounts
