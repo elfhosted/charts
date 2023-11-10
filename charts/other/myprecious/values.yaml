@@ -3589,26 +3589,6 @@ plex: &plex
         name: elfbot
       - mountPath: /config
         name: config   
-    setup:
-      image: *tooling_image
-      imagePullPolicy: IfNotPresent
-      command:
-      - /bin/bash
-      - -c
-      - |
-        set -x
-        set -e
-
-        # Work around Plex transcoding bug
-        ln -sf /transcode /tmp/Transcode
-  
-      volumeMounts:
-      - mountPath: /tmp
-        name: tmp
-      - mountPath: /transcode
-        name: transcode
-      resources: *default_resources
-      securityContext: *default_securitycontext
 
 plexgluetun: 
   <<: *plex
@@ -3639,7 +3619,12 @@ plexgluetun:
       volumeSpec:
         configMap:
           name: elfbot-plex 
-          optional: true              
+          optional: true      
+    transcode:
+      enabled: true
+      type: emptyDir
+      mountPath: /transcode
+      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files                       
   service:
     main:
       nameOverride: plex
@@ -3709,7 +3694,12 @@ plexpia:
       volumeSpec:
         configMap:
           name: elfbot-plex 
-          optional: true              
+          optional: true    
+    transcode:
+      enabled: true
+      type: emptyDir
+      mountPath: /transcode
+      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files                         
   addons:
     vpn: 
       <<: *plex_addons_vpn
