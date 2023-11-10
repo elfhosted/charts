@@ -3536,12 +3536,7 @@ plex: &plex
       enabled: true
       type: emptyDir
       mountPath: /transcode
-      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files
-    tmp-transcode:
-      enabled: true
-      type: emptyDir
-      mountPath: /tmp/Transcode # Seems to be a new plex default
-      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files      
+      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files     
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3594,6 +3589,26 @@ plex: &plex
         name: elfbot
       - mountPath: /config
         name: config   
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Work around Plex transcoding bug
+        ln -sf /transcode /tmp/Transcode
+  
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmp
+      - mountPath: /transcode
+        name: transcode
+      resources: *default_resources
+      securityContext: *default_securitycontext
 
 plexgluetun: 
   <<: *plex
