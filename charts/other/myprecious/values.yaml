@@ -3522,7 +3522,7 @@ plex: &plex
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
-    tag: 1.32.6.7557-1cf77d501
+    tag: 1.32.7.7621-871adbd44
   persistence:
     <<: *appmounts  
     config:
@@ -3537,6 +3537,11 @@ plex: &plex
       type: emptyDir
       mountPath: /transcode
       sizeLimit: 50Gi # Don't allow > 50GB in transcoding files
+    tmp-transcode:
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp/Transcode # Seems to be a new plex default
+      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files      
     elfbot:
       enabled: "true"
       type: "custom"
