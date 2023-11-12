@@ -3120,7 +3120,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.10.1.4059@sha256:cb2ef51199711086780e29c1d4ff620398dd2fe1e94b2e196cae185e63527ed9
+    tag: 1.10.2.4064@sha256:766140d45ee8a06259fe68c28ecf1cf41308a1a67e8e7a9279ffd3ca85599d81
   securityContext:
     seccompProfile:
       type: RuntimeDefault
