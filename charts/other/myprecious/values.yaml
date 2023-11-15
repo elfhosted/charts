@@ -6728,7 +6728,7 @@ joplinserver:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/joplin-server
-    tag: v2.13.3@sha256:7a2455af9e75a4a527f9f7441d50195f6b32d4db40697ee03b800f4b6d4c7a10
+    tag: v2.13.4@sha256:ab95d2af612fd42c3ba954f0735f2df8d766b18f8694fd106be38c7aec0634a1
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-joplinserver,joplinserver-config"
