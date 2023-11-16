@@ -1,0 +1,20 @@
+{{ if .Values.gdrivec.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rclone-{{ .Release.Name }}-gdrive-c
+  labels:
+    name: rclone-{{ .Release.Name }}-gdrive-c
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: rclone
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: csi-rclone
+    volumeHandle: rclone-{{ .Release.Name }}-gdrive-c
+    volumeAttributes:
+      secretName: "{{ .Release.Name }}-gdrive-c"
+{{ end }}

@@ -54,6 +54,13 @@ gdrivec: &gdrivec
     persistentVolumeClaim:
       claimName: gdrive-c
   mountPath: /storage/gdrive-c  
+gdrived: &gdrived
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: gdrive-d
+  mountPath: /storage/gdrive-d
 onedrivea: &onedrivea
   enabled: false
   type: custom
@@ -186,6 +193,7 @@ appmounts: &appmounts
   gdrivea: *gdrivea
   gdriveb: *gdriveb
   gdrivec: *gdrivec 
+  gdrived: *gdrived  
   onedrivea: *onedrivea   
   rclonemountwebdava: *rclonemountwebdava
   rclonemountssha: *rclonemountssha  
