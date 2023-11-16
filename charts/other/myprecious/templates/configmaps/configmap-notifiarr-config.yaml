@@ -180,7 +180,7 @@ data:
 
 
     [[sabnzbd]]
-    name     = SABnzbd | ElfHosted"  # Set a name to enable checks of this application.
+    name     = "SABnzbd | ElfHosted"  # Set a name to enable checks of this application.
     url      = "http://sabnzbd:8080/"
     api_key  = "8flkbru7ncdps3dzzgk48q2msz41m4on"
 
