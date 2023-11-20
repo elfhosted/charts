@@ -1,0 +1,9 @@
+{{ if .Values.radarr.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: radarr-config
+data:
+  # Overwrite API key with default
+  RADARR__API_KEY: "{{ .Values.radarrexposed.apikey }}"
+{{ end }}

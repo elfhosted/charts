@@ -1177,6 +1177,9 @@ radarr:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-radarr" # Reload the deployment every time the rclones change
   automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: radarr-config  
   persistence:
     <<: *appmounts  
     config:
