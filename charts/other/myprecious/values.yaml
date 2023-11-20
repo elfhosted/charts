@@ -6553,7 +6553,7 @@ jdownloader:
   priorityClassName: tenant-low
   image:
     repository: jlesage/jdownloader-2
-    tag: v23.11.1
+    tag: v23.11.2
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-jdownloader"
