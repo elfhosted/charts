@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+data:
+  config.yml: |
+    ---
+    # For configuration options and examples, please see:
+    # https://gethomepage.dev/latest/configs/settings
+    title: My Awesome Homepage
+    background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
+    
+    providers:
+      openweathermap: openweathermapapikey
+      weatherapi: weatherapiapikey
