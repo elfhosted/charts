@@ -403,7 +403,7 @@ rutorrentgluetun: &rutorrent
   automountServiceAccountToken: false
   image:
       repository: ghcr.io/geek-cookbook/rutorrent
-      tag: 4.2.6-0.9.8-0.13.8@sha256:349396aeb6ffe17cf371782bf37cb996020ef863e0106ca27ad400a04a89fac9
+      tag: 4.2.9-0.9.8-0.13.8@sha256:4cb85f96f0945630ebac1f4c72fc38584846eb1acfbb4a26f91b3a45303bb82a
   priorityClassName: tenant-low
   podLabels:
     app.elfhosted.com/name: rutorrent  
