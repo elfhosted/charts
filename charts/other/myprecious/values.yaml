@@ -1745,6 +1745,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-filebot
+    homepage:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/filebot/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-homepage          
     jellyseerr:
       enabled: false
       type: custom
@@ -2383,7 +2390,7 @@ nzbhydra:
   image:
     registry: ghcr.io
     repository: geek-cookbook/nzbhydra2
-    tag: 5.3.2@sha256:de75fcf9ded19e5a7a0d3bfce2535e101566e325cc9732fe77f90758f6d1234a
+    tag: 5.3.3@sha256:dadb2aa6b597a909b47416e678e7ff063ba1eb21b314c7883db6862e033cf933
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -3990,6 +3997,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-filebot
+    homepage:
+      enabled: false
+      type: custom
+      mountPath: /config/homepage/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-homepage          
     jellyseerr:
       enabled: false
       type: custom
@@ -6955,12 +6969,18 @@ homepage:
   persistence:
     <<: *appmounts    
     config:
+      enabled: true
+      type: custom
+      mountPath: /app/config
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-homepage      
+    config-default:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
           name: homepage-config
-      mountPath: /app/config/
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6986,6 +7006,30 @@ homepage:
       memory: 1Gi
   initContainers:
     bootstrap: *bootstrap
+    copy-example-config:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # If we don't already have an example config, create one
+        if [ ! -f /app/config/dont-overwrite-me ];
+        then
+          cp /bootstrap/* /app/config/
+        fi
+      volumeMounts:
+      - mountPath: /app/config
+        name: config
+      - name: config-default
+        mountPath: "/bootstrap/"
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true    
     
 
 # This file must end on a newline
