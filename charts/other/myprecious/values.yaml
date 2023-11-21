@@ -6969,6 +6969,10 @@ homepage:
   env:
     PUID: 568
     PGID: 568 
+  envFrom:
+  - configMapRef:
+      name: elfbot-homepage
+      optional: true    
   persistence:
     <<: *appmounts    
     config:
