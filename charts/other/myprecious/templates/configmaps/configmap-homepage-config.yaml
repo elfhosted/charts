@@ -22,7 +22,7 @@ data:
             widget:
               type: jellyfin
               url: http://jellyfin:8096
-              key: {{'{{'}}HOMEPAGE_VAR_JELLYFIN_APIKEY{{'}}'}}
+              key: {{"{{"}}HOMEPAGE_VAR_JELLYFIN_APIKEY{{"}}"}}
             app: jellyfin
         {{ end }} 
              
