@@ -1,0 +1,39 @@
+{{ if .Values.homer.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: homepage
+  labels:
+    app.kubernetes.io/name: homepage
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - extensions
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - traefik.containo.us
+    resources:
+      - ingressroutes
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - metrics.k8s.io
+    resources:
+      - nodes
+      - pods
+    verbs:
+      - get
+      - list
+{{ end }}

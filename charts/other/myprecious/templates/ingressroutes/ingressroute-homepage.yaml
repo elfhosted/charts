@@ -1,0 +1,18 @@
+{{ if .Values.homepage.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-homepage.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-homepage.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: homepage
+          kind: Service
+          port: 3000
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}

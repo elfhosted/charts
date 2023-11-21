@@ -6954,13 +6954,13 @@ homepage:
     PGID: 568 
   persistence:
     <<: *appmounts    
-    config-yml:
+    config:
       enabled: "true"
-      subPath: "config.yml"
       type: "custom"
       volumeSpec:
         configMap:
           name: homepage-config
+      mountPath: /app/config/
     elfbot:
       enabled: "true"
       type: "custom"

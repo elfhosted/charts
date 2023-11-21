@@ -1,15 +1,72 @@
+{{ if .Values.homepage.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: homepage-config
 data:
-  config.yml: |
-    ---
-    # For configuration options and examples, please see:
-    # https://gethomepage.dev/latest/configs/settings
+  kubernetes.yaml: |
+    mode: cluster  
+
+  settings.yaml: |
     title: My Awesome Homepage
     background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
-    
-    providers:
-      openweathermap: openweathermapapikey
-      weatherapi: weatherapiapikey
+
+  services.yaml: |
+    - My First Awesome Group:
+        - My First Service:
+            href: http://localhost/
+            description: Homepage is awesome
+        - My First Service:
+            href: http://localhost/
+            description: Homepage is awesomea
+        - My First Service:
+            href: http://localhost/
+            description: Homepage is awesomb                
+
+    - My Second Group:
+        - My Second Service:
+            href: http://localhost/
+            description: Homepage is the best
+
+    - My Third Group:
+        - My Third Service:
+            href: http://localhost/
+            description: Homepage is 😎
+
+  widgets.yaml: |
+    - logo:
+        icon: https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/I_Love_New_York.svg/1101px-I_Love_New_York.svg.png # optional
+
+
+    - greeting:
+        text_size: 3xl
+        text: ElfHosted 
+
+    - resources:
+        label: /storage/elfstorage
+        disk: /
+
+  bookmarks.yaml: |
+    - Developer:
+        - Github:
+            - abbr: GH
+              href: https://github.com/
+              icon: github.png
+
+    - Help:
+        - Discord:
+            - abbr: DI
+              href: https://discord.elfhosted.com
+              icon: discord.png
+              description: Join our friendly Discord!
+        - Discord:
+            - abbr: DO
+              href: https://elfhosted.com
+              # icon: discord.png
+              description: Documentation         
+
+    - Entertainment:
+        - YouTube:
+            - abbr: YT
+              href: https://youtube.com/
+{{ end }}
