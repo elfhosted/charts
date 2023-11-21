@@ -1748,7 +1748,7 @@ filebrowser:
     homepage:
       enabled: false
       type: custom
-      mountPath: /storage/config/filebot/
+      mountPath: /storage/config/homepage/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-homepage          
@@ -6945,7 +6945,7 @@ homepage:
   enabled: false
   priorityClassName: tenant-low
   image:
-    repository: ghcr.io/benphelps/homepage
+    repository: ghcr.io/gethomepage/homepage
     tag: v0.8.0
   controller:
     annotations:

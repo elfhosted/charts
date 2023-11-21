@@ -12,7 +12,15 @@ data:
     background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
 
   services.yaml: |
-    - My First Awesome Group:
+    - Consume Media:
+        - Sonarr:
+            icon: sonarr.png
+            href: https://{{ .Release.Name }}-sonarr.elfhosted.com
+            description: Manage Series
+            widget:
+              type: sonarr
+              url: https://{{ .Release.Name }}-sonarr.elfhosted.com
+              key: {{ .Values.sonarrexposed.apikey }}    
         - My First Service:
             href: http://localhost/
             description: Homepage is awesome
@@ -45,6 +53,12 @@ data:
     - resources:
         label: /storage/elfstorage
         disk: /
+
+        widget:
+  type: prowlarr
+  url: http://prowlarr.host.or.ip
+  key: apikeyapikeyapikeyapikeyapikey
+
 
   bookmarks.yaml: |
     - Developer:
