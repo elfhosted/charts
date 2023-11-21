@@ -18,14 +18,60 @@ data:
         - Jellyfin:
             icon: jellyfin.png
             href: https://{{ .Release.Name }}-jellyfin.elfhosted.com
-            description: Manage Series
+            description: Stream Media
             widget:
               type: jellyfin
               url: http://jellyfin:8096
-              key: {{`{{HOMEPAGE_VAR_JELLYFIN_APIKEY}}`}} 
-            app: jellyfin
+              key: {{`{{HOMEPAGE_VAR_JELLYFIN_KEY}}`}} 
         {{ end }} 
-             
+
+        {{ if or .Values.plex.enabled .Values.plexgluetun.enabled .Values.plexpia.enabled }}
+        - Plex:
+            icon: plex.png
+            href: https://{{ .Release.Name }}-plex.elfhosted.com
+            description: Stream Media
+            widget:
+              type: plex
+              url: http://plex:32400
+              key: {{`{{HOMEPAGE_VAR_PLEX_KEY}}`}} 
+        {{ end }}
+
+        {{ if .Values.emby.enabled }}
+        - Emby:
+            icon: emby.png
+            href: https://{{ .Release.Name }}-emby.elfhosted.com
+            description: Stream Media
+            widget:
+              type: jellyfin
+              url: http://emby:8096
+              key: {{`{{HOMEPAGE_VAR_EMBY_KEY}}`}} 
+        {{ end }} 
+        
+        {{ if .Values.navidrome.enabled }}
+        - Navidrome:
+            icon: navidrome.png
+            href: https://{{ .Release.Name }}-navidrome.elfhosted.com
+            description: Stream Music
+            widget:
+              type: navidrome
+              url: http://navidrome:4533
+              user: {{`{{HOMEPAGE_VAR_NAVIDROME_USER}}`}} 
+              token: {{`{{HOMEPAGE_VAR_NAVIDROME_TOKEN}}`}} 
+              salt: {{`{{HOMEPAGE_VAR_NAVIDROME_SALT}}`}} 
+        {{ end }}      
+
+        {{ if .Values.calibreweb.enabled }}
+        - Calibre Web:
+            icon: calibreweb.png
+            href: https://{{ .Release.Name }}-calibre-web.elfhosted.com
+            description: Stream Music
+            widget:
+              type: calibreweb
+              url: http://calibreweb:8083
+              username: {{`{{HOMEPAGE_VAR_CALIBREWEB_USERNAME}}`}} 
+              password: {{`{{HOMEPAGE_VAR_CALIBREWEB_PASSWORDN}}`}} 
+        {{ end }}                 
+                      
 
     - Manage Media:
         - My Second Service:
