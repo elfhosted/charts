@@ -6962,7 +6962,10 @@ homepage:
     # runAsGroup: 568
     fsGroup: 568 # need this so that the bootstrap can run 
     fsGroupChangePolicy: "OnRootMismatch"
-  automountServiceAccountToken: false
+  serviceAccount:
+    create: true
+    name: homepage    
+  automountServiceAccountToken: true
   env:
     PUID: 568
     PGID: 568 
