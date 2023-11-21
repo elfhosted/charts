@@ -3,6 +3,18 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ .Release.Name }}-radarr.elfhosted.com
+  annotations:
+    gethomepage.dev/href: "https://{{ .Release.Name }}-radarr.elfhosted.com"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Manage Movies
+    gethomepage.dev/group: Consume Media
+    gethomepage.dev/icon: radarr.png
+    gethomepage.dev/app: radarr # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/name: Radarr
+    gethomepage.dev/widget.type: "radar"
+    gethomepage.dev/widget.url: "https://{{ .Release.Name }}-radarr.elfhosted.com"
+    gethomepage.dev/pod-selector: "radarr"
+    gethomepage.dev/weight: 10 # optional  
 spec:
   routes:
     - match: Host(`{{ .Release.Name }}-radarr.elfhosted.com`)

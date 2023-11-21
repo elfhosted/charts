@@ -21,6 +21,8 @@ data:
               type: sonarr
               url: https://{{ .Release.Name }}-sonarr.elfhosted.com
               key: {{ .Values.sonarrexposed.apikey }}    
+            app: sonarr 
+            
         - My First Service:
             href: http://localhost/
             description: Homepage is awesome
@@ -52,13 +54,7 @@ data:
 
     - resources:
         label: /storage/elfstorage
-        disk: /
-
-        widget:
-  type: prowlarr
-  url: http://prowlarr.host.or.ip
-  key: apikeyapikeyapikeyapikeyapikey
-
+        disk: /storage/elfstorage
 
   bookmarks.yaml: |
     - Developer:
