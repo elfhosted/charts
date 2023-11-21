@@ -5,7 +5,7 @@ metadata:
   name: homepage-config
 data:
   kubernetes.yaml: |
-    # mode: cluster  
+    mode: cluster  
 
   settings.yaml: |
     title: My Awesome Homepage
@@ -22,7 +22,7 @@ data:
             widget:
               type: jellyfin
               url: http://jellyfin:8096
-              key: {{"{{"}}HOMEPAGE_VAR_JELLYFIN_APIKEY{{"}}"}}
+              key: {{`{{HOMEPAGE_VAR_JELLYFIN_APIKEY}}`}} 
             app: jellyfin
         {{ end }} 
              
