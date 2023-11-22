@@ -460,7 +460,7 @@ data:
             description: Manage YouTube Downloads
         {{ end }}  
 
-        {{ if .Values.rapidleec.enabled }}
+        {{ if .Values.rapidleech.enabled }}
         - RapidLeech:
             icon: rapidleech.png
             href: https://{{ .Release.Name }}-rapidleech.elfhosted.com
@@ -497,8 +497,8 @@ data:
 
 
     - greeting:
-        text_size: 3xl
-        text: ElfHosted 
+        text_size: 2xl
+        text: 🧝 ElfHosted 
 
     - resources:
         label: /storage/elfstorage
