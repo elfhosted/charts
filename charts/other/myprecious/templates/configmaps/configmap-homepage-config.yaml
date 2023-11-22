@@ -64,14 +64,32 @@ data:
         - Calibre Web:
             icon: calibreweb.png
             href: https://{{ .Release.Name }}-calibre-web.elfhosted.com
-            description: Stream Music
+            description: Consume eBooks
             widget:
               type: calibreweb
               url: http://calibreweb:8083
               username: {{`{{HOMEPAGE_VAR_CALIBREWEB_USERNAME}}`}} 
               password: {{`{{HOMEPAGE_VAR_CALIBREWEB_PASSWORDN}}`}} 
-        {{ end }}                 
+        {{ end }}
+        
+        {{ if .Values.calibre.enabled }}
+        - Calibre:
+            icon: calibre.png
+            href: https://{{ .Release.Name }}-calibre.elfhosted.com
+            description: Manage eBooks
+        {{ end }}             
                       
+        {{ if .Values.komga.enabled }}
+        - Komga:
+            icon: komga.png
+            href: https://{{ .Release.Name }}-komga.elfhosted.com
+            description: Manage Comics
+            widget:
+              type: komga
+              url: http://komga:25600
+              username: {{`{{HOMEPAGE_VAR_KOMGA_USERNAME}}`}} 
+              password: {{`{{HOMEPAGE_VAR_KOMGA_PASSWORD}}`}}            
+        {{ end }}   
 
     - Manage Media:
         - My Second Service:
@@ -94,27 +112,45 @@ data:
         label: /storage/elfstorage
         disk: /storage/elfstorage
 
-  bookmarks.yaml: |
-    - Developer:
-        - Github:
-            - abbr: GH
-              href: https://github.com/
-              icon: github.png
+  {{ if .Values.storageboxa.enabled }}
+    - resources:
+        label: /storage/storagebox-a
+        disk: /storage/storagebox-a
+  {{ end }}
 
-    - Help:
+  {{ if .Values.storageboxb.enabled }}
+    - resources:
+        label: /storage/storagebox-b
+        disk: /storage/storagebox-b
+  {{ end }}
+
+  {{ if .Values.storageboxc.enabled }}
+    - resources:
+        label: /storage/storagebox-c
+        disk: /storage/storagebox-c
+  {{ end }}  
+
+  bookmarks.yaml: |
+    - You:
+        - Health:
+            - abbr: GA
+              href: "https://{{ .Release.Name }}-health.elfhosted.com"
+              icon: gatus.png
+        - Account:
+            - abbr: GA
+              href: "https://store.elfhosted.com/my-account/subscriptions/"
+              icon: store.png              
+
+    - ElfHosted:
         - Discord:
             - abbr: DI
               href: https://discord.elfhosted.com
               icon: discord.png
               description: Join our friendly Discord!
-        - Discord:
+        - Docs:
             - abbr: DO
               href: https://elfhosted.com
-              # icon: discord.png
+              icon: book.png
               description: Documentation         
 
-    - Entertainment:
-        - YouTube:
-            - abbr: YT
-              href: https://youtube.com/
 {{ end }}
