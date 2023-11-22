@@ -11,12 +11,19 @@ data:
     title: 🧝 {{.Release.Name}}'s ElfHosted Services
     background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
 
+    hideErrors: false # We want to be advised to our API errors
     layout:
       - Links:
           style: row
       - Consume Media:
+          tab: Media
+          icon: mdi-sofa
       - Manage Media:
-      - Manage Downloads:
+          tab: Media
+          icon: mdi-multimedia
+      - Download Media:
+          tab: Media
+          icon: mdi-cloud-download
 
   services.yaml: |
     - Consume Media:
@@ -230,18 +237,18 @@ data:
 
         {{ if .Values.mylar.enabled }}
         - Mylar:
-            icon: mylar3.png
+            icon: mylar.png
             href: https://{{ .Release.Name }}-mylar.elfhosted.com
             description: Manage Comics
             widget:
-              type: mylar3
+              type: mylar
               url: http://mylar:8090
               key: {{ .Values.mylarrexposed.apikey }}     
         {{ end }}    
 
         {{ if .Values.rpdb.enabled }}
         - RPDB:
-            icon: rpdb.png
+            icon: mdi-star-half-full
             href: https://{{ .Release.Name }}-rpdb.elfhosted.com
             description: Manage Rating Posters      
         {{ end }}   
@@ -281,7 +288,7 @@ data:
 
         {{ if .Values.jfa.enabled }}
         - Jellyfin Accounts:
-            icon: jfa.png
+            icon: mdi-account-group
             href: https://{{ .Release.Name }}-jfa.elfhosted.com
             description: Manage Jellyfin Accounts         
         {{ end }}      
@@ -339,14 +346,14 @@ data:
 
         {{ if .Values.unpackerr.enabled }}
         - Unpackerr:
-            icon: unpackerr.png
+            icon: mdi-gift-open
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/unpackerr/
             description: Automatically Unpack Media        
         {{ end }}       
 
         {{ if .Values.plexmetamanager.enabled }}
         - Plex Meta Manager:
-            icon: plexmetamanager.png
+            icon: mdi-folder-information
             href: https://{{ .Release.Name }}-plexmetamanager.elfhosted.com
             description: Manage Plex Metadata     
         {{ end }}                      
@@ -361,7 +368,7 @@ data:
               url: http://tdarr:8265
         {{ end }}   
 
-    - Manage Downloads:
+    - Download Media:
         {{ if .Values.nzbget.enabled }}
         - NZBGet:
             icon: nzbget.png
@@ -462,21 +469,21 @@ data:
 
         {{ if .Values.rapidleech.enabled }}
         - RapidLeech:
-            icon: rapidleech.png
+            icon: mdi-flash
             href: https://{{ .Release.Name }}-rapidleech.elfhosted.com
             description: Rapidly Leech
         {{ end }}      
 
         {{ if .Values.rdtclient.enabled }}
         - RDT Client:
-            icon: rdtclient.png
+            icon: rdt-client.png
             href: https://{{ .Release.Name }}-rdtclient.elfhosted.com
             description: Manage real debrid(-like) services
         {{ end }}     
 
         {{ if .Values.openbooks.enabled }}
         - OpenBooks:
-            icon: openbooks.png
+            icon: mdi-book-open-variant
             href: https://{{ .Release.Name }}-openbooks.elfhosted.com
             description: Manage eBooks Downloads
         {{ end }}      
@@ -497,7 +504,7 @@ data:
 
     - greeting:
         text_size: 2xl
-        text: 🧝 ElfHosted 
+        text: {{ .Release.Name }} is ElfHosted!
 
     - resources:
         label: /storage/elfstorage
@@ -530,8 +537,7 @@ data:
         - Account:
             - abbr: GA
               href: "https://store.elfhosted.com/my-account/subscriptions/"
-              icon: store.png              
-
+              icon: mdi-account-cog              
         - Discord:
             - abbr: DI
               href: https://discord.elfhosted.com
@@ -540,7 +546,7 @@ data:
         - Docs:
             - abbr: DO
               href: https://elfhosted.com
-              icon: book.png
+              icon: mdi-lifebuoy
               description: Documentation         
 
 {{ end }}
