@@ -8,15 +8,15 @@ data:
     mode: cluster  
 
   settings.yaml: |
-    title: {{.Release.Name}}'s ElfHosted Services
+    title: 🧝 {{.Release.Name}}'s ElfHosted Services
     background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
 
-  layout:
-    - Links:
-        style: row
-    - Consume Media:
-    - Manage Media:
-    - Manage Downloads:
+    layout:
+      - Links:
+          style: row
+      - Consume Media:
+      - Manage Media:
+      - Manage Downloads:
 
   services.yaml: |
     - Consume Media:
@@ -495,10 +495,9 @@ data:
 
   widgets.yaml: |
 
-
     - greeting:
         text_size: 2xl
-        text: ElfHosted 
+        text: 🧝 ElfHosted 
 
     - resources:
         label: /storage/elfstorage
