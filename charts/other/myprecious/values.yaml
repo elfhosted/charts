@@ -388,6 +388,9 @@ sabnzbdexposed:
   apikey: 8flkbru7ncdps3dzzgk48q2msz41m4on
 nzbgetexposed:
   enabled: false
+mylarrexposed:
+  enabled: false
+  apikey: 0f97f6a7f352c63eb43fcb7e53ea9d8f
 
 uptimekumacustomdomain:
   enabled: false
