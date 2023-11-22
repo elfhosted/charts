@@ -498,7 +498,7 @@ data:
 
     - greeting:
         text_size: 2xl
-        text: 🧝 ElfHosted 
+        text: ElfHosted 
 
     - resources:
         label: /storage/elfstorage
