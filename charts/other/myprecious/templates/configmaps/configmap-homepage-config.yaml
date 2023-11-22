@@ -33,6 +33,7 @@ data:
             icon: jellyfin.png
             href: https://{{ .Release.Name }}-jellyfin.elfhosted.com
             description: Stream Media
+            siteMonitor: http://jellyfin:8096
             widget:
               type: jellyfin
               url: http://jellyfin:8096
@@ -387,7 +388,7 @@ data:
             widget:
               type: sabnzbd
               url: http://sabnzbd:8080
-              {{ .Values.sabnzbdexposed.apikey }} 
+              key: {{ .Values.sabnzbdexposed.apikey }} 
         {{ end }}
         
         {{ if .Values.prowlarr.enabled }}
@@ -398,7 +399,7 @@ data:
             widget:
               type: prowlarr
               url: http://prowlarr:9696
-              {{ .Values.prowlarrexposed.apikey }} 
+              key: {{ .Values.prowlarrexposed.apikey }} 
         {{ end }}  
 
         {{ if .Values.nzbhydra.enabled }}
