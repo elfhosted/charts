@@ -6949,7 +6949,7 @@ homepage:
     tag: v0.8.0
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-homepage"
+      configmap.reloader.stakater.com/reload: "elfbot-homepage,homepage-config"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
