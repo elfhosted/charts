@@ -8,8 +8,15 @@ data:
     mode: cluster  
 
   settings.yaml: |
-    title: My Awesome Homepage
+    title: {{.Release.Name}}'s ElfHosted Services
     background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
+
+  layout:
+    - Links:
+        style: row
+    - Consume Media:
+    - Manage Media:
+    - Manage Downloads:
 
   services.yaml: |
     - Consume Media:
@@ -124,7 +131,6 @@ data:
               type: radarr
               url: http://radarr:7878
               key: {{ .Values.radarrexposed.apikey }}
-              enableQueue: true          
         {{ end }}  
 
         {{ if .Values.radarr4k.enabled }}
@@ -136,7 +142,6 @@ data:
               type: radarr
               url: http://radarr4k:7878
               key: {{ .Values.radarr4kexposed.apikey }}
-              enableQueue: true          
         {{ end }}              
 
         {{ if .Values.sonarr.enabled }}
@@ -148,7 +153,6 @@ data:
               type: sonarr
               url: http://sonarr:8989
               key: {{ .Values.sonarrexposed.apikey }}
-              enableQueue: true          
         {{ end }}  
 
         {{ if .Values.sonarr4k.enabled }}
@@ -160,7 +164,6 @@ data:
               type: sonarr
               url: http://sonarr4k:8989
               key: {{ .Values.sonarr4kexposed.apikey }}
-              enableQueue: true          
         {{ end }}   
 
         {{ if .Values.lidarr.enabled }}
@@ -172,7 +175,6 @@ data:
               type: lidarr
               url: http://lidarr:8686
               key: {{ .Values.lidarrexposed.apikey }}
-              enableQueue: true          
         {{ end }}   
 
         {{ if .Values.readarr.enabled }}
@@ -360,9 +362,136 @@ data:
         {{ end }}   
 
     - Manage Downloads:
-        - My Third Service:
-            href: http://localhost/
-            description: Homepage is 😎
+        {{ if .Values.nzbget.enabled }}
+        - NZBGet:
+            icon: nzbget.png
+            href: https://{{ .Release.Name }}-nzbget.elfhosted.com
+            description: Usenet Client  
+            widget:
+              type: nzbget
+              url: http://nzbget:6789
+        {{ end }}   
+
+        {{ if .Values.sabnzbd.enabled }}
+        - SABnzbd:
+            icon: sabnzbd.png
+            href: https://{{ .Release.Name }}-sabnzbd.elfhosted.com
+            description: Usenet Client  
+            widget:
+              type: sabnzbd
+              url: http://sabnzbd:8080
+              {{ .Values.sabnzbdexposed.apikey }} 
+        {{ end }}
+        
+        {{ if .Values.prowlarr.enabled }}
+        - Prowlarr:
+            icon: prowlarr.png
+            href: https://{{ .Release.Name }}-prowlarr.elfhosted.com
+            description: Manage Indexers  
+            widget:
+              type: prowlarr
+              url: http://prowlarr:9696
+              {{ .Values.prowlarrexposed.apikey }} 
+        {{ end }}  
+
+        {{ if .Values.nzbhydra.enabled }}
+        - NZBHydra:
+            icon: nzbhydra.png
+            href: https://{{ .Release.Name }}-nzbhydra.elfhosted.com
+            description: Manage Indexers
+        {{ end }}           
+
+        {{ if .Values.autobrr.enabled }}
+        - Autobrr:
+            icon: autobrr.png
+            href: https://{{ .Release.Name }}-autobrr.elfhosted.com
+            description: Manage torrent automation 
+            widget:
+              type: autobrr
+              url: http://autobrr:7474
+              key: {{`{{HOMEPAGE_VAR_AUTOBRR_KEY}}`}}       
+        {{ end }}   
+
+        {{ if or .Values.delugepia.enabled .Values.delugegluetun.enabled }}
+        - Deluge:
+            icon: deluge.png
+            href: https://{{ .Release.Name }}-deluge.elfhosted.com
+            description: Bittorrent Client
+            widget:
+              type: deluge
+              url: http://deluge:8112
+              password: deluge  
+        {{ end }}   
+
+        {{ if or .Values.qbittorrentpia.enabled .Values.qbittorrentgluetun.enabled }}
+        - qBittorrent:
+            icon: qbittorrent.png
+            href: https://{{ .Release.Name }}-qbittorrent.elfhosted.com
+            description: Bittorrent Client
+            widget:
+              type: qbittorrent
+              url: http://qbittorrent:8000
+        {{ end }}                   
+
+        {{ if or .Values.rutorrentpia.enabled .Values.rutorrentgluetun.enabled }}
+        - ruTorrent:
+            icon: rutorrent.png
+            href: https://{{ .Release.Name }}-rutorrent.elfhosted.com
+            description: Bittorrent Client
+            widget:
+              type: rutorrent
+              url: http://rutorrent:8080
+        {{ end }}  
+
+        {{ if .Values.pyload.enabled }}
+        - pyLoad:
+            icon: pyload.png
+            href: https://{{ .Release.Name }}-pyload.elfhosted.com
+            description: Manage downloads
+            widget:
+              type: pyload
+              url: http://pyload:8000
+        {{ end }}          
+
+        {{ if .Values.youtubedl.enabled }}
+        - YouTubeDL:
+            icon: youtubedl.png
+            href: https://{{ .Release.Name }}-youtubedl.elfhosted.com
+            description: Manage YouTube Downloads
+        {{ end }}  
+
+        {{ if .Values.rapidleec.enabled }}
+        - RapidLeech:
+            icon: rapidleech.png
+            href: https://{{ .Release.Name }}-rapidleech.elfhosted.com
+            description: Rapidly Leech
+        {{ end }}      
+
+        {{ if .Values.rdtclient.enabled }}
+        - RDT Client:
+            icon: rdtclient.png
+            href: https://{{ .Release.Name }}-rdtclient.elfhosted.com
+            description: Manage real debrid(-like) services
+        {{ end }}     
+
+        {{ if .Values.openbooks.enabled }}
+        - OpenBooks:
+            icon: openbooks.png
+            href: https://{{ .Release.Name }}-openbooks.elfhosted.com
+            description: Manage eBooks Downloads
+        {{ end }}      
+
+        {{ if .Values.jdownloader.enabled }}
+        - jDownloader:
+            icon: jdownloader.png
+            href: https://{{ .Release.Name }}-jdownloader.elfhosted.com
+            description: Manage Downloads
+            widget:
+              type: jdownloader
+              username: {{ .Values.jdownloader.MYJDOWNLOADER_EMAIL | default }}
+              password: {{ .Values.jdownloader.MYJDOWNLOADER_PASSWORD | default }}
+              client: {{ .Release.Name }}.elfhosted.com
+        {{ end }}                                 
 
   widgets.yaml: |
 
@@ -394,7 +523,7 @@ data:
   {{ end }}  
 
   bookmarks.yaml: |
-    - You:
+    - Links:
         - Health:
             - abbr: GA
               href: "https://{{ .Release.Name }}-health.elfhosted.com"
@@ -404,7 +533,6 @@ data:
               href: "https://store.elfhosted.com/my-account/subscriptions/"
               icon: store.png              
 
-    - ElfHosted:
         - Discord:
             - abbr: DI
               href: https://discord.elfhosted.com
