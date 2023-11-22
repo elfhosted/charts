@@ -62,7 +62,7 @@ data:
 
         {{ if .Values.calibreweb.enabled }}
         - Calibre Web:
-            icon: calibreweb.png
+            icon: calibre-web.png
             href: https://{{ .Release.Name }}-calibre-web.elfhosted.com
             description: Consume eBooks
             widget:
@@ -90,6 +90,29 @@ data:
               username: {{`{{HOMEPAGE_VAR_KOMGA_USERNAME}}`}} 
               password: {{`{{HOMEPAGE_VAR_KOMGA_PASSWORD}}`}}            
         {{ end }}   
+
+        {{ if .Values.kavita.enabled }}
+        - Kavita:
+            icon: kavita.png
+            href: https://{{ .Release.Name }}-kavita.elfhosted.com
+            description: Manage Comics / Books
+            widget:
+              type: kavita
+              url: http://komga:5000
+              username: {{`{{HOMEPAGE_VAR_KAVITA_USERNAME}}`}} 
+              password: {{`{{HOMEPAGE_VAR_KAVITA_PASSWORD}}`}}            
+        {{ end }}     
+
+        {{ if .Values.audiobookshelf.enabled }}
+        - Audio Bookshelf:
+            icon: audiobookshelf.png
+            href: https://{{ .Release.Name }}-audiobookshelf.elfhosted.com
+            description: Consume Audio Books / Podcasts
+            widget:
+              type: audiobookshelf
+              url: http://audiobookshelf:8000
+              key: {{`{{HOMEPAGE_VAR_AUDIOBOOKSHELF_KEY}}`}}            
+        {{ end }}                 
 
     - Manage Media:
         - My Second Service:
