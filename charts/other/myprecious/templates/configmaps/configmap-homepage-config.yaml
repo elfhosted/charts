@@ -282,7 +282,82 @@ data:
             icon: jfa.png
             href: https://{{ .Release.Name }}-jfa.elfhosted.com
             description: Manage Jellyfin Accounts         
-        {{ end }}                                                             
+        {{ end }}      
+
+        {{ if .Values.tautulli.enabled }}
+        - Tautulli:
+            icon: tautulli.png
+            href: https://{{ .Release.Name }}-tautulli.elfhosted.com
+            description: Plex Statistics    
+            widget:
+              type: tautulli
+              url: http://tautulli:8181
+              key: {{`{{HOMEPAGE_VAR_TAUTULLI_KEY}}`}}       
+        {{ end }}   
+
+        {{ if .Values.xteve.enabled }}
+        - Xteve:
+            icon: xteve.png
+            href: https://{{ .Release.Name }}-xteve.elfhosted.com
+            description: Live TV Proxy for Plex/Emby    
+            widget:
+              type: xteve
+              url: http://xteve:34400
+              username: {{`{{HOMEPAGE_VAR_XTEVE_USERNAME}}`}} 
+              password: {{`{{HOMEPAGE_VAR_XTEVE_PASSWORD}}`}}                 
+        {{ end }}   
+
+        {{ if .Values.nextpvr.enabled }}
+        - NextPVR:
+            icon: nextpvr.png
+            href: https://{{ .Release.Name }}-nextpvr.elfhosted.com
+            description: Live TV Proxy                    
+        {{ end }}   
+
+        {{ if .Values.notifiarr.enabled }}
+        - Notifiarr:
+            icon: notifiarr.png
+            href: https://{{ .Release.Name }}-notifiarr.elfhosted.com
+            description: Manage Discord-based Notifications                 
+        {{ end }}   
+
+        {{ if .Values.shoko.enabled }}
+        - Shoko:
+            icon: shoko.png
+            href: https://{{ .Release.Name }}-shoko.elfhosted.com
+            description: Manage Anime         
+        {{ end }}      
+
+        {{ if .Values.filebot.enabled }}
+        - Filebot:
+            icon: filebot.png
+            href: https://{{ .Release.Name }}-filebot.elfhosted.com
+            description: Automate Media Management         
+        {{ end }}        
+
+        {{ if .Values.unpackerr.enabled }}
+        - Unpackerr:
+            icon: unpackerr.png
+            href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/unpackerr/
+            description: Automatically Unpack Media        
+        {{ end }}       
+
+        {{ if .Values.plexmetamanager.enabled }}
+        - Plex Meta Manager:
+            icon: plexmetamanager.png
+            href: https://{{ .Release.Name }}-plexmetamanager.elfhosted.com
+            description: Manage Plex Metadata     
+        {{ end }}                      
+
+        {{ if .Values.tdarr.enabled }}
+        - Tdarr:
+            icon: tdarr.png
+            href: https://{{ .Release.Name }}-tdarr.elfhosted.com
+            description: Automate Media Transcoding  
+            widget:
+              type: tdarr
+              url: http://tdarr:8265
+        {{ end }}   
 
     - Manage Downloads:
         - My Third Service:
