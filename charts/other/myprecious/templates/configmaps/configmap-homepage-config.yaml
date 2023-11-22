@@ -115,9 +115,174 @@ data:
         {{ end }}                 
 
     - Manage Media:
-        - My Second Service:
-            href: http://localhost/
-            description: Homepage is the best
+        {{ if .Values.radarr.enabled }}
+        - Radarr:
+            icon: radarr.png
+            href: https://{{ .Release.Name }}-radarr.elfhosted.com
+            description: Manage Movies
+            widget:
+              type: radarr
+              url: http://radarr:7878
+              key: {{ .Values.radarrexposed.apikey }}
+              enableQueue: true          
+        {{ end }}  
+
+        {{ if .Values.radarr4k.enabled }}
+        - Radarr 4K:
+            icon: radarr.png
+            href: https://{{ .Release.Name }}-radarr4k.elfhosted.com
+            description: Manage 4K Movies
+            widget:
+              type: radarr
+              url: http://radarr4k:7878
+              key: {{ .Values.radarr4kexposed.apikey }}
+              enableQueue: true          
+        {{ end }}              
+
+        {{ if .Values.sonarr.enabled }}
+        - Sonarr:
+            icon: sonarr.png
+            href: https://{{ .Release.Name }}-sonarr.elfhosted.com
+            description: Manage Series
+            widget:
+              type: sonarr
+              url: http://sonarr:8989
+              key: {{ .Values.sonarrexposed.apikey }}
+              enableQueue: true          
+        {{ end }}  
+
+        {{ if .Values.sonarr4k.enabled }}
+        - Sonarr 4K:
+            icon: sonarr.png
+            href: https://{{ .Release.Name }}-sonarr4k.elfhosted.com
+            description: Manage 4K Series
+            widget:
+              type: sonarr
+              url: http://sonarr4k:8989
+              key: {{ .Values.sonarr4kexposed.apikey }}
+              enableQueue: true          
+        {{ end }}   
+
+        {{ if .Values.lidarr.enabled }}
+        - Lidarr:
+            icon: lidarr.png
+            href: https://{{ .Release.Name }}-lidarr.elfhosted.com
+            description: Manage Music
+            widget:
+              type: lidarr
+              url: http://lidarr:8686
+              key: {{ .Values.lidarrexposed.apikey }}
+              enableQueue: true          
+        {{ end }}   
+
+        {{ if .Values.readarr.enabled }}
+        - Readarr:
+            icon: readarr.png
+            href: https://{{ .Release.Name }}-readarr.elfhosted.com
+            description: Manage eBooks
+            widget:
+              type: readarr
+              url: http://readarr:8787
+              key: {{ .Values.readarrexposed.apikey }}     
+        {{ end }}             
+
+        {{ if .Values.readarraudio.enabled }}
+        - Readarr Audio:
+            icon: readarr.png
+            href: https://{{ .Release.Name }}-readarraudio.elfhosted.com
+            description: Manage AudioBooks
+            widget:
+              type: readarr
+              url: http://readarraudio:8787
+              key: {{ .Values.readarraudioexposed.apikey }}     
+        {{ end }}      
+
+        {{ if .Values.lazylibrarian.enabled }}
+        - Lazy Librarian:
+            icon: lazylibrarian.png
+            href: https://{{ .Release.Name }}-lazylibrarian.elfhosted.com
+            description: Manage eBooks  
+        {{ end }}  
+
+        {{ if .Values.bazarr.enabled }}
+        - Bazarr:
+            icon: bazarr.png
+            href: https://{{ .Release.Name }}-bazarr.elfhosted.com
+            description: Manage Subtitles
+            widget:
+              type: bazarr
+              url: http://bazarr:6767
+              key: {{ .Values.bazarrexposed.apikey }}        
+        {{ end }}  
+
+        {{ if .Values.bazarr4k.enabled }}
+        - Bazarr 4K:
+            icon: bazarr.png
+            href: https://{{ .Release.Name }}-bazarr4k.elfhosted.com
+            description: Manage Subtitles (4K)
+            widget:
+              type: bazarr
+              url: http://bazarr4k:6767
+              key: {{ .Values.bazarr4kexposed.apikey }}         
+        {{ end }}   
+
+        {{ if .Values.mylar.enabled }}
+        - Mylar:
+            icon: mylar3.png
+            href: https://{{ .Release.Name }}-mylar.elfhosted.com
+            description: Manage Comics
+            widget:
+              type: mylar3
+              url: http://mylar:8090
+              key: {{ .Values.mylarrexposed.apikey }}     
+        {{ end }}    
+
+        {{ if .Values.rpdb.enabled }}
+        - RPDB:
+            icon: rpdb.png
+            href: https://{{ .Release.Name }}-rpdb.elfhosted.com
+            description: Manage Rating Posters      
+        {{ end }}   
+
+        {{ if .Values.ombi.enabled }}
+        - Ombi:
+            icon: ombi.png
+            href: https://{{ .Release.Name }}-ombi.elfhosted.com
+            description: Manage Requests     
+            widget:
+              type: ombi
+              url: http://ombi:5000
+              key: {{`{{HOMEPAGE_VAR_OMBI_KEY}}`}}       
+        {{ end }}    
+
+        {{ if .Values.overseerr.enabled }}
+        - Overseerr:
+            icon: overseerr.png
+            href: https://{{ .Release.Name }}-overseerr.elfhosted.com
+            description: Manage Requests     
+            widget:
+              type: overseerr
+              url: http://overseerr:5055
+              key: {{`{{HOMEPAGE_VAR_OVERSEERR_KEY}}`}}       
+        {{ end }}        
+
+        {{ if .Values.jellyseerr.enabled }}
+        - Jellyseerr:
+            icon: jellyseerr.png
+            href: https://{{ .Release.Name }}-jellyseerr.elfhosted.com
+            description: Manage Requests     
+            widget:
+              type: jellyseerr
+              url: http://jellyseerr:5055
+              key: {{`{{HOMEPAGE_VAR_JELLYSEERR_KEY}}`}}       
+        {{ end }}       
+
+        {{ if .Values.jfa.enabled }}
+        - Jellyfin Accounts:
+            icon: jfa.png
+            href: https://{{ .Release.Name }}-jfa.elfhosted.com
+            description: Manage Jellyfin Accounts         
+        {{ end }}                                                             
 
     - Manage Downloads:
         - My Third Service:

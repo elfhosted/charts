@@ -461,6 +461,15 @@ data:
             useCredentials: true
           {{ end }}
 
+          {{ if .Values.lazylibrarian.enabled }}
+          - name: "LazyLibrarian"
+            logo: "assets/png/lazylibrarian.png"
+            subtitle: "Manage Books"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-lazylibrarian.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+            {{ end }}
 
           {{ if .Values.bazarr.enabled }}
           - name: "Bazarr"
@@ -491,6 +500,16 @@ data:
             url: "https://{{ .Release.Name }}-bazarr4k.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
+
+          {{ if .Values.mylar.enabled }}
+          - name: "Mylar"
+            logo: "assets/png/mylar.png"
+            subtitle: "Manage Comics"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-mylar.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
 
           {{ if .Values.rpdb.enabled }}
           - name: "RPDB"
@@ -539,26 +558,6 @@ data:
             tag: "public"
             tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-jfa.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-          {{ end }}
-
-          {{ if .Values.lazylibrarian.enabled }}
-          - name: "LazyLibrarian"
-            logo: "assets/png/lazylibrarian.png"
-            subtitle: "Manage Books"
-            tag: "protected"
-            tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-lazylibrarian.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-            {{ end }}
-
-          {{ if .Values.mylar.enabled }}
-          - name: "Mylar"
-            logo: "assets/png/mylar.png"
-            subtitle: "Manage Comics"
-            tag: "protected"
-            tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-mylar.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
