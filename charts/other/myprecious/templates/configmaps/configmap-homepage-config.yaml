@@ -8,7 +8,7 @@ data:
     mode: cluster  
 
   settings.yaml: |
-    title: 🧝 {{.Release.Name}}'s ElfHosted Services
+    title: {{.Release.Name}}'s ElfHosted Services
     background: https://unsplash.com/photos/1OtUkD_8svc/download?force=true&w=2400
     favicon: https://elfhosted.com/images/logo.png
 
@@ -50,6 +50,7 @@ data:
             icon: plex.png
             href: https://{{ .Release.Name }}-plex.elfhosted.com
             description: Stream Media
+            siteMonitor: http://plex:32400
             widget:
               type: plex
               url: http://plex:32400
@@ -61,6 +62,7 @@ data:
             icon: emby.png
             href: https://{{ .Release.Name }}-emby.elfhosted.com
             description: Stream Media
+            siteMonitor: http://emby:8096
             widget:
               type: jellyfin
               url: http://emby:8096
@@ -72,6 +74,7 @@ data:
             icon: navidrome.png
             href: https://{{ .Release.Name }}-navidrome.elfhosted.com
             description: Stream Music
+            siteMonitor: http://navidrome:4533
             widget:
               type: navidrome
               url: http://navidrome:4533
@@ -85,6 +88,7 @@ data:
             icon: calibre-web.png
             href: https://{{ .Release.Name }}-calibre-web.elfhosted.com
             description: Consume eBooks
+            siteMonitor: http://calibreweb:8083
             widget:
               type: calibreweb
               url: http://calibreweb:8083
@@ -97,6 +101,7 @@ data:
             icon: calibre.png
             href: https://{{ .Release.Name }}-calibre.elfhosted.com
             description: Manage eBooks
+            siteMonitor: http://calibre:8080
         {{ end }}             
                       
         {{ if .Values.komga.enabled }}
@@ -104,6 +109,7 @@ data:
             icon: komga.png
             href: https://{{ .Release.Name }}-komga.elfhosted.com
             description: Manage Comics
+            siteMonitor: http://komga:25600
             widget:
               type: komga
               url: http://komga:25600
@@ -116,9 +122,10 @@ data:
             icon: kavita.png
             href: https://{{ .Release.Name }}-kavita.elfhosted.com
             description: Manage Comics / Books
+            siteMonitor: http://kavita:5000
             widget:
               type: kavita
-              url: http://komga:5000
+              url: http://kavita:5000
               username: {{`{{HOMEPAGE_VAR_KAVITA_USERNAME}}`}} 
               password: {{`{{HOMEPAGE_VAR_KAVITA_PASSWORD}}`}}            
         {{ end }}     
@@ -128,6 +135,7 @@ data:
             icon: audiobookshelf.png
             href: https://{{ .Release.Name }}-audiobookshelf.elfhosted.com
             description: Consume Audio Books / Podcasts
+            siteMonitor: http://audiobookshelf:8000
             widget:
               type: audiobookshelf
               url: http://audiobookshelf:8000
@@ -140,6 +148,7 @@ data:
             icon: radarr.png
             href: https://{{ .Release.Name }}-radarr.elfhosted.com
             description: Manage Movies
+            siteMonitor: http://radar:7878
             widget:
               type: radarr
               url: http://radarr:7878
@@ -151,6 +160,7 @@ data:
             icon: radarr.png
             href: https://{{ .Release.Name }}-radarr4k.elfhosted.com
             description: Manage 4K Movies
+            siteMonitor: http://radarr4k:7878
             widget:
               type: radarr
               url: http://radarr4k:7878
@@ -162,6 +172,7 @@ data:
             icon: sonarr.png
             href: https://{{ .Release.Name }}-sonarr.elfhosted.com
             description: Manage Series
+            siteMonitor: http://sonarr:8989
             widget:
               type: sonarr
               url: http://sonarr:8989
@@ -173,6 +184,7 @@ data:
             icon: sonarr.png
             href: https://{{ .Release.Name }}-sonarr4k.elfhosted.com
             description: Manage 4K Series
+            siteMonitor: http://sonarr4k:8989
             widget:
               type: sonarr
               url: http://sonarr4k:8989
@@ -184,6 +196,7 @@ data:
             icon: lidarr.png
             href: https://{{ .Release.Name }}-lidarr.elfhosted.com
             description: Manage Music
+            siteMonitor: http://lidarr:8686
             widget:
               type: lidarr
               url: http://lidarr:8686
@@ -195,6 +208,7 @@ data:
             icon: readarr.png
             href: https://{{ .Release.Name }}-readarr.elfhosted.com
             description: Manage eBooks
+            siteMonitor: http://readarr:8787
             widget:
               type: readarr
               url: http://readarr:8787
@@ -206,6 +220,7 @@ data:
             icon: readarr.png
             href: https://{{ .Release.Name }}-readarraudio.elfhosted.com
             description: Manage AudioBooks
+            siteMonitor: http://readarraudio:8787
             widget:
               type: readarr
               url: http://readarraudio:8787
@@ -217,6 +232,7 @@ data:
             icon: lazylibrarian.png
             href: https://{{ .Release.Name }}-lazylibrarian.elfhosted.com
             description: Manage eBooks  
+            siteMonitor: http://lazylibrarian:5299
         {{ end }}  
 
         {{ if .Values.bazarr.enabled }}
@@ -224,6 +240,7 @@ data:
             icon: bazarr.png
             href: https://{{ .Release.Name }}-bazarr.elfhosted.com
             description: Manage Subtitles
+            siteMonitor: http://bazarr:6767
             widget:
               type: bazarr
               url: http://bazarr:6767
@@ -235,6 +252,7 @@ data:
             icon: bazarr.png
             href: https://{{ .Release.Name }}-bazarr4k.elfhosted.com
             description: Manage Subtitles (4K)
+            siteMonitor: http://bazarr4k:6767
             widget:
               type: bazarr
               url: http://bazarr4k:6767
@@ -246,6 +264,7 @@ data:
             icon: mylar.png
             href: https://{{ .Release.Name }}-mylar.elfhosted.com
             description: Manage Comics
+            siteMonitor: http://mylar:8090
             widget:
               type: mylar
               url: http://mylar:8090
@@ -256,14 +275,16 @@ data:
         - RPDB:
             icon: mdi-star-half-full
             href: https://{{ .Release.Name }}-rpdb.elfhosted.com
-            description: Manage Rating Posters      
+            description: Manage Rating Posters  
+            siteMonitor: http://rpdb:8750    
         {{ end }}   
 
         {{ if .Values.ombi.enabled }}
         - Ombi:
             icon: ombi.png
             href: https://{{ .Release.Name }}-ombi.elfhosted.com
-            description: Manage Requests     
+            description: Manage Requests   
+            siteMonitor: http://ombi:5000  
             widget:
               type: ombi
               url: http://ombi:5000
@@ -274,7 +295,8 @@ data:
         - Overseerr:
             icon: overseerr.png
             href: https://{{ .Release.Name }}-overseerr.elfhosted.com
-            description: Manage Requests     
+            description: Manage Requests  
+            siteMonitor: http://overseerr:5055   
             widget:
               type: overseerr
               url: http://overseerr:5055
@@ -285,7 +307,8 @@ data:
         - Jellyseerr:
             icon: jellyseerr.png
             href: https://{{ .Release.Name }}-jellyseerr.elfhosted.com
-            description: Manage Requests     
+            description: Manage Requests  
+            siteMonitor: http://jellyseerr:5055   
             widget:
               type: jellyseerr
               url: http://jellyseerr:5055
@@ -296,14 +319,16 @@ data:
         - Jellyfin Accounts:
             icon: mdi-account-group
             href: https://{{ .Release.Name }}-jfa.elfhosted.com
-            description: Manage Jellyfin Accounts         
+            description: Manage Jellyfin Accounts   
+            siteMonitor: http://jfa:8056      
         {{ end }}      
 
         {{ if .Values.tautulli.enabled }}
         - Tautulli:
             icon: tautulli.png
             href: https://{{ .Release.Name }}-tautulli.elfhosted.com
-            description: Plex Statistics    
+            description: Plex Statistics  
+            siteMonitor: http://tautulli:8181  
             widget:
               type: tautulli
               url: http://tautulli:8181
@@ -314,7 +339,8 @@ data:
         - Xteve:
             icon: xteve.png
             href: https://{{ .Release.Name }}-xteve.elfhosted.com
-            description: Live TV Proxy for Plex/Emby    
+            description: Live TV Proxy for Plex/Emby
+            siteMonitor: http://xteve:34400    
             widget:
               type: xteve
               url: http://xteve:34400
@@ -326,28 +352,32 @@ data:
         - NextPVR:
             icon: nextpvr.png
             href: https://{{ .Release.Name }}-nextpvr.elfhosted.com
-            description: Live TV Proxy                    
+            description: Live TV Proxy     
+            siteMonitor: http://nextpvr:8866               
         {{ end }}   
 
         {{ if .Values.notifiarr.enabled }}
         - Notifiarr:
             icon: notifiarr.png
             href: https://{{ .Release.Name }}-notifiarr.elfhosted.com
-            description: Manage Discord-based Notifications                 
+            description: Manage Discord-based Notifications 
+            siteMonitor: http://notifiarr:5454                
         {{ end }}   
 
         {{ if .Values.shoko.enabled }}
         - Shoko:
             icon: shoko.png
             href: https://{{ .Release.Name }}-shoko.elfhosted.com
-            description: Manage Anime         
+            description: Manage Anime      
+            siteMonitor: http://shoko:8111   
         {{ end }}      
 
         {{ if .Values.filebot.enabled }}
         - Filebot:
             icon: filebot.png
             href: https://{{ .Release.Name }}-filebot.elfhosted.com
-            description: Automate Media Management         
+            description: Automate Media Management  
+            siteMonitor: http://filebot:5452       
         {{ end }}        
 
         {{ if .Values.unpackerr.enabled }}
@@ -360,7 +390,7 @@ data:
         {{ if .Values.plexmetamanager.enabled }}
         - Plex Meta Manager:
             icon: mdi-folder-information
-            href: https://{{ .Release.Name }}-plexmetamanager.elfhosted.com
+            href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/plex-meta-manager/
             description: Manage Plex Metadata     
         {{ end }}                      
 
@@ -369,6 +399,7 @@ data:
             icon: tdarr.png
             href: https://{{ .Release.Name }}-tdarr.elfhosted.com
             description: Automate Media Transcoding  
+            siteMonitor: http://tdarr:8265
             widget:
               type: tdarr
               url: http://tdarr:8265
@@ -380,6 +411,7 @@ data:
             icon: nzbget.png
             href: https://{{ .Release.Name }}-nzbget.elfhosted.com
             description: Usenet Client  
+            siteMonitor: http://nzbget:6789
             widget:
               type: nzbget
               url: http://nzbget:6789
@@ -390,6 +422,7 @@ data:
             icon: sabnzbd.png
             href: https://{{ .Release.Name }}-sabnzbd.elfhosted.com
             description: Usenet Client  
+            siteMonitor: http://sabnzbd:8080
             widget:
               type: sabnzbd
               url: http://sabnzbd:8080
@@ -401,6 +434,7 @@ data:
             icon: prowlarr.png
             href: https://{{ .Release.Name }}-prowlarr.elfhosted.com
             description: Manage Indexers  
+            siteMonitor: http://prowlarr:9696
             widget:
               type: prowlarr
               url: http://prowlarr:9696
@@ -412,6 +446,7 @@ data:
             icon: nzbhydra.png
             href: https://{{ .Release.Name }}-nzbhydra.elfhosted.com
             description: Manage Indexers
+            siteMonitor: http://nzbhydra:5076
         {{ end }}           
 
         {{ if .Values.autobrr.enabled }}
@@ -419,6 +454,7 @@ data:
             icon: autobrr.png
             href: https://{{ .Release.Name }}-autobrr.elfhosted.com
             description: Manage torrent automation 
+            siteMonitor: http://autobrr:7474
             widget:
               type: autobrr
               url: http://autobrr:7474
@@ -430,6 +466,7 @@ data:
             icon: deluge.png
             href: https://{{ .Release.Name }}-deluge.elfhosted.com
             description: Bittorrent Client
+            siteMonitor: http://deluge:8112
             widget:
               type: deluge
               url: http://deluge:8112
@@ -441,6 +478,7 @@ data:
             icon: qbittorrent.png
             href: https://{{ .Release.Name }}-qbittorrent.elfhosted.com
             description: Bittorrent Client
+            siteMonitor: http://qbittorrent:8000
             widget:
               type: qbittorrent
               url: http://qbittorrent:8000
@@ -451,6 +489,7 @@ data:
             icon: rutorrent.png
             href: https://{{ .Release.Name }}-rutorrent.elfhosted.com
             description: Bittorrent Client
+            siteMonitor: http://rutorrent:8080
             widget:
               type: rutorrent
               url: http://rutorrent:8080
@@ -461,6 +500,7 @@ data:
             icon: pyload.png
             href: https://{{ .Release.Name }}-pyload.elfhosted.com
             description: Manage downloads
+            siteMonitor: http://pyload:8000
             widget:
               type: pyload
               url: http://pyload:8000
@@ -471,6 +511,7 @@ data:
             icon: youtubedl.png
             href: https://{{ .Release.Name }}-youtubedl.elfhosted.com
             description: Manage YouTube Downloads
+            siteMonitor: http://youtubedl:17442
         {{ end }}  
 
         {{ if .Values.rapidleech.enabled }}
@@ -478,6 +519,7 @@ data:
             icon: mdi-flash
             href: https://{{ .Release.Name }}-rapidleech.elfhosted.com
             description: Rapidly Leech
+            siteMonitor: http://rapidleech:8080
         {{ end }}      
 
         {{ if .Values.rdtclient.enabled }}
@@ -485,6 +527,7 @@ data:
             icon: rdt-client.png
             href: https://{{ .Release.Name }}-rdtclient.elfhosted.com
             description: Manage real debrid(-like) services
+            siteMonitor: http://rdtclient:6500
         {{ end }}     
 
         {{ if .Values.openbooks.enabled }}
@@ -492,6 +535,7 @@ data:
             icon: mdi-book-open-variant
             href: https://{{ .Release.Name }}-openbooks.elfhosted.com
             description: Manage eBooks Downloads
+            siteMonitor: http://openbooks:8000
         {{ end }}      
 
         {{ if .Values.jdownloader.enabled }}
@@ -511,12 +555,14 @@ data:
             icon: filebrowser.png
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com
             description: Manage Files
+            siteMonitor: http://filebrowser:8080
 
         {{ if .Values.privatebin.enabled }}
         - PrivateBin:
             icon: privatebin.png
             href: https://{{ .Release.Name }}-privatebin.elfhosted.com
             description: Securely Share Snippets
+            siteMonitor: http://privatebin:8080
         {{ end }}
         
         {{ if .Values.miniflux.enabled }}
@@ -524,6 +570,7 @@ data:
             icon: miniflux.png
             href: https://{{ .Release.Name }}-miniflux.elfhosted.com
             description: Minimalist RSS client
+            siteMonitor: http://miniflux:8080
             widget:
               type: miniflux
               url: http://miniflux:8080
@@ -539,6 +586,7 @@ data:
             href: "https://{{ .Release.Name }}-uptime-kuma.elfhosted.com"
             {{- end }}
             description: Uptime Monitor
+            siteMonitor: http://uptime-kuma:3001
             widget:
               type: uptimekuma
               url: http://uptime-kuma:3001
@@ -550,6 +598,7 @@ data:
             icon: gotify.png
             href: https://{{ .Release.Name }}-gotify.elfhosted.com
             description: Aggregate your notifications
+            siteMonitor: http://gotify:8080
             widget:
               type: gotify
               url: http://gotify:8080
@@ -561,6 +610,7 @@ data:
             icon: seafile.png
             href: https://{{ .Release.Name }}-seafile.elfhosted.com
             description: Securely Sync your Stuff
+            siteMonitor: http://seafile:80
         {{ end }}
 
         {{ if .Values.syncthing.enabled }}
@@ -568,6 +618,7 @@ data:
             icon: syncthing.png
             href: https://{{ .Release.Name }}-syncthing.elfhosted.com
             description: Securely Sync your Stuff
+            siteMonitor: http://syncthing:8384
         {{ end }}        
 
         {{ if .Values.resiliosync.enabled }}
@@ -575,6 +626,7 @@ data:
             icon: resiliosync.png
             href: https://{{ .Release.Name }}-resiliosync.elfhosted.com
             description: Securely Sync your Stuff
+            siteMonitor: http://resiliosync:8888
         {{ end }}   
 
         {{ if .Values.thelounge.enabled }}
@@ -582,6 +634,7 @@ data:
             icon: thelounge.png
             href: https://{{ .Release.Name }}-thelounge.elfhosted.com
             description: Modern IRC client
+            siteMonitor: http://thelounge:9000
         {{ end }}             
 
         {{ if .Values.vaultwarden.enabled }}
@@ -589,6 +642,7 @@ data:
             icon: vaultwarden.png
             href: https://{{ .Release.Name }}-vaultwarden.elfhosted.com
             description: Securely manage passwords / secrets
+            siteMonitor: http://vaultwarden:8000
         {{ end }}     
 
         {{ if .Values.mattermost.enabled }}
@@ -596,6 +650,7 @@ data:
             icon: mattermost.png
             href: https://{{ .Release.Name }}-mattermost.elfhosted.com
             description: Team group chat
+            siteMonitor: http://mattermost:8065
         {{ end }}   
 
         {{ if .Values.joplinserver.enabled }}
@@ -603,17 +658,20 @@ data:
             icon: joplin.png
             href: https://{{ .Release.Name }}-joplin-server.elfhosted.com
             description: Manage Joplin Sync
+            siteMonitor: http://joplinserver:22300
         {{ end }}                    
 
     - Migration Tools:
         - Rclone UI:
             icon: rclone.png
             href: https://{{ .Release.Name }}-rcloneui.elfhosted.com
+            siteMonitor: http://rclonebrowser:5572
             description: Rclone UI
 
         - Rclone FM:
             icon: rclone.png
             href: https://{{ .Release.Name }}-rclonefm.elfhosted.com
+            siteMonitor: http://rclonebrowser:5573
             description: Rclone File Manager
 
         - Rclone Remotes:
@@ -626,6 +684,7 @@ data:
             icon: rclone.png
             href: https://{{ .Release.Name }}-rclonewebdav.elfhosted.com
             description: Your WebDAV endpoint for migration
+            siteMonitor: http://rclonebrowser:5574
         {{ end }}
         
 
