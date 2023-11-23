@@ -420,6 +420,17 @@ rutorrentgluetun: &rutorrent
       type: RuntimeDefault
     readOnlyRootFilesystem: false
 
+  affinity: 
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists  
+
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
     seccompProfile:
@@ -595,6 +606,17 @@ delugegluetun: &deluge
     tag: 2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
   priorityClassName: tenant-normal
 
+  affinity: 
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists  
+    
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -785,6 +807,16 @@ qbittorrentgluetun: &qbittorrent
     repository: geek-cookbook/qbittorrent
     tag: 4.6.1@sha256:2fc1e17d1e41396ce550a9491882d0d12898d233443c3683a4305acc4a9f7760
   priorityClassName: tenant-normal
+  affinity: 
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists  
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -964,6 +996,16 @@ nzbget:
     repository: ghcr.io/geek-cookbook/nzbget
     tag: 21.1@sha256:672dec2779dfa82d475d7c2adb4296e361e06bf2f972aa1dbe827a4229c18020
   priorityClassName: tenant-low
+  affinity: 
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists    
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1020,6 +1062,16 @@ sabnzbd:
     repository: geek-cookbook/sabnzbd
     tag: 4.1.0@sha256:c2fec7d8609a138a12fed06756a12c0bb798d628592e24162bd9b19ae39b0f37
   priorityClassName: tenant-low
+  affinity: 
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists    
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-sabnzbd"
