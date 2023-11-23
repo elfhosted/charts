@@ -11,10 +11,13 @@ data:
     title: 🧝 {{.Release.Name}}'s ElfHosted Services
     background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
 
+    statusStyle: "basic"
     hideErrors: false # We want to be advised to our API errors
     layout:
       - Links:
           style: row
+          columns: 4
+          header: false
       - Consume Media:
           tab: Media
           icon: mdi-sofa
@@ -499,13 +502,63 @@ data:
               username: {{ .Values.jdownloader.MYJDOWNLOADER_EMAIL | default }}
               password: {{ .Values.jdownloader.MYJDOWNLOADER_PASSWORD | default }}
               client: {{ .Release.Name }}.elfhosted.com
-        {{ end }}                                 
+        {{ end }}                 
+
+    - General Tools:
+        - File Browser:
+            icon: filebrowser.png
+            href: https://{{ .Release.Name }}-filebrowser.elfhosted.com
+            description: Manage Files
+
+        {{ if .Values.privatebin.enabled }}
+        - PrivateBin:
+            icon: privatebin.png
+            href: https://{{ .Release.Name }}-privatebin.elfhosted.com
+            description: Securely Share Snippets
+        {{ end }}
+        
+        {{ if .Values.miniflux.enabled }}
+        - MiniFlux:
+            icon: miniflux.png
+            href: https://{{ .Release.Name }}-miniflux.elfhosted.com
+            description: Minimalist RSS client
+            widget:
+              type: miniflux
+              url: http://miniflux:8080
+              key: {{`{{HOMEPAGE_VAR_MINIFLUX_KEY}}`}} 
+        {{ end }}         
+        
+        {{ if .Values.uptimekuma.enabled }}
+        - Uptime Kuma:
+            icon: uptimekuma.png
+            {{- if .Values.uptimekumacustomdomain.enabled }}
+            href: "https://{{ .Values.uptimekumacustomdomain.cname }}"
+            {{- else }}
+            href: "https://{{ .Release.Name }}-uptime-kuma.elfhosted.com"
+            {{- end }}
+            description: Uptime Monitor
+            widget:
+              type: uptimekuma
+              url: http://uptime-kuma:3001
+              key: {{`{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}`}} 
+        {{ end }}         
+
+        {{ if .Values.gotfiy.enabled }}
+        - Gotify:
+            icon: gotify.png
+            href: https://{{ .Release.Name }}-gotify.elfhosted.com
+            description: Aggregate your notifications
+            widget:
+              type: gotify
+              url: http://gotify:8080
+              key: {{`{{HOMEPAGE_VAR_MINIFLUX_KEY}}`}} 
+        {{ end }}              
 
   widgets.yaml: |
 
     - greeting:
-        text_size: 2xl
-        text: {{ .Release.Name }} is ElfHosted!
+        text_size: 3xl
+        text: 🧝 {{ .Release.Name }}
 
     - resources:
         label: /storage/elfstorage
@@ -531,19 +584,21 @@ data:
 
   bookmarks.yaml: |
     - Links:
-        - Health:
+        - App Health:
             - abbr: GA
               href: "https://{{ .Release.Name }}-health.elfhosted.com"
               icon: gatus.png
-        - Account:
+              description: Health stats
+        - My Account:
             - abbr: GA
               href: "https://store.elfhosted.com/my-account/subscriptions/"
-              icon: mdi-account-cog              
+              icon: mdi-account-cog        
+              description: My Account      
         - Discord:
             - abbr: DI
               href: https://discord.elfhosted.com
               icon: discord.png
-              description: Join our friendly Discord!
+              description: Join us!
         - Docs:
             - abbr: DO
               href: https://elfhosted.com
