@@ -385,7 +385,7 @@ data:
             icon: mdi-gift-open
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/unpackerr/
             description: Automatically Unpack Media      
-            siteMonitor: http://filebrowser:8080  
+            siteMonitor: http://unpacker:9898
         {{ end }}       
 
         {{ if .Values.plexmetamanager.enabled }}
@@ -393,7 +393,7 @@ data:
             icon: mdi-folder-information
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/plex-meta-manager/
             description: Manage Plex Metadata     
-            siteMonitor: http://filebrowser:8080
+            siteMonitor: http://plexmetamanager:9898
         {{ end }}                      
 
         {{ if .Values.tdarr.enabled }}
@@ -545,6 +545,7 @@ data:
             icon: jdownloader.png
             href: https://{{ .Release.Name }}-jdownloader.elfhosted.com
             description: Manage Downloads
+            siteMonitor: http://jdownloader:9898
             widget:
               type: jdownloader
               username: {{ .Values.jdownloader.MYJDOWNLOADER_EMAIL | default }}
