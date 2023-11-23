@@ -172,9 +172,13 @@ data:
 
     # If we have been given a port by pia/gluetun, prepare for it before starting
     PORT_FILE=/data/rtorrent/forwarded-port
+    PORT_FILE_OVERRIDE=/data/rtorrent/forwarded-port-override
 
     # Apply the port
-    if [[ -f "$PORT_FILE" ]]; then
+    if [[ -f "$PORT_FILE_OVERRIDE" ]]; then
+        echo -n $(cat $PORT_FILE)-$(cat $PORT_FILE) > /port-range/port-range.txt
+
+    elif [[ -f "$PORT_FILE" ]]; then
 
         # Wait until a file is found which is less than 5 min old
         until (find $PORT_FILE -mmin 5); do
