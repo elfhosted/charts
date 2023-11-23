@@ -9,7 +9,8 @@ data:
 
   settings.yaml: |
     title: 🧝 {{.Release.Name}}'s ElfHosted Services
-    background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
+    background: https://unsplash.com/photos/1OtUkD_8svc/download?force=true&w=2400
+    favicon: https://elfhosted.com/images/logo.png
 
     statusStyle: "basic"
     hideErrors: false # We want to be advised to our API errors
@@ -19,14 +20,15 @@ data:
           columns: 4
           header: false
       - Consume Media:
-          tab: Media
           icon: mdi-sofa
       - Manage Media:
-          tab: Media
           icon: mdi-multimedia
       - Download Media:
-          tab: Media
           icon: mdi-cloud-download
+      - General Tools:
+          icon: mdi-toolbox
+      - Migration Tools:
+          icon: mdi-human-dolly
 
   services.yaml: |
     - Consume Media:
@@ -551,8 +553,81 @@ data:
             widget:
               type: gotify
               url: http://gotify:8080
-              key: {{`{{HOMEPAGE_VAR_MINIFLUX_KEY}}`}} 
+              key: {{`{{HOMEPAGE_VAR_GOTIFY_KEY}}`}} 
         {{ end }}              
+
+        {{ if .Values.seafile.enabled }}
+        - Seafile:
+            icon: seafile.png
+            href: https://{{ .Release.Name }}-seafile.elfhosted.com
+            description: Securely Sync your Stuff
+        {{ end }}
+
+        {{ if .Values.syncthing.enabled }}
+        - Syncthing:
+            icon: syncthing.png
+            href: https://{{ .Release.Name }}-syncthing.elfhosted.com
+            description: Securely Sync your Stuff
+        {{ end }}        
+
+        {{ if .Values.resiliosync.enabled }}
+        - Resilio Sync:
+            icon: resiliosync.png
+            href: https://{{ .Release.Name }}-resiliosync.elfhosted.com
+            description: Securely Sync your Stuff
+        {{ end }}   
+
+        {{ if .Values.thelounge.enabled }}
+        - TheLounge:
+            icon: thelounge.png
+            href: https://{{ .Release.Name }}-thelounge.elfhosted.com
+            description: Modern IRC client
+        {{ end }}             
+
+        {{ if .Values.vaultwarden.enabled }}
+        - Vaultwarden:
+            icon: vaultwarden.png
+            href: https://{{ .Release.Name }}-vaultwarden.elfhosted.com
+            description: Securely manage passwords / secrets
+        {{ end }}     
+
+        {{ if .Values.mattermost.enabled }}
+        - Mattermost:
+            icon: mattermost.png
+            href: https://{{ .Release.Name }}-mattermost.elfhosted.com
+            description: Team group chat
+        {{ end }}   
+
+        {{ if .Values.joplinserver.enabled }}
+        - Joplin Server:
+            icon: joplin.png
+            href: https://{{ .Release.Name }}-joplin-server.elfhosted.com
+            description: Manage Joplin Sync
+        {{ end }}                    
+
+    - Migration Tools:
+        - Rclone UI:
+            icon: rclone.png
+            href: https://{{ .Release.Name }}-rcloneui.elfhosted.com
+            description: Rclone UI
+
+        - Rclone FM:
+            icon: rclone.png
+            href: https://{{ .Release.Name }}-rclonefm.elfhosted.com
+            description: Rclone File Manager
+
+        - Rclone Remotes:
+            icon: rclone.png
+            href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/rclonebrowser/rclone.conf
+            description: Your configured Rclone remotes       
+
+        {{ if .Values.rclonewebdav.enabled }}
+        - Rclone WebDAV:
+            icon: rclone.png
+            href: https://{{ .Release.Name }}-rclonewebdav.elfhosted.com
+            description: Your WebDAV endpoint for migration
+        {{ end }}
+        
 
   widgets.yaml: |
 
