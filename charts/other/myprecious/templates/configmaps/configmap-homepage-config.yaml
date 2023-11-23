@@ -543,7 +543,7 @@ data:
               key: {{`{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}`}} 
         {{ end }}         
 
-        {{ if .Values.gotfiy.enabled }}
+        {{ if .Values.gotify.enabled }}
         - Gotify:
             icon: gotify.png
             href: https://{{ .Release.Name }}-gotify.elfhosted.com
