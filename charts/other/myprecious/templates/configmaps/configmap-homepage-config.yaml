@@ -9,7 +9,7 @@ data:
 
   settings.yaml: |
     title: {{.Release.Name}}'s ElfHosted Services
-    background: https://unsplash.com/photos/1OtUkD_8svc/download?force=true&w=2400
+    background: https://unsplash.com/photos/fX-qWsXl5x8/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTB8fGRhcmslMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTcwMDY0MzMzN3ww&force=true&w=1920
     favicon: https://elfhosted.com/images/logo.png
 
     statusStyle: "basic"
@@ -148,7 +148,7 @@ data:
             icon: radarr.png
             href: https://{{ .Release.Name }}-radarr.elfhosted.com
             description: Manage Movies
-            siteMonitor: http://radar:7878
+            siteMonitor: http://radarr:7878
             widget:
               type: radarr
               url: http://radarr:7878
@@ -384,7 +384,8 @@ data:
         - Unpackerr:
             icon: mdi-gift-open
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/unpackerr/
-            description: Automatically Unpack Media        
+            description: Automatically Unpack Media      
+            siteMonitor: http://filebrowser:8080  
         {{ end }}       
 
         {{ if .Values.plexmetamanager.enabled }}
@@ -392,6 +393,7 @@ data:
             icon: mdi-folder-information
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/plex-meta-manager/
             description: Manage Plex Metadata     
+            siteMonitor: http://filebrowser:8080
         {{ end }}                      
 
         {{ if .Values.tdarr.enabled }}
@@ -626,7 +628,7 @@ data:
             icon: resiliosync.png
             href: https://{{ .Release.Name }}-resiliosync.elfhosted.com
             description: Securely Sync your Stuff
-            siteMonitor: http://resiliosync:8888
+            siteMonitor: http://resilio-sync:8888
         {{ end }}   
 
         {{ if .Values.thelounge.enabled }}
