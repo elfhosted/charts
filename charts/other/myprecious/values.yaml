@@ -5958,6 +5958,16 @@ rclonebrowser:
     # runAsGroup: 568
     # fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
+  affinity: 
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists        
   automountServiceAccountToken: false
   env:
     APP_NICENESS: 19 # run at lowest niceness

@@ -385,7 +385,7 @@ data:
             icon: mdi-gift-open
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/unpackerr/
             description: Automatically Unpack Media      
-            siteMonitor: http://unpacker:9898
+            siteMonitor: http://unpackerr:9898
         {{ end }}       
 
         {{ if .Values.plexmetamanager.enabled }}
@@ -680,7 +680,8 @@ data:
         - Rclone Remotes:
             icon: rclone.png
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/rclonebrowser/rclone.conf
-            description: Your configured Rclone remotes       
+            description: Your configured Rclone remotes  
+            siteMonitor: http://filebrowser:8080     
 
         {{ if .Values.rclonewebdav.enabled }}
         - Rclone WebDAV:
