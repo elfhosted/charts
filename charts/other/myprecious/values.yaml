@@ -6938,7 +6938,7 @@ tdarr:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/haveagitgat/tdarr
-    tag: 2.15.01
+    tag: 2.16.01
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-tdarr"
