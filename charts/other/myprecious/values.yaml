@@ -415,7 +415,7 @@ bootstrap_ssd: &bootstrap_ssd
   - mountPath: /config
     name: config  
   - mountPath: /config-hdd
-    name: config_hdd    
+    name: confighdd    
   - mountPath: /storage/elfstorage
     name: elfstorage
   env: *bootstrap_env
@@ -2622,7 +2622,7 @@ calibreweb:
     CALIBRE_DBPATH: /config
   persistence:
     <<: *appmounts
-    config_hdd:
+    confighdd:
       enabled: true
       type: custom
       volumeSpec:
