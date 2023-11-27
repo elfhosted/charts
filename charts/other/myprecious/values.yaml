@@ -2204,7 +2204,7 @@ filebrowser:
       mountPath: /storage/config/sonarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr   
+          claimName: config-sonarr-ssd
     sonarr4k:
       enabled: false
       type: custom
@@ -3104,13 +3104,19 @@ sonarr:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr   
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr   
+          claimName: config-sonarr-ssd
     elfbot:
       enabled: "true"
       type: "custom"
@@ -4462,7 +4468,7 @@ homer:
       mountPath: /config/sonarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr   
+          claimName: config-sonarr-ssd
     sonarr4k:
       enabled: false
       type: custom
