@@ -394,6 +394,13 @@ bootstrap_ssd: &bootstrap_ssd
         ;;
                   
     esac
+
+    if [[ ! -f /config/i-am-migrated ]]
+    then
+      echo "Migrating from /config-hdd/..."
+      cp /config-hdd/* /config/ -rfpv
+      touch /config/i-am-migrated
+    fi          
     
     if [[ ! -f /config/i-am-bootstrapped ]]
     then
@@ -401,14 +408,6 @@ bootstrap_ssd: &bootstrap_ssd
       s5cmd sync s3://elfhosted-config/goldilocks/$ELF_APP_NAME/* /config/
       touch /config/i-am-bootstrapped
     fi  
-
-    if [[ ! -f /config/i-am-migrated ]]
-    then
-      echo "Migrating from /config-hdd/..."
-      cp /config-hdd/* /config/ -rfp
-      touch /config/i-am-migrated
-    fi      
-
   volumeMounts:
   - mountPath: /etc/elfbot
     name: elfbot
@@ -1336,7 +1335,13 @@ radarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr   
+          claimName: config-radarr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr             
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1351,7 +1356,7 @@ radarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
