@@ -2301,7 +2301,7 @@ uptimekuma:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/uptime-kuma
-    tag: 1.23.6@sha256:05f730aea469af9d192a0a032b6cbc68a1a972991221acb3cd85a5231fcce324
+    tag: 1.23.7@sha256:256cff2d231aba0054df79f02150ff50a590edaaf50631b32795e4480c9bafd4
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -2978,7 +2978,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.731@sha256:bd7df936b1d9831daae4a97dee588f1410d43a922b368d2d4d37263f42c44f8c
+    tag: 4.0.0.733@sha256:6a3cb1bbbb7dc14b4fd09c25eac5ca555e44eb16a37da58d497cb04401312871
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3051,7 +3051,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.731@sha256:bd7df936b1d9831daae4a97dee588f1410d43a922b368d2d4d37263f42c44f8c
+    tag: 4.0.0.733@sha256:6a3cb1bbbb7dc14b4fd09c25eac5ca555e44eb16a37da58d497cb04401312871
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3196,7 +3196,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.10.4.4088@sha256:af18b028c7f03aa46a87fabea337e5b74b3971a72cdda589729686c55804e1d7
+    tag: 1.10.5.4116@sha256:4b38c5ebff3ad4b5dc0bc0515a1237330521cc2863cfc06ad94862a80443c87c
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6938,7 +6938,7 @@ tdarr:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/haveagitgat/tdarr
-    tag: 2.15.01
+    tag: 2.16.01
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-tdarr"
@@ -7011,7 +7011,7 @@ homepage:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/gethomepage/homepage
-    tag: v0.8.0
+    tag: v0.8.2
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-homepage,homepage-config"
