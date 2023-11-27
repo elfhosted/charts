@@ -1896,7 +1896,7 @@ filebrowser:
       mountPath: /storage/config/calibre/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-calibre
+          claimName: config-calibre-ssd
     deluge:
       enabled: false
       type: custom
@@ -1994,14 +1994,14 @@ filebrowser:
       mountPath: /storage/config/kavita/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-kavita
+          claimName: config-kavita-ssd
     komga:
       enabled: false
       type: custom
       mountPath: /storage/config/komga/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-komga
+          claimName: config-komga-ssd
     lazylibrarian:
       enabled: false
       type: custom
@@ -2736,7 +2736,7 @@ pyload:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-pyload
+          claimName: config-pyload-ssd
     confighdd:
       enabled: true
       type: custom
@@ -2928,7 +2928,13 @@ komga:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-komga
+          claimName: config-komga-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-komga          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2944,7 +2950,7 @@ komga:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   resources:
     requests:
       cpu: 10m
@@ -2982,7 +2988,13 @@ kavita:
       mountPath: /kavita/config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-kavita
+          claimName: config-kavita-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-kavita          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2991,7 +3003,7 @@ kavita:
           name: elfbot-kavita
           optional: true
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -3039,7 +3051,13 @@ calibre:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-calibre
+          claimName: config-calibre-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-calibre          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3074,7 +3092,7 @@ calibre:
       cpu: 1
       memory: 4Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4208,7 +4226,7 @@ homer:
       mountPath: /config/calibre/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-calibre
+          claimName: config-calibre-ssd
     deluge:
       enabled: false
       type: custom
@@ -4306,14 +4324,14 @@ homer:
       mountPath: /config/kavita/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-kavita
+          claimName: config-kavita-ssd
     komga:
       enabled: false
       type: custom
       mountPath: /config/komga/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-komga
+          claimName: config-komga-ssd
     lazylibrarian:
       enabled: false
       type: custom
