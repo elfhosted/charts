@@ -1567,7 +1567,13 @@ bazarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-bazarr   
+          claimName: config-bazarr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-bazarr             
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1582,7 +1588,7 @@ bazarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -1634,13 +1640,19 @@ bazarr4k:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts  
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-bazarr4k   
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-bazarr4k   
+          claimName: config-bazarr4k-ssd          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1655,7 +1667,7 @@ bazarr4k:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -1847,14 +1859,14 @@ filebrowser:
       mountPath: /storage/config/bazarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-bazarr
+          claimName: config-bazarr-ssd
     bazarr4k:
       enabled: false
       type: custom
       mountPath: /storage/config/bazarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-bazarr4k
+          claimName: config-bazarr4k-ssd
     calibreweb:
       enabled: false
       type: custom
@@ -2008,7 +2020,7 @@ filebrowser:
       mountPath: /storage/config/mylar/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-mylar
+          claimName: config-mylar-ssd
     navidrome:
       enabled: false
       type: custom
@@ -2211,7 +2223,7 @@ filebrowser:
       mountPath: /storage/config/sonarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k-ssd
+          claimName: config-sonarr4k
     syncthing:
       enabled: false
       type: custom
@@ -2833,7 +2845,13 @@ mylar:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-mylar   
+          claimName: config-mylar-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-mylar             
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2849,7 +2867,7 @@ mylar:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3129,7 +3147,7 @@ sonarr:
     main:
       enabled: false
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3186,13 +3204,6 @@ sonarr4k:
     config:
       enabled: true
       type: custom
-      mountPath: /config/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-sonarr4k-ssd
-    confighdd:
-      enabled: true
-      type: custom
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-sonarr4k             
@@ -3207,7 +3218,7 @@ sonarr4k:
     main:
       enabled: false
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3664,13 +3675,7 @@ readarraudio:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarraudio-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-readarraudio         
+          claimName: config-readarraudio      
     tmp-readarr-backup:
       enabled: true
       type: emptyDir
@@ -3690,7 +3695,7 @@ readarraudio:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4136,14 +4141,14 @@ homer:
       mountPath: /config/bazarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-bazarr
+          claimName: config-bazarr-ssd
     bazarr4k:
       enabled: false
       type: custom
       mountPath: /config/bazarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-bazarr4k
+          claimName: config-bazarr4k-ssd
     calibreweb:
       enabled: false
       type: custom
@@ -4297,7 +4302,7 @@ homer:
       mountPath: /config/mylar/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-mylar
+          claimName: config-mylar-ssd
     navidrome:
       enabled: false
       type: custom
@@ -4500,7 +4505,7 @@ homer:
       mountPath: /config/sonarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k-ssd
+          claimName: config-sonarr4k
     syncthing:
       enabled: false
       type: custom
