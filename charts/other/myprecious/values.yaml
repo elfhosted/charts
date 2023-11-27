@@ -3838,13 +3838,7 @@ plex: &plex
       cpu: "2"
       memory: 2048Mi
   initContainers:
-    bootstrap:
-      <<: *bootstrap_ssd
-      volumeMounts:
-      - mountPath: /etc/elfbot
-        name: elfbot
-      - mountPath: /config
-        name: config
+    bootstrap: *bootstrap_ssd
 
 plexgluetun:
   <<: *plex
@@ -3949,7 +3943,7 @@ plexpia:
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex     
+          claimName: config-plex
     shared:
       enabled: true
       mountPath: /shared
