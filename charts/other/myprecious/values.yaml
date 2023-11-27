@@ -1276,7 +1276,13 @@ tautulli:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tautulli
+          claimName: config-tautulli-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-tautulli          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1298,7 +1304,7 @@ tautulli:
       cpu: 1
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 radarr:
   enabled: false
@@ -2218,7 +2224,7 @@ filebrowser:
       mountPath: /storage/config/shoko/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-shoko
+          claimName: config-shoko-ssd
     sonarr:
       enabled: false
       type: custom
@@ -2246,7 +2252,7 @@ filebrowser:
       mountPath: /storage/config/tautulli/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tautulli
+          claimName: config-tautulli-ssd
     tdarr:
       enabled: false
       type: custom
@@ -2260,21 +2266,21 @@ filebrowser:
       mountPath: /storage/config/thelounge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-thelounge
+          claimName: config-thelounge-ssd
     uptimekuma:
       enabled: false
       type: custom
       mountPath: /storage/config/uptimekuma/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-uptimekuma
+          claimName: config-uptimekuma-ssd
     vaultwarden:
       enabled: false
       type: custom
       mountPath: /storage/config/vaultwarden/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-vaultwarden
+          claimName: config-vaultwarden-ssd
     xteve:
       enabled: false
       type: custom
@@ -2295,7 +2301,7 @@ filebrowser:
       mountPath: /storage/config/rdtclient/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rdtclient
+          claimName: config-rdtclient-ssd
   service:
     main:
       enabled: true # necessary for probes
@@ -2450,7 +2456,13 @@ uptimekuma:
       mountPath: /app/data/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-uptimekuma
+          claimName: config-uptimekuma-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-uptimekuma          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2465,7 +2477,7 @@ uptimekuma:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   resources:
     requests:
       cpu: 10m
@@ -4548,7 +4560,7 @@ homer:
       mountPath: /config/shoko/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-shoko
+          claimName: config-shoko-ssd
     sonarr:
       enabled: false
       type: custom
@@ -4576,7 +4588,7 @@ homer:
       mountPath: /config/tautulli/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tautulli
+          claimName: config-tautulli-ssd
     tdarr:
       enabled: false
       type: custom
@@ -4590,21 +4602,21 @@ homer:
       mountPath: /config/thelounge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-thelounge
+          claimName: config-thelounge-ssd
     uptimekuma:
       enabled: false
       type: custom
       mountPath: /config/uptimekuma/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-uptimekuma
+          claimName: config-uptimekuma-ssd
     vaultwarden:
       enabled: false
       type: custom
       mountPath: /config/vaultwarden/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-vaultwarden
+          claimName: config-vaultwarden-ssd
     xteve:
       enabled: false
       type: custom
@@ -4625,7 +4637,7 @@ homer:
       mountPath: /config/rdtclient/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rdtclient
+          claimName: config-rdtclient-ssd
     message:
       enabled: true
       type: emptyDir
@@ -5254,7 +5266,13 @@ thelounge:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-thelounge
+          claimName: config-thelounge-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-thelounge          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5263,7 +5281,7 @@ thelounge:
           name: elfbot-thelounge
           optional: true
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     create-user:
       image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:5d5135a3a45fbbfdd51d725d853bf29ea99071e104cae2c5437aa3947c466a0e
       imagePullPolicy: IfNotPresent
@@ -5699,7 +5717,13 @@ vaultwarden:
       mountPath: /data
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-vaultwarden
+          claimName: config-vaultwarden-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-vaultwarden          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5709,7 +5733,7 @@ vaultwarden:
           optional: true
     tmp: *tmp
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -5846,7 +5870,13 @@ shoko:
       mountPath: /home/shoko/.shoko/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-shoko
+          claimName: config-shoko-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-shoko          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5919,7 +5949,7 @@ filebot:
       mountPath: /home/seedy
       sizeLimit: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -6827,7 +6857,13 @@ rdtclient:
       mountPath: /data/db
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rdtclient
+          claimName: config-rdtclient-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rdtclient          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6850,7 +6886,7 @@ rdtclient:
       cpu: 1
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 jdownloader:
   enabled: false
