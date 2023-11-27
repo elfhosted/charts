@@ -1,0 +1,15 @@
+{{ if .Values.prowlarr.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-prowlarr-ssd
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ceph-filesystem-ssd
+{{ end }}

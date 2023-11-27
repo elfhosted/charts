@@ -1,0 +1,15 @@
+{{ if .Values.nextpvr.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-nextpvr-ssd
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-filesystem-ssd
+{{ end }}
