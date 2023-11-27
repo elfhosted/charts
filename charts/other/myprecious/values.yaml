@@ -1417,13 +1417,19 @@ radarr4k:
       name: radarr4k-config    
   persistence:
     <<: *appmounts  
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr4k  
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr4k   
+          claimName: config-radarr4k-ssd           
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1439,7 +1445,7 @@ radarr4k:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -2107,7 +2113,7 @@ filebrowser:
       mountPath: /storage/config/radarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr4k
+          claimName: config-radarr4k-ssd
     rapidleech:
       enabled: false
       type: custom
@@ -4365,7 +4371,7 @@ homer:
       mountPath: /config/radarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr4k
+          claimName: config-radarr4k-ssd
     rapidleech:
       enabled: false
       type: custom
