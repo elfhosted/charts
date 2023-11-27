@@ -398,7 +398,7 @@ bootstrap_ssd: &bootstrap_ssd
     if [[ ! -f /config/i-am-migrated ]]
     then
       echo "Migrating from /config-hdd/..."
-      cp /config-hdd/* /config/ -rfpv
+      time cp /config-hdd/* /config/ -rfpv
       touch /config/i-am-migrated
     fi
 
@@ -1959,7 +1959,7 @@ filebrowser:
       mountPath: /storage/config/jellyfin/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jellyfin
+          claimName: config-jellyfin-ssd
     plexpia:
       enabled: false
       type: custom
@@ -4006,7 +4006,13 @@ jellyfin:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jellyfin
+          claimName: config-jellyfin-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jellyfin          
     transcode:
       enabled: true
       type: emptyDir
@@ -4025,7 +4031,7 @@ jellyfin:
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -4265,7 +4271,7 @@ homer:
       mountPath: /config/jellyfin/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jellyfin
+          claimName: config-jellyfin-ssd
     plexpia:
       enabled: false
       type: custom
