@@ -1924,7 +1924,7 @@ filebrowser:
       mountPath: /storage/config/emby/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-emby
+          claimName: config-emby-ssd
     filebot:
       enabled: false
       type: custom
@@ -1952,7 +1952,7 @@ filebrowser:
       mountPath: /storage/config/pyload/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-pyload
+          claimName: config-pyload-ssd
     jellyfin:
       enabled: false
       type: custom
@@ -2737,20 +2737,14 @@ pyload:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-pyload
-    elfstorage: *elfstorage
-    rclonea: *rclonea
-    rcloneb: *rcloneb
-    rclonec: *rclonec
-    storageboxa: *storageboxa
-    storageboxb: *storageboxb
-    storageboxc: *storageboxc
-    premiumize: *premiumize
-    b2: *b2
-    smbmounta: *smbmounta
-    smbmountb: *smbmountb
-    smbmountc: *smbmountc
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-pyload
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -4084,7 +4078,13 @@ emby:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-emby
+          claimName: config-emby-ssd
+    config-hdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-emby          
     transcode-temp:
       enabled: true
       type: emptyDir
@@ -4104,7 +4104,7 @@ emby:
       mountPath: "/dev/dri/renderD128"
 
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -4236,7 +4236,7 @@ homer:
       mountPath: /config/emby/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-emby
+          claimName: config-emby-ssd
     filebot:
       enabled: false
       type: custom
@@ -4264,7 +4264,7 @@ homer:
       mountPath: /config/pyload/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-pyload
+          claimName: config-pyload-ssd
     jellyfin:
       enabled: false
       type: custom
