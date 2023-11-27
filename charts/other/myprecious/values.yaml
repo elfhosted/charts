@@ -534,6 +534,11 @@ rutorrentgluetun: &rutorrent
 
   persistence:
     <<: *appmounts
+    tmp: 
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp
+      sizeLimit: 1000Gi      
     config:
       enabled: true
       type: custom
@@ -619,11 +624,11 @@ rutorrentgluetun: &rutorrent
       enabled: false # necessary for probes, but probes aren't working with vpn addon currently
   resources:
     requests:
-      cpu: 10m
-      memory: 128Mi
+      cpu: 100m
+      memory: 1200Mi
     limits:
       cpu: 500m
-      memory: 1Gi
+      memory: 1200Mi
   env:
     # -- Set the container timezone
     PUID: 568
@@ -727,6 +732,11 @@ delugegluetun: &deluge
       configmap.reloader.stakater.com/reload: "elfbot-deluge,deluge-gluetun-config"
   persistence:
     <<: *appmounts
+    tmp: 
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp
+      sizeLimit: 1000Gi    
     config:
       enabled: true
       type: custom
@@ -813,11 +823,11 @@ delugegluetun: &deluge
       securityContext: *default_securitycontext
   resources:
     requests:
-      cpu: 10m
-      memory: 500Mi
+      cpu: 100m
+      memory: 1200Mi
     limits:
       cpu: 500m
-      memory: 1Gi
+      memory: 1200Mi
   addons:
     vpn: &deluge_addons_vpn
       enabled: true
@@ -930,6 +940,11 @@ qbittorrentgluetun: &qbittorrent
       configmap.reloader.stakater.com/reload: "elfbot-qbittorrent,qbittorrent-gluetun-config"
   persistence:
     <<: *appmounts
+    tmp: 
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp
+      sizeLimit: 1000Gi    
     config:
       enabled: true
       type: custom
@@ -1018,8 +1033,8 @@ qbittorrentgluetun: &qbittorrent
       resources: *default_resources
   resources:
     requests:
-      cpu: 10m
-      memory: 500Mi
+      cpu: 100m
+      memory: 1200Mi
     limits:
       cpu: 500m
       memory: 1200Mi # .2 GB for headroom
@@ -1126,7 +1141,7 @@ nzbget:
       enabled: true
       type: emptyDir
       mountPath: /tmp
-      sizeLimit: 200Gi
+      sizeLimit: 1000Gi
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1196,7 +1211,7 @@ sabnzbd:
       enabled: true
       type: emptyDir
       mountPath: /tmp
-      sizeLimit: 200Gi # Don't allow > 200GB in temp files
+      sizeLimit: 1000Gi # Don't allow > 1TB in temp files
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6296,8 +6311,8 @@ rclonebrowser:
       enabled: false
   resources:
     requests:
-      cpu: 10m
-      memory: 150Mi
+      cpu: 1m
+      memory: 60Mi
     limits:
       cpu: 150m
       memory: 256Mi
