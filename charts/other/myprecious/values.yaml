@@ -1994,7 +1994,7 @@ filebrowser:
       mountPath: /storage/config/lidarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-lidarr
+          claimName: config-lidarr-ssd
     mattermost:
       enabled: false
       type: custom
@@ -2134,14 +2134,14 @@ filebrowser:
       mountPath: /storage/config/readarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarr
+          claimName: config-readarr-ssd
     readarraudio:
       enabled: false
       type: custom
       mountPath: /storage/config/readarraudio/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarraudio
+          claimName: config-readarraudio-ssd
     resiliosync:
       enabled: false
       type: custom
@@ -3420,6 +3420,12 @@ lidarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-lidarr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-lidarr   
     s6:
       enabled: true
@@ -3441,7 +3447,7 @@ lidarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3573,7 +3579,14 @@ readarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarr   
+          claimName: config-readarr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarr           
     tmp-readarr-backup:
       enabled: true
       type: emptyDir
@@ -3593,7 +3606,7 @@ readarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3651,6 +3664,12 @@ readarraudio:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-readarraudio-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-readarraudio         
     tmp-readarr-backup:
       enabled: true
@@ -3671,7 +3690,7 @@ readarraudio:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4264,7 +4283,7 @@ homer:
       mountPath: /config/lidarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-lidarr
+          claimName: config-lidarr-ssd
     mattermost:
       enabled: false
       type: custom
@@ -4404,14 +4423,14 @@ homer:
       mountPath: /config/readarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarr
+          claimName: config-readarr-ssd
     readarraudio:
       enabled: false
       type: custom
       mountPath: /config/readarraudio/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarraudio
+          claimName: config-readarraudio-ssd
     resiliosync:
       enabled: false
       type: custom
