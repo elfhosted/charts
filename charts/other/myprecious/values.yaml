@@ -1855,7 +1855,7 @@ filebrowser:
       mountPath: /storage/config/calibreweb/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-calibreweb
+          claimName: config-calibreweb-ssd
     calibre:
       enabled: false
       type: custom
@@ -2100,7 +2100,7 @@ filebrowser:
       mountPath: /storage/config/radarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr   
+          claimName: config-radarr-ssd 
     radarr4k:
       enabled: false
       type: custom
@@ -4113,7 +4113,7 @@ homer:
       mountPath: /config/calibreweb/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-calibreweb
+          claimName: config-calibreweb-ssd
     calibre:
       enabled: false
       type: custom
@@ -4358,7 +4358,7 @@ homer:
       mountPath: /config/radarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr   
+          claimName: config-radarr-ssd 
     radarr4k:
       enabled: false
       type: custom
