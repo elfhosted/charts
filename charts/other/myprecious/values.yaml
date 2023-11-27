@@ -1960,27 +1960,20 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin
-    plex:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex
     plexpia:
       enabled: false
       type: custom
       mountPath: /storage/config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex
+          claimName: config-plex-ssd
     plexgluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex
+          claimName: config-plex-ssd
     joplinserver:
       enabled: false
       type: custom
@@ -3788,7 +3781,13 @@ plex: &plex
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex
+          claimName: config-plex-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex          
     transcode:
       enabled: true
       type: emptyDir
@@ -3840,7 +3839,7 @@ plex: &plex
       memory: 2048Mi
   initContainers:
     bootstrap:
-      <<: *bootstrap
+      <<: *bootstrap_ssd
       volumeMounts:
       - mountPath: /etc/elfbot
         name: elfbot
@@ -3863,7 +3862,13 @@ plexgluetun:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex
+          claimName: config-plex-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex          
     shared:
       enabled: true
       mountPath: /shared
@@ -3938,7 +3943,13 @@ plexpia:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex
+          claimName: config-plex-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex     
     shared:
       enabled: true
       mountPath: /shared
@@ -4261,27 +4272,20 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin
-    plex:
-      enabled: false
-      type: custom
-      mountPath: /config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex
     plexpia:
       enabled: false
       type: custom
       mountPath: /config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex
+          claimName: config-plex-ssd
     plexgluetun:
       enabled: false
       type: custom
       mountPath: /config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex
+          claimName: config-plex-ssd
     jfa:
       enabled: false
       type: custom
