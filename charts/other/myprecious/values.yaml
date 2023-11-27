@@ -3,7 +3,7 @@ safeToRelease: false
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20230801@sha256:daaf77687540a2d7bfd5802eda1d79cb5a0b4e26444a9577d43efe0ce537c60c
-  
+
 # And this makes the media / rclone mounts tidier.
 rclonecustoma: &rclonecustoma
   enabled: false
@@ -53,7 +53,7 @@ gdrivec: &gdrivec
   volumeSpec:
     persistentVolumeClaim:
       claimName: gdrive-c
-  mountPath: /storage/gdrive-c  
+  mountPath: /storage/gdrive-c
 gdrived: &gdrived
   enabled: false
   type: custom
@@ -67,7 +67,7 @@ onedrivea: &onedrivea
   volumeSpec:
     persistentVolumeClaim:
       claimName: onedrive-a
-  mountPath: /storage/onedrive-a  
+  mountPath: /storage/onedrive-a
 rclonemountwebdava: &rclonemountwebdava
   enabled: false
   type: custom
@@ -81,21 +81,21 @@ rclonemountssha: &rclonemountssha
   volumeSpec:
     persistentVolumeClaim:
       claimName: ssh-a
-  mountPath: /storage/ssh-a  
+  mountPath: /storage/ssh-a
 rclonemountsshb: &rclonemountsshb
   enabled: false
   type: custom
   volumeSpec:
     persistentVolumeClaim:
       claimName: ssh-b
-  mountPath: /storage/ssh-b  
+  mountPath: /storage/ssh-b
 rclonemountsshc: &rclonemountsshc
   enabled: false
   type: custom
   volumeSpec:
     persistentVolumeClaim:
       claimName: ssh-c
-  mountPath: /storage/ssh-c  
+  mountPath: /storage/ssh-c
 webdavb: &webdavb
   enabled: false
   type: custom
@@ -109,7 +109,7 @@ webdavc: &webdavc
   volumeSpec:
     persistentVolumeClaim:
       claimName: webdav-c
-  mountPath: /storage/webdav-c    
+  mountPath: /storage/webdav-c
 storageboxa: &storageboxa
   enabled: false
   type: custom
@@ -147,7 +147,7 @@ b2: &b2
   volumeSpec:
     persistentVolumeClaim:
       claimName: b2
-  mountPath: /storage/b2  
+  mountPath: /storage/b2
 smbmounta: &smbmounta
   enabled: false
   type: custom
@@ -161,7 +161,7 @@ smbmountb: &smbmountb
   volumeSpec:
     persistentVolumeClaim:
       claimName: smbmount-b
-  mountPath: /storage/smbmount-b  
+  mountPath: /storage/smbmount-b
 smbmountc: &smbmountc
   enabled: false
   type: custom
@@ -180,23 +180,23 @@ tmp: &tmp
   enabled: true
   type: emptyDir
   mountPath: /tmp
-  sizeLimit: 1Gi  
+  sizeLimit: 1Gi
 
 # This simplfies the process of adding all the optional mounts to every app
 appmounts: &appmounts
-  tmp: *tmp      
+  tmp: *tmp
   elfstorage: *elfstorage
   rclonecustoma: *rclonecustoma
   rclonea: *rclonea
   rcloneb: *rcloneb
-  rclonec: *rclonec  
+  rclonec: *rclonec
   gdrivea: *gdrivea
   gdriveb: *gdriveb
-  gdrivec: *gdrivec 
-  gdrived: *gdrived  
-  onedrivea: *onedrivea   
+  gdrivec: *gdrivec
+  gdrived: *gdrived
+  onedrivea: *onedrivea
   rclonemountwebdava: *rclonemountwebdava
-  rclonemountssha: *rclonemountssha  
+  rclonemountssha: *rclonemountssha
   storageboxa: *storageboxa
   storageboxb: *storageboxb
   storageboxc: *storageboxc
@@ -213,7 +213,7 @@ default_resources: &default_resources
     memory: 1Mi
   limits:
     cpu: 1
-    memory: 1024Mi # just a safety net against bugs!  
+    memory: 1024Mi # just a safety net against bugs!
 
 default_securitycontext: &default_securitycontext
   seccompProfile:
@@ -224,7 +224,7 @@ default_securitycontext: &default_securitycontext
   runAsGroup: 568
   capabilities:
     drop:
-    - ALL  
+    - ALL
 
 # We use this to provide env not only to bootstrap, but also to the torrent clients which use elfvpn
 # it's necessary since the wireguard configs are in S3
@@ -244,11 +244,11 @@ bootstrap_env: &bootstrap_env
 - name: K8S_APP_NAME
   valueFrom:
     fieldRef:
-      fieldPath: metadata.labels['app.kubernetes.io/name'] 
+      fieldPath: metadata.labels['app.kubernetes.io/name']
 - name: ELF_APP_NAME
   valueFrom:
     fieldRef:
-      fieldPath: metadata.labels['app.elfhosted.com/name']   
+      fieldPath: metadata.labels['app.elfhosted.com/name']
 
 bootstrap: &bootstrap
   image: *tooling_image
@@ -273,7 +273,7 @@ bootstrap: &bootstrap
         COMMAND=pause
       fi
     fi
-    
+
     # If no command is set, then move onto the next possibility
     if [[ -f /etc/elfbot/backup && -z "$COMMAND" ]]; then
       TIMESTAMP_COMMAND=$(cat /etc/elfbot/backup)
@@ -289,7 +289,7 @@ bootstrap: &bootstrap
       TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
       if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
         COMMAND=reset
-      fi    
+      fi
     fi
 
     case $COMMAND in
@@ -310,21 +310,21 @@ bootstrap: &bootstrap
         TIMESTAMP=$(printf '%(%Y-%m-%d--%H-%M)T\n' -1)
         cp -rfp /config /storage/elfstorage/backup/$ELF_APP_NAME-$TIMESTAMP
         ;;
-                  
+
     esac
-    
+
     if [[ ! -f /config/i-am-bootstrapped ]]
     then
       echo "Bootstrapping from goldilocks config..."
       s5cmd sync s3://elfhosted-config/goldilocks/$ELF_APP_NAME/* /config/
       touch /config/i-am-bootstrapped
-    fi  
+    fi
 
   volumeMounts:
   - mountPath: /etc/elfbot
     name: elfbot
   - mountPath: /config
-    name: config  
+    name: config
   - mountPath: /storage/elfstorage
     name: elfstorage
   env: *bootstrap_env
@@ -355,7 +355,7 @@ bootstrap_ssd: &bootstrap_ssd
         COMMAND=pause
       fi
     fi
-    
+
     # If no command is set, then move onto the next possibility
     if [[ -f /etc/elfbot/backup && -z "$COMMAND" ]]; then
       TIMESTAMP_COMMAND=$(cat /etc/elfbot/backup)
@@ -371,7 +371,7 @@ bootstrap_ssd: &bootstrap_ssd
       TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
       if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
         COMMAND=reset
-      fi    
+      fi
     fi
 
     case $COMMAND in
@@ -392,7 +392,7 @@ bootstrap_ssd: &bootstrap_ssd
         TIMESTAMP=$(printf '%(%Y-%m-%d--%H-%M)T\n' -1)
         cp -rfp /config /storage/elfstorage/backup/$ELF_APP_NAME-$TIMESTAMP
         ;;
-                  
+
     esac
 
     if [[ ! -f /config/i-am-migrated ]]
@@ -400,21 +400,21 @@ bootstrap_ssd: &bootstrap_ssd
       echo "Migrating from /config-hdd/..."
       cp /config-hdd/* /config/ -rfpv
       touch /config/i-am-migrated
-    fi          
-    
+    fi
+
     if [[ ! -f /config/i-am-bootstrapped ]]
     then
       echo "Bootstrapping from goldilocks config..."
       s5cmd sync s3://elfhosted-config/goldilocks/$ELF_APP_NAME/* /config/
       touch /config/i-am-bootstrapped
-    fi  
+    fi
   volumeMounts:
   - mountPath: /etc/elfbot
     name: elfbot
   - mountPath: /config
-    name: config  
+    name: config
   - mountPath: /config-hdd
-    name: confighdd    
+    name: confighdd
   - mountPath: /storage/elfstorage
     name: elfstorage
   env: *bootstrap_env
@@ -427,7 +427,7 @@ elfstoragetb:
   quantity: 0
 # And this lets a user buy a bundle (different SKU), and then still add more elfstorage later
 elfstoragetbbundled:
-  quantity: 0  
+  quantity: 0
 
 themepark:
   theme: default # the default themegarden theme
@@ -489,7 +489,7 @@ uptimekumacustomdomain:
 mattermostcustomdomain:
   enabled: false
 vaultwardencustomdomain:
-  enabled: false  
+  enabled: false
 
 rutorrentgluetun: &rutorrent
   enabled: false
@@ -501,7 +501,7 @@ rutorrentgluetun: &rutorrent
       tag: 4.2.9-0.9.8-0.13.8@sha256:4cb85f96f0945630ebac1f4c72fc38584846eb1acfbb4a26f91b3a45303bb82a
   priorityClassName: tenant-low
   podLabels:
-    app.elfhosted.com/name: rutorrent  
+    app.elfhosted.com/name: rutorrent
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "rutorrent-config,rutorrent-gluetun-config,elfbot-rutorrent" # Reload the deployment every time the yaml config changes
@@ -512,7 +512,7 @@ rutorrentgluetun: &rutorrent
       type: RuntimeDefault
     readOnlyRootFilesystem: false
 
-  affinity: 
+  affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
@@ -521,7 +521,7 @@ rutorrentgluetun: &rutorrent
             operator: Exists
   tolerations:
   - key: node-role.elfhosted.com/download
-    operator: Exists  
+    operator: Exists
 
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
@@ -533,21 +533,21 @@ rutorrentgluetun: &rutorrent
     fsGroupChangePolicy: "OnRootMismatch"
 
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /data/rtorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent   
+          claimName: config-rutorrent
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-rutorrent 
-          optional: true            
+          name: elfbot-rutorrent
+          optional: true
     shared:
       enabled: true
       mountPath: /shared
@@ -592,7 +592,7 @@ rutorrentgluetun: &rutorrent
       volumeSpec:
         configMap:
           name: rutorrent-config
-          defaultMode: 0755     
+          defaultMode: 0755
     custom-s6-init-07:
       enabled: "true"
       mountPath: "/etc/cont-init.d/07-set-inbound-port.sh"
@@ -610,7 +610,7 @@ rutorrentgluetun: &rutorrent
       volumeSpec:
         configMap:
           name: rutorrent-config
-          defaultMode: 0755          
+          defaultMode: 0755
   ingress:
     main:
       enabled: false
@@ -647,7 +647,7 @@ rutorrentgluetun: &rutorrent
         capabilities:
           add:
             - NET_ADMIN
-            - SYS_MODULE      
+            - SYS_MODULE
       envFrom:
       - configMapRef:
           name: rutorrent-gluetun-config
@@ -681,7 +681,7 @@ rutorrentpia:
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
-          tag: latest  
+          tag: latest
       envFrom:
       - configMapRef:
           name: rutorrent-pia-config
@@ -689,7 +689,7 @@ rutorrentpia:
 delugegluetun: &deluge
   enabled: false
   podLabels:
-    app.elfhosted.com/name: deluge  
+    app.elfhosted.com/name: deluge
   sso:
     enabled: true
   automountServiceAccountToken: false
@@ -698,7 +698,7 @@ delugegluetun: &deluge
     tag: 2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
   priorityClassName: tenant-normal
 
-  affinity: 
+  affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
@@ -707,7 +707,7 @@ delugegluetun: &deluge
             operator: Exists
   tolerations:
   - key: node-role.elfhosted.com/download
-    operator: Exists  
+    operator: Exists
 
   securityContext:
     seccompProfile:
@@ -726,14 +726,14 @@ delugegluetun: &deluge
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-deluge,deluge-gluetun-config"
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge   
+          claimName: config-deluge
     shared:
       enabled: true
       mountPath: /shared
@@ -745,8 +745,8 @@ delugegluetun: &deluge
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-deluge 
-          optional: true  
+          name: elfbot-deluge
+          optional: true
     elfscripts:
       enabled: "true"
       mountPath: "/elfscripts/"
@@ -754,7 +754,7 @@ delugegluetun: &deluge
       volumeSpec:
         configMap:
           name: deluge-elfscripts
-          defaultMode: 0755                           
+          defaultMode: 0755
   ingress:
     main:
       enabled: false
@@ -831,7 +831,7 @@ delugegluetun: &deluge
         capabilities:
           add:
             - NET_ADMIN
-            - SYS_MODULE      
+            - SYS_MODULE
       envFrom:
       - configMapRef:
           name: deluge-gluetun-config
@@ -882,7 +882,7 @@ delugepia:
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
-          tag: latest  
+          tag: latest
       envFrom:
       - configMapRef:
           name: deluge-pia-config
@@ -899,7 +899,7 @@ qbittorrentgluetun: &qbittorrent
     repository: geek-cookbook/qbittorrent
     tag: 4.6.1@sha256:2fc1e17d1e41396ce550a9491882d0d12898d233443c3683a4305acc4a9f7760
   priorityClassName: tenant-normal
-  affinity: 
+  affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
@@ -908,7 +908,7 @@ qbittorrentgluetun: &qbittorrent
             operator: Exists
   tolerations:
   - key: node-role.elfhosted.com/download
-    operator: Exists  
+    operator: Exists
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -929,14 +929,14 @@ qbittorrentgluetun: &qbittorrent
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-qbittorrent,qbittorrent-gluetun-config"
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent   
+          claimName: config-qbittorrent
     shared:
       enabled: true
       mountPath: /shared
@@ -948,7 +948,7 @@ qbittorrentgluetun: &qbittorrent
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-qbittorrent 
+          name: elfbot-qbittorrent
           optional: true
     elfscripts:
       enabled: "true"
@@ -957,7 +957,7 @@ qbittorrentgluetun: &qbittorrent
       volumeSpec:
         configMap:
           name: qbittorrent-elfscripts
-          defaultMode: 0755                  
+          defaultMode: 0755
   ingress:
     main:
       enabled: false
@@ -1036,7 +1036,7 @@ qbittorrentgluetun: &qbittorrent
         capabilities:
           add:
             - NET_ADMIN
-            - SYS_MODULE      
+            - SYS_MODULE
       envFrom:
       - configMapRef:
           name: qbittorrent-gluetun-config
@@ -1060,7 +1060,7 @@ qbittorrentgluetun: &qbittorrent
           echo "disconnected" > /shared/vpnstatus
 
 # Custom service for pia
-qbittorrentpia: 
+qbittorrentpia:
   <<: *qbittorrent
   env:
     PORT_FILE: /config/forwarded-port
@@ -1069,12 +1069,12 @@ qbittorrentpia:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-qbittorrent,qbittorrent-pia-config"
   addons:
-    vpn: 
+    vpn:
       <<: *qbittorrent_addons_vpn
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
-          tag: latest  
+          tag: latest
       envFrom:
       - configMapRef:
           name: qbittorrent-pia-config
@@ -1088,7 +1088,7 @@ nzbget:
     repository: ghcr.io/geek-cookbook/nzbget
     tag: 21.1@sha256:672dec2779dfa82d475d7c2adb4296e361e06bf2f972aa1dbe827a4229c18020
   priorityClassName: tenant-low
-  affinity: 
+  affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
@@ -1097,7 +1097,7 @@ nzbget:
             operator: Exists
   tolerations:
   - key: node-role.elfhosted.com/download
-    operator: Exists    
+    operator: Exists
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1114,14 +1114,14 @@ nzbget:
       configmap.reloader.stakater.com/reload: "elfbot-nzbget"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbget   
+          claimName: config-nzbget
     tmp:
       enabled: true
       type: emptyDir
@@ -1132,8 +1132,8 @@ nzbget:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-nzbget 
-          optional: true             
+          name: elfbot-nzbget
+          optional: true
 
   ingress:
     main:
@@ -1154,7 +1154,7 @@ sabnzbd:
     repository: geek-cookbook/sabnzbd
     tag: 4.1.0@sha256:c2fec7d8609a138a12fed06756a12c0bb798d628592e24162bd9b19ae39b0f37
   priorityClassName: tenant-low
-  affinity: 
+  affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
@@ -1163,7 +1163,7 @@ sabnzbd:
             operator: Exists
   tolerations:
   - key: node-role.elfhosted.com/download
-    operator: Exists    
+    operator: Exists
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-sabnzbd"
@@ -1184,14 +1184,14 @@ sabnzbd:
 
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sabnzbd   
+          claimName: config-sabnzbd
     tmp:
       enabled: true
       type: emptyDir
@@ -1202,9 +1202,9 @@ sabnzbd:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-sabnzbd 
-          optional: true          
-  
+          name: elfbot-sabnzbd
+          optional: true
+
   ingress:
     main:
       enabled: false
@@ -1269,21 +1269,21 @@ tautulli:
 
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tautulli   
+          claimName: config-tautulli
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-tautulli 
-          optional: true            
+          name: elfbot-tautulli
+          optional: true
   ingress:
     main:
       enabled: false
@@ -1326,9 +1326,9 @@ radarr:
   automountServiceAccountToken: false
   envFrom:
   - configMapRef:
-      name: radarr-config  
+      name: radarr-config
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
@@ -1341,14 +1341,14 @@ radarr:
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr             
+          claimName: config-radarr
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-radarr 
-          optional: true        
+          name: elfbot-radarr
+          optional: true
   ingress:
     main:
       enabled: false
@@ -1377,9 +1377,9 @@ radarr:
       - mountPath: /storage/elfstorage
         name: elfstorage
       - mountPath: /config
-        name: config        
+        name: config
       resources: *default_resources
-      securityContext: *default_securitycontext        
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 10m
@@ -1414,30 +1414,30 @@ radarr4k:
   automountServiceAccountToken: false
   envFrom:
   - configMapRef:
-      name: radarr4k-config    
+      name: radarr4k-config
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     confighdd:
       enabled: true
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr4k  
+          claimName: config-radarr4k
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr4k-ssd           
+          claimName: config-radarr4k-ssd
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-radarr4k  
-          optional: true  
-           
+          name: elfbot-radarr4k
+          optional: true
+
   ingress:
     main:
       enabled: false
@@ -1456,7 +1456,7 @@ radarr4k:
         set -x
         set -e
 
-        mkdir -p /storage/elfstorage/movies4k    
+        mkdir -p /storage/elfstorage/movies4k
         mkdir -p /storage/elfstorage/backup/auto/radarr4k
         mkdir -p "/storage/elfstorage/downloads/completed/Movies 4K"
 
@@ -1467,9 +1467,9 @@ radarr4k:
       - mountPath: /storage/elfstorage
         name: elfstorage
       - mountPath: /config
-        name: config        
+        name: config
       resources: *default_resources
-      securityContext: *default_securitycontext        
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 20m
@@ -1510,14 +1510,14 @@ ombi:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-ombi   
+          claimName: config-ombi
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-ombi 
-          optional: true          
+          name: elfbot-ombi
+          optional: true
   ingress:
     main:
       enabled: false
@@ -1560,7 +1560,7 @@ bazarr:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
@@ -1573,14 +1573,14 @@ bazarr:
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-bazarr             
+          claimName: config-bazarr
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-bazarr 
-          optional: true            
+          name: elfbot-bazarr
+          optional: true
   ingress:
     main:
       enabled: false
@@ -1604,7 +1604,7 @@ bazarr:
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext     
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 10m
@@ -1639,27 +1639,27 @@ bazarr4k:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     confighdd:
       enabled: true
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-bazarr4k   
+          claimName: config-bazarr4k
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-bazarr4k-ssd          
+          claimName: config-bazarr4k-ssd
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-bazarr4k 
-          optional: true            
+          name: elfbot-bazarr4k
+          optional: true
   ingress:
     main:
       enabled: false
@@ -1683,7 +1683,7 @@ bazarr4k:
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext       
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 10m
@@ -1719,21 +1719,27 @@ autobrr:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-autobrr   
+          claimName: config-autobrr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-autobrr
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-autobrr 
-          optional: true            
+          name: elfbot-autobrr
+          optional: true
   ingress:
     main:
       enabled: false
@@ -1748,7 +1754,7 @@ autobrr:
       cpu: 3
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap     
+    bootstrap: *bootstrap
   # additionalContainers:
   #   regbrr:
   #     image: ghcr.io/geek-cookbook/docker-autobrr-helper:sha-0dcb44a
@@ -1808,15 +1814,15 @@ filebrowser:
     name: filebrowser
   automountServiceAccountToken: true
   persistence:
-    <<: *appmounts    
+    <<: *appmounts
     dummy-storage: # so auto-provisioning doesn't break
       enabled: true
       type: emptyDir
       sizeLimit: 1Gi
-    elfbot: 
+    elfbot:
       enabled: true
       type: emptyDir
-      sizeLimit: 1Gi      
+      sizeLimit: 1Gi
       mountPath: /elfbot
     elfbot-script:
       enabled: "true"
@@ -1826,7 +1832,7 @@ filebrowser:
       volumeSpec:
         configMap:
           name: filebrowser-elfbot-script
-          defaultMode: 0755   
+          defaultMode: 0755
     elfbot-script-ucfirst:
       enabled: "true"
       mountPath: "/usr/local/bin/Elfbot" # make it easier for mobile users
@@ -1835,7 +1841,7 @@ filebrowser:
       volumeSpec:
         configMap:
           name: filebrowser-elfbot-script
-          defaultMode: 0755                  
+          defaultMode: 0755
 
 
     # We need one of these per-app. The global section will override the false enablement
@@ -1845,14 +1851,14 @@ filebrowser:
       mountPath: /storage/config/autobrr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-autobrr
+          claimName: config-autobrr-ssd
     audiobookshelf:
       enabled: false
       type: custom
       mountPath: /storage/config/audiobookshelf/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-audiobookshelf
+          claimName: config-audiobookshelf-ssd
     bazarr:
       enabled: false
       type: custom
@@ -1894,14 +1900,14 @@ filebrowser:
       mountPath: /storage/config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge          
+          claimName: config-deluge
     delugegluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge          
+          claimName: config-deluge
     emby:
       enabled: false
       type: custom
@@ -1922,21 +1928,21 @@ filebrowser:
       mountPath: /storage/config/homepage/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-homepage          
+          claimName: config-homepage
     jellyseerr:
       enabled: false
       type: custom
       mountPath: /storage/config/jellyseerr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jellyseerr                                                                                                                                      
+          claimName: config-jellyseerr-ssd
     pyload:
       enabled: false
       type: custom
       mountPath: /storage/config/pyload/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-pyload  
+          claimName: config-pyload
     jellyfin:
       enabled: false
       type: custom
@@ -1950,21 +1956,21 @@ filebrowser:
       mountPath: /storage/config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex      
+          claimName: config-plex
     plexpia:
       enabled: false
       type: custom
       mountPath: /storage/config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex     
+          claimName: config-plex
     plexgluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex                     
+          claimName: config-plex
     joplinserver:
       enabled: false
       type: custom
@@ -1992,7 +1998,7 @@ filebrowser:
       mountPath: /storage/config/komga/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-komga                                                      
+          claimName: config-komga
     lazylibrarian:
       enabled: false
       type: custom
@@ -2055,7 +2061,7 @@ filebrowser:
       mountPath: /storage/config/nzbhydra/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbhydra          
+          claimName: config-nzbhydra
     ombi:
       enabled: false
       type: custom
@@ -2069,14 +2075,14 @@ filebrowser:
       mountPath: /storage/config/openbooks/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-openbooks          
+          claimName: config-openbooks
     overseerr:
       enabled: false
       type: custom
       mountPath: /storage/config/overseerr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-overseerr
+          claimName: config-overseerr-ssd
     privatebin:
       enabled: false
       type: custom
@@ -2090,35 +2096,35 @@ filebrowser:
       mountPath: /storage/config/prowlarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-prowlarr
+          claimName: config-prowlarr-ssd
     qbittorrent:
       enabled: false
       type: custom
       mountPath: /storage/config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent  
+          claimName: config-qbittorrent
     qbittorrentpia:
       enabled: false
       type: custom
       mountPath: /storage/config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent            
+          claimName: config-qbittorrent
     qbittorrentgluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent            
+          claimName: config-qbittorrent
     radarr:
       enabled: false
       type: custom
       mountPath: /storage/config/radarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr-ssd 
+          claimName: config-radarr-ssd
     radarr4k:
       enabled: false
       type: custom
@@ -2181,14 +2187,14 @@ filebrowser:
       mountPath: /storage/config/rutorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent          
+          claimName: config-rutorrent
     rutorrentgluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/rutorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent          
+          claimName: config-rutorrent
     sabnzbd:
       enabled: false
       type: custom
@@ -2223,7 +2229,7 @@ filebrowser:
       mountPath: /storage/config/sonarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k
+          claimName: config-sonarr4k-ssd
     syncthing:
       enabled: false
       type: custom
@@ -2244,7 +2250,7 @@ filebrowser:
       mountPath: /storage/config/tdarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tdarr          
+          claimName: config-tdarr
     thelounge:
       enabled: false
       type: custom
@@ -2279,14 +2285,14 @@ filebrowser:
       mountPath: /storage/config/youtubedl/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-youtubedl    
+          claimName: config-youtubedl
     rdtclient:
       enabled: false
       type: custom
       mountPath: /storage/config/rdtclient/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rdtclient                                                                                                                                                                                                                                                                                                                                                                                                  
+          claimName: config-rdtclient
   service:
     main:
       enabled: true # necessary for probes
@@ -2350,7 +2356,7 @@ filebrowser:
       command:
       - /usr/bin/dumb-init
       - /bin/bash
-      - -c      
+      - -c
       - |
         set -e
         set -x
@@ -2365,7 +2371,7 @@ filebrowser:
                   kubectl create configmap -n {{ .Release.Namespace }} elfbot-${APP} --from-literal=elfbot_last_action=$(date +%s)
                   sleep 10s
               fi
-              
+
               # If we were passed a key=value string in /etc/elfbot, then split it
               if (cat /elfbot/$APP | grep -q =); then
                 KEY=$(cat /elfbot/$APP | cut -f1 -d=)
@@ -2383,12 +2389,12 @@ filebrowser:
               # elfbot-${APP} --from-literal=$(cat /elfbot/$APP)=$(date +%s) --from-literal=elfbot_last_action=$(date +%s) -o yaml --dry-run=client \
               # | kubectl apply -f -
               rm /elfbot/$APP
-            done            
+            done
       volumeMounts:
       - mountPath: /elfbot
         name: elfbot
       resources: *default_resources
-      securityContext: *default_securitycontext      
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 10m
@@ -2447,8 +2453,8 @@ uptimekuma:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-uptimekuba 
-          optional: true            
+          name: elfbot-uptimekuba
+          optional: true
   ingress:
     main:
       enabled: false
@@ -2488,21 +2494,21 @@ privatebin:
 
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /srv/data
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-privatebin    
+          claimName: config-privatebin
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-privatebin 
-          optional: true            
+          name: elfbot-privatebin
+          optional: true
   ingress:
     main:
       enabled: false
@@ -2550,7 +2556,7 @@ privatebin:
       markdown: "Markdown"
     traffic:
       limit: 10
-      # exemptedIp: "1.2.3.4,10.10.10/24"   
+      # exemptedIp: "1.2.3.4,10.10.10/24"
   initContainers:
     bootstrap: *bootstrap
 
@@ -2587,21 +2593,21 @@ nzbhydra:
       enabled: false
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbhydra   
+          claimName: config-nzbhydra
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-nzbhydra 
-          optional: true            
+          name: elfbot-nzbhydra
+          optional: true
     tmp: *tmp
   ingress:
     main:
@@ -2650,7 +2656,7 @@ calibreweb:
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-calibreweb  
+          claimName: config-calibreweb
     config:
       enabled: true
       type: custom
@@ -2663,8 +2669,8 @@ calibreweb:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-calibreweb 
-          optional: true      
+          name: elfbot-calibreweb
+          optional: true
   ingress:
     main:
       enabled: false
@@ -2719,8 +2725,8 @@ pyload:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-pyload 
-          optional: true  
+          name: elfbot-pyload
+          optional: true
     config:
       enabled: true
       type: custom
@@ -2731,7 +2737,7 @@ pyload:
     elfstorage: *elfstorage
     rclonea: *rclonea
     rcloneb: *rcloneb
-    rclonec: *rclonec  
+    rclonec: *rclonec
     storageboxa: *storageboxa
     storageboxb: *storageboxb
     storageboxc: *storageboxc
@@ -2739,7 +2745,7 @@ pyload:
     b2: *b2
     smbmounta: *smbmounta
     smbmountb: *smbmountb
-    smbmountc: *smbmountc             
+    smbmountc: *smbmountc
   initContainers:
     bootstrap: *bootstrap
   ingress:
@@ -2780,20 +2786,20 @@ lazylibrarian:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-lazylibrarian   
+          claimName: config-lazylibrarian
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-lazylibrarian 
+          name: elfbot-lazylibrarian
           optional: true
 
   ingress:
@@ -2838,7 +2844,7 @@ mylar:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-mylar" # Reload the deployment every time the rclones change
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
@@ -2851,15 +2857,15 @@ mylar:
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-mylar             
+          claimName: config-mylar
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-mylar 
+          name: elfbot-mylar
           optional: true
-            
+
   ingress:
     main:
       enabled: false
@@ -2878,13 +2884,13 @@ mylar:
         set -x
         set -e
 
-        mkdir -p /storage/elfstorage/comics    
+        mkdir -p /storage/elfstorage/comics
         mkdir -p /storage/elfstorage/backup/auto/mylar
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext      
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 10m
@@ -2916,7 +2922,7 @@ komga:
   automountServiceAccountToken: false
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-komga" # Reload the deployment every time the rclones change  
+      configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-komga" # Reload the deployment every time the rclones change
   persistence:
     <<: *appmounts
     config:
@@ -2925,15 +2931,15 @@ komga:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-komga   
+          claimName: config-komga
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-komga 
+          name: elfbot-komga
           optional: true
-             
+
   ingress:
     main:
       enabled: false
@@ -2972,23 +2978,23 @@ kavita:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-kavita" # Reload the deployment every time the rclones change
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /kavita/config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-kavita   
+          claimName: config-kavita
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-kavita 
+          name: elfbot-kavita
           optional: true
   initContainers:
-    bootstrap: *bootstrap         
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -3036,13 +3042,13 @@ calibre:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-calibre   
+          claimName: config-calibre
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-calibre 
+          name: elfbot-calibre
           optional: true
     run: # used for s6-init with non-root
       enabled: true
@@ -3127,7 +3133,7 @@ sonarr:
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr   
+          claimName: config-sonarr
     config:
       enabled: true
       type: custom
@@ -3140,9 +3146,9 @@ sonarr:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-sonarr 
-          optional: true      
-        
+          name: elfbot-sonarr
+          optional: true
+
   ingress:
     main:
       enabled: false
@@ -3158,13 +3164,13 @@ sonarr:
         set -x
         set -e
 
-        mkdir -p /storage/elfstorage/series    
+        mkdir -p /storage/elfstorage/series
         mkdir -p /storage/elfstorage/backup/auto/sonarr
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext        
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 10m
@@ -3172,7 +3178,7 @@ sonarr:
     limits:
       cpu: 2
       memory: 1Gi
-      
+
 
 sonarr4k:
   service:
@@ -3200,25 +3206,32 @@ sonarr4k:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-sonarr4k" # Reload the deployment every time the rclones change
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr4k-ssd
+    confighdd:
       enabled: true
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k             
+          claimName: config-sonarr4k
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-sonarr4k 
+          name: elfbot-sonarr4k
           optional: true
   ingress:
     main:
       enabled: false
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3236,7 +3249,7 @@ sonarr4k:
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext        
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 10m
@@ -3279,14 +3292,14 @@ resiliosync:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-resiliosync   
+          claimName: config-resiliosync
     setup-config:
       enabled: "true"
       mountPath: "/sync.conf"
@@ -3305,11 +3318,11 @@ resiliosync:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-resiliosync 
-          optional: true      
+          name: elfbot-resiliosync
+          optional: true
 
   initContainers:
-    bootstrap: *bootstrap         
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -3344,14 +3357,20 @@ prowlarr:
       configmap.reloader.stakater.com/reload: "elfbot-prowlarr"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-prowlarr   
+          claimName: config-prowlarr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-prowlarr
     run: # used for s6-init with non-root
       enabled: true
       type: emptyDir
@@ -3362,8 +3381,8 @@ prowlarr:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-prowlarr 
-          optional: true      
+          name: elfbot-prowlarr
+          optional: true
   ingress:
     main:
       enabled: false
@@ -3371,7 +3390,7 @@ prowlarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3388,7 +3407,7 @@ prowlarr:
       - mountPath: /config
         name: config
       - mountPath: /storage/elfstorage
-        name: elfstorage        
+        name: elfstorage
       resources: *default_resources
       securityContext: *default_securitycontext
   resources:
@@ -3424,7 +3443,7 @@ lidarr:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-lidarr" # Reload the deployment every time the rclones change
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
@@ -3437,7 +3456,7 @@ lidarr:
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-lidarr   
+          claimName: config-lidarr
     s6:
       enabled: true
       type: emptyDir
@@ -3448,9 +3467,9 @@ lidarr:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-lidarr 
-          optional: true      
-        
+          name: elfbot-lidarr
+          optional: true
+
   ingress:
     main:
       enabled: false
@@ -3469,13 +3488,13 @@ lidarr:
         set -x
         set -e
 
-        mkdir -p /storage/elfstorage/music    
+        mkdir -p /storage/elfstorage/music
         mkdir -p /storage/elfstorage/backup/auto/lidarr
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext      
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 20m
@@ -3518,16 +3537,16 @@ navidrome:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-navidrome   
+          claimName: config-navidrome
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-navidrome 
-          optional: true    
+          name: elfbot-navidrome
+          optional: true
   initContainers:
-    bootstrap: *bootstrap   
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3538,12 +3557,12 @@ navidrome:
         set -x
         set -e
 
-        mkdir -p /storage/elfstorage/music    
+        mkdir -p /storage/elfstorage/music
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext       
+      securityContext: *default_securitycontext
   ingress:
     main:
       enabled: false
@@ -3597,7 +3616,7 @@ readarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarr           
+          claimName: config-readarr
     tmp-readarr-backup:
       enabled: true
       type: emptyDir
@@ -3608,8 +3627,8 @@ readarr:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-readarr 
-          optional: true      
+          name: elfbot-readarr
+          optional: true
   ingress:
     main:
       enabled: false
@@ -3628,13 +3647,13 @@ readarr:
         set -x
         set -e
 
-        mkdir -p /storage/elfstorage/books    
+        mkdir -p /storage/elfstorage/books
         mkdir -p /storage/elfstorage/backup/auto/readarr
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext      
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 20m
@@ -3668,14 +3687,20 @@ readarraudio:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-readarraudio" # Reload the deployment every time the rclones change
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarraudio      
+          claimName: config-readarraudio-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarraudio
     tmp-readarr-backup:
       enabled: true
       type: emptyDir
@@ -3686,7 +3711,7 @@ readarraudio:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-readarraudio 
+          name: elfbot-readarraudio
           optional: true
   ingress:
     main:
@@ -3695,7 +3720,7 @@ readarraudio:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3706,13 +3731,13 @@ readarraudio:
         set -x
         set -e
 
-        mkdir -p /storage/elfstorage/audiobooks    
+        mkdir -p /storage/elfstorage/audiobooks
         mkdir -p /storage/elfstorage/backup/auto/readarr4k
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext      
+      securityContext: *default_securitycontext
   resources:
     requests:
       cpu: 20m
@@ -3725,7 +3750,7 @@ plex: &plex
   enabled: false
   priorityClassName: tenant-streaming
   podLabels:
-    app.elfhosted.com/name: plex  
+    app.elfhosted.com/name: plex
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -3736,7 +3761,7 @@ plex: &plex
     seccompProfile:
       type: RuntimeDefault
     supplementalGroups:
-    - 109    
+    - 109
   automountServiceAccountToken: false
   controller:
     annotations:
@@ -3746,32 +3771,32 @@ plex: &plex
     repository: geek-cookbook/plex
     tag: 1.32.7.7621-871adbd44
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex    
+          claimName: config-plex
     transcode:
       enabled: true
       type: emptyDir
       mountPath: /transcode
-      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files     
+      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-plex 
+          name: elfbot-plex
           optional: true
     render-device:
       enabled: "true"
       type: hostPath
       hostPath: "/dev/dri/renderD128"
-      mountPath: "/dev/dri/renderD128"            
-    
+      mountPath: "/dev/dri/renderD128"
+
   ingress:
     main:
       enabled: false
@@ -3804,15 +3829,15 @@ plex: &plex
       cpu: "2"
       memory: 2048Mi
   initContainers:
-    bootstrap: 
+    bootstrap:
       <<: *bootstrap
       volumeMounts:
       - mountPath: /etc/elfbot
         name: elfbot
       - mountPath: /config
-        name: config   
+        name: config
 
-plexgluetun: 
+plexgluetun:
   <<: *plex
   enabled: false
   podLabels:
@@ -3821,14 +3846,14 @@ plexgluetun:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-plex,plex-gluetun-config"
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex   
+          claimName: config-plex
     shared:
       enabled: true
       mountPath: /shared
@@ -3840,13 +3865,13 @@ plexgluetun:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-plex 
-          optional: true      
+          name: elfbot-plex
+          optional: true
     transcode:
       enabled: true
       type: emptyDir
       mountPath: /transcode
-      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files                       
+      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files
   service:
     main:
       nameOverride: plex
@@ -3864,7 +3889,7 @@ plexgluetun:
         capabilities:
           add:
             - NET_ADMIN
-            - SYS_MODULE      
+            - SYS_MODULE
       envFrom:
       - configMapRef:
           name: plex-gluetun-config
@@ -3887,7 +3912,7 @@ plexgluetun:
           #!/bin/bash
           echo "disconnected" > /shared/vpnstatus
 
-plexpia: 
+plexpia:
   <<: *plex
   enabled: false
   podLabels:
@@ -3896,14 +3921,14 @@ plexpia:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-plex,plex-pia-config"
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex   
+          claimName: config-plex
     shared:
       enabled: true
       mountPath: /shared
@@ -3915,15 +3940,15 @@ plexpia:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-plex 
-          optional: true    
+          name: elfbot-plex
+          optional: true
     transcode:
       enabled: true
       type: emptyDir
       mountPath: /transcode
-      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files                         
+      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files
   addons:
-    vpn: 
+    vpn:
       <<: *plex_addons_vpn
       gluetun:
         image:
@@ -3959,14 +3984,14 @@ jellyfin:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-jellyfin" # Reload the deployment every time the rclones change
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jellyfin    
+          claimName: config-jellyfin
     transcode:
       enabled: true
       type: emptyDir
@@ -3977,15 +4002,15 @@ jellyfin:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-jellyfin 
-          optional: true      
+          name: elfbot-jellyfin
+          optional: true
     render-device:
       enabled: "true"
       type: hostPath
       hostPath: "/dev/dri/renderD128"
-      mountPath: "/dev/dri/renderD128"               
+      mountPath: "/dev/dri/renderD128"
   initContainers:
-    bootstrap: *bootstrap   
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -4031,14 +4056,14 @@ emby:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-emby" # Reload the deployment every time the rclones change
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-emby   
+          claimName: config-emby
     transcode-temp:
       enabled: true
       type: emptyDir
@@ -4049,8 +4074,8 @@ emby:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-emby 
-          optional: true      
+          name: elfbot-emby
+          optional: true
     render-device:
       enabled: "true"
       type: hostPath
@@ -4058,7 +4083,7 @@ emby:
       mountPath: "/dev/dri/renderD128"
 
   initContainers:
-    bootstrap: *bootstrap  
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -4097,7 +4122,7 @@ homer:
     main:
       enabled: true # necessary for probes
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config-yml:
       enabled: "true"
       subPath: "config.yml"
@@ -4111,7 +4136,7 @@ homer:
       type: "custom"
       volumeSpec:
         configMap:
-          name: homer-config          
+          name: homer-config
     disk-usage:
       enabled: "true"
       mountPath: "/usr/local/bin/disk_usage.sh"
@@ -4119,7 +4144,7 @@ homer:
       type: "custom"
       volumeSpec:
         configMap:
-          name: homer-config          
+          name: homer-config
     # We need one of these per-app. The global section will override the false enablement
     autobrr:
       enabled: false
@@ -4127,14 +4152,14 @@ homer:
       mountPath: /config/autobrr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-autobrr
+          claimName: config-autobrr-ssd
     audiobookshelf:
       enabled: false
       type: custom
       mountPath: /config/audiobookshelf/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-audiobookshelf
+          claimName: config-audiobookshelf-ssd
     bazarr:
       enabled: false
       type: custom
@@ -4176,14 +4201,14 @@ homer:
       mountPath: /config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge          
+          claimName: config-deluge
     delugegluetun:
       enabled: false
       type: custom
       mountPath: /config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge          
+          claimName: config-deluge
     emby:
       enabled: false
       type: custom
@@ -4204,21 +4229,21 @@ homer:
       mountPath: /config/homepage/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-homepage          
+          claimName: config-homepage
     jellyseerr:
       enabled: false
       type: custom
       mountPath: /config/jellyseerr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jellyseerr                                                                                                                                      
+          claimName: config-jellyseerr-ssd
     pyload:
       enabled: false
       type: custom
       mountPath: /config/pyload/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-pyload  
+          claimName: config-pyload
     jellyfin:
       enabled: false
       type: custom
@@ -4232,21 +4257,21 @@ homer:
       mountPath: /config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex    
+          claimName: config-plex
     plexpia:
       enabled: false
       type: custom
       mountPath: /config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex    
+          claimName: config-plex
     plexgluetun:
       enabled: false
       type: custom
       mountPath: /config/plex/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex                          
+          claimName: config-plex
     jfa:
       enabled: false
       type: custom
@@ -4260,7 +4285,7 @@ homer:
       mountPath: /config/joplin-server/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-joplinserver        
+          claimName: config-joplinserver
     kavita:
       enabled: false
       type: custom
@@ -4274,7 +4299,7 @@ homer:
       mountPath: /config/komga/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-komga                                                      
+          claimName: config-komga
     lazylibrarian:
       enabled: false
       type: custom
@@ -4337,7 +4362,7 @@ homer:
       mountPath: /config/nzbhydra/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbhydra         
+          claimName: config-nzbhydra
     ombi:
       enabled: false
       type: custom
@@ -4351,14 +4376,14 @@ homer:
       mountPath: /config/openbooks/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-openbooks          
+          claimName: config-openbooks
     overseerr:
       enabled: false
       type: custom
       mountPath: /config/overseerr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-overseerr
+          claimName: config-overseerr-ssd
     privatebin:
       enabled: false
       type: custom
@@ -4372,35 +4397,35 @@ homer:
       mountPath: /config/prowlarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-prowlarr
+          claimName: config-prowlarr-ssd
     qbittorrent:
       enabled: false
       type: custom
       mountPath: /config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent  
+          claimName: config-qbittorrent
     qbittorrentpia:
       enabled: false
       type: custom
       mountPath: /config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent            
+          claimName: config-qbittorrent
     qbittorrentgluetun:
       enabled: false
       type: custom
       mountPath: /config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent            
+          claimName: config-qbittorrent
     radarr:
       enabled: false
       type: custom
       mountPath: /config/radarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr-ssd 
+          claimName: config-radarr-ssd
     radarr4k:
       enabled: false
       type: custom
@@ -4463,14 +4488,14 @@ homer:
       mountPath: /config/rutorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent          
+          claimName: config-rutorrent
     rutorrentgluetun:
       enabled: false
       type: custom
       mountPath: /config/rutorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent          
+          claimName: config-rutorrent
     sabnzbd:
       enabled: false
       type: custom
@@ -4505,7 +4530,7 @@ homer:
       mountPath: /config/sonarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k
+          claimName: config-sonarr4k-ssd
     syncthing:
       enabled: false
       type: custom
@@ -4526,7 +4551,7 @@ homer:
       mountPath: /config/tdarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tdarr          
+          claimName: config-tdarr
     thelounge:
       enabled: false
       type: custom
@@ -4561,14 +4586,14 @@ homer:
       mountPath: /config/youtubedl/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-youtubedl  
+          claimName: config-youtubedl
     rdtclient:
       enabled: false
       type: custom
       mountPath: /config/rdtclient/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rdtclient            
+          claimName: config-rdtclient
     message:
       enabled: true
       type: emptyDir
@@ -4576,8 +4601,8 @@ homer:
     backgrounds:
       enabled: true
       type: emptyDir
-      mountPath: /www/assets/backgrounds  
-        
+      mountPath: /www/assets/backgrounds
+
   command:
   - /bin/bash
   - /usr/local/bin/disk_usage.sh
@@ -4591,7 +4616,7 @@ homer:
         subPath: "config.yml"
       - mountPath: /www/assets/tools.yml
         name: tools-yml
-        subPath: "tools.yml"  
+        subPath: "tools.yml"
       - mountPath: /www/assets/message
         name: message
       resources: *default_resources
@@ -4644,7 +4669,7 @@ homer:
       memory: 1Mi
     limits:
       cpu: 100m
-      memory: 64Mi 
+      memory: 64Mi
 
 traefikforwardauth:
   type: wordpress
@@ -4735,9 +4760,9 @@ gatus:
   controller:
     strategy: RollingUpdate
     annotations:
-      configmap.reloader.stakater.com/reload: "gatus-config"    
+      configmap.reloader.stakater.com/reload: "gatus-config"
   env:
-    GATUS_CONFIG_PATH: /config/config.yaml 
+    GATUS_CONFIG_PATH: /config/config.yaml
     SMTP_FROM: 'health@elfhosted.com'
     SMTP_PORT: 587
   persistence:
@@ -4754,7 +4779,7 @@ gatus:
       mountPath: /data/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-gatus     
+          claimName: config-gatus
   envFrom:
   - secretRef:
       name: gatus-smtp-config
@@ -4801,21 +4826,21 @@ gotify:
     main:
       enabled: true # necessary for probes
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /app/data/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-gotify   
+          claimName: config-gotify
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-gotify 
-          optional: true      
+          name: elfbot-gotify
+          optional: true
     tmp: *tmp # Avoids issues with readOnlyRootFilesystem
   initContainers:
     bootstrap: *bootstrap
@@ -4835,21 +4860,21 @@ flaresolverr:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-flaresolverr"
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-flaresolverr 
-          optional: true      
+          name: elfbot-flaresolverr
+          optional: true
     # config:
     #   enabled: true
     #   type: custom
     #   mountPath: /app/data
     #   volumeSpec:
     #     persistentVolumeClaim:
-    #       claimName: config        
+    #       claimName: config
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4934,24 +4959,24 @@ seafile:
     architecture: standalone
     commonAnnotations:
       configmap.reloader.stakater.com/reload: "elfbot-seafile"
-      
+
     auth:
       rootPassword: "wLu5UUuT@3Zu33eT"
       database: "seafile"
       username: "seafile"
       password: "nXCXSmqU4TMk3okD"
-      
+
     primary:
       readinessProbe:
         enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
       livenessProbe:
         enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
       startupProbe:
-        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try    
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
       persistence:
         enabled: true
         existingClaim: config-seafile
-        subPath: database       
+        subPath: database
       resources:
         requests:
           cpu: 5m
@@ -4982,7 +5007,7 @@ seafile:
           name: seafile-backup
       - name: elfstorage
         persistentVolumeClaim:
-          claimName: elfstorage          
+          claimName: elfstorage
       sidecars:
         - name: backup-database
           image: *tooling_image
@@ -4994,7 +5019,7 @@ seafile:
           volumeMounts:
           - mountPath: /backup
             name: elfstorage
-            subPath: backup/seafile     
+            subPath: backup/seafile
           command:
           - /usr/bin/dumb-init
           - /bin/bash
@@ -5023,10 +5048,10 @@ seafile:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-seafile 
-          optional: true                
+          name: elfbot-seafile
+          optional: true
   initContainers:
-    bootstrap: *bootstrap 
+    bootstrap: *bootstrap
 
 xteve:
   enabled: false
@@ -5067,23 +5092,23 @@ xteve:
     main:
       enabled: false # necessary for probes
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-xteve   
+          claimName: config-xteve
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-xteve 
-          optional: true      
+          name: elfbot-xteve
+          optional: true
   initContainers:
-    bootstrap: *bootstrap 
+    bootstrap: *bootstrap
 
 youtubedl:
   enabled: false
@@ -5131,7 +5156,7 @@ youtubedl:
       mountPath: /app/appdata
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-youtubedl   
+          claimName: config-youtubedl
     pm2:
       enabled: true
       mountPath: /app/pm2
@@ -5143,9 +5168,9 @@ youtubedl:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-youtubedl 
-          optional: true        
-          
+          name: elfbot-youtubedl
+          optional: true
+
   initContainers:
     bootstrap: *bootstrap
 
@@ -5190,21 +5215,21 @@ thelounge:
     main:
       enabled: true # necessary for probes
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-thelounge   
+          claimName: config-thelounge
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-thelounge 
-          optional: true      
+          name: elfbot-thelounge
+          optional: true
   initContainers:
     bootstrap: *bootstrap
     create-user:
@@ -5300,7 +5325,7 @@ unpackerr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-unpackerr   
+          claimName: config-unpackerr
     example-config:
       enabled: "true"
       type: "custom"
@@ -5312,9 +5337,9 @@ unpackerr:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-unpackerr 
-          optional: true          
-              
+          name: elfbot-unpackerr
+          optional: true
+
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
@@ -5370,24 +5395,30 @@ overseerr:
   sso:
     enabled: true
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-overseerr   
+          claimName: config-overseerr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-overseerr
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-overseerr 
-          optional: true      
+          name: elfbot-overseerr
+          optional: true
     tmp: *tmp
   initContainers:
-    bootstrap: *bootstrap 
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -5427,24 +5458,30 @@ jellyseerr:
   sso:
     enabled: true
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jellyseerr   
+          claimName: config-jellyseerr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jellyseerr
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-jellyseerr 
-          optional: true      
+          name: elfbot-jellyseerr
+          optional: true
     tmp: *tmp
   initContainers:
-    bootstrap: *bootstrap 
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -5491,16 +5528,22 @@ audiobookshelf:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-audiobookshelf   
+          claimName: config-audiobookshelf-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-audiobookshelf
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-audiobookshelf 
-          optional: true      
+          name: elfbot-audiobookshelf
+          optional: true
   initContainers:
-    bootstrap: *bootstrap        
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -5564,16 +5607,16 @@ openbooks:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-openbooks   
+          claimName: config-openbooks
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-openbooks 
-          optional: true      
+          name: elfbot-openbooks
+          optional: true
   initContainers:
-    bootstrap: *bootstrap        
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -5586,7 +5629,7 @@ openbooks:
       memory: 64Mi
     limits:
       cpu: 2
-      memory: 1Gi      
+      memory: 1Gi
 
 vaultwarden:
   enabled: false
@@ -5617,24 +5660,24 @@ vaultwarden:
       name: elfbot-vaultwarden
       optional: true
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /data
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-vaultwarden   
+          claimName: config-vaultwarden
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-vaultwarden 
-          optional: true      
+          name: elfbot-vaultwarden
+          optional: true
     tmp: *tmp
   initContainers:
-    bootstrap: *bootstrap  
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -5689,14 +5732,14 @@ notifiarr:
     main:
       enabled: false # necessary for probes
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-notifiarr   
+          claimName: config-notifiarr
     example-config:
       enabled: "true"
       type: "custom"
@@ -5708,8 +5751,8 @@ notifiarr:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-notifiarr 
-          optional: true          
+          name: elfbot-notifiarr
+          optional: true
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
@@ -5764,7 +5807,7 @@ shoko:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
@@ -5777,10 +5820,10 @@ shoko:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-shoko 
-          optional: true      
+          name: elfbot-shoko
+          optional: true
   initContainers:
-    bootstrap: *bootstrap  
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -5822,27 +5865,27 @@ filebot:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /data
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-filebot    
+          claimName: config-filebot
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-filebot 
-          optional: true      
-    
+          name: elfbot-filebot
+          optional: true
+
     tmp: # to avoid errors about storing java prefs
       enabled: true
       type: emptyDir
       mountPath: /home/seedy
-      sizeLimit: 1Gi    
+      sizeLimit: 1Gi
   initContainers:
     bootstrap: *bootstrap
   ingress:
@@ -5890,7 +5933,7 @@ nextpvr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nextpvr   
+          claimName: config-nextpvr
     recordings:
       enabled: true
       type: emptyDir
@@ -5906,8 +5949,8 @@ nextpvr:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-nextpvr 
-          optional: true      
+          name: elfbot-nextpvr
+          optional: true
   ingress:
     main:
       enabled: false
@@ -5948,23 +5991,23 @@ rpdb:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /.config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rpdb   
+          claimName: config-rpdb
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-rpdb 
-          optional: true      
+          name: elfbot-rpdb
+          optional: true
   initContainers:
-    bootstrap: *bootstrap   
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -6009,22 +6052,22 @@ plexmetamanager:
         http:
           port: 9898 # doesn't matter this doesn,t actually use ports
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /app/config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plexmetamanager   
+          claimName: config-plexmetamanager
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-plexmetamanager 
-          optional: true      
-    
+          name: elfbot-plexmetamanager
+          optional: true
+
     example-config:
       enabled: "true"
       type: "custom"
@@ -6104,7 +6147,7 @@ rclonebrowser:
     # runAsGroup: 568
     # fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
-  affinity: 
+  affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
@@ -6113,25 +6156,25 @@ rclonebrowser:
             operator: Exists
   tolerations:
   - key: node-role.elfhosted.com/download
-    operator: Exists        
+    operator: Exists
   automountServiceAccountToken: false
   env:
     APP_NICENESS: 19 # run at lowest niceness
     S6_READ_ONLY_ROOT: 1
     USER_ID: 568
-    GROUP_ID: 568     
+    GROUP_ID: 568
   envFrom:
   - configMapRef:
       name: elfhosted-user-config
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rclonebrowser   
+          claimName: config-rclonebrowser
     rclonefm-config:
       enabled: "true"
       mountPath: /var/lib/rclonefm/js/settings.js
@@ -6139,14 +6182,14 @@ rclonebrowser:
       type: "custom"
       volumeSpec:
         configMap:
-          name: rclonefm-config     
+          name: rclonefm-config
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-rclonebrowser 
-          optional: true                           
+          name: elfbot-rclonebrowser
+          optional: true
   initContainers:
     setup:
       image: *tooling_image
@@ -6177,9 +6220,9 @@ rclonebrowser:
 
       volumeMounts:
       - mountPath: /config
-        name: config      
+        name: config
       resources: *default_resources
-      securityContext: *default_securitycontext              
+      securityContext: *default_securitycontext
   service:
     main:
       enabled: false # necessary for probes
@@ -6228,19 +6271,19 @@ jfa:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jfa   
+          claimName: config-jfa
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-jfa 
-          optional: true 
+          name: elfbot-jfa
+          optional: true
     tmp:
       enabled: true
       type: emptyDir
       mountPath: /tmp
-      sizeLimit: 1Gi                 
+      sizeLimit: 1Gi
   initContainers:
     bootstrap: *bootstrap
   ingress:
@@ -6360,24 +6403,24 @@ mattermost:
 
     commonAnnotations:
       configmap.reloader.stakater.com/reload: "elfbot-mattermost"
-      
+
     auth:
       rootPassword: "3uAaJYGJLR3d2qbBM2FsSThJ"
       database: "mattermost"
       username: "mattermost"
       password: "IUzI1NiJ9.eyJhdWQiOiIwMDk1MTkyYjhjZWIyYjVhNDQwMT"
-      
+
     primary:
       readinessProbe:
         enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
       livenessProbe:
         enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
       startupProbe:
-        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try    
+        enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
       persistence:
         enabled: true
         existingClaim: config-mattermost
-        subPath: database       
+        subPath: database
       resources:
         requests:
           cpu: 5m
@@ -6408,7 +6451,7 @@ mattermost:
           name: mattermost-backup
       - name: elfstorage
         persistentVolumeClaim:
-          claimName: elfstorage          
+          claimName: elfstorage
       sidecars:
         - name: backup-database
           image: *tooling_image
@@ -6420,7 +6463,7 @@ mattermost:
           volumeMounts:
           - mountPath: /backup
             name: elfstorage
-            subPath: backup/mattermost     
+            subPath: backup/mattermost
           command:
           - /usr/bin/dumb-init
           - /bin/bash
@@ -6565,7 +6608,7 @@ rapidleech:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rapidleech   
+          claimName: config-rapidleech
     data:
       enabled: false
     elfstorage:
@@ -6587,8 +6630,8 @@ rapidleech:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-rapidleech 
-          optional: true          
+          name: elfbot-rapidleech
+          optional: true
   ingress:
     main:
       enabled: false
@@ -6619,11 +6662,11 @@ rapidleech:
         mkdir -p /storage/elfstorage/downloads/completed
       volumeMounts:
       - mountPath: /config
-        name: config      
+        name: config
       - mountPath: /storage/elfstorage
         name: elfstorage
       resources: *default_resources
-      securityContext: *default_securitycontext        
+      securityContext: *default_securitycontext
 
 syncthing:
   enabled: false
@@ -6650,22 +6693,22 @@ syncthing:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-syncthing   
+          claimName: config-syncthing
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-syncthing 
-          optional: true            
-              
+          name: elfbot-syncthing
+          optional: true
+
   ingress:
     main:
       enabled: false
@@ -6686,7 +6729,7 @@ syncthing:
       imagePullPolicy: IfNotPresent
       envFrom:
       - configMapRef:
-          name: elfhosted-user-config      
+          name: elfhosted-user-config
       command:
       - /bin/ash
       - -c
@@ -6745,22 +6788,22 @@ rdtclient:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
-    <<: *appmounts  
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /data/db
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rdtclient   
+          claimName: config-rdtclient
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-rdtclient 
-          optional: true            
-              
+          name: elfbot-rdtclient
+          optional: true
+
   ingress:
     main:
       enabled: false
@@ -6797,7 +6840,7 @@ jdownloader:
       type: RuntimeDefault
     # runAsUser: 568
     # runAsGroup: 568
-    fsGroup: 568 # need this so that the bootstrap can run 
+    fsGroup: 568 # need this so that the bootstrap can run
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   env:
@@ -6805,7 +6848,7 @@ jdownloader:
     APP_NICENESS: 19
   envFrom:
   - configMapRef:
-      name: jdownloader-config    
+      name: jdownloader-config
   persistence:
     config:
       enabled: true
@@ -6813,7 +6856,7 @@ jdownloader:
       mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jdownloader   
+          claimName: config-jdownloader
     elfstorage:
       enabled: true # always enabled
       type: custom
@@ -6827,8 +6870,8 @@ jdownloader:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-jdownloader 
-          optional: true           
+          name: elfbot-jdownloader
+          optional: true
   ingress:
     main:
       enabled: false
@@ -6889,11 +6932,11 @@ miniflux:
     enabled: true
     nameOverride: miniflux-postgresql
     commonAnnotations:
-      configmap.reloader.stakater.com/reload: "elfbot-miniflux"    
+      configmap.reloader.stakater.com/reload: "elfbot-miniflux"
     auth:
       username: miniflux
       password: miniflux
-      database: miniflux    
+      database: miniflux
       postgresPassword: miniflux
     primary:
       persistence:
@@ -6922,7 +6965,7 @@ miniflux:
       - mountPath: /opt/bitnami/postgresql/conf/
         name: conf
       - mountPath: /opt/bitnami/postgresql/tmp/
-        name: tmp        
+        name: tmp
       extraVolumes:
       - name: conf
         emptyDir:
@@ -6942,11 +6985,11 @@ miniflux:
             - name: POSTGRES_DATABASE
               value: miniflux
             - name: POSTGRES_USER
-              value: miniflux              
+              value: miniflux
           volumeMounts:
           - mountPath: /backup
             name: elfstorage
-            subPath: backup/miniflux     
+            subPath: backup/miniflux
           command:
           - /usr/bin/dumb-init
           - /bin/bash
@@ -7006,7 +7049,7 @@ joplinserver:
     enabled: true
     nameOverride: joplinserver-postgresql
     commonAnnotations:
-      configmap.reloader.stakater.com/reload: "elfbot-joplinserver"    
+      configmap.reloader.stakater.com/reload: "elfbot-joplinserver"
     auth:
       username: joplinserver
       password: joplinserver
@@ -7039,7 +7082,7 @@ joplinserver:
       - mountPath: /opt/bitnami/postgresql/conf/
         name: conf
       - mountPath: /opt/bitnami/postgresql/tmp/
-        name: tmp        
+        name: tmp
       extraVolumes:
       - name: conf
         emptyDir:
@@ -7059,11 +7102,11 @@ joplinserver:
             - name: POSTGRES_DATABASE
               value: joplinserver
             - name: POSTGRES_USER
-              value: joplin              
+              value: joplin
           volumeMounts:
           - mountPath: /backup
             name: elfstorage
-            subPath: backup/miniflux     
+            subPath: backup/miniflux
           command:
           - /usr/bin/dumb-init
           - /bin/bash
@@ -7098,7 +7141,7 @@ tdarr:
       type: RuntimeDefault
     # runAsUser: 568
     # runAsGroup: 568
-    fsGroup: 568 # need this so that the bootstrap can run 
+    fsGroup: 568 # need this so that the bootstrap can run
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   env:
@@ -7108,31 +7151,31 @@ tdarr:
     internalNode: "true"
     nodeName: elfnode
   persistence:
-    <<: *appmounts    
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /app/server
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tdarr   
+          claimName: config-tdarr
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-tdarr 
-          optional: true     
+          name: elfbot-tdarr
+          optional: true
     render-device:
       enabled: "true"
       type: hostPath
       hostPath: "/dev/dri/renderD128"
-      mountPath: "/dev/dri/renderD128"            
+      mountPath: "/dev/dri/renderD128"
     transcode:
       enabled: true
       type: emptyDir
       mountPath: /transcode
-      sizeLimit: 200Gi # Don't allow > 200GB in transcoding files           
+      sizeLimit: 200Gi # Don't allow > 200GB in transcoding files
   ingress:
     main:
       enabled: false
@@ -7171,28 +7214,28 @@ homepage:
       type: RuntimeDefault
     # runAsUser: 568
     # runAsGroup: 568
-    fsGroup: 568 # need this so that the bootstrap can run 
+    fsGroup: 568 # need this so that the bootstrap can run
     fsGroupChangePolicy: "OnRootMismatch"
   serviceAccount:
     create: true
-    name: homepage    
+    name: homepage
   automountServiceAccountToken: true
   env:
     PUID: 568
-    PGID: 568 
+    PGID: 568
   envFrom:
   - configMapRef:
       name: elfbot-homepage
-      optional: true    
+      optional: true
   persistence:
-    <<: *appmounts    
+    <<: *appmounts
     config:
       enabled: true
       type: custom
       mountPath: /app/config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-homepage      
+          claimName: config-homepage
     config-default:
       enabled: "true"
       type: "custom"
@@ -7204,8 +7247,8 @@ homepage:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-homepage 
-          optional: true                       
+          name: elfbot-homepage
+          optional: true
   ingress:
     main:
       enabled: false
@@ -7247,7 +7290,7 @@ homepage:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-        readOnlyRootFilesystem: true    
-    
+        readOnlyRootFilesystem: true
+
 
 # This file must end on a newline
