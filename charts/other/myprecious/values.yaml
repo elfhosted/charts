@@ -1808,6 +1808,16 @@ filebrowser:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,filebrowser-elfbot-script,elfbot-filebrowser" # Reload the deployment every time the rclones change
     strategy: RollingUpdate
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists    
   # We will use this to alter configmaps to trigger pod restarts
   serviceAccount:
     create: true
