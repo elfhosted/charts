@@ -2211,7 +2211,7 @@ filebrowser:
       mountPath: /storage/config/sonarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k
+          claimName: config-sonarr4k-ssd
     syncthing:
       enabled: false
       type: custom
@@ -3189,7 +3189,13 @@ sonarr4k:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k   
+          claimName: config-sonarr4k-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr4k             
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3201,7 +3207,7 @@ sonarr4k:
     main:
       enabled: false
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4475,7 +4481,7 @@ homer:
       mountPath: /config/sonarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k
+          claimName: config-sonarr4k-ssd
     syncthing:
       enabled: false
       type: custom
