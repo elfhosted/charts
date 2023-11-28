@@ -1562,7 +1562,7 @@ bazarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
-    tag: 1.3.1@sha256:9956194285a475fcbed6f4016f3eac6e3177e32368829e7505694bc5a267822e
+    tag: 1.4.0@sha256:2d3894f0e6c0c778f90c4fdc8950e85dc27bc81d445d86f935221b98c94c5212
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -1641,7 +1641,7 @@ bazarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
-    tag: 1.3.1@sha256:9956194285a475fcbed6f4016f3eac6e3177e32368829e7505694bc5a267822e
+    tag: 1.4.0@sha256:2d3894f0e6c0c778f90c4fdc8950e85dc27bc81d445d86f935221b98c94c5212
   priorityClassName: tenant-low
   controller:
     annotations:
