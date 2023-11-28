@@ -4124,7 +4124,7 @@ emby:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-emby-ssd
-    config-hdd:
+    confighdd:
       enabled: true
       type: custom
       volumeSpec:
