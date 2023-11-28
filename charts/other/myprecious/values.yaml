@@ -907,7 +907,7 @@ qbittorrentgluetun: &qbittorrent
   image:
     registry: ghcr.io
     repository: geek-cookbook/qbittorrent
-    tag: 4.6.1@sha256:2fc1e17d1e41396ce550a9491882d0d12898d233443c3683a4305acc4a9f7760
+    tag: 4.6.2@sha256:fe814cbb054bad149b07a63ad365699e307250a484ffc597e83086531247b5e5
   priorityClassName: tenant-normal
   affinity:
     nodeAffinity:
@@ -1562,7 +1562,7 @@ bazarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
-    tag: 1.3.1@sha256:9956194285a475fcbed6f4016f3eac6e3177e32368829e7505694bc5a267822e
+    tag: 1.4.0@sha256:2d3894f0e6c0c778f90c4fdc8950e85dc27bc81d445d86f935221b98c94c5212
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -1641,7 +1641,7 @@ bazarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
-    tag: 1.3.1@sha256:9956194285a475fcbed6f4016f3eac6e3177e32368829e7505694bc5a267822e
+    tag: 1.4.0@sha256:2d3894f0e6c0c778f90c4fdc8950e85dc27bc81d445d86f935221b98c94c5212
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -2940,7 +2940,7 @@ komga:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/komga
-    tag: 1.7.2@sha256:ca0286edd3df559d90e74dd5db05ca115c73fac010a8cae6f32da7ea81ac692b
+    tag: 1.8.2@sha256:23087d03e67da7048d8a1cade7f81a7ccebb7073894e0f935a81dae92a3c0ec4
   env:
     KOMGA_CONFIGDIR: /config
     KOMGA_REMEMBERME_KEY: yesplease
