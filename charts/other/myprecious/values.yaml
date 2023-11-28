@@ -2741,6 +2741,16 @@ pyload:
       type: RuntimeDefault
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists
 
   automountServiceAccountToken: false
   persistence:
@@ -6856,6 +6866,16 @@ rdtclient:
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: true
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists    
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6918,6 +6938,16 @@ jdownloader:
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists    
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
