@@ -5993,7 +5993,7 @@ nextpvr:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/nextpvr
-    tag: 10.8.12@sha256:e58b4fe28bd0fdff4d5ceabf2f023110cccbb5f17bec17980cf3f69637cf0194
+    tag: 10.8.13@sha256:2f4b91dc4e638f7ca1ddf2a5955d11854738f0994eb4ffe65cc9549f4ca87ee9
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-nextpvr"
