@@ -3059,7 +3059,7 @@ calibre:
   runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.1.0@sha256:9e033d86144064ab0e32ebc149a665c5e8dfaf35c6246236e466365ee508719c
+    tag: 7.1.0@sha256:f15c4bceb66ab7554726ac50630ce8a6d04a50654cf2c4679db8c08cafe14ef4
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -4023,7 +4023,7 @@ jellyfin:
   hostname: elfhosted
   image:
     repository: ghcr.io/geek-cookbook/jellyfin
-    tag: 10.8.12@sha256:e14bf8e687bb8d0dddc67e8bae7ca45b163ed2cd28316c2ab0cae3850a26ed9a
+    tag: 10.8.13@sha256:e49a5e445a473f8263d9bfbc5c26aaa32d5be0cde7866e5c88165a364098e58f
   enabled: false
   priorityClassName: tenant-streaming
   securityContext:
@@ -5993,7 +5993,7 @@ nextpvr:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/nextpvr
-    tag: 10.8.12@sha256:e58b4fe28bd0fdff4d5ceabf2f023110cccbb5f17bec17980cf3f69637cf0194
+    tag: 10.8.13@sha256:2f4b91dc4e638f7ca1ddf2a5955d11854738f0994eb4ffe65cc9549f4ca87ee9
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-nextpvr"
