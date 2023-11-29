@@ -397,7 +397,7 @@ bootstrap_ssd: &bootstrap_ssd
 
     if [[ ! -f /config/i-am-migrated ]]
     then
-      if [[ ! -f /config-hdd/* ]]
+      if [[ ! -z "$(ls -A /config-hdd)" ]]
       then
         echo "Migrating from /config-hdd/..."
         time cp /config-hdd/* /config/ -rfpv
