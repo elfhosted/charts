@@ -89,11 +89,12 @@ data:
             href: https://{{ .Release.Name }}-calibre-web.elfhosted.com
             description: Consume eBooks
             siteMonitor: http://calibreweb:8083
-            widget:
-              type: calibreweb
-              url: http://calibreweb:8083
-              username: {{`{{HOMEPAGE_FILE_CALIBREWEB_USERNAME}}`}} 
-              password: {{`{{HOMEPAGE_FILE_CALIBREWEB_PASSWORDN}}`}} 
+            # not supported in our version yet
+            # widget:
+            #   type: calibreweb
+            #   url: http://calibreweb:8083
+            #   username: {{`{{HOMEPAGE_FILE_CALIBREWEB_USERNAME}}`}} 
+            #   password: {{`{{HOMEPAGE_FILE_CALIBREWEB_PASSWORDN}}`}} 
         {{ end }}
         
         {{ if .Values.calibre.enabled }}
@@ -480,10 +481,10 @@ data:
             icon: qbittorrent.png
             href: https://{{ .Release.Name }}-qbittorrent.elfhosted.com
             description: Bittorrent Client
-            siteMonitor: http://qbittorrent:8000
+            siteMonitor: http://qbittorrent:8080
             widget:
               type: qbittorrent
-              url: http://qbittorrent:8000
+              url: http://qbittorrent:8080
         {{ end }}                   
 
         {{ if or .Values.rutorrentpia.enabled .Values.rutorrentgluetun.enabled }}
@@ -503,9 +504,11 @@ data:
             href: https://{{ .Release.Name }}-pyload.elfhosted.com
             description: Manage downloads
             siteMonitor: http://pyload:8000
-            widget:
-              type: pyload
-              url: http://pyload:8000
+            # not working currently
+            # widget:
+            #   type: pyload
+            #   url: http://pyload:8000
+            #   username: pyload
         {{ end }}          
 
         {{ if .Values.youtubedl.enabled }}
@@ -582,7 +585,7 @@ data:
         
         {{ if .Values.uptimekuma.enabled }}
         - Uptime Kuma:
-            icon: uptimekuma.png
+            icon: uptime-kuma.png
             {{- if .Values.uptimekumacustomdomain.enabled }}
             href: "https://{{ .Values.uptimekumacustomdomain.cname }}"
             {{- else }}

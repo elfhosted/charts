@@ -1583,6 +1583,9 @@ bazarr:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: bazarr-config     
   persistence:
     <<: *appmounts
     config:
@@ -1662,6 +1665,9 @@ bazarr4k:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: bazarr4k-config     
   persistence:
     <<: *appmounts
     confighdd:
@@ -3175,6 +3181,9 @@ sonarr:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-sonarr" # Reload the deployment every time the rclones change
   automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: sonarr-config     
   persistence:
     <<: *appmounts
     confighdd:
@@ -3254,6 +3263,9 @@ sonarr4k:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-sonarr4k" # Reload the deployment every time the rclones change
   automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: sonarr4k-config     
   persistence:
     <<: *appmounts
     config:
@@ -3650,6 +3662,9 @@ readarr:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-readarr" # Reload the deployment every time the rclones change
   automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: readarr-config  
   persistence:
     <<: *appmounts
     config:
@@ -3732,6 +3747,9 @@ readarraudio:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: readarr4k-config   
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-readarraudio" # Reload the deployment every time the rclones change

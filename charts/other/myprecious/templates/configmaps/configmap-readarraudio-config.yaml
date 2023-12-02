@@ -1,0 +1,9 @@
+{{ if .Values.readarraudio.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: readarraudio-config
+data:
+  # Overwrite API key with default
+  READARR__API_KEY: "{{ .Values.readarraudioexposed.apikey }}"
+{{ end }}

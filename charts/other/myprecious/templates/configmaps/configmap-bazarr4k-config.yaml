@@ -1,0 +1,9 @@
+{{ if .Values.bazarr4k.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bazarr4k-config
+data:
+  # Overwrite API key with default
+  BAZARR__API_KEY: "{{ .Values.bazarr4kexposed.apikey }}"
+{{ end }}
