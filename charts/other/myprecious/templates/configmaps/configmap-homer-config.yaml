@@ -996,7 +996,17 @@ data:
             tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-joplin-server.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}          
+          {{ end }}   
+
+          {{ if .Values.homepage.enabled }}
+          - name: "Homepage"
+            logo: "assets/png/homepage.png"
+            subtitle: "Beautiful Homepage"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-homepage.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                    
 
       - name: "Rclone"
         icon: "fas fa-truck"
