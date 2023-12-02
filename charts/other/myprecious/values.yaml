@@ -2,7 +2,7 @@
 safeToRelease: true
 
 # This section just makes images easier to update / parse
-tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20230801@sha256:daaf77687540a2d7bfd5802eda1d79cb5a0b4e26444a9577d43efe0ce537c60c
+tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231128@sha256:d8b3e3ccc5e5c8abc99abb3a1e5a5db83c964d608f67e1416f9285257e1a0aef
 
 # And this makes the media / rclone mounts tidier.
 rclonecustoma: &rclonecustoma
