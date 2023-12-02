@@ -1955,7 +1955,7 @@ filebrowser:
       mountPath: /storage/config/filebot/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-filebot
+          claimName: config-filebot-ssd
     homepage:
       enabled: false
       type: custom
@@ -4295,7 +4295,7 @@ homer:
       mountPath: /config/filebot/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-filebot
+          claimName: config-filebot-ssd
     homepage:
       enabled: false
       type: custom
@@ -5956,7 +5956,7 @@ filebot:
       mountPath: /data
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-filebot
+          claimName: config-filebot-ssd
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5971,7 +5971,7 @@ filebot:
       mountPath: /home/seedy
       sizeLimit: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
