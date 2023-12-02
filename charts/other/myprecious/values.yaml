@@ -7390,6 +7390,31 @@ homepage:
         set -x
         set -e
 
+        mkdir -p /app/config/user-change-these/
+        touch /app/config/user-change-these/JELLYFIN_KEY
+        touch /app/config/user-change-these/PLEX_KEY
+        touch /app/config/user-change-these/EMBY_KEY
+        touch /app/config/user-change-these/NAVIDROME_USER
+        touch /app/config/user-change-these/NAVIDROME_TOKEN
+        touch /app/config/user-change-these/NAVIDROME_SALT
+        touch /app/config/user-change-these/CALIBREWEB_USERNAME
+        touch /app/config/user-change-these/CALIBREWEB_PASSWORD
+        touch /app/config/user-change-these/KOMGA_USERNAME
+        touch /app/config/user-change-these/KOMGA_PASSWORD
+        touch /app/config/user-change-these/KAVITA_USERNAME
+        touch /app/config/user-change-these/KAVITA_PASSWORD
+        touch /app/config/user-change-these/AUDIOBOOKSHELF_KEY
+        touch /app/config/user-change-these/OMBI_KEY
+        touch /app/config/user-change-these/OVERSEERR_KEY
+        touch /app/config/user-change-these/JELLYSEERR_KEY
+        touch /app/config/user-change-these/TAUTULLI_KEY
+        touch /app/config/user-change-these/XTEVE_USERNAME
+        touch /app/config/user-change-these/XTEVE_PASSWORD
+        touch /app/config/user-change-these/AUTOBRR_KEY
+        touch /app/config/user-change-these/MINIFLUX_KEY
+        touch /app/config/user-change-these/UPTIMEKUMA_SLUG
+        touch /app/config/user-change-these/GOTIFY_KEY
+
         # If we don't already have an example config, create one
         if [ ! -f /app/config/dont-overwrite-me ];
         then
