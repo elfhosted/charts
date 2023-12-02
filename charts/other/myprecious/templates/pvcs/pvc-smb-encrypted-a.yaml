@@ -1,0 +1,18 @@
+{{ if .Values.smbencrypteda.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: smb-encrypted-a
+  labels:
+    velero.io/exclude-from-backup: "true"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: rclone-{{ .Release.Name }}-smb-encrypted-a
+{{ end }}

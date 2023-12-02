@@ -1,0 +1,20 @@
+{{ if .Values.smbencrypteda.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rclone-{{ .Release.Name }}-smb-encrypted-a
+  labels:
+    name: rclone-{{ .Release.Name }}-smb-encrypted-a
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: rclone
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: csi-rclone
+    volumeHandle: rclone-{{ .Release.Name }}-smb-encrypted-a
+    volumeAttributes:
+      secretName: "{{ .Release.Name }}-smb-encrypted-a"
+{{ end }}

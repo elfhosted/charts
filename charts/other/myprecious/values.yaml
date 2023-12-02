@@ -169,6 +169,13 @@ smbmountc: &smbmountc
     persistentVolumeClaim:
       claimName: smbmount-c
   mountPath: /storage/smbmount-c
+smbencrypteda: &smbencrypteda
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: smb-encrypted-a
+  mountPath: /storage/smb-encrypted-a  
 elfstorage: &elfstorage
   enabled: true # always enabled
   type: custom
@@ -205,6 +212,7 @@ appmounts: &appmounts
   smbmounta: *smbmounta
   smbmountb: *smbmountb
   smbmountc: *smbmountc
+  smbencrypteda: *smbencrypteda
 
 # The entire bootstrap sidecar/additionalcontainer
 default_resources: &default_resources
@@ -3679,7 +3687,6 @@ readarr:
     confighdd:
       enabled: true
       type: custom
-      mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-readarr
@@ -3751,7 +3758,7 @@ readarraudio:
   automountServiceAccountToken: false
   envFrom:
   - configMapRef:
-      name: readarr4k-config   
+      name: readarraudio-config   
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "rclones-changed,elfbot-readarraudio" # Reload the deployment every time the rclones change
@@ -3801,7 +3808,7 @@ readarraudio:
         set -e
 
         mkdir -p /storage/elfstorage/audiobooks
-        mkdir -p /storage/elfstorage/backup/auto/readarr4k
+        mkdir -p /storage/elfstorage/backup/auto/readarraudio
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
