@@ -42,7 +42,7 @@ data:
             widget:
               type: jellyfin
               url: http://jellyfin:8096
-              key: {{`{{HOMEPAGE_VAR_JELLYFIN_KEY}}`}} 
+              key: {{`{{HOMEPAGE_FILE_JELLYFIN_KEY}}`}} 
         {{ end }} 
 
         {{ if or .Values.plex.enabled .Values.plexgluetun.enabled .Values.plexpia.enabled }}
@@ -54,7 +54,7 @@ data:
             widget:
               type: plex
               url: http://plex:32400
-              key: {{`{{HOMEPAGE_VAR_PLEX_KEY}}`}} 
+              key: {{`{{HOMEPAGE_FILE_PLEX_KEY}}`}} 
         {{ end }}
 
         {{ if .Values.emby.enabled }}
@@ -66,7 +66,7 @@ data:
             widget:
               type: jellyfin
               url: http://emby:8096
-              key: {{`{{HOMEPAGE_VAR_EMBY_KEY}}`}} 
+              key: {{`{{HOMEPAGE_FILE_EMBY_KEY}}`}} 
         {{ end }} 
         
         {{ if .Values.navidrome.enabled }}
@@ -78,9 +78,9 @@ data:
             widget:
               type: navidrome
               url: http://navidrome:4533
-              user: {{`{{HOMEPAGE_VAR_NAVIDROME_USER}}`}} 
-              token: {{`{{HOMEPAGE_VAR_NAVIDROME_TOKEN}}`}} 
-              salt: {{`{{HOMEPAGE_VAR_NAVIDROME_SALT}}`}} 
+              user: {{`{{HOMEPAGE_FILE_NAVIDROME_USER}}`}} 
+              token: {{`{{HOMEPAGE_FILE_NAVIDROME_TOKEN}}`}} 
+              salt: {{`{{HOMEPAGE_FILE_NAVIDROME_SALT}}`}} 
         {{ end }}      
 
         {{ if .Values.calibreweb.enabled }}
@@ -92,8 +92,8 @@ data:
             widget:
               type: calibreweb
               url: http://calibreweb:8083
-              username: {{`{{HOMEPAGE_VAR_CALIBREWEB_USERNAME}}`}} 
-              password: {{`{{HOMEPAGE_VAR_CALIBREWEB_PASSWORDN}}`}} 
+              username: {{`{{HOMEPAGE_FILE_CALIBREWEB_USERNAME}}`}} 
+              password: {{`{{HOMEPAGE_FILE_CALIBREWEB_PASSWORDN}}`}} 
         {{ end }}
         
         {{ if .Values.calibre.enabled }}
@@ -113,8 +113,8 @@ data:
             widget:
               type: komga
               url: http://komga:25600
-              username: {{`{{HOMEPAGE_VAR_KOMGA_USERNAME}}`}} 
-              password: {{`{{HOMEPAGE_VAR_KOMGA_PASSWORD}}`}}            
+              username: {{`{{HOMEPAGE_FILE_KOMGA_USERNAME}}`}} 
+              password: {{`{{HOMEPAGE_FILE_KOMGA_PASSWORD}}`}}            
         {{ end }}   
 
         {{ if .Values.kavita.enabled }}
@@ -126,8 +126,8 @@ data:
             widget:
               type: kavita
               url: http://kavita:5000
-              username: {{`{{HOMEPAGE_VAR_KAVITA_USERNAME}}`}} 
-              password: {{`{{HOMEPAGE_VAR_KAVITA_PASSWORD}}`}}            
+              username: {{`{{HOMEPAGE_FILE_KAVITA_USERNAME}}`}} 
+              password: {{`{{HOMEPAGE_FILE_KAVITA_PASSWORD}}`}}            
         {{ end }}     
 
         {{ if .Values.audiobookshelf.enabled }}
@@ -139,7 +139,7 @@ data:
             widget:
               type: audiobookshelf
               url: http://audiobookshelf:8000
-              key: {{`{{HOMEPAGE_VAR_AUDIOBOOKSHELF_KEY}}`}}            
+              key: {{`{{HOMEPAGE_FILE_AUDIOBOOKSHELF_KEY}}`}}            
         {{ end }}                 
 
     - Manage Media:
@@ -288,7 +288,7 @@ data:
             widget:
               type: ombi
               url: http://ombi:5000
-              key: {{`{{HOMEPAGE_VAR_OMBI_KEY}}`}}       
+              key: {{`{{HOMEPAGE_FILE_OMBI_KEY}}`}}       
         {{ end }}    
 
         {{ if .Values.overseerr.enabled }}
@@ -300,7 +300,7 @@ data:
             widget:
               type: overseerr
               url: http://overseerr:5055
-              key: {{`{{HOMEPAGE_VAR_OVERSEERR_KEY}}`}}       
+              key: {{`{{HOMEPAGE_FILE_OVERSEERR_KEY}}`}}       
         {{ end }}        
 
         {{ if .Values.jellyseerr.enabled }}
@@ -312,7 +312,7 @@ data:
             widget:
               type: jellyseerr
               url: http://jellyseerr:5055
-              key: {{`{{HOMEPAGE_VAR_JELLYSEERR_KEY}}`}}       
+              key: {{`{{HOMEPAGE_FILE_JELLYSEERR_KEY}}`}}       
         {{ end }}       
 
         {{ if .Values.jfa.enabled }}
@@ -332,7 +332,7 @@ data:
             widget:
               type: tautulli
               url: http://tautulli:8181
-              key: {{`{{HOMEPAGE_VAR_TAUTULLI_KEY}}`}}       
+              key: {{`{{HOMEPAGE_FILE_TAUTULLI_KEY}}`}}       
         {{ end }}   
 
         {{ if .Values.xteve.enabled }}
@@ -344,8 +344,8 @@ data:
             widget:
               type: xteve
               url: http://xteve:34400
-              username: {{`{{HOMEPAGE_VAR_XTEVE_USERNAME}}`}} 
-              password: {{`{{HOMEPAGE_VAR_XTEVE_PASSWORD}}`}}                 
+              username: {{`{{HOMEPAGE_FILE_XTEVE_USERNAME}}`}} 
+              password: {{`{{HOMEPAGE_FILE_XTEVE_PASSWORD}}`}}                 
         {{ end }}   
 
         {{ if .Values.nextpvr.enabled }}
@@ -460,7 +460,7 @@ data:
             widget:
               type: autobrr
               url: http://autobrr:7474
-              key: {{`{{HOMEPAGE_VAR_AUTOBRR_KEY}}`}}       
+              key: {{`{{HOMEPAGE_FILE_AUTOBRR_KEY}}`}}       
         {{ end }}   
 
         {{ if or .Values.delugepia.enabled .Values.delugegluetun.enabled }}
@@ -577,7 +577,7 @@ data:
             widget:
               type: miniflux
               url: http://miniflux:8080
-              key: {{`{{HOMEPAGE_VAR_MINIFLUX_KEY}}`}} 
+              key: {{`{{HOMEPAGE_FILE_MINIFLUX_KEY}}`}} 
         {{ end }}         
         
         {{ if .Values.uptimekuma.enabled }}
@@ -593,7 +593,7 @@ data:
             widget:
               type: uptimekuma
               url: http://uptime-kuma:3001
-              key: {{`{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}`}} 
+              key: {{`{{HOMEPAGE_FILE_UPTIMEKUMA_SLUG}}`}} 
         {{ end }}         
 
         {{ if .Values.gotify.enabled }}
@@ -605,7 +605,7 @@ data:
             widget:
               type: gotify
               url: http://gotify:8080
-              key: {{`{{HOMEPAGE_VAR_GOTIFY_KEY}}`}} 
+              key: {{`{{HOMEPAGE_FILE_GOTIFY_KEY}}`}} 
         {{ end }}              
 
         {{ if .Values.seafile.enabled }}
