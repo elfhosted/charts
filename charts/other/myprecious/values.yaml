@@ -7313,7 +7313,7 @@ homepage:
     tag: v0.8.2
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-homepage,homepage-config"
+      configmap.reloader.stakater.com/reload: "elfbot-homepage,homepage-config,homepage-env"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -7337,6 +7337,9 @@ homepage:
   - configMapRef:
       name: elfbot-homepage
       optional: true
+  - configMapRef:
+      name: homepage-env
+      optional: true      
   persistence:
     <<: *appmounts
     config:
