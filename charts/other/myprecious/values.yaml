@@ -176,7 +176,7 @@ smbmountc: &smbmountc
     persistentVolumeClaim:
       claimName: smbmount-c
   mountPath: /storage/smbmount-c
-smbencrypteda: &smbencrypteda
+rclonesmbencrypteda: &rclonesmbencrypteda
   enabled: false
   type: custom
   volumeSpec:
@@ -220,7 +220,7 @@ appmounts: &appmounts
   smbmounta: *smbmounta
   smbmountb: *smbmountb
   smbmountc: *smbmountc
-  smbencrypteda: *smbencrypteda
+  rclonesmbencrypteda: *rclonesmbencrypteda
 
 # The entire bootstrap sidecar/additionalcontainer
 default_resources: &default_resources
