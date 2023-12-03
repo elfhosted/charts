@@ -61,7 +61,7 @@ gdrived: &gdrived
     persistentVolumeClaim:
       claimName: gdrive-d
   mountPath: /storage/gdrive-d
-gdriveencrypteda: &gdriveencrypteda
+rclonegdriveencrypteda: &rclonegdriveencrypteda
   enabled: false
   type: custom
   volumeSpec:
@@ -216,7 +216,7 @@ appmounts: &appmounts
   gdriveb: *gdriveb
   gdrivec: *gdrivec
   gdrived: *gdrived
-  gdriveencrypteda: *gdriveencrypteda
+  rclonegdriveencrypteda: *rclonegdriveencrypteda
   onedrivea: *onedrivea
   rclonemountwebdava: *rclonemountwebdava
   rclonemountssha: *rclonemountssha
