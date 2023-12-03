@@ -141,7 +141,7 @@ storageboxc: &storageboxc
       claimName: storagebox-c
   mountPath: /storage/storagebox-c
   subaccount: false
-storageboxencrypteda: &storageboxa
+rclonestorageboxencrypteda: &rclonestorageboxencrypteda
   enabled: false
   type: custom
   volumeSpec:
@@ -223,7 +223,7 @@ appmounts: &appmounts
   storageboxa: *storageboxa
   storageboxb: *storageboxb
   storageboxc: *storageboxc
-  storageboxencrypteda: *storageboxencrypteda
+  rclonestorageboxencrypteda: *rclonestorageboxencrypteda
   premiumize: *premiumize
   b2: *b2
   smbmounta: *smbmounta
