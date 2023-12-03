@@ -146,7 +146,7 @@ rclonestorageboxencrypteda: &rclonestorageboxencrypteda
   type: custom
   volumeSpec:
     persistentVolumeClaim:
-      claimName: storagebox-a
+      claimName: storagebox-encrypted-a
   mountPath: /storage/storagebox-encrypted-a
   subaccount: false  
 premiumize: &premiumize
