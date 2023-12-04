@@ -1757,7 +1757,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.33.0@sha256:81e9835336bdc458f413a0f77d375db205e803f6cee98a26358c31d1347436a0
+    tag: 1.34.0@sha256:c0c7c3f856a8b3539b68c18f4eb27b377d2246918cea8972711352e0dd393c73
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -2543,7 +2543,7 @@ privatebin:
     enabled: false
   image:
     repository: privatebin/fs
-    tag: 1.6.0
+    tag: 1.6.1
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -2970,7 +2970,7 @@ komga:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/komga
-    tag: 1.8.2@sha256:23087d03e67da7048d8a1cade7f81a7ccebb7073894e0f935a81dae92a3c0ec4
+    tag: 1.8.3@sha256:13766ae98214e03a836450f0b3e188961a012aa5a10568c773147e1f50e16973
   env:
     KOMGA_CONFIGDIR: /config
     KOMGA_REMEMBERME_KEY: yesplease
