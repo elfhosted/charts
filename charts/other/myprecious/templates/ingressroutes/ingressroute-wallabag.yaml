@@ -1,0 +1,18 @@
+{{ if .Values.wallabag.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-wallabag.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-wallabag.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: wallabag
+          kind: Service
+          port: 8000
+      middlewares:  
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}

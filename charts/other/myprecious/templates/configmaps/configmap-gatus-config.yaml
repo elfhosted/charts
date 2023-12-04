@@ -741,3 +741,14 @@ data:
         alerts:
           - type: email                      
       {{ end }}            
+
+      {{ if .Values.wallabag.enabled }}
+      - name: wallabag
+        group: tools
+        url: "http://wallabag:8000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email                      
+      {{ end }}                  

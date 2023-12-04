@@ -667,6 +667,14 @@ data:
             siteMonitor: http://joplinserver:22300
         {{ end }}                    
 
+        {{ if .Values.wallabag.enabled }}
+        - Wallabag:
+            icon: wallabag.png
+            href: https://{{ .Release.Name }}-wallabag.elfhosted.com
+            description: Read it Later
+            siteMonitor: http://wallabag:8000
+        {{ end }}       
+
     - Migration Tools:
         - Rclone UI:
             icon: rclone.png

@@ -7480,7 +7480,7 @@ wallabag:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/wallabag
-    tag: 2.6.7
+    tag: 2.6.7@sha256:4488c323cebf586f9ad79d20ce5163c29f792f8dea109a1490e67746cc600f19
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-wallabag,wallabag-env"
