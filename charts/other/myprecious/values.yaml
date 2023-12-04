@@ -6869,7 +6869,7 @@ syncthing:
         if [ ! -f /config/config.xml ]
         then
           # We are generating a new config
-          syncthing generate --config=/config --no-default-folder --gui-user=admin --gui-password=password
+          syncthing generate --config=/config --no-default-folder
         fi
 
         # Apply the port every time (incase the user changes it and reboots)
