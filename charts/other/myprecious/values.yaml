@@ -7475,4 +7475,80 @@ homepage:
         readOnlyRootFilesystem: true
 
 
+wallabag:
+  enabled: false
+  priorityClassName: tenant-low
+  image:
+    repository: wallabag/wallabag
+    tag: 2.6.7
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-wallabag,wallabag-env"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: false
+    privileged: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568 # need this so that the bootstrap can run
+    fsGroupChangePolicy: "OnRootMismatch"
+  serviceAccount:
+    create: true
+    name: homepage
+  automountServiceAccountToken: true
+  env:
+    SYMFONY__ENV__DOMAIN_NAME: https://{{ .Release.Name }}-wallabag.elfhosted.com
+  envFrom:
+  - configMapRef:
+      name: wallabag-env
+      optional: true      
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /var/www/wallabag/data
+      volumeSpec:
+        subPath: "data"
+        persistentVolumeClaim:
+          claimName: config-wallabag-ssd
+    images:
+      enabled: true
+      type: custom
+      mountPath: /var/www/wallabag/images
+      volumeSpec:
+        subPath: "images"
+        persistentVolumeClaim:
+          claimName: config-wallabag-ssd        
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-wallabag
+          optional: true
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 80
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m 
+      memory: 1Gi
+  initContainers:
+    bootstrap: *bootstrap
+
+
 # This file must end on a newline
