@@ -202,5 +202,5 @@ data:
     # Apply the port
     if [[ -f "/data/rtorrent/.mam.cookies" ]]; then
         # Apply the dynamic seedbox request
-        /usr/local/bin/curl -c /data/rtorrent/.mam.cookies -b /data/rtorrent/.mam.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php
+        /usr/local/bin/curl -c /data/rtorrent/.mam.cookies -b /data/rtorrent/.mam.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php -o /data/rtorrent/.mam.cookies-curl-output
     fi 
