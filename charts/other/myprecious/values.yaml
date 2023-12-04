@@ -6869,21 +6869,21 @@ syncthing:
         if [ ! -f /config/config.xml ]
         then
           # We are generating a new config
-          syncthing generate --config=/config
+          syncthing generate --config=/config --no-default-folder --gui-user=admin --gui-password=password
         fi
 
         # Apply the port every time (incase the user changes it and reboots)
-        sed -i  "s/<listenAddress>tcp.*/<listenAddress>tcp:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>/" /config/config.xml
-        sed -i  "s/<listenAddress>quic.*/<listenAddress>quic:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>/" /config/config.xml
+        # sed -i  "s/<listenAddress>tcp.*/<listenAddress>tcp:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>/" /config/config.xml
+        # sed -i  "s/<listenAddress>quic.*/<listenAddress>quic:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>/" /config/config.xml
 
-        # And if it's defaulted...
-        sed -i  "s/<<listenAddress>default<\/listenAddress>/<listenAddress>tcp:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>\n\t<listenAddress>quic:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>/" /config/config.xml
+        # # And if it's defaulted...
+        # sed -i  "s/<<listenAddress>default<\/listenAddress>/<listenAddress>tcp:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>\n\t<listenAddress>quic:\/\/0.0.0.0:${PORT_SYNCTHING}<\/listenAddress>/" /config/config.xml
 
         # Ignore the fact that we have no password set
-        grep '<insecureAdminAccess>true</insecureAdminAccess>' /config/config.xml || sed -i  "s/<\/gui>/<insecureAdminAccess>true<\/insecureAdminAccess>\n\t<\/gui>/" /config/config.xml
+        # grep '<insecureAdminAccess>true</insecureAdminAccess>' /config/config.xml || sed -i  "s/<\/gui>/<insecureAdminAccess>true<\/insecureAdminAccess>\n\t<\/gui>/" /config/config.xml
 
         # Avoid foolish use of capital letters in default sync folder
-        sed -i  "s/\/storage\/elfstorage\/Sync/\/storage\/elfstorage\/syncthing/" /config/config.xml
+        # sed -i  "s/\/storage\/elfstorage\/Sync/\/storage\/elfstorage\/syncthing/" /config/config.xml
 
       volumeMounts:
       - mountPath: /config
