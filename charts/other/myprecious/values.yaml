@@ -547,10 +547,10 @@ rutorrentgluetun: &rutorrent
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists
 
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
@@ -738,10 +738,10 @@ delugegluetun: &deluge
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists
 
   securityContext:
@@ -944,10 +944,10 @@ qbittorrentgluetun: &qbittorrent
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists
   securityContext:
     runAsUser: 568
@@ -1204,10 +1204,10 @@ sabnzbd:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists
   controller:
     annotations:
@@ -1870,10 +1870,10 @@ filebrowser:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists    
   # We will use this to alter configmaps to trigger pod restarts
   serviceAccount:
@@ -2782,10 +2782,10 @@ pyload:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists
 
   automountServiceAccountToken: false
@@ -6280,10 +6280,10 @@ rclonebrowser:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists
   automountServiceAccountToken: false
   env:
@@ -6912,10 +6912,10 @@ rdtclient:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists    
   podSecurityContext:
     seccompProfile:
@@ -6984,10 +6984,10 @@ jdownloader:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists    
   podSecurityContext:
     seccompProfile:
