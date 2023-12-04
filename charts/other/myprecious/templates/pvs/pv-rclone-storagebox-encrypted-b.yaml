@@ -1,0 +1,20 @@
+{{ if .Values.rclonestorageboxencryptedb.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rclone-{{ .Release.Name }}-storagebox-encrypted-b
+  labels:
+    name: rclone-{{ .Release.Name }}-storagebox-encrypted-b
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: rclone
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: csi-rclone
+    volumeHandle: rclone-{{ .Release.Name }}-storagebox-encrypted-b
+    volumeAttributes:
+      secretName: "{{ .Release.Name }}-storagebox-encrypted-b"
+{{ end }}

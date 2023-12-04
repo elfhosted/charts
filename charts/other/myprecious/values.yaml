@@ -7479,7 +7479,7 @@ wallabag:
   enabled: false
   priorityClassName: tenant-low
   image:
-    repository: wallabag/wallabag
+    repository: ghcr.io/geek-cookbook/wallabag
     tag: 2.6.7
   controller:
     annotations:
@@ -7520,7 +7520,7 @@ wallabag:
       volumeSpec:
         subPath: "images"
         persistentVolumeClaim:
-          claimName: config-wallabag-ssd        
+          claimName: config-wallabag-images-ssd        
     elfbot:
       enabled: "true"
       type: "custom"

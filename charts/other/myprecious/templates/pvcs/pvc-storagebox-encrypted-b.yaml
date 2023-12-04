@@ -1,0 +1,18 @@
+{{ if .Values.rclonestorageboxencryptedb.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: storagebox-encrypted-b
+  labels:
+    velero.io/exclude-from-backup: "true"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: rclone-{{ .Release.Name }}-storagebox-encrypted-b
+{{ end }}
