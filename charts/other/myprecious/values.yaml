@@ -7496,9 +7496,6 @@ wallabag:
     runAsGroup: 568
     fsGroup: 568 # need this so that the bootstrap can run
     fsGroupChangePolicy: "OnRootMismatch"
-  serviceAccount:
-    create: true
-    name: homepage
   automountServiceAccountToken: true
   env:
     SYMFONY__ENV__DOMAIN_NAME: https://{{ .Release.Name }}-wallabag.elfhosted.com
