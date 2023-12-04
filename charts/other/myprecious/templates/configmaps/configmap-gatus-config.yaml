@@ -729,4 +729,15 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email                      
-      {{ end }}      
+      {{ end }}   
+
+      {{ if .Values.homepage.enabled }}
+      - name: homepage
+        group: tools
+        url: "http://homepage:3000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email                      
+      {{ end }}            
