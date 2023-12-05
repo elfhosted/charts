@@ -789,17 +789,15 @@ rutorrentpia:
           curl -c /config/mam/saved.cookies -b /config/mam/saved.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php  -o /config/mam/mam_id-curl-output.log
         fi
 
-        # Now whether that worked or not, we wait for changes
+        # Now whether that worked or not, look for /config/mam/mam_id
         mkdir -p /config/mam
-        inotifywait -m -e create -e modify --format "%f" /config/mam \
-          | while read FILENAME
-            do
-              if [[ "$FILENAME" == "mam_id" ]]; then
-                curl -c /config/mam/saved.cookies -b "mam_id=$(cat $FILENAME)" https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam/mam_id-curl-output.log              
-              else
-                echo "Unknown file $FILENAME, ignoring"
-              fi
-            done
+        while [ 1 ]; do
+          if [[ -f /config/mam/mam_id ]]; then
+            curl -c /config/mam/saved.cookies -b "mam_id=$(cat $FILENAME)" https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam/mam_id-curl-output.log
+            mv /config/mam/mam_id /config/mam/mam_id_processed
+            sleep 1m
+          fi
+        done
       volumeMounts:
       - mountPath: /config
         name: config
