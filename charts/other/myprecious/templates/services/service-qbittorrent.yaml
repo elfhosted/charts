@@ -14,6 +14,10 @@ spec:
     targetPort: 8080
     protocol: TCP
     name: http
+  - port: 2020
+    targetPort: 2020
+    protocol: TCP
+    name: dante    
 {{ if .Values.qbittorrentgluetun.enabled }}
   - port: 8000
     targetPort: 8000

@@ -738,6 +738,12 @@ rutorrentgluetun: &rutorrent
         down: |-
           #!/bin/bash
           echo "disconnected" > /shared/vpnstatus
+  additionalContainers:
+    # Use this to provied proxied access to arrs
+    dante:
+      image: lthn/dante
+      env: *bootstrap_env
+      securityContext: *default_securitycontext      
 
 rutorrentpia:
   <<: *rutorrent
@@ -944,6 +950,11 @@ delugegluetun: &deluge
         name: tmp
       env:
         PYTHON_EGG_CACHE: /tmp/.cache
+    # Use this to provied proxied access to arrs
+    dante:
+      image: lthn/dante
+      env: *bootstrap_env
+      securityContext: *default_securitycontext   
 
 delugepia:
   <<: *deluge
@@ -1137,6 +1148,12 @@ qbittorrentgluetun: &qbittorrent
         down: |-
           #!/bin/bash
           echo "disconnected" > /shared/vpnstatus
+  additionalContainers:
+    # Use this to provied proxied access to arrs
+    dante:
+      image: lthn/dante
+      env: *bootstrap_env
+      securityContext: *default_securitycontext   
 
 # Custom service for pia
 qbittorrentpia:
@@ -7527,10 +7544,6 @@ wallabag:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568 # need this so that the bootstrap can run
-    fsGroupChangePolicy: "OnRootMismatch"
   envFrom:
   - configMapRef:
       name: elfbot-wallbag

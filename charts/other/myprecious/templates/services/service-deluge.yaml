@@ -18,6 +18,10 @@ spec:
     targetPort: 58846
     protocol: TCP
     name: http-daemon
+  - port: 2020
+    targetPort: 2020
+    protocol: TCP
+    name: dante
 {{ if .Values.delugegluetun.enabled }}
   - port: 8000
     targetPort: 8000
