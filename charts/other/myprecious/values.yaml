@@ -674,15 +674,15 @@ rutorrentgluetun: &rutorrent
         configMap:
           name: rutorrent-config
           defaultMode: 0755
-    custom-s6-init-08:
-      enabled: "true"
-      mountPath: "/etc/cont-init.d/08-mam-cookies.sh"
-      subPath: "08-mam-cookies.sh "
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: rutorrent-config
-          defaultMode: 0755
+    # custom-s6-init-08:
+    #   enabled: "true"
+    #   mountPath: "/etc/cont-init.d/08-mam-cookies.sh"
+    #   subPath: "08-mam-cookies.sh "
+    #   type: "custom"
+    #   volumeSpec:
+    #     configMap:
+    #       name: rutorrent-config
+    #       defaultMode: 0755
   ingress:
     main:
       enabled: false
@@ -766,6 +766,34 @@ rutorrentpia:
       volumeMounts:
       - mountPath: /tmp
         name: tmp
+    mam-helper:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /usr/bin/dumb-init
+      - /bin/bash
+      - -c
+      - |
+        set -e
+        set -x
+
+        # If we have a cookie already, try to use it
+        if [[ -f /config/mam_saved.cookies ]]; then
+          curl -c /config/mam_saved.cookies -b /config/mam_saved.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php
+        fi
+
+        # Now whether that worked or not, we wait for changes
+        inotifywait -m -e create -e modify --format "%f" /config --include "mam_id.cookie" \
+          | while read COOKIE
+            do
+              curl -c /config/mam_saved.cookies -b "mam_id=$(cat $COOKIE)" https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam_id-curl-output.log              
+            done
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      resources: *default_resources
+      securityContext: *default_securitycontext
+
         
 delugegluetun: &deluge
   enabled: false
