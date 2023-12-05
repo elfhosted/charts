@@ -743,7 +743,7 @@ rutorrentgluetun: &rutorrent
     dante:
       image: lthn/dante
       env: *bootstrap_env
-      # securityContext: *default_securitycontext      
+      securityContext: *default_securitycontext      
       volumeMounts:
       - mountPath: /tmp
         name: tmp
@@ -957,7 +957,7 @@ delugegluetun: &deluge
     dante:
       image: lthn/dante
       env: *bootstrap_env
-      # securityContext: *default_securitycontext   
+      securityContext: *default_securitycontext   
       volumeMounts:
       - mountPath: /tmp
         name: tmp
@@ -1159,7 +1159,7 @@ qbittorrentgluetun: &qbittorrent
     dante:
       image: lthn/dante
       env: *bootstrap_env
-      # securityContext: *default_securitycontext   
+      securityContext: *default_securitycontext   
       volumeMounts:
       - mountPath: /tmp
         name: tmp
@@ -2104,7 +2104,7 @@ filebrowser:
       mountPath: /storage/config/jfa/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jfa
+          claimName: config-jfa-ssd
     kavita:
       enabled: false
       type: custom
@@ -4448,7 +4448,7 @@ homer:
       mountPath: /config/jfa/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jfa
+          claimName: config-jfa-ssd
     joplinserver:
       enabled: false
       type: custom
@@ -6459,6 +6459,13 @@ jfa:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-jfa-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-jfa
     elfbot:
       enabled: "true"
@@ -6473,7 +6480,7 @@ jfa:
       mountPath: /tmp
       sizeLimit: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
