@@ -795,8 +795,8 @@ rutorrentpia:
           if [[ -f /config/mam/mam_id ]]; then
             curl -c /config/mam/saved.cookies -b "mam_id=$(cat /config/mam/mam_id)" https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam/mam_id-curl-output.log
             mv /config/mam/mam_id /config/mam/mam_id_processed
-            sleep 1m
           fi
+          sleep 1m
         done
       volumeMounts:
       - mountPath: /config
