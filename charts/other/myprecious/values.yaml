@@ -937,7 +937,7 @@ delugegluetun: &deluge
           #!/bin/bash
           echo "disconnected" > /shared/vpnstatus
   additionalContainers:
-    deluge-web: &deluge-web
+    deluge-web:
       image: ghcr.io/geek-cookbook/deluge:2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
       command:
       - /usr/bin/deluge-web
@@ -970,7 +970,22 @@ delugepia:
       - configMapRef:
           name: deluge-pia-config
   additionalContainers:
-    <<: *deluge-web
+    deluge-web:
+      image: ghcr.io/geek-cookbook/deluge:2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
+      command:
+      - /usr/bin/deluge-web
+      - -L
+      - info
+      - -d
+      - -c
+      - /config
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /tmp
+        name: tmp
+      env:
+        PYTHON_EGG_CACHE: /tmp/.cache
     # Use this to provied proxied access to arrs
     dante:
       image: ghcr.io/geek-cookbook/dante:v1.4.3
