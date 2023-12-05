@@ -741,7 +741,7 @@ rutorrentgluetun: &rutorrent
   additionalContainers:
     # Use this to provied proxied access to arrs
     dante:
-      image: lthn/dante
+      image: ghcr.io/geek-cookbook/dante:v1.4.3
       env: *bootstrap_env
       securityContext: *default_securitycontext      
       volumeMounts:
@@ -955,7 +955,7 @@ delugegluetun: &deluge
         PYTHON_EGG_CACHE: /tmp/.cache
     # Use this to provied proxied access to arrs
     dante:
-      image: lthn/dante
+      image: ghcr.io/geek-cookbook/dante:v1.4.3
       env: *bootstrap_env
       securityContext: *default_securitycontext   
       volumeMounts:
@@ -1157,7 +1157,7 @@ qbittorrentgluetun: &qbittorrent
   additionalContainers:
     # Use this to provied proxied access to arrs
     dante:
-      image: lthn/dante
+      image: ghcr.io/geek-cookbook/dante:v1.4.3
       env: *bootstrap_env
       securityContext: *default_securitycontext   
       volumeMounts:
