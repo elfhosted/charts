@@ -7,7 +7,7 @@ data:
   SYMFONY__ENV__DOMAIN_NAME: https://{{ .Release.Name }}-wallabag.elfhosted.com
   SYMFONY__ENV__DATABASE_DRIVER: pdo_pgsql
   SYMFONY__ENV__DATABASE_HOST: wallabag-postgresql
-  SYMFONY__ENV__DATABASE_PORT: 5432
+  SYMFONY__ENV__DATABASE_PORT: "5432"
   SYMFONY__ENV__DATABASE_NAME: wallabag
   SYMFONY__ENV__DATABASE_USER: wallabag
   SYMFONY__ENV__DATABASE_PASSWORD: wallabag
