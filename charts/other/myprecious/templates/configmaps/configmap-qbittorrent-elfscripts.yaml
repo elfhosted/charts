@@ -9,8 +9,9 @@ data:
     #!/usr/bin/env bash
 
     # Special case for MAM users
-    if [[ -f "/config/.mam.cookies" ]]; then
+    if [[ -v $MAM_ID ]]; then
         # Apply the dynamic seedbox request
-        curl -c /config/.mam.cookies -b /config/.mam.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php
-    fi     
+        /usr/local/bin/curl -b 'mam_id=${MAM_ID}' https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam_id-curl-output.log
+    fi 
+
 {{ end }}
