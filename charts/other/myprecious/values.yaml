@@ -970,7 +970,7 @@ delugepia:
       - configMapRef:
           name: deluge-pia-config
   additionalContainers:
-    <<: &deluge-web
+    <<: *deluge-web
     # Use this to provied proxied access to arrs
     dante:
       image: ghcr.io/geek-cookbook/dante:v1.4.3
