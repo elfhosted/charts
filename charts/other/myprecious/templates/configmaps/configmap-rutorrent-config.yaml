@@ -179,8 +179,8 @@ data:
         echo -n $(cat $PORT_FILE)-$(cat $PORT_FILE) > /port-range/port-range.txt
 
     elif [[ -f "$PORT_FILE" ]]; then
-        # Wait until a file is found which is less than 5 min old
-        until (find $PORT_FILE -mmin 5); do
+        # Wait until a file is found which is less than 1 min old
+        until (find $PORT_FILE -mmin 1); do
             echo waiting for port-forward details...
             sleep 5s
         done
