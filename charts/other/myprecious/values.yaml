@@ -785,15 +785,20 @@ rutorrentpia:
         echo "VPN Connected, processing cookies..."
         
         # If we have a cookie already, try to use it
-        if [[ -f /config/mam_saved.cookies ]]; then
-          curl -c /config/mam_saved.cookies -b /config/mam_saved.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php
+        if [[ -f /config/mam/saved.cookies ]]; then
+          curl -c /config/mam/saved.cookies -b /config/mam/saved.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php  -o /config/mam/mam_id-curl-output.log
         fi
 
         # Now whether that worked or not, we wait for changes
-        inotifywait -m -e create -e modify --format "%f" /config --include "mam_id.cookie" \
-          | while read COOKIE
+        mkdir -p /config/mam
+        inotifywait -m -e create -e modify --format "%f" /config/mam \
+          | while read FILENAME
             do
-              curl -c /config/mam_saved.cookies -b "mam_id=$(cat $COOKIE)" https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam_id-curl-output.log              
+              if [[ "$FILENAME" == "mam_id" ]]; then
+                curl -c /config/mam/saved.cookies -b "mam_id=$(cat $FILENAME)" https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam/mam_id-curl-output.log              
+              else
+                echo "Unknown file $FILENAME, ignoring"
+              fi
             done
       volumeMounts:
       - mountPath: /config
