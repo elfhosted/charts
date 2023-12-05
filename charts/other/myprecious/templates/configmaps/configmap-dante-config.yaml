@@ -1,3 +1,4 @@
+{{ if .Values.rutorrentpia.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -5,7 +6,7 @@ metadata:
 data:
   sockd.conf: |
     logoutput: stderr
-    debug: 1
+    # debug: 1
     internal: eth0 port = 2020
     external: wg0
     # external.rotation: route
@@ -35,3 +36,5 @@ data:
         from: 0.0.0.0/0 to: 0.0.0.0/0
         command: bindreply udpreply
         log: error  # connect disconnect iooperation
+    }
+{{ end }}

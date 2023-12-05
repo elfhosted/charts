@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: restart-radarr
-data:
-  restarted-at: timestamp-goes-here

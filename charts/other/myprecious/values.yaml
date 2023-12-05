@@ -674,18 +674,8 @@ rutorrentgluetun: &rutorrent
         configMap:
           name: rutorrent-config
           defaultMode: 0755
-    # custom-s6-init-08:
-    #   enabled: "true"
-    #   mountPath: "/etc/cont-init.d/08-mam-cookies.sh"
-    #   subPath: "08-mam-cookies.sh "
-    #   type: "custom"
-    #   volumeSpec:
-    #     configMap:
-    #       name: rutorrent-config
-    #       defaultMode: 0755
     dante-config:
       enabled: "true"
-      # subPath: "socksd.conf"
       type: "custom"
       volumeSpec:
         configMap:

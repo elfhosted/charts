@@ -193,15 +193,3 @@ data:
           echo -n 1234-1234 > /port-range/port-range.txt
         fi
     fi 
-
-  08-mam-cookies.sh: |
-    #!/usr/bin/with-contenv sh
-
-    # Special case for MAM users
-
-    # Apply the port
-
-    if [[ -v $MAM_ID ]]; then
-        # Apply the dynamic seedbox request
-        /usr/local/bin/curl -b "mam_id=${MAM_ID}" https://t.myanonamouse.net/json/dynamicSeedbox.php -o /data/rtorrent/mam_id-curl-output.log
-    fi 
