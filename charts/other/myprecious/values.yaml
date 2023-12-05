@@ -575,7 +575,10 @@ rutorrentgluetun: &rutorrent
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
-
+  envFrom:
+  - configMapRef:
+      name: elfbot-rutorrent
+      optional: true 
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -850,6 +853,10 @@ delugegluetun: &deluge
     PUID: 568
     PGID: 568
     DELUGE_LOGLEVEL: "info"
+  envFrom:
+  - configMapRef:
+      name: elfbot-deluge
+      optional: true    
   extraEnvVars:
   - name: PORT_FILE
     valueFrom:
@@ -1085,6 +1092,10 @@ qbittorrentgluetun: &qbittorrent
     XDG_CONFIG_HOME: /config
     XDG_DATA_HOME: /config
     WAIT_FOR_VPN: "true"
+  envFrom:
+  - configMapRef:
+      name: elfbot-qbittorrent
+      optional: true    
   extraEnvVars:
   - name: PORT_FILE
     valueFrom:
