@@ -1,0 +1,26 @@
+---
+apiVersion: v2
+appVersion: 1.3.5
+description: Wallabag is an open-source read-it-later app
+name: wallabag
+version: 0.0.2
+kubeVersion: ">=1.16.0-0"
+keywords:
+  - wallabag
+home: https://wallabag.org/
+# icon: https://avatars.githubusercontent.com/u/10584991?s=48&v=4
+sources:
+  - https://github.com/wallabag/wallabag
+maintainers:
+  - name: funkypenguin
+    email: davidy@funkypenguin.co.nz
+dependencies:
+  - name: postgresql
+    version: 12.x
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+  - name: common
+    repository: http://chartmuseum.chartmuseum:8080
+    version: ~0.2.10
+
+
