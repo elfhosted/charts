@@ -7538,7 +7538,6 @@ wallabag:
   - configMapRef:
       name: wallabag-config    
   persistence:
-    <<: *appmounts
     images:
       enabled: true
       type: custom
