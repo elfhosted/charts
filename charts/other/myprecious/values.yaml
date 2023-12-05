@@ -777,6 +777,13 @@ rutorrentpia:
         set -e
         set -x
 
+        echo "Waiting for VPN to be connected..."
+        while ! grep -s -q "connected" /shared/vpnstatus; do
+            echo "VPN not connected"
+            sleep 2
+        done
+        echo "VPN Connected, processing cookies..."
+        
         # If we have a cookie already, try to use it
         if [[ -f /config/mam_saved.cookies ]]; then
           curl -c /config/mam_saved.cookies -b /config/mam_saved.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php
@@ -791,6 +798,8 @@ rutorrentpia:
       volumeMounts:
       - mountPath: /config
         name: config
+      - mountPath: /shared
+        name: shared        
       resources: *default_resources
       securityContext: *default_securitycontext
 
