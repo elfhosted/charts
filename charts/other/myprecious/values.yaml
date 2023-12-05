@@ -683,6 +683,13 @@ rutorrentgluetun: &rutorrent
     #     configMap:
     #       name: rutorrent-config
     #       defaultMode: 0755
+    dante-config:
+      enabled: "true"
+      # subPath: "socksd.conf"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: dante-config    
   ingress:
     main:
       enabled: false
@@ -766,6 +773,9 @@ rutorrentpia:
       volumeMounts:
       - mountPath: /tmp
         name: tmp
+      - mountPath: /etc/sockd.conf
+        name: dante-config
+        subPath: socks.conf
     mam-helper:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
