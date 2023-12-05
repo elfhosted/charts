@@ -744,6 +744,9 @@ rutorrentgluetun: &rutorrent
       image: lthn/dante
       env: *bootstrap_env
       securityContext: *default_securitycontext      
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmp
 
 rutorrentpia:
   <<: *rutorrent
@@ -955,6 +958,9 @@ delugegluetun: &deluge
       image: lthn/dante
       env: *bootstrap_env
       securityContext: *default_securitycontext   
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmp
 
 delugepia:
   <<: *deluge
@@ -1154,6 +1160,9 @@ qbittorrentgluetun: &qbittorrent
       image: lthn/dante
       env: *bootstrap_env
       securityContext: *default_securitycontext   
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmp
 
 # Custom service for pia
 qbittorrentpia:
@@ -7540,7 +7549,6 @@ wallabag:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
     privileged: true
-  runtimeClassName: kata
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault

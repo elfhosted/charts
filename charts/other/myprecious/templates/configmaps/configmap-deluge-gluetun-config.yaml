@@ -31,5 +31,5 @@ data:
   PORT_FILE: "{{ .Values.delugegluetun.PORT_FILE | default }}"
   
   # Avoid breaking kube probes
-  FIREWALL_INPUT_PORTS: "8112"
+  FIREWALL_INPUT_PORTS: "8112,2020"
 {{ end }}

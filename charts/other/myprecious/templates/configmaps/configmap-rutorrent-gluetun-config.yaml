@@ -33,5 +33,5 @@ data:
   PORT_FILE: /config/forwarded-port
 
   # Avoid breaking kube probes
-  FIREWALL_INPUT_PORTS: "8080"
+  FIREWALL_INPUT_PORTS: "8080,2020"
 {{ end }}
