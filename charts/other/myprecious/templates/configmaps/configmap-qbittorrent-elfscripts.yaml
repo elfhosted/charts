@@ -11,7 +11,7 @@ data:
     # Special case for MAM users
     if [[ -v $MAM_ID ]]; then
         # Apply the dynamic seedbox request
-        /usr/local/bin/curl -b 'mam_id=${MAM_ID}' https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam_id-curl-output.log
+        /usr/local/bin/curl -b "mam_id=${MAM_ID}" https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam_id-curl-output.log
     fi 
 
 {{ end }}
