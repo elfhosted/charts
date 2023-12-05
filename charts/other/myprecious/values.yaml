@@ -775,7 +775,7 @@ rutorrentpia:
         name: tmp
       - mountPath: /etc/sockd.conf
         name: dante-config
-        subPath: socks.conf
+        subPath: sockd.conf
     mam-helper:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
