@@ -738,15 +738,15 @@ rutorrentgluetun: &rutorrent
         down: |-
           #!/bin/bash
           echo "disconnected" > /shared/vpnstatus
-  # additionalContainers:
-  #   # Use this to provied proxied access to arrs
-  #   dante:
-  #     image: lthn/dante
-  #     env: *bootstrap_env
-  #     securityContext: *default_securitycontext      
-  #     volumeMounts:
-  #     - mountPath: /tmp
-  #       name: tmp
+  additionalContainers:
+    # Use this to provied proxied access to arrs
+    dante:
+      image: lthn/dante
+      env: *bootstrap_env
+      # securityContext: *default_securitycontext      
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmp
 
 rutorrentpia:
   <<: *rutorrent
@@ -954,13 +954,13 @@ delugegluetun: &deluge
       env:
         PYTHON_EGG_CACHE: /tmp/.cache
     # Use this to provied proxied access to arrs
-    # dante:
-    #   image: lthn/dante
-    #   env: *bootstrap_env
-    #   securityContext: *default_securitycontext   
-    #   volumeMounts:
-    #   - mountPath: /tmp
-    #     name: tmp
+    dante:
+      image: lthn/dante
+      env: *bootstrap_env
+      # securityContext: *default_securitycontext   
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmp
 
 delugepia:
   <<: *deluge
@@ -1154,15 +1154,15 @@ qbittorrentgluetun: &qbittorrent
         down: |-
           #!/bin/bash
           echo "disconnected" > /shared/vpnstatus
-  # additionalContainers:
-  #   # Use this to provied proxied access to arrs
-  #   dante:
-  #     image: lthn/dante
-  #     env: *bootstrap_env
-  #     securityContext: *default_securitycontext   
-  #     volumeMounts:
-  #     - mountPath: /tmp
-  #       name: tmp
+  additionalContainers:
+    # Use this to provied proxied access to arrs
+    dante:
+      image: lthn/dante
+      env: *bootstrap_env
+      # securityContext: *default_securitycontext   
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmp
 
 # Custom service for pia
 qbittorrentpia:
