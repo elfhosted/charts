@@ -22,7 +22,7 @@ data:
     fi
 
     if [[ ! -d "/storage/config/$2" && $2 -ne "all" ]]; then
-        echo "WARNING: /config/$2 does not exist.
+        echo "WARNING: /config/$2 does not exist"
         exit 1
     fi
 
