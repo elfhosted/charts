@@ -6,7 +6,7 @@ metadata:
 data:
   # These are used by the PIA image
   mam-cookies.sh: |
-    #!/usr/bin/env bash
+    #!/usr/bin/with-contenv sh
 
     # Special case for MAM users
     if [[ -v $MAM_ID ]]; then
