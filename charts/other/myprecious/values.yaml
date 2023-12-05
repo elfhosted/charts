@@ -7523,6 +7523,7 @@ wallabag:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
     privileged: true
+  runtimeClassName: kata
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -7530,23 +7531,14 @@ wallabag:
     runAsGroup: 568
     fsGroup: 568 # need this so that the bootstrap can run
     fsGroupChangePolicy: "OnRootMismatch"
-  automountServiceAccountToken: true
-  env:
-    SYMFONY__ENV__DOMAIN_NAME: https://{{ .Release.Name }}-wallabag.elfhosted.com
   envFrom:
   - configMapRef:
-      name: wallabag-env
-      optional: true      
+      name: elfbot-wallbag
+      optional: true
+  - configMapRef:
+      name: wallabag-config    
   persistence:
     <<: *appmounts
-    config:
-      enabled: true
-      type: custom
-      mountPath: /var/www/wallabag/data
-      volumeSpec:
-        subPath: "data"
-        persistentVolumeClaim:
-          claimName: config-wallabag-ssd
     images:
       enabled: true
       type: custom
@@ -7554,14 +7546,7 @@ wallabag:
       volumeSpec:
         subPath: "images"
         persistentVolumeClaim:
-          claimName: config-wallabag-images-ssd        
-    elfbot:
-      enabled: "true"
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: elfbot-wallabag
-          optional: true
+          claimName: config-wallabag-ssd
   ingress:
     main:
       enabled: false
@@ -7570,7 +7555,7 @@ wallabag:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 80
+          port: 8000
   resources:
     requests:
       cpu: 10m
@@ -7578,8 +7563,81 @@ wallabag:
     limits:
       cpu: 100m 
       memory: 1Gi
-  initContainers:
-    bootstrap: *bootstrap
+  postgresql:
+    enabled: true
+    nameOverride: wallabag-postgresql
+    commonAnnotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-wallabag"
+    auth:
+      username: wallabag
+      password: wallabag
+      database: wallabag
+      postgresPassword: wallabag
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: config-wallabag-ssd
+        subPath: database
+      resources:
+        requests:
+          cpu: 5m
+          memory: 1Gi
+        limits:
+          cpu: 2
+          memory: 1024Mi
+      containerSecurityContext:
+        enabled: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 568
+        runAsGroup: 568
+      podSecurityContext:
+        enabled: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+      extraVolumeMounts:
+      - mountPath: /opt/bitnami/postgresql/conf/
+        name: conf
+      - mountPath: /opt/bitnami/postgresql/tmp/
+        name: tmp
+      extraVolumes:
+      - name: conf
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: elfstorage
+        persistentVolumeClaim:
+          claimName: elfstorage
+      sidecars:
+        - name: backup-database
+          image: *tooling_image
+          env:
+            - name: POSTGRES_PASSWORD
+              value: wallabag
+            - name: POSTGRES_DATABASE
+              value: wallabag
+            - name: POSTGRES_USER
+              value: wallabag
+          volumeMounts:
+          - mountPath: /backup
+            name: elfstorage
+            subPath: backup/wallabag
+          command:
+          - /usr/bin/dumb-init
+          - /bin/bash
+          - -c
+          - |
 
+            set +e # for debug
+            sleep 2m # give postgres time to start up
+            while true
+            do
+              now=$(date +"%s_%Y-%m-%d")
+              PGPASSWORD=$POSTGRES_PASSWORD pg_dump -U $POSTGRES_USER -h localhost -d $POSTGRES_DATABASE -F c -f /backup/${now}_${POSTGRES_DATABASE}.psql
+              sleep 1d
+            done
 
 # This file must end on a newline
