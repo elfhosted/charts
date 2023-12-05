@@ -11,4 +11,7 @@ data:
   SYMFONY__ENV__DATABASE_NAME: wallabag
   SYMFONY__ENV__DATABASE_USER: wallabag
   SYMFONY__ENV__DATABASE_PASSWORD: wallabag
+  POSTGRES_PASSWORD: wallabag
+  POSTGRES_USER: wallabag
+  POPULATE_DATABASE: "true"
 {{ end }}
