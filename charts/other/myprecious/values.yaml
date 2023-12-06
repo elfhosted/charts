@@ -7022,7 +7022,7 @@ syncthing:
         if [ ! -f /config/config.xml ]
         then
           # We are generating a new config
-          syncthing generate --config=/config --home /storage/elfstorage/syncthing
+          syncthing generate --config=/config
         fi
 
         # Apply the port every time (incase the user changes it and reboots)
