@@ -3110,7 +3110,7 @@ komga:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/komga
-    tag: 1.8.3@sha256:13766ae98214e03a836450f0b3e188961a012aa5a10568c773147e1f50e16973
+    tag: 1.8.4@sha256:5fba208eb119060f1eb77ab6cf5631cfe2277f91a1f6aa2b02c4ccd08bdcc3fe
   env:
     KOMGA_CONFIGDIR: /config
     KOMGA_REMEMBERME_KEY: yesplease
@@ -3232,7 +3232,7 @@ calibre:
   runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.1.0@sha256:f15c4bceb66ab7554726ac50630ce8a6d04a50654cf2c4679db8c08cafe14ef4
+    tag: 7.1.0@sha256:a8917fa81eb863c734f7bbf6e47b6bdcf9ea987a940ba4b75b116322c18155a1
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
