@@ -123,8 +123,8 @@ data:
     title: "ElfHosted! 🧝"
     documentTitle: "ElfHosted - {{ .Release.Name }}" # Customize the browser tab text
     # Alternatively a fa icon can be provided:
-    icon: "fas fa-wand-magic-sparkles"
-
+    # icon: "fas fa-wand-magic-sparkles"
+    logo: https://elfhosted.com/images/logo.png
     header: true # Set to false to hide the header
     footer: false
 

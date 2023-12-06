@@ -11,6 +11,7 @@ data:
     title: {{.Release.Name}}'s ElfHosted Services
     background: https://unsplash.com/photos/fX-qWsXl5x8/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTB8fGRhcmslMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTcwMDY0MzMzN3ww&force=true&w=1920
     favicon: https://elfhosted.com/images/logo.png
+    
 
     statusStyle: "basic"
     hideErrors: false # We want to be advised to our API errors
@@ -705,9 +706,12 @@ data:
 
   widgets.yaml: |
 
+    - logo:
+        icon: https://elfhosted.com/images/logo.png
+        
     - greeting:
-        text_size: 3xl
-        text: 🧝 {{ .Release.Name }}
+        text_size: 2xl
+        text: ElfHosted / {{ .Release.Name }}
 
     - resources:
         label: /storage/elfstorage
