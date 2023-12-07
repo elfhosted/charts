@@ -7642,7 +7642,8 @@ wallabag:
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
-    privileged: true
+    privileged: false
+  runtimeClassName: kata    
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -7685,7 +7686,22 @@ wallabag:
           name: elfbot-wallbag
           optional: true
       - configMapRef:
-          name: wallabag-config    
-
+          name: wallabag-config
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 568
+        runAsGroup: 568              
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+      resources:
+        requests:
+          cpu: 1m
+          memory: 100Mi
+        limits:
+          cpu: 100m 
+          memory: 200m          
 
 # This file must end on a newline
