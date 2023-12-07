@@ -120,7 +120,7 @@ data:
     # externalConfig: https://example.com/server-luci/config.yaml
 
     subtitle: "{{ .Release.Name }} is ..."
-    title: "ElfHosted! 🧝"
+    title: "ElfHosted!"
     documentTitle: "ElfHosted - {{ .Release.Name }}" # Customize the browser tab text
     # Alternatively a fa icon can be provided:
     # icon: "fas fa-wand-magic-sparkles"
