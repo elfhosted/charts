@@ -7682,10 +7682,10 @@ wallabag:
       volumeMounts:
       - mountPath: /var/www/wallabag/data
         name: config
-        subpath: data
+        subPath: data
       - mountPath: /var/www/wallabag/images
         name: config
-        subpath: images      
+        subPath: images      
 
 
 # This file must end on a newline
