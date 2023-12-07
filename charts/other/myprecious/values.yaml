@@ -658,8 +658,8 @@ rutorrentgluetun: &rutorrent
           defaultMode: 0755
     custom-s6-init-06:
       enabled: "true"
-      mountPath: "/etc/cont-init.d/06-wait-for-vpn.sh"
-      subPath: "06-wait-for-vpn.sh"
+      mountPath: "/etc/cont-init.d/02-wait-for-vpn.sh"
+      subPath: "02-wait-for-vpn.sh"
       type: "custom"
       volumeSpec:
         configMap:
@@ -667,8 +667,8 @@ rutorrentgluetun: &rutorrent
           defaultMode: 0755
     custom-s6-init-07:
       enabled: "true"
-      mountPath: "/etc/cont-init.d/07-set-inbound-port.sh"
-      subPath: "07-set-inbound-port.sh "
+      mountPath: "/etc/cont-init.d/03-set-inbound-port.sh"
+      subPath: "03-set-inbound-port.sh "
       type: "custom"
       volumeSpec:
         configMap:
@@ -7635,7 +7635,7 @@ wallabag:
   image:
     repository: stefanprodan/podinfo
     tag: latest
-    image: ghcr.io/geek-cookbook/wallabag@2.6.7@sha256:4488c323cebf586f9ad79d20ce5163c29f792f8dea109a1490e67746cc600f19
+    # image: ghcr.io/geek-cookbook/wallabag@2.6.7@sha256:4488c323cebf586f9ad79d20ce5163c29f792f8dea109a1490e67746cc600f19
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-wallabag,wallabag-config"
@@ -7657,14 +7657,9 @@ wallabag:
     config:
       enabled: true
       type: custom
-      mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-wallabag-ssd
-  volumeMounts:
-  - mountPath: /var/www/wallabag/images
-    name: config
-    subPath: images
   ingress:
     main:
       enabled: false

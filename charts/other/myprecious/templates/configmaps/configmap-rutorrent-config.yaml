@@ -152,7 +152,7 @@ data:
     cp /.rtlocal.rc-elfhosted /etc/rtorrent/.rtlocal.rc
     cp /.rtorrent.rc-elfhosted /data/rtorrent/.rtorrent.rc
 
-  06-wait-for-vpn.sh: |
+  02-wait-for-vpn.sh: |
     #!/usr/bin/env bash
 
     echo "Waiting for VPN to be connected..."
@@ -167,7 +167,7 @@ data:
     echo "VPN Connected, starting application..."
 
 
-  07-set-inbound-port.sh: |
+  03-set-inbound-port.sh: |
     #!/usr/bin/env bash
 
     # If we have been given a port by pia/gluetun, prepare for it before starting
