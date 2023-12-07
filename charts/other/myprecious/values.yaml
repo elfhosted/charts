@@ -7701,7 +7701,7 @@ wallabag:
           cpu: 1m
           memory: 100Mi
         limits:
-          cpu: 100m 
-          memory: 200m          
+          cpu: 500m 
+          memory: 200Mi        
 
 # This file must end on a newline
