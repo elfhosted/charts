@@ -1012,8 +1012,8 @@ data:
           - name: "Wallabag"
             logo: "assets/png/wallabag.png"
             subtitle: "Read it Later"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-wallabag.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}                              
