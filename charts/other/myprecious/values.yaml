@@ -7646,13 +7646,7 @@ wallabag:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    fsGroup: 65534 # for the mounted volumes, wallabag runs as nobody
-  envFrom:
-  - configMapRef:
-      name: elfbot-wallbag
-      optional: true
-  - configMapRef:
-      name: wallabag-config    
+    fsGroup: 65534 # for the mounted volumes, wallabag runs as nobody  
   persistence:
     config:
       enabled: true
@@ -7686,6 +7680,12 @@ wallabag:
       - mountPath: /var/www/wallabag/images
         name: config
         subPath: images      
+      envFrom:
+      - configMapRef:
+          name: elfbot-wallbag
+          optional: true
+      - configMapRef:
+          name: wallabag-config    
 
 
 # This file must end on a newline
