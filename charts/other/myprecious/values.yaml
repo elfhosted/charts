@@ -6932,6 +6932,8 @@ rclonebrowser:
       volumeMounts:
       - mountPath: /config
         name: config
+      - mountPath: /tmp # need this for cating into a file
+        name: tmp        
       resources: *default_resources
       securityContext: *default_securitycontext
   service:
