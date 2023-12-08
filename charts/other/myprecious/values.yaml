@@ -6919,7 +6919,7 @@ rclonebrowser:
       - |
         set -x
         set -e
-        
+
         # add local remote if it doesn't exist
         grep -q '/storage' /config/rclone.conf || cat /rclone-remote-storage >> /config/rclone.conf
 
@@ -6929,6 +6929,7 @@ rclonebrowser:
       - mountPath: /tmp # need this for cating into a file
         name: tmp        
       - mountPath: /rclone-remote-storage
+        subPath: rclone-remote-storage
         name: rclone-remote-storage
       resources: *default_resources
       securityContext: *default_securitycontext
