@@ -6754,13 +6754,6 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rapidleech
-    rclonebrowser:
-      enabled: true # this is always on
-      type: custom
-      mountPath: /storage/config/rclonebrowser/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-rclonebrowser
     readarr:
       enabled: false
       type: custom
@@ -6908,7 +6901,7 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rdtclient-ssd
-                    
+
   initContainers:
     setup:
       image: *tooling_image
