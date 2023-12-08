@@ -6919,16 +6919,16 @@ rclonebrowser:
           mv /config/xdg /config/xdg_migrated_safe_to_delete
         fi
 
-        # # add local remote if it doesn't exist
-        # touch /config/rclone.conf
-        # grep -q '/storage' /config/rclone.conf
-        # if [[ $? -gt 0 ]]; then
-        # cat << EOF >> /config/rclone.conf
-        # [storage]
-        # type = alias
-        # remote = /storage
-        # fi
-        # EOF
+        # add local remote if it doesn't exist
+        touch /config/rclone.conf
+        grep -q '/storage' /config/rclone.conf
+        if [[ $? -gt 0 ]]; then
+          cat << EOF >> /config/rclone.conf
+          [storage]
+          type = alias
+          remote = /storage
+        fi
+        EOF
 
       volumeMounts:
       - mountPath: /config
