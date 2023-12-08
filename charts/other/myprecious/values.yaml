@@ -6458,6 +6458,13 @@ rclonebrowser:
       volumeSpec:
         configMap:
           name: rclonefm-config
+    rclone-remote-storage:
+      enabled: "true"
+      subPath: "rclone-remote-storage"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rclonefm-config          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6912,28 +6919,17 @@ rclonebrowser:
       - |
         set -x
         set -e
-
-        # Migrate from rclonebrowser
-        if [[ -f /config/xdg/config/rclone/rclone.conf ]]; then
-          cp /config/xdg/config/rclone/rclone.conf /config/
-          mv /config/xdg /config/xdg_migrated_safe_to_delete
-        fi
-
+        
         # add local remote if it doesn't exist
-        touch /config/rclone.conf
-        grep -q '/storage' /config/rclone.conf
-        if [[ $? -gt 0 ]]; then
-          cat << EOF >> /config/rclone.conf
-          [storage]
-          type = alias
-          remote = /storage
-        EOF
-        fi
+        grep -q '/storage' /config/rclone.conf || cat /rclone-remote-storage >> /config/rclone.conf
+
       volumeMounts:
       - mountPath: /config
         name: config
       - mountPath: /tmp # need this for cating into a file
         name: tmp        
+      - mountPath: /rclone-remote-storage
+        name: rclone-remote-storage
       resources: *default_resources
       securityContext: *default_securitycontext
   service:

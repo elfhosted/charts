@@ -37,3 +37,8 @@ data:
         timerProcessQueue: 5,
         timerProcessQueueInterval: undefined
     };
+
+  rclone-remote-storage: |
+    [storage]
+    type = alias
+    remote = /storage
