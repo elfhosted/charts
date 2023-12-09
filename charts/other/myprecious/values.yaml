@@ -612,7 +612,7 @@ rutorrentgluetun: &rutorrent
       mountPath: /data/rtorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent
+          claimName: config-rutorrent-ssd
     confighdd:
       enabled: true
       type: custom
@@ -6390,7 +6390,7 @@ rpdb:
       mountPath: /.config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rpdb
+          claimName: config-rpdb-ssd
     confighdd:
       enabled: true
       type: custom
