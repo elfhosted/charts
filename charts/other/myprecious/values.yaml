@@ -5159,7 +5159,7 @@ gotify:
       mountPath: /app/data/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-gotify
+          claimName: config-gotify-ssd
     confighdd:
       enabled: true
       type: custom
