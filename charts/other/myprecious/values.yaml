@@ -390,6 +390,99 @@ bootstrap: &bootstrap
   resources: *default_resources
   securityContext: *default_securitycontext
 
+bootstrap_ssd_rutorrent: &bootstrap_ssd_rutorrent
+  image: *tooling_image
+  imagePullPolicy: IfNotPresent
+  command:
+  - /bin/bash
+  - -c
+  - |
+    set -e
+
+    # Allows us to use app.elfhosted.com/name, but fall back to app.kubernetes.io/name if the former doesn't exist
+    if [[ -z "$ELF_APP_NAME" ]]; then
+      ELF_APP_NAME=$K8S_APP_NAME
+    fi
+
+    # look for commands - we match specific names in order of least-destructive
+    TIMESTAMP_NOW=$(date +%s)
+    if [[ -f /etc/elfbot/pause ]]; then
+      TIMESTAMP_COMMAND=$(cat /etc/elfbot/pause)
+      TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
+      if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
+        COMMAND=pause
+      fi
+    fi
+
+    # If no command is set, then move onto the next possibility
+    if [[ -f /etc/elfbot/backup && -z "$COMMAND" ]]; then
+      TIMESTAMP_COMMAND=$(cat /etc/elfbot/backup)
+      TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
+      if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
+        COMMAND=backup
+      fi
+    fi
+
+    # If no command is set, then move onto the next possibility
+    if [[ -f /etc/elfbot/reset && -z "$COMMAND" ]]; then
+      TIMESTAMP_COMMAND=$(cat /etc/elfbot/reset)
+      TIMESTAMP_DIFF=$((TIMESTAMP_NOW-TIMESTAMP_COMMAND))
+      if [[ $TIMESTAMP_DIFF -lt 600 ]]; then
+        COMMAND=reset
+      fi
+    fi
+
+    case $COMMAND in
+
+      "pause")
+        echo "Recent pause command found, sleeping 5m.."
+        sleep 300
+        ;;
+
+      "reset")
+        echo "Recent reset command found, resetting"
+        rm -rf /config/*
+        ;;
+
+      "backup")
+        echo "Recent backup command found, backing up to /storage/elfstorage/backup/${ELF_APP_NAME}-${TIMESTAMP}"
+        mkdir -p /storage/elfstorage/backup
+        TIMESTAMP=$(printf '%(%Y-%m-%d--%H-%M)T\n' -1)
+        cp -rfp /config /storage/elfstorage/backup/$ELF_APP_NAME-$TIMESTAMP
+        ;;
+
+    esac
+
+    if [[ ! -f /config/.i-am-migrated ]]
+    then
+      if [[ ! -z "$(ls -A /config-hdd)" ]]
+      then
+        echo "Migrating from /config-hdd/..."
+        time cp /config-hdd/.* /config/ -rfpv
+        touch /config/.i-am-migrated
+      fi
+    fi
+  
+
+    if [[ ! -f /config/i-am-bootstrapped ]]
+    then
+      echo "Bootstrapping from goldilocks config..."
+      s5cmd sync s3://elfhosted-config/goldilocks/$ELF_APP_NAME/* /config/
+      touch /config/i-am-bootstrapped
+    fi
+  volumeMounts:
+  - mountPath: /etc/elfbot
+    name: elfbot
+  - mountPath: /config
+    name: config
+  - mountPath: /config-hdd
+    name: confighdd
+  - mountPath: /storage/elfstorage
+    name: elfstorage
+  env: *bootstrap_env
+  resources: *default_resources
+  securityContext: *default_securitycontext
+
 # Eventually we'll remove the old one, and rename this to bootstrap
 bootstrap_ssd: &bootstrap_ssd
   image: *tooling_image
@@ -463,6 +556,7 @@ bootstrap_ssd: &bootstrap_ssd
         touch /config/i-am-migrated
       fi
     fi
+  
 
     if [[ ! -f /config/i-am-bootstrapped ]]
     then
