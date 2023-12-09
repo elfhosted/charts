@@ -397,7 +397,7 @@ bootstrap_ssd_rutorrent: &bootstrap_ssd_rutorrent
   - /bin/bash
   - -c
   - |
-    set -e
+    # set -e
 
     # Allows us to use app.elfhosted.com/name, but fall back to app.kubernetes.io/name if the former doesn't exist
     if [[ -z "$ELF_APP_NAME" ]]; then
