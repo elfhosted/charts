@@ -3657,6 +3657,16 @@ resiliosync:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-resiliosync"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists      
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -7633,6 +7643,16 @@ syncthing:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-syncthing"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/download
+    operator: Exists      
   securityContext:
     seccompProfile:
       type: RuntimeDefault
