@@ -613,6 +613,12 @@ rutorrentgluetun: &rutorrent
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rutorrent
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rutorrent          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -703,7 +709,7 @@ rutorrentgluetun: &rutorrent
     PORT_FILE: /data/rtorrent/forwarded-port
     WAN_IP_CMD: 'curl -s ifconfig.me'
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   addons:
     vpn: &rutorrent_addons_vpn
       enabled: true
@@ -860,7 +866,13 @@ delugegluetun: &deluge
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge
+          claimName: config-deluge-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-deluge          
     shared:
       enabled: true
       mountPath: /shared
@@ -906,7 +918,7 @@ delugegluetun: &deluge
         key: PORT_FILE
     optional: true
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -1097,7 +1109,13 @@ qbittorrentgluetun: &qbittorrent
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent
+          claimName: config-qbittorrent-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-qbittorrent          
     shared:
       enabled: true
       mountPath: /shared
@@ -1145,7 +1163,7 @@ qbittorrentgluetun: &qbittorrent
         key: PORT_FILE
     optional: true
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       command:
@@ -1289,13 +1307,19 @@ nzbget:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nzbget
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbget
+          claimName: config-nzbget-ssd          
     tmp:
       enabled: true
       type: emptyDir
@@ -1316,7 +1340,7 @@ nzbget:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 sabnzbd:
   enabled: false
@@ -1365,7 +1389,13 @@ sabnzbd:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sabnzbd
+          claimName: config-sabnzbd-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sabnzbd          
     tmp:
       enabled: true
       type: emptyDir
@@ -1386,7 +1416,7 @@ sabnzbd:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -1946,7 +1976,7 @@ autobrr:
       cpu: 3
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   # additionalContainers:
   #   regbrr:
   #     image: ghcr.io/geek-cookbook/docker-autobrr-helper:sha-0dcb44a
@@ -2089,27 +2119,20 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-calibre-ssd
-    deluge:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/deluge/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-deluge
     delugepia:
       enabled: false
       type: custom
       mountPath: /storage/config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge
+          claimName: config-deluge-ssd
     delugegluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge
+          claimName: config-deluge-ssd
     emby:
       enabled: false
       type: custom
@@ -2124,13 +2147,20 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-filebot-ssd
+    gotify:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/gotify/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-gotify-ssd           
     homepage:
       enabled: false
       type: custom
       mountPath: /storage/config/homepage/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-homepage
+          claimName: config-homepage-ssd
     jellyseerr:
       enabled: false
       type: custom
@@ -2145,6 +2175,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-pyload-ssd
+    jdownloader:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/jdownloader/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jdownloader-ssd
     jellyfin:
       enabled: false
       type: custom
@@ -2152,6 +2189,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin-ssd
+    plexmetamanager:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/plexmetamanager/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plexmetamanager-ssd
     plexpia:
       enabled: false
       type: custom
@@ -2235,28 +2279,28 @@ filebrowser:
       mountPath: /storage/config/nextpvr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nextpvr
+          claimName: config-nextpvr-ssd
     notifiarr:
       enabled: false
       type: custom
       mountPath: /storage/config/notifiarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-notifiarr
+          claimName: config-notifiarr-ssd
     nzbget:
       enabled: false
       type: custom
       mountPath: /storage/config/nzbget/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbget
+          claimName: config-nzbget-ssd
     nzbhydra:
       enabled: false
       type: custom
       mountPath: /storage/config/nzbhydra/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbhydra
+          claimName: config-nzbhydra-ssd
     ombi:
       enabled: false
       type: custom
@@ -2270,7 +2314,7 @@ filebrowser:
       mountPath: /storage/config/openbooks/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-openbooks
+          claimName: config-openbooks-ssd
     overseerr:
       enabled: false
       type: custom
@@ -2284,7 +2328,7 @@ filebrowser:
       mountPath: /storage/config/privatebin/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-privatebin
+          claimName: config-privatebin-ssd
     prowlarr:
       enabled: false
       type: custom
@@ -2292,27 +2336,20 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-prowlarr-ssd
-    qbittorrent:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/qbittorrent/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-qbittorrent
     qbittorrentpia:
       enabled: false
       type: custom
       mountPath: /storage/config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent
+          claimName: config-qbittorrent-ssd
     qbittorrentgluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent
+          claimName: config-qbittorrent-ssd
     radarr:
       enabled: false
       type: custom
@@ -2333,14 +2370,14 @@ filebrowser:
       mountPath: /storage/config/rapidleech/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rapidleech
+          claimName: config-rapidleech-ssd
     rclonebrowser:
       enabled: true # this is always on
       type: custom
       mountPath: /storage/config/rclonebrowser/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rclonebrowser
+          claimName: config-rclonebrowser-ssd
     readarr:
       enabled: false
       type: custom
@@ -2361,14 +2398,14 @@ filebrowser:
       mountPath: /storage/config/resiliosync/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-resiliosync
+          claimName: config-resiliosync-ssd
     rpdb:
       enabled: false
       type: custom
       mountPath: /storage/config/rpdb/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rpdb
+          claimName: config-rpdb-ssd
     rutorrent:
       enabled: false
       type: custom
@@ -2382,7 +2419,7 @@ filebrowser:
       mountPath: /storage/config/rutorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent
+          claimName: config-rutorrent-ssd
     rutorrentgluetun:
       enabled: false
       type: custom
@@ -2396,7 +2433,7 @@ filebrowser:
       mountPath: /storage/config/sabnzbd/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sabnzbd
+          claimName: config-sabnzbd-ssd
     seafile:
       enabled: false
       type: custom
@@ -2445,7 +2482,7 @@ filebrowser:
       mountPath: /storage/config/tdarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tdarr
+          claimName: config-tdarr-ssd
     thelounge:
       enabled: false
       type: custom
@@ -2453,13 +2490,20 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-thelounge-ssd
+    unpackerr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/unpackerr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-unpackerr-ssd          
     uptimekuma:
       enabled: false
       type: custom
       mountPath: /storage/config/uptimekuma/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-uptimekuma-ssd
+          claimName: config-uptimekuma-ssd          
     vaultwarden:
       enabled: false
       type: custom
@@ -2473,14 +2517,14 @@ filebrowser:
       mountPath: /storage/config/xteve/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-xteve
+          claimName: config-xteve-ssd
     youtubedl:
       enabled: false
       type: custom
       mountPath: /storage/config/youtubedl/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-youtubedl
+          claimName: config-youtubedl-ssd
     rdtclient:
       enabled: false
       type: custom
@@ -2702,6 +2746,12 @@ privatebin:
       mountPath: /srv/data
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-privatebin-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-privatebin
     elfbot:
       enabled: "true"
@@ -2759,7 +2809,7 @@ privatebin:
       limit: 10
       # exemptedIp: "1.2.3.4,10.10.10/24"
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 nzbhydra:
   enabled: false
@@ -2795,13 +2845,19 @@ nzbhydra:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nzbhydra
     config:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbhydra
+          claimName: config-nzbhydra-ssd          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2824,7 +2880,7 @@ nzbhydra:
       cpu: 1
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 calibreweb:
   enabled: false
@@ -2946,7 +3002,7 @@ pyload:
         persistentVolumeClaim:
           claimName: config-pyload-ssd
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -3528,7 +3584,13 @@ resiliosync:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-resiliosync
+          claimName: config-resiliosync-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-resiliosync          
     setup-config:
       enabled: "true"
       mountPath: "/sync.conf"
@@ -3551,7 +3613,7 @@ resiliosync:
           optional: true
 
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -4452,27 +4514,20 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-calibre-ssd
-    deluge:
-      enabled: false
-      type: custom
-      mountPath: /config/deluge/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-deluge
     delugepia:
       enabled: false
       type: custom
       mountPath: /config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge
+          claimName: config-deluge-ssd
     delugegluetun:
       enabled: false
       type: custom
       mountPath: /config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge
+          claimName: config-deluge-ssd
     emby:
       enabled: false
       type: custom
@@ -4487,13 +4542,20 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-filebot-ssd
+    gotify:
+      enabled: false
+      type: custom
+      mountPath: /config/gotify/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-gotify-ssd           
     homepage:
       enabled: false
       type: custom
       mountPath: /config/homepage/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-homepage
+          claimName: config-homepage-ssd
     jellyseerr:
       enabled: false
       type: custom
@@ -4508,6 +4570,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-pyload-ssd
+    jdownloader:
+      enabled: false
+      type: custom
+      mountPath: /config/jdownloader/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jdownloader-ssd
     jellyfin:
       enabled: false
       type: custom
@@ -4515,6 +4584,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin-ssd
+    plexmetamanager:
+      enabled: false
+      type: custom
+      mountPath: /config/plexmetamanager/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plexmetamanager-ssd
     plexpia:
       enabled: false
       type: custom
@@ -4598,28 +4674,28 @@ homer:
       mountPath: /config/nextpvr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nextpvr
+          claimName: config-nextpvr-ssd
     notifiarr:
       enabled: false
       type: custom
       mountPath: /config/notifiarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-notifiarr
+          claimName: config-notifiarr-ssd
     nzbget:
       enabled: false
       type: custom
       mountPath: /config/nzbget/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbget
+          claimName: config-nzbget-ssd
     nzbhydra:
       enabled: false
       type: custom
       mountPath: /config/nzbhydra/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbhydra
+          claimName: config-nzbhydra-ssd
     ombi:
       enabled: false
       type: custom
@@ -4633,7 +4709,7 @@ homer:
       mountPath: /config/openbooks/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-openbooks
+          claimName: config-openbooks-ssd
     overseerr:
       enabled: false
       type: custom
@@ -4647,7 +4723,7 @@ homer:
       mountPath: /config/privatebin/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-privatebin
+          claimName: config-privatebin-ssd
     prowlarr:
       enabled: false
       type: custom
@@ -4655,27 +4731,20 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-prowlarr-ssd
-    qbittorrent:
-      enabled: false
-      type: custom
-      mountPath: /config/qbittorrent/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-qbittorrent
     qbittorrentpia:
       enabled: false
       type: custom
       mountPath: /config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent
+          claimName: config-qbittorrent-ssd
     qbittorrentgluetun:
       enabled: false
       type: custom
       mountPath: /config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent
+          claimName: config-qbittorrent-ssd
     radarr:
       enabled: false
       type: custom
@@ -4696,14 +4765,14 @@ homer:
       mountPath: /config/rapidleech/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rapidleech
+          claimName: config-rapidleech-ssd
     rclonebrowser:
       enabled: true # this is always on
       type: custom
       mountPath: /config/rclonebrowser/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rclonebrowser
+          claimName: config-rclonebrowser-ssd
     readarr:
       enabled: false
       type: custom
@@ -4724,42 +4793,35 @@ homer:
       mountPath: /config/resiliosync/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-resiliosync
+          claimName: config-resiliosync-ssd
     rpdb:
       enabled: false
       type: custom
       mountPath: /config/rpdb/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rpdb
-    rutorrent:
-      enabled: false
-      type: custom
-      mountPath: /config/rutorrent/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-rutorrent
+          claimName: config-rpdb-ssd
     rutorrentpia:
       enabled: false
       type: custom
       mountPath: /config/rutorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent
+          claimName: config-rutorrent-ssd
     rutorrentgluetun:
       enabled: false
       type: custom
       mountPath: /config/rutorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent
+          claimName: config-rutorrent-ssd
     sabnzbd:
       enabled: false
       type: custom
       mountPath: /config/sabnzbd/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sabnzbd
+          claimName: config-sabnzbd-ssd
     seafile:
       enabled: false
       type: custom
@@ -4808,7 +4870,7 @@ homer:
       mountPath: /config/tdarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tdarr
+          claimName: config-tdarr-ssd
     thelounge:
       enabled: false
       type: custom
@@ -4816,6 +4878,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-thelounge-ssd
+    unpackerr:
+      enabled: false
+      type: custom
+      mountPath: /config/unpackerr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-unpackerr-ssd            
     uptimekuma:
       enabled: false
       type: custom
@@ -4836,14 +4905,14 @@ homer:
       mountPath: /config/xteve/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-xteve
+          claimName: config-xteve-ssd
     youtubedl:
       enabled: false
       type: custom
       mountPath: /config/youtubedl/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-youtubedl
+          claimName: config-youtubedl-ssd
     rdtclient:
       enabled: false
       type: custom
@@ -5100,7 +5169,7 @@ gotify:
           optional: true
     tmp: *tmp # Avoids issues with readOnlyRootFilesystem
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 flaresolverr:
   enabled: false
@@ -5357,6 +5426,12 @@ xteve:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-xteve
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-xteve
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5365,7 +5440,7 @@ xteve:
           name: elfbot-xteve
           optional: true
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 youtubedl:
   enabled: false
@@ -5413,7 +5488,13 @@ youtubedl:
       mountPath: /app/appdata
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-youtubedl
+          claimName: config-youtubedl-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-youtubedl          
     pm2:
       enabled: true
       mountPath: /app/pm2
@@ -5429,7 +5510,7 @@ youtubedl:
           optional: true
 
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 thelounge:
   enabled: false
@@ -5588,6 +5669,12 @@ unpackerr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-unpackerr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-unpackerr
     example-config:
       enabled: "true"
@@ -5604,7 +5691,7 @@ unpackerr:
           optional: true
 
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     copy-example-config:
       image: ghcr.io/geek-cookbook/unpackerr@sha256:014440a2a7e4499a9ce52be1388567d24fc515d8d00422434239b918c56a717a
       imagePullPolicy: IfNotPresent
@@ -5870,7 +5957,13 @@ openbooks:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-openbooks
+          claimName: config-openbooks-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-openbooks          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5879,7 +5972,7 @@ openbooks:
           name: elfbot-openbooks
           optional: true
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -6008,6 +6101,12 @@ notifiarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-notifiarr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-notifiarr
     example-config:
       enabled: "true"
@@ -6023,7 +6122,7 @@ notifiarr:
           name: elfbot-notifiarr
           optional: true
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     copy-example-config:
       image: ghcr.io/geek-cookbook/notifiarr:0.7.0@sha256:294aa7ac7645374300dde2430a6a17f1e5c038bfc0d802ec7861778f6fed7d8d
       imagePullPolicy: IfNotPresent
@@ -6098,7 +6197,7 @@ shoko:
           name: elfbot-shoko
           optional: true
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -6162,7 +6261,7 @@ filebot:
       mountPath: /home/seedy
       sizeLimit: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -6208,7 +6307,13 @@ nextpvr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nextpvr
+          claimName: config-nextpvr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-nextpvr          
     recordings:
       enabled: true
       type: emptyDir
@@ -6240,7 +6345,7 @@ nextpvr:
       cpu: 2
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 rpdb:
   enabled: false
@@ -6274,6 +6379,12 @@ rpdb:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rpdb
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rpdb          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6282,7 +6393,7 @@ rpdb:
           name: elfbot-rpdb
           optional: true
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   ingress:
     main:
       enabled: false
@@ -6334,7 +6445,13 @@ plexmetamanager:
       mountPath: /app/config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plexmetamanager
+          claimName: config-plexmetamanager-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plexmetamanager          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6350,7 +6467,7 @@ plexmetamanager:
         configMap:
           name: plexmetamanager-config
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     copy-example-config:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -6449,6 +6566,12 @@ rclonebrowser:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-rclonebrowser-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-rclonebrowser
     rclonefm-config:
       enabled: "true"
@@ -6516,27 +6639,20 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-calibre-ssd
-    deluge:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/deluge/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-deluge
     delugepia:
       enabled: false
       type: custom
       mountPath: /storage/config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge
+          claimName: config-deluge-ssd
     delugegluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/deluge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-deluge
+          claimName: config-deluge-ssd
     emby:
       enabled: false
       type: custom
@@ -6551,13 +6667,20 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-filebot-ssd
+    gotify:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/gotify/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-gotify-ssd          
     homepage:
       enabled: false
       type: custom
       mountPath: /storage/config/homepage/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-homepage
+          claimName: config-homepage-ssd
     jellyseerr:
       enabled: false
       type: custom
@@ -6572,6 +6695,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-pyload-ssd
+    jdownloader:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/jdownloader/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jdownloader-ssd          
     jellyfin:
       enabled: false
       type: custom
@@ -6579,6 +6709,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin-ssd
+    plexmetamanager:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/plexmetamanager/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plexmetamanager-ssd
     plexpia:
       enabled: false
       type: custom
@@ -6662,28 +6799,28 @@ rclonebrowser:
       mountPath: /storage/config/nextpvr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nextpvr
+          claimName: config-nextpvr-ssd
     notifiarr:
       enabled: false
       type: custom
       mountPath: /storage/config/notifiarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-notifiarr
+          claimName: config-notifiarr-ssd
     nzbget:
       enabled: false
       type: custom
       mountPath: /storage/config/nzbget/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbget
+          claimName: config-nzbget-ssd
     nzbhydra:
       enabled: false
       type: custom
       mountPath: /storage/config/nzbhydra/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-nzbhydra
+          claimName: config-nzbhydra-ssd
     ombi:
       enabled: false
       type: custom
@@ -6697,7 +6834,7 @@ rclonebrowser:
       mountPath: /storage/config/openbooks/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-openbooks
+          claimName: config-openbooks-ssd
     overseerr:
       enabled: false
       type: custom
@@ -6711,7 +6848,7 @@ rclonebrowser:
       mountPath: /storage/config/privatebin/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-privatebin
+          claimName: config-privatebin-ssd
     prowlarr:
       enabled: false
       type: custom
@@ -6719,27 +6856,20 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-prowlarr-ssd
-    qbittorrent:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/qbittorrent/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-qbittorrent
     qbittorrentpia:
       enabled: false
       type: custom
       mountPath: /storage/config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent
+          claimName: config-qbittorrent-ssd
     qbittorrentgluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/qbittorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-qbittorrent
+          claimName: config-qbittorrent-ssd
     radarr:
       enabled: false
       type: custom
@@ -6760,7 +6890,7 @@ rclonebrowser:
       mountPath: /storage/config/rapidleech/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rapidleech
+          claimName: config-rapidleech-ssd
     readarr:
       enabled: false
       type: custom
@@ -6781,42 +6911,35 @@ rclonebrowser:
       mountPath: /storage/config/resiliosync/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-resiliosync
+          claimName: config-resiliosync-ssd
     rpdb:
       enabled: false
       type: custom
       mountPath: /storage/config/rpdb/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rpdb
-    rutorrent:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/rutorrent/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-rutorrent
+          claimName: config-rpdb-ssd
     rutorrentpia:
       enabled: false
       type: custom
       mountPath: /storage/config/rutorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent
+          claimName: config-rutorrent-ssd
     rutorrentgluetun:
       enabled: false
       type: custom
       mountPath: /storage/config/rutorrent/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rutorrent
+          claimName: config-rutorrent-ssd
     sabnzbd:
       enabled: false
       type: custom
       mountPath: /storage/config/sabnzbd/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sabnzbd
+          claimName: config-sabnzbd-ssd
     seafile:
       enabled: false
       type: custom
@@ -6865,7 +6988,7 @@ rclonebrowser:
       mountPath: /storage/config/tdarr/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tdarr
+          claimName: config-tdarr-ssd
     thelounge:
       enabled: false
       type: custom
@@ -6873,6 +6996,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-thelounge-ssd
+    unpackerr:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/unpackerr/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-unpackerr-ssd          
     uptimekuma:
       enabled: false
       type: custom
@@ -6893,14 +7023,14 @@ rclonebrowser:
       mountPath: /storage/config/xteve/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-xteve
+          claimName: config-xteve-ssd
     youtubedl:
       enabled: false
       type: custom
       mountPath: /storage/config/youtubedl/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-youtubedl
+          claimName: config-youtubedl-ssd
     rdtclient:
       enabled: false
       type: custom
@@ -6910,6 +7040,7 @@ rclonebrowser:
           claimName: config-rdtclient-ssd
 
   initContainers:
+    bootstrap: *bootstrap_ssd  
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -7325,7 +7456,13 @@ rapidleech:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-rapidleech
+          claimName: config-rapidleech-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rapidleech          
     data:
       enabled: false
     elfstorage:
@@ -7363,7 +7500,7 @@ rapidleech:
       cpu: 10m
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -7599,6 +7736,12 @@ jdownloader:
       mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-jdownloader-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-jdownloader
     elfstorage:
       enabled: true # always enabled
@@ -7632,7 +7775,7 @@ jdownloader:
       cpu: 0.5
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
   additionalContainers:
     podinfo:
       image: stefanprodan/podinfo # used to run probes from gatus
@@ -7901,7 +8044,13 @@ tdarr:
       mountPath: /app/server
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-tdarr
+          claimName: config-tdarr-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-tdarr          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -7936,7 +8085,7 @@ tdarr:
       cpu: 250m # deliberately hobble the CPU in favor of GPU transcoding
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
 
 homepage:
   enabled: false
@@ -7981,7 +8130,13 @@ homepage:
       mountPath: /app/config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-homepage
+          claimName: config-homepage-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-homepage          
     config-default:
       enabled: "true"
       type: "custom"
@@ -8012,7 +8167,7 @@ homepage:
       cpu: 250m # deliberately hobble the CPU in favor of GPU transcoding
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap
+    bootstrap: *bootstrap_ssd
     copy-example-config:
       image: *tooling_image
       imagePullPolicy: IfNotPresent

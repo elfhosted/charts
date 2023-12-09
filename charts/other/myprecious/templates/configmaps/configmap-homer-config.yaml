@@ -43,16 +43,16 @@ data:
           CONFIG_PERCENTAGE_USED=$PERCENTAGE_USED
           CONFIG_DISK_TOTAL=$DISK_TOTAL
           echo -n "<A HREF='/assets/message/disk-usage-config.html' TARGET='_blank'>/config</A>: Largest volume-per-app consumer is <A HREF='/assets/message/disk-usage-config-${CONFIG_BIGGEST_CONSUMER}.html' TARGET='_blank'>${CONFIG_BIGGEST_CONSUMER}</A> with ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" > /www/assets/message/message_details_config.html
-        fi        
+        fi
       done
 
-      
+
       cat /dev/null > /www/assets/message/message_details.html
       # And once for everything else...
       for STORAGE_PATH in $(ls /storage | grep -v encrypted | grep -E 'elfstorage|storagebox|smb'); do
         tree --du -hF -s  /storage/$STORAGE_PATH/  -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/$STORAGE_PATH -T "🧝 ElfHosted [/storage/$STORAGE_PATH] usage for {{ .Release.Name }}" > /www/assets/message/disk-usage-$STORAGE_PATH.html
 
-        # Summarize 
+        # Summarize
         df -Ph /storage/${STORAGE_PATH} | sed s/%//g > /www/assets/message/disk_space_${STORAGE_PATH}.txt
         PERCENTAGE_USED=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | sed s/%//g | awk '{print $5}' | tail -n1)
         DISK_USED=$(cat /www/assets/message/disk_space_${STORAGE_PATH}.txt | awk '{print $3}' | tail -n1)
@@ -95,18 +95,18 @@ data:
         ICON="fa fa-thermometer-empty"
         MESSAGE="Gigabytes everywhere! 🥳"
       fi
-      
+
       MESSAGE_DETAILS=$(cat /www/assets/message/message_details.html /www/assets/message/message_details_config.html )
       echo "{ \"title\":\"Storage usage: ${MESSAGE}\", \"content\":\"${MESSAGE_DETAILS}(<I>Updated roughly hourly</I>)\",\"style\":\"${STYLE}\",\"icon\":\"${ICON}\" }" > /www/assets/message/message.json
 
       # now get a random dark/light background...
       # curl -s 'https://source.unsplash.com/random/?wallpaper,dark,background' -L --output /www/assets/backgrounds/unsplash-dark.jpg
       # curl -s 'https://source.unsplash.com/random/?wallpaper,light,background' -L --output /www/assets/backgrounds/unsplash-light.jpg
-      
+
       # Until we can improve wallpaper now that source.unsplash.com isn't working
       curl -s 'https://picsum.photos/1024/768' -L --output /www/assets/backgrounds/unsplash-dark.jpg
       cp /www/assets/backgrounds/unsplash-dark.jpg /www/assets/backgrounds/unsplash-light.jpg
-      
+
       sleep $(shuf -i 1800-5400 -n 1)
     done
 
@@ -509,7 +509,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-mylar.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}          
+          {{ end }}
 
           {{ if .Values.rpdb.enabled }}
           - name: "RPDB"
@@ -595,7 +595,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-nextpvr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}          
+          {{ end }}
 
           {{ if .Values.notifiarr.enabled }}
           - name: "Notifiarr"
@@ -655,7 +655,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/plex-meta-manager/"
             target: "_blank" # optional html tag target attribute
-          {{ end }}      
+          {{ end }}
 
           {{ if .Values.tdarr.enabled }}
           - name: "Tdarr"
@@ -667,7 +667,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-tdarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}                    
+          {{ end }}
 
       - name: "Download Media"
         icon: "fas fa-cloud-arrow-down"
@@ -794,7 +794,7 @@ data:
             # xmlrpc: "https://{{ .Release.Name }}-rutorrent.elfhosted.com" # Homer will automatically suffix /RPC2 to this, which we catch in our ingressroute.
             # type: "Rtorrent"
             # rateInterval: 30000 # Interval for updating the download and upload rates.
-            # torrentInterval: 60000 # Interval for updating the torrent count.            
+            # torrentInterval: 60000 # Interval for updating the torrent count.
             # useCredentials: true
             {{ end }}
 
@@ -826,7 +826,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-rapidleech.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}   
+          {{ end }}
 
           {{ if .Values.rdtclient.enabled }}
           - name: "RDT Client"
@@ -836,7 +836,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-rdtclient.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}     
+          {{ end }}
 
           {{ if .Values.openbooks.enabled }}
           - name: "Openbooks"
@@ -846,7 +846,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-openbooks.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}   
+          {{ end }}
 
           {{ if .Values.jdownloader.enabled }}
           - name: "jDownloader"
@@ -856,7 +856,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/jdownloader/"
             target: "_blank" # optional html tag target attribute
-          {{ end }}                                        
+          {{ end }}
 
   tools.yml: |
     ---
@@ -956,7 +956,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-syncthing.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}          
+          {{ end }}
 
           {{ if .Values.thelounge.enabled }}
           - name: "The Lounge"
@@ -996,7 +996,7 @@ data:
             tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-joplin-server.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}   
+          {{ end }}
 
           {{ if .Values.homepage.enabled }}
           - name: "Homepage"
@@ -1006,7 +1006,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-homepage.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}  
+          {{ end }}
 
           {{ if .Values.wallabag.enabled }}
           - name: "Wallabag"
@@ -1016,7 +1016,7 @@ data:
             tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-wallabag.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}                              
+          {{ end }}
 
       - name: "Rclone"
         icon: "fas fa-truck"
@@ -1028,7 +1028,7 @@ data:
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/rclonebrowser/rclone.conf"
-            target: "_blank" # optional html tag target attribute            
+            target: "_blank" # optional html tag target attribute
 
           - name: "Rclone UI"
             logo: "assets/png/rclone.png"
@@ -1044,7 +1044,7 @@ data:
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-rclonefm.elfhosted.com"
-            target: "_blank" # optional html tag target attribute               
+            target: "_blank" # optional html tag target attribute
 
           {{ if .Values.rclonewebdav.enabled }}
           - name: "Rclone WebDAV"
@@ -1053,5 +1053,5 @@ data:
             tag: "public"
             tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-rclonewebdav.elfhosted.com"
-            target: "_blank" # optional html tag target attribute      
-          {{ end }}                  
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
