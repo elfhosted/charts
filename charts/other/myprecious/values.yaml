@@ -3088,6 +3088,12 @@ pyload:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-pyload-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-pyload          
   initContainers:
     bootstrap: *bootstrap_ssd
   ingress:
