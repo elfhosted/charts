@@ -5160,6 +5160,12 @@ gotify:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-gotify
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-gotify          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6247,6 +6253,12 @@ filebot:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-filebot-ssd
+    confighdd:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-filebot          
     elfbot:
       enabled: "true"
       type: "custom"
