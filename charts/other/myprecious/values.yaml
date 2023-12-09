@@ -707,12 +707,6 @@ rutorrentgluetun: &rutorrent
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rutorrent-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-rutorrent          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -961,12 +955,6 @@ delugegluetun: &deluge
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-deluge-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-deluge          
     shared:
       enabled: true
       mountPath: /shared
@@ -1012,7 +1000,7 @@ delugegluetun: &deluge
         key: PORT_FILE
     optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -1204,12 +1192,6 @@ qbittorrentgluetun: &qbittorrent
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-qbittorrent-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-qbittorrent          
     shared:
       enabled: true
       mountPath: /shared
@@ -1257,7 +1239,7 @@ qbittorrentgluetun: &qbittorrent
         key: PORT_FILE
     optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       command:
@@ -1401,12 +1383,6 @@ nzbget:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-nzbget
     config:
       enabled: true
       type: custom
@@ -1434,7 +1410,7 @@ nzbget:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 sabnzbd:
   enabled: false
@@ -1484,12 +1460,6 @@ sabnzbd:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-sabnzbd-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-sabnzbd          
     tmp:
       enabled: true
       type: emptyDir
@@ -1510,7 +1480,7 @@ sabnzbd:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -1575,12 +1545,6 @@ tautulli:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-tautulli-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-tautulli          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1602,7 +1566,7 @@ tautulli:
       cpu: 1
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 radarr:
   enabled: false
@@ -1640,12 +1604,6 @@ radarr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-radarr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-radarr
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1660,7 +1618,7 @@ radarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -1721,12 +1679,6 @@ radarr4k:
       name: radarr4k-config
   persistence:
     <<: *appmounts
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-radarr4k
     config:
       enabled: true
       type: custom
@@ -1749,7 +1701,7 @@ radarr4k:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -1815,12 +1767,6 @@ ombi:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-ombi-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-ombi          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1835,7 +1781,7 @@ ombi:
     main:
       enabled: true # necessary for probes # need this for probes?
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   resources:
     requests:
       cpu: 3m
@@ -1881,12 +1827,6 @@ bazarr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-bazarr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-bazarr
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1901,7 +1841,7 @@ bazarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -1956,12 +1896,6 @@ bazarr4k:
       name: bazarr4k-config     
   persistence:
     <<: *appmounts
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-bazarr4k
     config:
       enabled: true
       type: custom
@@ -1983,7 +1917,7 @@ bazarr4k:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -2043,12 +1977,6 @@ autobrr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-autobrr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-autobrr
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2070,7 +1998,7 @@ autobrr:
       cpu: 3
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   # additionalContainers:
   #   regbrr:
   #     image: ghcr.io/geek-cookbook/docker-autobrr-helper:sha-0dcb44a
@@ -2774,12 +2702,6 @@ uptimekuma:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-uptimekuma-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-uptimekuma          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2794,7 +2716,7 @@ uptimekuma:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   resources:
     requests:
       cpu: 10m
@@ -2834,12 +2756,6 @@ privatebin:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-privatebin-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-privatebin
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2896,7 +2812,7 @@ privatebin:
       limit: 10
       # exemptedIp: "1.2.3.4,10.10.10/24"
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 nzbhydra:
   enabled: false
@@ -2932,12 +2848,6 @@ nzbhydra:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-nzbhydra
     config:
       enabled: true
       type: custom
@@ -2967,7 +2877,7 @@ nzbhydra:
       cpu: 1
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 calibreweb:
   enabled: false
@@ -2995,12 +2905,6 @@ calibreweb:
     CALIBRE_DBPATH: /config
   persistence:
     <<: *appmounts
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-calibreweb
     config:
       enabled: true
       type: custom
@@ -3022,7 +2926,7 @@ calibreweb:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   resources:
     requests:
       cpu: 10m
@@ -3088,14 +2992,8 @@ pyload:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-pyload-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-pyload          
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -3142,12 +3040,6 @@ lazylibrarian:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-lazylibrarian-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-lazylibrarian          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3163,7 +3055,7 @@ lazylibrarian:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   resources:
     requests:
       cpu: 10m
@@ -3206,12 +3098,6 @@ mylar:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-mylar-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-mylar
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3227,7 +3113,7 @@ mylar:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3286,12 +3172,6 @@ komga:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-komga-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-komga          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3307,7 +3187,7 @@ komga:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   resources:
     requests:
       cpu: 10m
@@ -3346,12 +3226,6 @@ kavita:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-kavita-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-kavita          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3360,7 +3234,7 @@ kavita:
           name: elfbot-kavita
           optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -3409,12 +3283,6 @@ calibre:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-calibre-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-calibre          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3449,7 +3317,7 @@ calibre:
       cpu: 1
       memory: 4Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3503,12 +3371,6 @@ sonarr:
       name: sonarr-config     
   persistence:
     <<: *appmounts
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-sonarr
     config:
       enabled: true
       type: custom
@@ -3528,7 +3390,7 @@ sonarr:
     main:
       enabled: false
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3592,12 +3454,6 @@ sonarr4k:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-sonarr4k-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-sonarr4k
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3609,7 +3465,7 @@ sonarr4k:
     main:
       enabled: false
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3688,12 +3544,6 @@ resiliosync:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-resiliosync-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-resiliosync          
     setup-config:
       enabled: "true"
       mountPath: "/sync.conf"
@@ -3716,7 +3566,7 @@ resiliosync:
           optional: true
 
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -3759,12 +3609,6 @@ prowlarr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-prowlarr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-prowlarr
     run: # used for s6-init with non-root
       enabled: true
       type: emptyDir
@@ -3784,7 +3628,7 @@ prowlarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3845,12 +3689,6 @@ lidarr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-lidarr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-lidarr
     s6:
       enabled: true
       type: emptyDir
@@ -3871,7 +3709,7 @@ lidarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3932,12 +3770,6 @@ navidrome:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-navidrome-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-navidrome          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3946,7 +3778,7 @@ navidrome:
           name: elfbot-navidrome
           optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4013,12 +3845,6 @@ readarr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-readarr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-readarr
     tmp-readarr-backup:
       enabled: true
       type: emptyDir
@@ -4038,7 +3864,7 @@ readarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4100,12 +3926,6 @@ readarraudio:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-readarraudio-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-readarraudio
     tmp-readarr-backup:
       enabled: true
       type: emptyDir
@@ -4125,7 +3945,7 @@ readarraudio:
     main:
       enabled: true # necessary for probes
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4184,12 +4004,6 @@ plex: &plex
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex          
     transcode:
       enabled: true
       type: emptyDir
@@ -4240,7 +4054,7 @@ plex: &plex
       cpu: "2"
       memory: 2048Mi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 plexgluetun:
   <<: *plex
@@ -4259,12 +4073,6 @@ plexgluetun:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex          
     shared:
       enabled: true
       mountPath: /shared
@@ -4340,12 +4148,6 @@ plexpia:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex
     shared:
       enabled: true
       mountPath: /shared
@@ -4409,12 +4211,6 @@ jellyfin:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-jellyfin          
     transcode:
       enabled: true
       type: emptyDir
@@ -4433,7 +4229,7 @@ jellyfin:
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -4487,12 +4283,6 @@ emby:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-emby-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-emby          
     transcode-temp:
       enabled: true
       type: emptyDir
@@ -4512,7 +4302,7 @@ emby:
       mountPath: "/dev/dri/renderD128"
 
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -5263,12 +5053,6 @@ gotify:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-gotify-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-gotify          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5278,7 +5062,7 @@ gotify:
           optional: true
     tmp: *tmp # Avoids issues with readOnlyRootFilesystem
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 flaresolverr:
   enabled: false
@@ -5535,12 +5319,6 @@ xteve:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-xteve
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-xteve
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5549,7 +5327,7 @@ xteve:
           name: elfbot-xteve
           optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 youtubedl:
   enabled: false
@@ -5598,12 +5376,6 @@ youtubedl:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-youtubedl-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-youtubedl          
     pm2:
       enabled: true
       mountPath: /app/pm2
@@ -5619,7 +5391,7 @@ youtubedl:
           optional: true
 
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 thelounge:
   enabled: false
@@ -5670,12 +5442,6 @@ thelounge:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-thelounge-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-thelounge          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5684,7 +5450,7 @@ thelounge:
           name: elfbot-thelounge
           optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     create-user:
       image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:5d5135a3a45fbbfdd51d725d853bf29ea99071e104cae2c5437aa3947c466a0e
       imagePullPolicy: IfNotPresent
@@ -5779,12 +5545,6 @@ unpackerr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-unpackerr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-unpackerr
     example-config:
       enabled: "true"
       type: "custom"
@@ -5800,7 +5560,7 @@ unpackerr:
           optional: true
 
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     copy-example-config:
       image: ghcr.io/geek-cookbook/unpackerr@sha256:014440a2a7e4499a9ce52be1388567d24fc515d8d00422434239b918c56a717a
       imagePullPolicy: IfNotPresent
@@ -5862,12 +5622,6 @@ overseerr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-overseerr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-overseerr
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5877,7 +5631,7 @@ overseerr:
           optional: true
     tmp: *tmp
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -5925,12 +5679,6 @@ jellyseerr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyseerr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-jellyseerr
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5940,7 +5688,7 @@ jellyseerr:
           optional: true
     tmp: *tmp
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -5988,12 +5736,6 @@ audiobookshelf:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-audiobookshelf-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-audiobookshelf
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6002,7 +5744,7 @@ audiobookshelf:
           name: elfbot-audiobookshelf
           optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -6067,12 +5809,6 @@ openbooks:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-openbooks-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-openbooks          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6081,7 +5817,7 @@ openbooks:
           name: elfbot-openbooks
           optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -6133,12 +5869,6 @@ vaultwarden:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-vaultwarden-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-vaultwarden          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6148,7 +5878,7 @@ vaultwarden:
           optional: true
     tmp: *tmp
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -6211,12 +5941,6 @@ notifiarr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-notifiarr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-notifiarr
     example-config:
       enabled: "true"
       type: "custom"
@@ -6231,7 +5955,7 @@ notifiarr:
           name: elfbot-notifiarr
           optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     copy-example-config:
       image: ghcr.io/geek-cookbook/notifiarr:0.7.0@sha256:294aa7ac7645374300dde2430a6a17f1e5c038bfc0d802ec7861778f6fed7d8d
       imagePullPolicy: IfNotPresent
@@ -6292,12 +6016,6 @@ shoko:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-shoko-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-shoko          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6306,7 +6024,7 @@ shoko:
           name: elfbot-shoko
           optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -6356,12 +6074,6 @@ filebot:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-filebot-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-filebot          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6376,7 +6088,7 @@ filebot:
       mountPath: /home/seedy
       sizeLimit: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -6423,12 +6135,6 @@ nextpvr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-nextpvr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-nextpvr          
     recordings:
       enabled: true
       type: emptyDir
@@ -6460,7 +6166,7 @@ nextpvr:
       cpu: 2
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 rpdb:
   enabled: false
@@ -6494,12 +6200,6 @@ rpdb:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rpdb-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-rpdb          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6508,7 +6208,7 @@ rpdb:
           name: elfbot-rpdb
           optional: true
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -6561,12 +6261,6 @@ plexmetamanager:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plexmetamanager          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -6582,7 +6276,7 @@ plexmetamanager:
         configMap:
           name: plexmetamanager-config
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     copy-example-config:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -6682,12 +6376,6 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rclonebrowser-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-rclonebrowser
     rclonefm-config:
       enabled: "true"
       mountPath: /var/lib/rclonefm/js/settings.js
@@ -7155,7 +6843,7 @@ rclonebrowser:
           claimName: config-rdtclient-ssd
 
   initContainers:
-    bootstrap: *bootstrap_ssd  
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -7228,13 +6916,6 @@ jfa:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jfa-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      mountPath: /config/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-jfa
     elfbot:
       enabled: "true"
       type: "custom"
@@ -7248,7 +6929,7 @@ jfa:
       mountPath: /tmp
       sizeLimit: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   ingress:
     main:
       enabled: false
@@ -7572,12 +7253,6 @@ rapidleech:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rapidleech-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-rapidleech          
     data:
       enabled: false
     elfstorage:
@@ -7615,7 +7290,7 @@ rapidleech:
       cpu: 10m
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -7785,12 +7460,6 @@ rdtclient:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rdtclient-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-rdtclient          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -7813,7 +7482,7 @@ rdtclient:
       cpu: 1
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 jdownloader:
   enabled: false
@@ -7862,12 +7531,6 @@ jdownloader:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jdownloader-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-jdownloader
     elfstorage:
       enabled: true # always enabled
       type: custom
@@ -7900,7 +7563,7 @@ jdownloader:
       cpu: 0.5
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
   additionalContainers:
     podinfo:
       image: stefanprodan/podinfo # used to run probes from gatus
@@ -8170,12 +7833,6 @@ tdarr:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-tdarr-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-tdarr          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -8210,7 +7867,7 @@ tdarr:
       cpu: 250m # deliberately hobble the CPU in favor of GPU transcoding
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
 
 homepage:
   enabled: false
@@ -8256,12 +7913,6 @@ homepage:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-homepage-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-homepage          
     config-default:
       enabled: "true"
       type: "custom"
@@ -8292,7 +7943,7 @@ homepage:
       cpu: 250m # deliberately hobble the CPU in favor of GPU transcoding
       memory: 1Gi
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap
     copy-example-config:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
