@@ -2967,7 +2967,7 @@ lazylibrarian:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
-    tag: rolling@sha256:587c4ce2418fb96b8b9c7d06124f69682ba7925d517df4cd49ad68d135e849d1
+    tag: rolling@sha256:dfb26b96f341f3728cd8f7f395cc1e7de9d13d2c6d9667394e810bf87ea39149
   enabled: false
   controller:
     annotations:
