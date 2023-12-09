@@ -803,7 +803,7 @@ rutorrentgluetun: &rutorrent
     PORT_FILE: /data/rtorrent/forwarded-port
     WAN_IP_CMD: 'curl -s ifconfig.me'
   initContainers:
-    bootstrap: *bootstrap_ssd
+    bootstrap: *bootstrap_ssd_rutorrent
   addons:
     vpn: &rutorrent_addons_vpn
       enabled: true
