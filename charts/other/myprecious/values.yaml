@@ -4920,7 +4920,7 @@ gatus:
       # -- Store homer configuration as a ConfigMap, but don't specify any config, since we'll supply our own
       enabled: false
   initContainers:
-    bootstrap_ssd:
+    bootstrap-ssd:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
       command:
