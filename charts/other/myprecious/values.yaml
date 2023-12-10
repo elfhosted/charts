@@ -4869,6 +4869,7 @@ gatus:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
+    fsGroup: 568
   automountServiceAccountToken: false
   resources:
     requests:
