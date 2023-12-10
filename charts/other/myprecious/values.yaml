@@ -2584,7 +2584,7 @@ uptimekuma:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/uptime-kuma
-    tag: 1.23.8@sha256:5371c12fa5d2c6514d1df0ea7a59b789344866cdf17006444df1291dedf7abdc
+    tag: 1.23.9@sha256:7aafb5f98fe22049006730e0402bae2cc8b8fab3b04eb82def309a26f7ab2626
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -3493,7 +3493,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.11.0.4128@sha256:b18bad55747002ceabac6f9713e4327e2af1d17b7eb5e6d260a7f8b0dc59d065
+    tag: 1.11.1.4146@sha256:f09856db1d1b6c72a9fd6f0dec16f794fe1fb2bd7e0b71f882fe33f16ea6dc4e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3724,7 +3724,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.11.2319@sha256:c4048583c0f3610ca881fba9da57954a1c6501d9bba98e55b7cb5b0a24173ec9
+    tag: 0.3.12.2323@sha256:2df13d067ca26dbdbb40357fbb9fd85cbcdc683053254c5ef283f029e3bfd01a
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3805,7 +3805,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.11.2319@sha256:c4048583c0f3610ca881fba9da57954a1c6501d9bba98e55b7cb5b0a24173ec9
+    tag: 0.3.12.2323@sha256:2df13d067ca26dbdbb40357fbb9fd85cbcdc683053254c5ef283f029e3bfd01a
   securityContext:
     seccompProfile:
       type: RuntimeDefault
