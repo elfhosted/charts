@@ -3414,7 +3414,7 @@ resiliosync:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/resilio-sync
-    tag: 2.7.3.1381-1@sha256:db8bda2d6cd2aba70cd3b6a0d118077857e1c5fee23df3716e2fb4baa95e2989
+    tag: 2.7.3.1381-1@sha256:e73ca73c5b726362aceb0be808e409d346eb42072ab57db8d90fd0d93003d265
   env:
     PUID: 568
     GUID: 568
