@@ -7781,7 +7781,7 @@ homepage:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/gethomepage/homepage
-    tag: v0.8.2
+    tag: v0.8.3
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-homepage,homepage-config,homepage-env"
