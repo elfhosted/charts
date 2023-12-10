@@ -690,7 +690,7 @@ rutorrentgluetun: &rutorrent
   resources:
     requests:
       cpu: 100m
-      memory: 1200Mi
+      memory: 512Mi
     limits:
       cpu: 500m
       memory: 1200Mi
@@ -946,7 +946,7 @@ delugegluetun: &deluge
   resources:
     requests:
       cpu: 100m
-      memory: 1200Mi
+      memory: 512Mi
     limits:
       cpu: 500m
       memory: 1200Mi
@@ -1185,7 +1185,7 @@ qbittorrentgluetun: &qbittorrent
   resources:
     requests:
       cpu: 100m
-      memory: 1200Mi
+      memory: 512Mi
     limits:
       cpu: 500m
       memory: 1200Mi # .2 GB for headroom
