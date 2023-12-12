@@ -1306,7 +1306,7 @@ nzbget:
           volumeClaimTemplate:
             spec:
               accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner"
+              storageClassName: "topolvm-provisioner-thin"
               resources:
                 requests:
                   storage: 1000Gi      
