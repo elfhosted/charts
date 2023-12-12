@@ -3271,7 +3271,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.733@sha256:6a3cb1bbbb7dc14b4fd09c25eac5ca555e44eb16a37da58d497cb04401312871
+    tag: 4.0.0.734@sha256:5cfd5da779de80af991db791d872abcde90b15b6c4366cf901ffda11acdc7e9e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3347,7 +3347,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.733@sha256:6a3cb1bbbb7dc14b4fd09c25eac5ca555e44eb16a37da58d497cb04401312871
+    tag: 4.0.0.734@sha256:5cfd5da779de80af991db791d872abcde90b15b6c4366cf901ffda11acdc7e9e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3736,7 +3736,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.12.2323@sha256:2df13d067ca26dbdbb40357fbb9fd85cbcdc683053254c5ef283f029e3bfd01a
+    tag: 0.3.12.2324@sha256:475142f3db69fb4c7a3c6bd4fe6720525512c2b2eebc7ee209cd8e71d19acd3e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3817,7 +3817,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.12.2323@sha256:2df13d067ca26dbdbb40357fbb9fd85cbcdc683053254c5ef283f029e3bfd01a
+    tag: 0.3.12.2324@sha256:475142f3db69fb4c7a3c6bd4fe6720525512c2b2eebc7ee209cd8e71d19acd3e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4831,7 +4831,7 @@ traefikforwardauth:
   image:
     repository: ghcr.io/geek-cookbook/traefik-forward-auth
     pullPolicy: IfNotPresent
-    tag: 3.1.0@sha256:83d53518116c90e37dfa481da1dcfe30655f72b19fc7fc78b4da6209e4e5b17b
+    tag: 3.1.0@sha256:568cca312839667daaf58ae4b9fcee9efc7c9ea2d96dd8005fed57d446b5dfeb
 
   middleware:
     # middleware.enabled -- Enable to deploy a preconfigured middleware
@@ -5078,7 +5078,7 @@ seafile:
     enabled: false
   image:
     repository: ghcr.io/geek-cookbook/seafile
-    tag: 10.0.1@sha256:6cb09a226e92883c86c0cb84460cb7e55baa60114d311734b7e7789cee7d3ab9
+    tag: 10.0.1@sha256:24e50c4601e4c86d1521354e4dee0db18120da72f8ebbc8c4de5aa29dc07ecdb
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -5353,7 +5353,7 @@ thelounge:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/thelounge
-    tag: "4.4.1@sha256:5d5135a3a45fbbfdd51d725d853bf29ea99071e104cae2c5437aa3947c466a0e"
+    tag: "4.4.1@sha256:26c87c70f7f1a6d020232c81ff2ff051dcf57a652ea09d8950d6a066ab358b28"
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -5406,7 +5406,7 @@ thelounge:
   initContainers:
     bootstrap: *bootstrap
     create-user:
-      image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:5d5135a3a45fbbfdd51d725d853bf29ea99071e104cae2c5437aa3947c466a0e
+      image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:26c87c70f7f1a6d020232c81ff2ff051dcf57a652ea09d8950d6a066ab358b28
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
@@ -5453,7 +5453,7 @@ unpackerr:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/unpackerr
-    tag: 0.12.0@sha256:ac00914c3fcd08e67eb7cc0bee50d8c2d1e196a9af595ab12d01d21a1ab13b80
+    tag: 0.12.0@sha256:a452fa96e01ac2387f657abd3d2054889ba546b15a5aa5ddd66b88d731a37b61
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -5790,7 +5790,7 @@ vaultwarden:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/vaultwarden
-    tag: 1.30.1@sha256:90439768d0aa44f8c31c4057d8c02975631e10de9786fa4d7654513a54820931
+    tag: 1.30.1@sha256:41260dfcc2764421aabf70592a70430cfa6ae28799aaf2dd3f29cea3dceb1eee
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
