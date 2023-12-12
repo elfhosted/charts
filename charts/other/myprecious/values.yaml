@@ -1299,9 +1299,20 @@ nzbget:
           claimName: config-nzbget-ssd          
     tmp:
       enabled: true
-      type: emptyDir
+      type: custom
       mountPath: /tmp
-      sizeLimit: 1000Gi
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner"
+              resources:
+                requests:
+                  storage: 1000Gi      
+      #   persistentVolumeClaim:
+      #     claimName: config-nzbget-ssd          
+      # sizeLimit: 1000Gi
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1379,6 +1390,7 @@ sabnzbd:
         configMap:
           name: elfbot-sabnzbd
           optional: true
+          
 
   ingress:
     main:
@@ -1483,7 +1495,7 @@ radarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
-    tag: 5.1.3.8246@sha256:ec2a8de9cc1295f7099b05f2d85b38beb80cc038406c91dafc32a43c97eb1cf1
+    tag: 5.1.3.8246@sha256:73a04beeb89739c189a9ce6cc8a80b749d155efc0a769ff7c2fffcdff4c6cfad
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1565,7 +1577,7 @@ radarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
-    tag: 5.1.3.8246@sha256:ec2a8de9cc1295f7099b05f2d85b38beb80cc038406c91dafc32a43c97eb1cf1
+    tag: 5.1.3.8246@sha256:73a04beeb89739c189a9ce6cc8a80b749d155efc0a769ff7c2fffcdff4c6cfad
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1857,7 +1869,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.34.0@sha256:5b80aca5a56bc90f5d7039e3fa913507036774ac69d02ac8ae487c3d288ee90f
+    tag: 1.34.0@sha256:c0c7c3f856a8b3539b68c18f4eb27b377d2246918cea8972711352e0dd393c73
   priorityClassName: tenant-low
   controller:
     annotations:
@@ -2466,7 +2478,7 @@ filebrowser:
       enabled: false
   initContainers:
     setup:
-      image: ghcr.io/geek-cookbook/filebrowser:2.26.0@sha256:762d5c3407b872fd498a7f0cb694adbcfe74e33f13b3137092b29bdff49d09aa
+      image: ghcr.io/geek-cookbook/filebrowser:2.26.0@sha256:336e93768286aa91e9d527e286de737a58e6799a08d4755f422becc856f1b73f
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
@@ -3259,7 +3271,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.734@sha256:c3ce4e4cf626a42877184bd3a1432101ea7e792eb2ccf042fb80d520beb4786d
+    tag: 4.0.0.733@sha256:6a3cb1bbbb7dc14b4fd09c25eac5ca555e44eb16a37da58d497cb04401312871
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3335,7 +3347,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.734@sha256:c3ce4e4cf626a42877184bd3a1432101ea7e792eb2ccf042fb80d520beb4786d
+    tag: 4.0.0.733@sha256:6a3cb1bbbb7dc14b4fd09c25eac5ca555e44eb16a37da58d497cb04401312871
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3493,7 +3505,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.11.1.4146@sha256:07a6f9fcb6f48ce7f5abdddb79688947d9ac12de78304d35ff8204a7ecb75980
+    tag: 1.11.1.4146@sha256:f09856db1d1b6c72a9fd6f0dec16f794fe1fb2bd7e0b71f882fe33f16ea6dc4e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4734,7 +4746,7 @@ homer:
   - /usr/local/bin/disk_usage.sh
   additionalContainers:
     ui:
-      image: ghcr.io/geek-cookbook/homer:23.10.1@sha256:0c2ffd190acc5570ef6347e4a920cd7b834e8618813f313d90bdaeddb2cec37f
+      image: ghcr.io/geek-cookbook/homer:23.10.1@sha256:7d042dc3540e1002ac28aa23ef29adb74e07ec365ce2b7f427d48a60b4e05aa6
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /www/assets/config.yml
@@ -4860,7 +4872,7 @@ traefikforwardauth:
 gatus:
   image:
     repository: ghcr.io/geek-cookbook/gatus
-    tag: 5.7.0@sha256:77dd3d852b342c617eaf8d929a53020e1b2bf889b2fa16703538405294df639d
+    tag: 5.7.0@sha256:975a5de5f6327ea052b9fc84322996feea542f071095502aac2a36cebc04d74f
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -5535,7 +5547,7 @@ overseerr:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/overseerr
-    tag: 1.33.2@sha256:07004541caa460eb70626dc73831032f35267eed98cbff5972b7b8ce5fe1a635
+    tag: 1.33.2@sha256:c3892b01b21b1a320670408e838ecef35bf052d9228a6cd89605efc1784f9ac2
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -5592,7 +5604,7 @@ jellyseerr:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jellyseerr
-    tag: 1.7.0@sha256:73e7f3b0c57d785d709412e8c96cb722529e37578e6e38d94ab8874bedcb3758
+    tag: 1.7.0@sha256:83be807d7696c17df22bbf47258729e5a716f47a4273dedc41d13b9c9a863c98
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -5843,7 +5855,7 @@ notifiarr:
   hostname: elfhosted
   image:
     repository: ghcr.io/geek-cookbook/notifiarr
-    tag: 0.7.0@sha256:7cb46eccf4a57f329f4de970126de4ddbe5da3898836f293c69948d59260bea2
+    tag: 0.7.0@sha256:294aa7ac7645374300dde2430a6a17f1e5c038bfc0d802ec7861778f6fed7d8d
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
@@ -5899,7 +5911,7 @@ notifiarr:
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
-      image: ghcr.io/geek-cookbook/notifiarr:0.7.0@sha256:7cb46eccf4a57f329f4de970126de4ddbe5da3898836f293c69948d59260bea2
+      image: ghcr.io/geek-cookbook/notifiarr:0.7.0@sha256:294aa7ac7645374300dde2430a6a17f1e5c038bfc0d802ec7861778f6fed7d8d
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
@@ -6273,7 +6285,7 @@ rclonebrowser:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.65.0@sha256:ce52d989e6a46c101c5ef8f69529bcab3c2a946266866671a2b36435a9d7f81d
+    tag: 1.65.0@sha256:bddeaf1fd97f58be6a518d9f744c6bbfc2894158160872ff904b7968fd8d8602
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
@@ -7262,7 +7274,7 @@ syncthing:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/syncthing
-    tag: 1.27.1@sha256:bfc16f5289e7591baad23ea0a47af9e6a591c2da0d2e81918b524daa3a3a718e
+    tag: 1.23.6@sha256:1d41216dee7406ba4e3bfd2310023e5a7a6146fcabcbcc039259b6c64f3e4364
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-syncthing"
@@ -7321,7 +7333,7 @@ syncthing:
   initContainers:
     bootstrap: *bootstrap
     setup:
-      image: ghcr.io/geek-cookbook/syncthing:1.27.1@sha256:bfc16f5289e7591baad23ea0a47af9e6a591c2da0d2e81918b524daa3a3a718e
+      image: ghcr.io/geek-cookbook/syncthing:1.23.6@sha256:1d41216dee7406ba4e3bfd2310023e5a7a6146fcabcbcc039259b6c64f3e4364
       imagePullPolicy: IfNotPresent
       envFrom:
       - configMapRef:
