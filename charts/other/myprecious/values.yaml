@@ -5066,7 +5066,7 @@ seafile:
     enabled: false
   image:
     repository: ghcr.io/geek-cookbook/seafile
-    tag: 10.0.1@sha256:6cb09a226e92883c86c0cb84460cb7e55baa60114d311734b7e7789cee7d3ab9
+    tag: 10.0.1@sha256:24e50c4601e4c86d1521354e4dee0db18120da72f8ebbc8c4de5aa29dc07ecdb
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
