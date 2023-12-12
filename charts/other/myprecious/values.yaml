@@ -4819,7 +4819,7 @@ traefikforwardauth:
   image:
     repository: ghcr.io/geek-cookbook/traefik-forward-auth
     pullPolicy: IfNotPresent
-    tag: 3.1.0@sha256:83d53518116c90e37dfa481da1dcfe30655f72b19fc7fc78b4da6209e4e5b17b
+    tag: 3.1.0@sha256:568cca312839667daaf58ae4b9fcee9efc7c9ea2d96dd8005fed57d446b5dfeb
 
   middleware:
     # middleware.enabled -- Enable to deploy a preconfigured middleware
