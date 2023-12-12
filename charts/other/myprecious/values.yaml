@@ -3505,7 +3505,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.11.1.4146@sha256:f09856db1d1b6c72a9fd6f0dec16f794fe1fb2bd7e0b71f882fe33f16ea6dc4e
+    tag: 1.11.1.4146@sha256:07a6f9fcb6f48ce7f5abdddb79688947d9ac12de78304d35ff8204a7ecb75980
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5547,7 +5547,7 @@ overseerr:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/overseerr
-    tag: 1.33.2@sha256:c3892b01b21b1a320670408e838ecef35bf052d9228a6cd89605efc1784f9ac2
+    tag: 1.33.2@sha256:07004541caa460eb70626dc73831032f35267eed98cbff5972b7b8ce5fe1a635
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
