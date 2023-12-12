@@ -228,12 +228,21 @@ elfstorage: &elfstorage
     persistentVolumeClaim:
       claimName: elfstorage
   mountPath: /storage/elfstorage
-tmp: &tmp
+tmp: &tmp # use ephemeral volumes
   enabled: true
-  type: emptyDir
+  type: custom
   mountPath: /tmp
-  sizeLimit: 1Gi
+  volumeSpec:
+    ephemeral:
+      volumeClaimTemplate:
+        spec:
+          accessModes: [ "ReadWriteOnce" ]
+          storageClassName: "topolvm-provisioner-thin"
+          resources:
+            requests:
+              storage: 1Gi  
 
+              
 # This simplfies the process of adding all the optional mounts to every app
 appmounts: &appmounts
   tmp: *tmp
