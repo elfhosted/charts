@@ -7262,7 +7262,7 @@ syncthing:
   priorityClassName: tenant-low
   image:
     repository: ghcr.io/geek-cookbook/syncthing
-    tag: 1.23.6@sha256:1d41216dee7406ba4e3bfd2310023e5a7a6146fcabcbcc039259b6c64f3e4364
+    tag: 1.27.1@sha256:bfc16f5289e7591baad23ea0a47af9e6a591c2da0d2e81918b524daa3a3a718e
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-syncthing"
@@ -7321,7 +7321,7 @@ syncthing:
   initContainers:
     bootstrap: *bootstrap
     setup:
-      image: ghcr.io/geek-cookbook/syncthing:1.23.6@sha256:1d41216dee7406ba4e3bfd2310023e5a7a6146fcabcbcc039259b6c64f3e4364
+      image: ghcr.io/geek-cookbook/syncthing:1.27.1@sha256:bfc16f5289e7591baad23ea0a47af9e6a591c2da0d2e81918b524daa3a3a718e
       imagePullPolicy: IfNotPresent
       envFrom:
       - configMapRef:
