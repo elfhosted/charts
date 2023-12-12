@@ -485,6 +485,36 @@ bootstrap_ssd: &bootstrap_ssd
   securityContext: *default_securitycontext
 
 
+migrate_database: &migrate_database
+  image: *tooling_image
+  imagePullPolicy: IfNotPresent
+  command:
+  - /bin/bash
+  - -c
+  - |
+    set -e
+
+    if [[ ! -f /config/i-am-migrated ]]
+    then
+      if [[ ! -z "$(ls -A /config-hdd)" ]]
+      then
+        echo "Migrating from /config-hdd/..."
+        time cp /config-hdd/* /config/ -rfpv
+        touch /config/i-am-migrated
+      fi
+    fi
+
+  volumeMounts:
+  - mountPath: /config
+    name: database
+    subPath: database
+  - mountPath: /config-hdd
+    name: confighdd
+    subPath: database
+  env: *bootstrap_env
+  resources: *default_resources
+  securityContext: *default_securitycontext
+
 # This lets users buy blocks of 1TB storage, and add it to their 100Gi
 elfstoragetb:
   quantity: 0
@@ -7567,9 +7597,11 @@ miniflux:
       database: miniflux
       postgresPassword: miniflux
     primary:
+      initContainers:
+      - migrate-database: *migrate_database
       persistence:
         enabled: true
-        existingClaim: config-miniflux
+        existingClaim: config-miniflux-ssd
         subPath: database
       resources:
         requests:
@@ -7604,6 +7636,9 @@ miniflux:
       - name: elfstorage
         persistentVolumeClaim:
           claimName: elfstorage
+      - name: confighdd
+        persistentVolumeClaim:
+          claimName: config-miniflux
       sidecars:
         - name: backup-database
           image: *tooling_image
