@@ -494,35 +494,35 @@ bootstrap_ssd: &bootstrap_ssd
   securityContext: *default_securitycontext
 
 
-migrate_database: &migrate_database
-  image: *tooling_image
-  imagePullPolicy: IfNotPresent
-  command:
-  - /bin/bash
-  - -c
-  - |
-    set -e
+# migrate_database: &migrate_database
+#   image: *tooling_image
+#   imagePullPolicy: IfNotPresent
+#   command:
+#   - /bin/bash
+#   - -c
+#   - |
+#     set -e
 
-    if [[ ! -f /config/i-am-migrated ]]
-    then
-      if [[ ! -z "$(ls -A /config-hdd)" ]]
-      then
-        echo "Migrating from /config-hdd/..."
-        time cp /config-hdd/* /config/ -rfpv
-        touch /config/i-am-migrated
-      fi
-    fi
+#     if [[ ! -f /config/i-am-migrated ]]
+#     then
+#       if [[ ! -z "$(ls -A /config-hdd)" ]]
+#       then
+#         echo "Migrating from /config-hdd/..."
+#         time cp /config-hdd/* /config/ -rfpv
+#         touch /config/i-am-migrated
+#       fi
+#     fi
 
-  volumeMounts:
-  - mountPath: /config
-    name: database
-    subPath: database
-  - mountPath: /config-hdd
-    name: confighdd
-    subPath: database
-  env: *bootstrap_env
-  resources: *default_resources
-  securityContext: *default_securitycontext
+#   volumeMounts:
+#   - mountPath: /config
+#     name: database
+#     subPath: database
+#   - mountPath: /config-hdd
+#     name: confighdd
+#     subPath: database
+#   env: *bootstrap_env
+#   resources: *default_resources
+#   securityContext: *default_securitycontext
 
 # This lets users buy blocks of 1TB storage, and add it to their 100Gi
 elfstoragetb:
@@ -7607,7 +7607,36 @@ miniflux:
       postgresPassword: miniflux
     primary:
       initContainers:
-      - migrate-database: *migrate_database
+        - name: migrate_database: &migrate_database          
+          image: *tooling_image
+          imagePullPolicy: IfNotPresent
+          command:
+          - /bin/bash
+          - -c
+          - |
+            set -e
+
+            if [[ ! -f /config/i-am-migrated ]]
+            then
+              if [[ ! -z "$(ls -A /config-hdd)" ]]
+              then
+                echo "Migrating from /config-hdd/..."
+                time cp /config-hdd/* /config/ -rfpv
+                touch /config/i-am-migrated
+              fi
+            fi
+
+          volumeMounts:
+          - mountPath: /config
+            name: database
+            subPath: database
+          - mountPath: /config-hdd
+            name: confighdd
+            subPath: database
+          env: *bootstrap_env
+          resources: *default_resources
+          securityContext: *default_securitycontext
+
       persistence:
         enabled: true
         existingClaim: config-miniflux-ssd
