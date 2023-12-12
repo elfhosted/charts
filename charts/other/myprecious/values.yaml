@@ -1309,7 +1309,7 @@ nzbget:
               storageClassName: "topolvm-provisioner-thin"
               resources:
                 requests:
-                  storage: 1000Gi      
+                  storage: 1Gi      
       #   persistentVolumeClaim:
       #     claimName: config-nzbget-ssd          
       # sizeLimit: 1000Gi
