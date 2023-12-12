@@ -5592,7 +5592,7 @@ jellyseerr:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jellyseerr
-    tag: 1.7.0@sha256:83be807d7696c17df22bbf47258729e5a716f47a4273dedc41d13b9c9a863c98
+    tag: 1.7.0@sha256:73e7f3b0c57d785d709412e8c96cb722529e37578e6e38d94ab8874bedcb3758
   priorityClassName: tenant-low
   securityContext:
     seccompProfile:
