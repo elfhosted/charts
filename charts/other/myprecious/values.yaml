@@ -2478,7 +2478,7 @@ filebrowser:
       enabled: false
   initContainers:
     setup:
-      image: ghcr.io/geek-cookbook/filebrowser:2.26.0@sha256:336e93768286aa91e9d527e286de737a58e6799a08d4755f422becc856f1b73f
+      image: ghcr.io/geek-cookbook/filebrowser:2.26.0@sha256:762d5c3407b872fd498a7f0cb694adbcfe74e33f13b3137092b29bdff49d09aa
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
