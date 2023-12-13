@@ -318,6 +318,36 @@ bootstrap_env: &bootstrap_env
     fieldRef:
       fieldPath: metadata.labels['app.elfhosted.com/name']
 
+bootstrap-migrate-db: &bootstrap_migrate_db
+  - name: migrate-database
+    image: *tooling_image
+    imagePullPolicy: IfNotPresent
+    command:
+    - /bin/bash
+    - -c
+    - |
+      set -e
+
+      if [[ ! -f /config/i-am-migrated ]]
+      then
+        if [[ ! -z "$(ls -A /config-hdd)" ]]
+        then
+          echo "Migrating from /config-hdd/..."
+          time cp /config-hdd/* /config/ -rfpv
+          touch /config/i-am-migrated
+        fi
+      fi
+    volumeMounts:
+    - mountPath: /config
+      name: data
+      subPath: database
+    - mountPath: /config-hdd
+      name: confighdd
+      subPath: database
+    env: *bootstrap_env
+    resources: *default_resources
+    securityContext: *default_securitycontext
+    
 bootstrap: &bootstrap
   image: *tooling_image
   imagePullPolicy: IfNotPresent
@@ -492,37 +522,6 @@ bootstrap_ssd: &bootstrap_ssd
   env: *bootstrap_env
   resources: *default_resources
   securityContext: *default_securitycontext
-
-
-# migrate_database: &migrate_database
-#   image: *tooling_image
-#   imagePullPolicy: IfNotPresent
-#   command:
-#   - /bin/bash
-#   - -c
-#   - |
-#     set -e
-
-#     if [[ ! -f /config/i-am-migrated ]]
-#     then
-#       if [[ ! -z "$(ls -A /config-hdd)" ]]
-#       then
-#         echo "Migrating from /config-hdd/..."
-#         time cp /config-hdd/* /config/ -rfpv
-#         touch /config/i-am-migrated
-#       fi
-#     fi
-
-#   volumeMounts:
-#   - mountPath: /config
-#     name: database
-#     subPath: database
-#   - mountPath: /config-hdd
-#     name: confighdd
-#     subPath: database
-#   env: *bootstrap_env
-#   resources: *default_resources
-#   securityContext: *default_securitycontext
 
 # This lets users buy blocks of 1TB storage, and add it to their 100Gi
 elfstoragetb:
@@ -7606,36 +7605,7 @@ miniflux:
       database: miniflux
       postgresPassword: miniflux
     primary:
-      initContainers:
-        - name: migrate-database
-          image: *tooling_image
-          imagePullPolicy: IfNotPresent
-          command:
-          - /bin/bash
-          - -c
-          - |
-            set -e
-
-            if [[ ! -f /config/i-am-migrated ]]
-            then
-              if [[ ! -z "$(ls -A /config-hdd)" ]]
-              then
-                echo "Migrating from /config-hdd/..."
-                time cp /config-hdd/* /config/ -rfpv
-                touch /config/i-am-migrated
-              fi
-            fi
-          volumeMounts:
-          - mountPath: /config
-            name: data
-            subPath: database
-          - mountPath: /config-hdd
-            name: confighdd
-            subPath: database
-          env: *bootstrap_env
-          resources: *default_resources
-          securityContext: *default_securitycontext
-
+      initContainers: *bootstrap_migrate_db
       persistence:
         enabled: true
         existingClaim: config-miniflux-ssd
