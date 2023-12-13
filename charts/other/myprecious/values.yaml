@@ -1463,7 +1463,7 @@ sabnzbd:
       memory: 512Mi
     limits:
       cpu: 1500m # if par threads is 1, this leaves 0.5cpu for downloading
-      memory: 1200Mi
+      memory: 1500Mi
   env:
     HOST_WHITELIST_ENTRIES: "{{ .Release.Name }}.sabnzbd.elfhosted.com"
     SABNZBD_UID: 568
@@ -7609,24 +7609,22 @@ miniflux:
       initContainers:
         - name: migrate_database &migrate_database
           image: *tooling_image
+          imagePullPolicy: IfNotPresent
+          command:
+          - /bin/bash
+          - -c
+          - |
+            set -e
 
-          
-      #     imagePullPolicy: IfNotPresent
-      #     command:
-      #     - /bin/bash
-      #     - -c
-      #     - |
-      #       set -e
-
-      #       if [[ ! -f /config/i-am-migrated ]]
-      #       then
-      #         if [[ ! -z "$(ls -A /config-hdd)" ]]
-      #         then
-      #           echo "Migrating from /config-hdd/..."
-      #           time cp /config-hdd/* /config/ -rfpv
-      #           touch /config/i-am-migrated
-      #         fi
-      #       fi
+            if [[ ! -f /config/i-am-migrated ]]
+            then
+              if [[ ! -z "$(ls -A /config-hdd)" ]]
+              then
+                echo "Migrating from /config-hdd/..."
+                time cp /config-hdd/* /config/ -rfpv
+                touch /config/i-am-migrated
+              fi
+            fi
 
       #     volumeMounts:
       #     - mountPath: /config
