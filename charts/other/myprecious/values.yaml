@@ -7607,7 +7607,7 @@ miniflux:
       postgresPassword: miniflux
     primary:
       initContainers:
-        - name: migrate_database &migrate_database
+        - name: migrate_database
           image: *tooling_image
           imagePullPolicy: IfNotPresent
           command:
@@ -7625,17 +7625,16 @@ miniflux:
                 touch /config/i-am-migrated
               fi
             fi
-
-      #     volumeMounts:
-      #     - mountPath: /config
-      #       name: database
-      #       subPath: database
-      #     - mountPath: /config-hdd
-      #       name: confighdd
-      #       subPath: database
-      #     env: *bootstrap_env
-      #     resources: *default_resources
-      #     securityContext: *default_securitycontext
+          volumeMounts:
+          - mountPath: /config
+            name: database
+            subPath: database
+          - mountPath: /config-hdd
+            name: confighdd
+            subPath: database
+          env: *bootstrap_env
+          resources: *default_resources
+          securityContext: *default_securitycontext
 
       persistence:
         enabled: true
