@@ -7047,6 +7047,7 @@ mattermost:
       password: "IUzI1NiJ9.eyJhdWQiOiIwMDk1MTkyYjhjZWIyYjVhNDQwMT"
 
     primary:
+      initContainers: *bootstrap_migrate_db    
       readinessProbe:
         enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
       livenessProbe:
@@ -7088,6 +7089,10 @@ mattermost:
       - name: elfstorage
         persistentVolumeClaim:
           claimName: elfstorage
+      - name: confighdd
+        persistentVolumeClaim:
+          claimName: config-mattermost-database
+          subPath: database
       sidecars:
         - name: backup-database
           image: *tooling_image
