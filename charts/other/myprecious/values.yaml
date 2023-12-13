@@ -2237,7 +2237,7 @@ filebrowser:
       mountPath: /storage/config/mattermost/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-mattermost
+          claimName: config-mattermost-ssd
     mylar:
       enabled: false
       type: custom
@@ -4503,7 +4503,7 @@ homer:
       mountPath: /config/mattermost/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-mattermost
+          claimName: config-mattermost-ssd
     mylar:
       enabled: false
       type: custom
@@ -6573,7 +6573,7 @@ rclonebrowser:
       mountPath: /storage/config/mattermost/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-mattermost
+          claimName: config-mattermost-ssd
     mylar:
       enabled: false
       type: custom
