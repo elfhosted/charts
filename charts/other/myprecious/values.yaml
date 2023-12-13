@@ -1907,7 +1907,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.34.0@sha256:5b80aca5a56bc90f5d7039e3fa913507036774ac69d02ac8ae487c3d288ee90f
+    tag: 1.34.1@sha256:cb1e9a9bb7606145c91af7dcc01dc53877722b2ae81f7dccb027d60cae028eee
   priorityClassName: tenant-low
   controller:
     annotations:
