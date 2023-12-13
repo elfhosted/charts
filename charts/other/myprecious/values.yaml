@@ -7627,7 +7627,7 @@ miniflux:
             fi
           volumeMounts:
           - mountPath: /config
-            name: database
+            name: data
             subPath: database
           - mountPath: /config-hdd
             name: confighdd
