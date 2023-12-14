@@ -602,7 +602,7 @@ rutorrentgluetun: &rutorrent
   image:
       repository: ghcr.io/geek-cookbook/rutorrent
       tag: 4.2.9-0.9.8-0.13.8@sha256:4cb85f96f0945630ebac1f4c72fc38584846eb1acfbb4a26f91b3a45303bb82a
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   podLabels:
     app.elfhosted.com/name: rutorrent
   controller:
@@ -865,7 +865,7 @@ delugegluetun: &deluge
   image:
     repository: ghcr.io/geek-cookbook/deluge
     tag: 2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
-  priorityClassName: tenant-normal
+  priorityClassName: tenant-bulk
 
   affinity:
     nodeAffinity:
@@ -1109,7 +1109,7 @@ qbittorrentgluetun: &qbittorrent
     registry: ghcr.io
     repository: geek-cookbook/qbittorrent
     tag: 4.6.1@sha256:2fc1e17d1e41396ce550a9491882d0d12898d233443c3683a4305acc4a9f7760
-  priorityClassName: tenant-normal
+  priorityClassName: tenant-bulk
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -1324,7 +1324,7 @@ nzbget:
   image:
     repository: ghcr.io/geek-cookbook/nzbget
     tag: 21.1@sha256:672dec2779dfa82d475d7c2adb4296e361e06bf2f972aa1dbe827a4229c18020
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -1401,7 +1401,7 @@ sabnzbd:
     registry: ghcr.io
     repository: geek-cookbook/sabnzbd
     tag: 4.1.0@sha256:c2fec7d8609a138a12fed06756a12c0bb798d628592e24162bd9b19ae39b0f37
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -1508,7 +1508,7 @@ tautulli:
     registry: ghcr.io
     repository: geek-cookbook/tautulli
     tag: 2.13.4@sha256:034ca5019ee840bc361a69d6fa6af5660c08eb9267f617c21940ac7a04366604
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-tautulli"
@@ -1561,7 +1561,7 @@ radarr:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
@@ -1643,7 +1643,7 @@ radarr4k:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
@@ -1728,7 +1728,7 @@ ombi:
   image:
     repository: ghcr.io/geek-cookbook/ombi
     tag: 4.43.5@sha256:3d1e5dbdd073c38399a116f51b7341c59925598712c720681d28481c9479ffa5
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-ombi"
@@ -1787,7 +1787,7 @@ bazarr:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
     tag: 1.4.0@sha256:2d3894f0e6c0c778f90c4fdc8950e85dc27bc81d445d86f935221b98c94c5212
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-bazarr"
@@ -1863,7 +1863,7 @@ bazarr4k:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
     tag: 1.4.0@sha256:2d3894f0e6c0c778f90c4fdc8950e85dc27bc81d445d86f935221b98c94c5212
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-bazarr4k"
@@ -1940,7 +1940,7 @@ autobrr:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
     tag: 1.34.1@sha256:cb1e9a9bb7606145c91af7dcc01dc53877722b2ae81f7dccb027d60cae028eee
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-autobrr"
@@ -2024,7 +2024,7 @@ filebrowser:
     FB_DATABASE: /tmp/filebrowser.db
     FB_CONFIG: /etc/filebrowser/.filebrowser.json # this would work implicitly anyway, but this way it's clear what's happening
     FB_ADDRESS: 0.0.0.0
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2667,7 +2667,7 @@ uptimekuma:
   image:
     repository: ghcr.io/geek-cookbook/uptime-kuma
     tag: 1.23.9@sha256:7aafb5f98fe22049006730e0402bae2cc8b8fab3b04eb82def309a26f7ab2626
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-uptimekuma"
@@ -2721,7 +2721,7 @@ privatebin:
   image:
     repository: privatebin/fs
     tag: 1.6.1
-  priorityClassName: tenant-low
+  priorityClassName: 
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-privatebin"
@@ -2811,7 +2811,7 @@ nzbhydra:
     registry: ghcr.io
     repository: geek-cookbook/nzbhydra2
     tag: 5.3.5@sha256:7e9a121eba698f7f4cee50da3ebcecaf58635e4ba8e4f170cba11c4a2f561fd5
-  priorityClassName: tenant-low
+  priorityClassName: 
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-nzbhydra"
@@ -2872,7 +2872,7 @@ calibreweb:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: 
   image:
     repository: ghcr.io/geek-cookbook/calibre-web
     tag: 0.6.21@sha256:f020940a67792fd31c73c163b360a40d47be1bd4d332fc6bd6eb709e68ad0c06
@@ -2928,7 +2928,7 @@ pyload:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: 
   image:
     repository: ghcr.io/geek-cookbook/pyload-ng
     tag: 0.5.0b3.dev71@sha256:17b0414059c2aad0ae0318244a4f024f3e54851430ad6d44bedba260466c78d2
@@ -3000,7 +3000,7 @@ pyload:
 lazylibrarian:
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
     tag: rolling@sha256:dfb26b96f341f3728cd8f7f395cc1e7de9d13d2c6d9667394e810bf87ea39149
@@ -3057,7 +3057,7 @@ mylar:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     registry: ghcr.io
     repository: geek-cookbook/mylar3
@@ -3132,7 +3132,7 @@ komga:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/komga
     tag: 1.8.4@sha256:5fba208eb119060f1eb77ab6cf5631cfe2277f91a1f6aa2b02c4ccd08bdcc3fe
@@ -3189,7 +3189,7 @@ kavita:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/kavita
     tag: 0.7.11@sha256:efdbf362e3a8eda6bbed89f633c26f9df4af55b5852d71f5e50d3a620f54f2ae
@@ -3246,7 +3246,7 @@ calibre:
   image:
     repository: quay.io/linuxserver.io/calibre
     tag: 7.1.0@sha256:d843436864ef6809b745a88c92d88f5ff44328c6d152388f659e154b5aa0580f
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3337,7 +3337,7 @@ sonarr:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
@@ -3413,7 +3413,7 @@ sonarr4k:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
@@ -3493,7 +3493,7 @@ resiliosync:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/geek-cookbook/resilio-sync
     tag: 2.7.3.1381-1@sha256:e73ca73c5b726362aceb0be808e409d346eb42072ab57db8d90fd0d93003d265
@@ -3571,7 +3571,7 @@ prowlarr:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
@@ -3655,7 +3655,7 @@ lidarr:
     registry: ghcr.io
     repository: geek-cookbook/lidarr-develop
     tag: 1.4.5.3639@sha256:832d5c74961573372b8fbcbbd87dd2448f408ac323ca4ca23457db06e5bbba69
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3802,7 +3802,7 @@ readarr:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
@@ -3883,7 +3883,7 @@ readarraudio:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
@@ -4943,7 +4943,7 @@ gatus:
   image:
     repository: ghcr.io/geek-cookbook/gatus
     tag: 5.7.0@sha256:77dd3d852b342c617eaf8d929a53020e1b2bf889b2fa16703538405294df639d
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5039,7 +5039,7 @@ gotify:
   image:
     repository: ghcr.io/geek-cookbook/gotify
     tag: 2.4.0@sha256:ba635bebcbb625e17d5bf8d251be2c71f032ee80e77cbd4cbc1a6d93ee518523
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5094,7 +5094,7 @@ flaresolverr:
     registry: ghcr.io
     repository: flaresolverr/flaresolverr
     tag: v3.3.11
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5149,7 +5149,7 @@ seafile:
   image:
     repository: ghcr.io/geek-cookbook/seafile
     tag: 10.0.1@sha256:24e50c4601e4c86d1521354e4dee0db18120da72f8ebbc8c4de5aa29dc07ecdb
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5304,7 +5304,7 @@ xteve:
     registry: ghcr.io
     repository: k8s-at-home/xteve
     tag: v2.2.0.200
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5360,7 +5360,7 @@ youtubedl:
   image:
     repository: ghcr.io/geek-cookbook/youtubedl-material-nightly
     tag: "4.3.2@sha256:057a172284fdb540a79e42a2afe92ac2431db53a7bbc126be1d2653b0ca46a07"
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5424,7 +5424,7 @@ thelounge:
   image:
     repository: ghcr.io/geek-cookbook/thelounge
     tag: "4.4.1@sha256:26c87c70f7f1a6d020232c81ff2ff051dcf57a652ea09d8950d6a066ab358b28"
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-thelounge"
@@ -5524,7 +5524,7 @@ unpackerr:
   image:
     repository: ghcr.io/geek-cookbook/unpackerr
     tag: 0.12.0@sha256:a452fa96e01ac2387f657abd3d2054889ba546b15a5aa5ddd66b88d731a37b61
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-unpackerr"
@@ -5618,7 +5618,7 @@ overseerr:
   image:
     repository: ghcr.io/geek-cookbook/overseerr
     tag: 1.33.2@sha256:07004541caa460eb70626dc73831032f35267eed98cbff5972b7b8ce5fe1a635
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5675,7 +5675,7 @@ jellyseerr:
   image:
     repository: ghcr.io/geek-cookbook/jellyseerr
     tag: 1.7.0@sha256:73e7f3b0c57d785d709412e8c96cb722529e37578e6e38d94ab8874bedcb3758
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5732,7 +5732,7 @@ audiobookshelf:
   image:
     repository: ghcr.io/geek-cookbook/audiobookshelf
     tag: 2.6.0@sha256:974b0e083a19b59b0cd6e521906886d242b0c68832d28f7f58d00d1afe823f33
-  priorityClassName: tenant-low
+  priorityClassName: tenant-streaming
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5788,7 +5788,7 @@ openbooks:
   image:
     repository: ghcr.io/geek-cookbook/openbooks
     tag: 4.5.0@sha256:1bab9fbe69224c80f3a0fa8b715e4f708edbed49999e29b564f0b203de46a5b9
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5861,7 +5861,7 @@ vaultwarden:
   image:
     repository: ghcr.io/geek-cookbook/vaultwarden
     tag: 1.30.1@sha256:41260dfcc2764421aabf70592a70430cfa6ae28799aaf2dd3f29cea3dceb1eee
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5926,7 +5926,7 @@ notifiarr:
   image:
     repository: ghcr.io/geek-cookbook/notifiarr
     tag: 0.7.0@sha256:7cb46eccf4a57f329f4de970126de4ddbe5da3898836f293c69948d59260bea2
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6009,7 +6009,7 @@ shoko:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/shokoserver
     tag: v4.2.2@sha256:851c185c96dd0a05af2c73809748a96ebf5c7728e4d4dd175da7e80c4d61287b
@@ -6067,7 +6067,7 @@ filebot:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/filebot-node
     tag: 0.4.6@sha256:c3f1cde643009765fcec62d4bf68f2ed26e3218fb259fac839b9c3ff055ce949
@@ -6131,7 +6131,7 @@ nextpvr:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-streaming
   image:
     repository: ghcr.io/geek-cookbook/nextpvr
     tag: 10.8.13@sha256:2f4b91dc4e638f7ca1ddf2a5955d11854738f0994eb4ffe65cc9549f4ca87ee9
@@ -6196,7 +6196,7 @@ rpdb:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rpdb
     tag: 0.2.7@sha256:79df0fc8dc74918a3c09154fb759a509cab218e80794765b1b44d5ee4a8bbdb9
@@ -6251,7 +6251,7 @@ plexmetamanager:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/plex-meta-manager
     tag: v1.19.0@sha256:5847501532029eafe42a4d275c9e57999903bf6f2f41c1afa62cba9a4973f4cf
@@ -6352,7 +6352,7 @@ rclonewebdav:
 rclonebrowser:
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
     tag: 1.65.0@sha256:ce52d989e6a46c101c5ef8f69529bcab3c2a946266866671a2b36435a9d7f81d
@@ -6912,7 +6912,7 @@ jfa:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/jfa-go
     tag: v1.19.1@sha256:6d632df6c28d310035ebfc58263586f223417f45ac29214ca23410ea4b12d331
@@ -7287,7 +7287,7 @@ rapidleech:
   enabled: false
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/geek-cookbook/rapidleech
     tag: rolling@sha256:a7b5ccdf923a401870a744c41649b73513cfe923e8ee15a7cc2075293a5a3670
@@ -7377,7 +7377,7 @@ syncthing:
   hostname: elfhosted
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/geek-cookbook/syncthing
     tag: 1.23.6@sha256:1d41216dee7406ba4e3bfd2310023e5a7a6146fcabcbcc039259b6c64f3e4364
@@ -7482,7 +7482,7 @@ rdtclient:
   hostname: elfhosted
   sso:
     enabled: true
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
     tag: v2.0.40@sha256:d9333b820ab07a76f4ac1c7aec9e7f8b44f0bf9f8fc1f4d92dc184b34538d9bb
@@ -7548,7 +7548,7 @@ jdownloader:
   enabled: false
   hostname: elfhosted
   runtimeClassName: kata
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   image:
     repository: jlesage/jdownloader-2
     tag: v23.11.2
@@ -7633,7 +7633,7 @@ nextcloud:
 
 miniflux:
   enabled: false
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/miniflux
     tag: 2.0.50
@@ -7745,7 +7745,7 @@ miniflux:
 
 joplinserver:
   enabled: false
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/joplin-server
     tag: v2.13.5@sha256:409c8ed129960d2b7d751452c94d9b1a2d85b5081fe164cd04401ac3f3293a19
@@ -7862,7 +7862,7 @@ joplinserver:
 
 tdarr:
   enabled: false
-  priorityClassName: tenant-low
+  priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/haveagitgat/tdarr
     tag: 2.17.01
@@ -7935,7 +7935,7 @@ tdarr:
 
 homepage:
   enabled: false
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: ghcr.io/gethomepage/homepage
     tag: v0.8.3
@@ -8061,7 +8061,7 @@ homepage:
 
 wallabag:
   enabled: false
-  priorityClassName: tenant-low
+  priorityClassName: tenant-normal
   image:
     repository: stefanprodan/podinfo
     tag: latest
