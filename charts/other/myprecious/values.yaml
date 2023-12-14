@@ -605,7 +605,7 @@ rutorrentgluetun: &rutorrent
   priorityClassName: tenant-bulk
   podLabels:
     app.elfhosted.com/name: rutorrent
-    app.elfhosted.com/class: batch
+    app.elfhosted.com/class: bulk
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,rutorrent-config,rutorrent-gluetun-config,elfbot-rutorrent" # Reload the deployment every time the yaml config changes
@@ -637,7 +637,7 @@ rutorrentgluetun: &rutorrent
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
-        app.elfhosted.com/class: batch
+        app.elfhosted.com/class: bulk
 
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
@@ -869,7 +869,7 @@ delugegluetun: &deluge
   enabled: false
   podLabels:
     app.elfhosted.com/name: deluge
-    app.elfhosted.com/class: batch
+    app.elfhosted.com/class: bulk
   sso:
     enabled: true
   automountServiceAccountToken: false
@@ -894,7 +894,7 @@ delugegluetun: &deluge
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
-        app.elfhosted.com/class: batch
+        app.elfhosted.com/class: bulk
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1118,7 +1118,7 @@ delugepia:
 qbittorrentgluetun: &qbittorrent
   podLabels:
     app.elfhosted.com/name: qbittorrent
-    app.elfhosted.com/class: batch
+    app.elfhosted.com/class: bulk
   enabled: false
   sso:
     enabled: true
@@ -1145,7 +1145,7 @@ qbittorrentgluetun: &qbittorrent
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
-        app.elfhosted.com/class: batch
+        app.elfhosted.com/class: bulk
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -1352,7 +1352,7 @@ nzbget:
     tag: 21.1@sha256:672dec2779dfa82d475d7c2adb4296e361e06bf2f972aa1dbe827a4229c18020
   priorityClassName: tenant-bulk
   podLabels:
-    app.elfhosted.com/class: batch
+    app.elfhosted.com/class: bulk
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -1370,7 +1370,7 @@ nzbget:
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
-        app.elfhosted.com/class: batch       
+        app.elfhosted.com/class: bulk       
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1432,7 +1432,7 @@ sabnzbd:
   enabled: false
   hostname: sabnzbd # required to prevent whitelisting requirement per https://sabnzbd.org/wiki/extra/hostname-check.html
   podLabels:
-    app.elfhosted.com/class: batch  
+    app.elfhosted.com/class: bulk  
   sso:
     enabled: true
   image:
@@ -1457,7 +1457,7 @@ sabnzbd:
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
-        app.elfhosted.com/class: batch     
+        app.elfhosted.com/class: bulk     
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-sabnzbd"
@@ -2061,8 +2061,8 @@ autobrr:
 
 filebrowser:
   enabled: true
-  sso:
-    enabled: true
+  podLabels:
+    app.elfhosted.com/name: filebrowser
   image:
     repository: ghcr.io/geek-cookbook/filebrowser
     tag: 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
@@ -2097,6 +2097,14 @@ filebrowser:
   tolerations:
   - key: node-role.elfhosted.com/download
     operator: Exists    
+  topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    nodeTaintsPolicy: Honor
+    labelSelector: 
+      matchLabels: 
+        app.elfhosted.com/name: filebrowser    
   # We will use this to alter configmaps to trigger pod restarts
   serviceAccount:
     create: true
@@ -6396,8 +6404,8 @@ rclonewebdav:
   enabled: false # we need a default
 
 rclonebrowser:
-  sso:
-    enabled: true
+  podLabels:
+    app.elfhosted.com/name: rclonebrowser
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
@@ -6428,6 +6436,14 @@ rclonebrowser:
   tolerations:
   - key: node-role.elfhosted.com/download
     operator: Exists
+  topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    nodeTaintsPolicy: Honor
+    labelSelector: 
+      matchLabels: 
+        app.elfhosted.com/name: rclonebrowser        
   automountServiceAccountToken: false
   env:
     APP_NICENESS: 19 # run at lowest niceness
