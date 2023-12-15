@@ -5147,7 +5147,7 @@ flaresolverr:
   image:
     registry: ghcr.io
     repository: flaresolverr/flaresolverr
-    tag: v3.3.11
+    tag: v3.3.12
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
