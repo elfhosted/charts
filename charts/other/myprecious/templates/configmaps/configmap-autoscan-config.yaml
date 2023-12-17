@@ -7,17 +7,17 @@ data:
     # port for Autoscan webhooks to listen on
     port: 3030
 
-    # Comment out the streamers you don't use, and set the necessary API token
+    # Uncomment the streamer(s) you use, and set the necessary API token
     targets:
-      plex:
-        - url: http://plex:32400
-          token: XXXX # Plex API Token
-      emby:
-        - url: http://emby:8096
-          token: XXXX # Emby API Token 
-      jellyfin:
-        - url: http://jellyfin:8096
-          token: XXXX # Jellyfin API Token      
+      # plex:
+      #   - url: http://plex:32400
+      #     token: XXXX # Plex API Token
+      # emby:
+      #   - url: http://emby:8096
+      #     token: XXXX # Emby API Token 
+      # jellyfin:
+      #   - url: http://jellyfin:8096
+      #     token: XXXX # Jellyfin API Token      
 
     triggers:
 
