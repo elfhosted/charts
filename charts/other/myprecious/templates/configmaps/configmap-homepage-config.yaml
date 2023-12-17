@@ -396,7 +396,15 @@ data:
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/plex-meta-manager/
             description: Manage Plex Metadata     
             siteMonitor: http://plexmetamanager:9898
-        {{ end }}                      
+        {{ end }}   
+
+        {{ if .Values.autoscan.enabled }}
+        - Autoscan:
+            icon: mdi-folder-information
+            href: https://{{ .Release.Name }}-autoscan.elfhosted.com/files/config/plex-meta-manager/
+            description: Auto Scan Media    
+            siteMonitor: http://autoscan:3030
+        {{ end }}                              
 
         {{ if .Values.tdarr.enabled }}
         - Tdarr:

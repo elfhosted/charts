@@ -409,6 +409,17 @@ data:
           - type: email               
       {{ end }}                               
 
+      {{ if .Values.autoscan.enabled }}
+      - name: autoscan
+        group: manage-media
+        url: "http://autoscan:3030"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }} 
+      
       {{ if .Values.nzbget.enabled }}
       - name: nzbget
         group: download-media

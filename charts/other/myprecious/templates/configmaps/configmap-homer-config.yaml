@@ -657,6 +657,18 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
+          {{ if .Values.autoscan.enabled }}
+          - name: "Autoscan"
+            logo: "assets/png/autoscan.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fas fa-photo-film"
+            subtitle: "Auto Scan Media"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-autoscan.elfhosted.com/files/config/plex-meta-manager/"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
+
           {{ if .Values.tdarr.enabled }}
           - name: "Tdarr"
             logo: "assets/png/tdarr.png"
