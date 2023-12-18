@@ -7107,17 +7107,7 @@ mattermost:
       subPath: data
     env: *bootstrap_env
     resources: *default_resources
-    securityContext: 
-      seccompProfile:
-        type: RuntimeDefault
-      readOnlyRootFilesystem: true
-      allowPrivilegeEscalation: false
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      capabilities:
-        drop:
-        - ALL
+    securityContext: *default_securitycontext
 
   ## Deployment Strategy
   ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
@@ -7348,10 +7338,11 @@ mattermost:
     # - hostPath:
     #     path: /var/log
     #   name: varlog
-  extraVolumeMounts: []
-    # - name: varlog
-    #   mountPath: /host/var/log
-    #   readOnly: true
+  extraVolumeMounts:
+    - name: data
+      mountPath: /mattermost/logs
+      subPath: logs
+      readOnly: true
 
   ## Node selector
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
@@ -7368,10 +7359,17 @@ mattermost:
   ## Pod Security Context
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   securityContext:
-    fsGroup: 2000
-    runAsGroup: 2000
-    runAsUser: 2000
-
+    fsGroup: 568
+    runAsGroup: 568
+    runAsUser: 568
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+      - ALL
+      
   serviceAccount:
     create: false
     name:
