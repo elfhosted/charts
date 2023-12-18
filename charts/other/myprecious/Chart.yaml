@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.2617-pre-03
+version: 1.0.2617-pre-05
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -335,11 +335,6 @@ dependencies:
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
     alias: homepage
-  - name: app-template
-    condition: autoscan.enabled
-    version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
-    alias: autoscan    
   - name: wallabag
     condition: wallabag.enabled
     version: ~0.0.2
@@ -349,3 +344,25 @@ dependencies:
     condition: nextcloud.enabled
     version: ~4.1.0
     repository: https://nextcloud.github.io/helm/
+
+# autoscan is installed if we have any streamers installed
+  - name: app-template
+    condition: plexgluetun.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: autoscan  
+  - name: app-template
+    condition: plexpia.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: autoscan     
+  - name: app-template
+    condition: jellyfin.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: autoscan   
+  - name: app-template
+    condition: emby.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: autoscan        
