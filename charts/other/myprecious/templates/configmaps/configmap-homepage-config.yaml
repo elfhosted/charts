@@ -400,9 +400,9 @@ data:
 
         {{ if .Values.autoscan.enabled }}
         - Autoscan:
-            icon: mdi-folder-information
+            icon: mdi-magnify-scan
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/autoscan/
-            description: Auto Scan Media    
+            description: Configure Autoscan  
             siteMonitor: http://autoscan:3030
         {{ end }}                              
 

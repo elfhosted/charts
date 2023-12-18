@@ -659,10 +659,10 @@ data:
 
           {{ if .Values.autoscan.enabled }}
           - name: "Autoscan"
-            logo: "assets/png/autoscan.png"
+            # logo: "assets/png/autoscan.png"
             # Alternatively a fa icon can be provided:
-            # icon: "fas fa-photo-film"
-            subtitle: "Auto Scan Media"
+            icon: "fas fa-search"
+            subtitle: "Configure Autoscan"
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/autoscan/"
