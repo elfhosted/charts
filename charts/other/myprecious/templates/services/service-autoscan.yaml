@@ -15,6 +15,5 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.kubernetes.io/name: autoscan
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.elfhosted.com/name: autoscan
 {{ end }}
