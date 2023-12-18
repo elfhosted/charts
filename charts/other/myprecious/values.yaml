@@ -2140,7 +2140,6 @@ filebrowser:
           name: filebrowser-elfbot-script
           defaultMode: 0755
 
-
     # We need one of these per-app. The global section will override the false enablement
     autobrr:
       enabled: false
@@ -2150,12 +2149,12 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-autobrr-ssd
     autoscan:
-      enabled: false
+      enabled: true # all users have one of these, although only the plex/jelly/emby users actually _use_ them
       type: custom
       mountPath: /storage/config/autoscan/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-autoscan-ssd            
+          claimName: config-autoscan-ssd              
     audiobookshelf:
       enabled: false
       type: custom
@@ -4428,7 +4427,7 @@ homer:
         persistentVolumeClaim:
           claimName: config-autobrr-ssd
     autoscan:
-      enabled: false
+      enabled: true
       type: custom
       mountPath: /config/autoscan/
       volumeSpec:
@@ -6513,7 +6512,7 @@ rclonebrowser:
         persistentVolumeClaim:
           claimName: config-autobrr-ssd
     autoscan:
-      enabled: false
+      enabled: true
       type: custom
       mountPath: /storage/config/autoscan/
       volumeSpec:
