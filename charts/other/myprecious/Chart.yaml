@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.2617-pre-05
+version: 1.0.2617-pre-06
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -350,19 +350,19 @@ dependencies:
     condition: plexgluetun.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: autoscan  
+    alias: autoscanplexgluetun 
   - name: app-template
     condition: plexpia.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: autoscan     
+    alias: autoscanplexpia    
   - name: app-template
     condition: jellyfin.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: autoscan   
+    alias: autoscanjellyfin
   - name: app-template
     condition: emby.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: autoscan        
+    alias: autoscanemby

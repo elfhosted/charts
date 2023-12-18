@@ -401,7 +401,7 @@ data:
         {{ if .Values.autoscan.enabled }}
         - Autoscan:
             icon: mdi-folder-information
-            href: https://{{ .Release.Name }}-autoscan.elfhosted.com
+            href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/autoscan/
             description: Auto Scan Media    
             siteMonitor: http://autoscan:3030
         {{ end }}                              

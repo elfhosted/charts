@@ -665,7 +665,7 @@ data:
             subtitle: "Auto Scan Media"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-autoscan.elfhosted.com"
+            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/autoscan/"
             target: "_blank" # optional html tag target attribute
           {{ end }}          
 

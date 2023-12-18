@@ -8212,8 +8212,10 @@ wallabag:
           cpu: 500m 
           memory: 200Mi        
 
-autoscan:
+autoscanplexpia: &autoscan
   enabled: false
+  podLabels:
+    app.elfhosted.com/name: autoscan  
   image:
     repository: ghcr.io/geek-cookbook/autoscan
     tag: 1.4.0@sha256:814ee8a40831a44227cb362190d8b105797c608224ae2ef73a4c9058a9f102d3
@@ -8298,5 +8300,9 @@ autoscan:
         seccompProfile:
           type: RuntimeDefault
         readOnlyRootFilesystem: true
+
+autoscanplexgluetun: *autoscan
+autoscanjellyfin: *autoscan
+autoscanemby: *autoscan
 
 # This file must end on a newline
