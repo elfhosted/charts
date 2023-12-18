@@ -3778,6 +3778,8 @@ lidarr:
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
+      - mountPath: /config
+        name: config        
       resources: *default_resources
       securityContext: *default_securitycontext
   resources:
