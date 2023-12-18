@@ -403,7 +403,7 @@ data:
             icon: mdi-magnify-scan
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/autoscan/
             description: Configure Autoscan  
-            siteMonitor: http://autoscan:3030
+            # siteMonitor: http://autoscan:3030
         {{ end }}                              
 
         {{ if .Values.tdarr.enabled }}
