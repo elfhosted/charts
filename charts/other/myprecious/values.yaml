@@ -4084,8 +4084,8 @@ plex: &plex
       enabled: true # necessary for probes
   env:
     # PLEX_PREFERENCE_1: "FriendlyName=ElfHosted | {{ .Release.Name }}"
-    PLEX_PREFERENCE_2: "FSEventLibraryPartialScanEnabled=1"
-    PLEX_PREFERENCE_3: "FSEventLibraryUpdatesEnabled=1"
+    PLEX_PREFERENCE_2: "FSEventLibraryPartialScanEnabled=0"
+    PLEX_PREFERENCE_3: "FSEventLibraryUpdatesEnabled=0"
     PLEX_PREFERENCE_4: "ScannerLowPriority=1"
     PLEX_PREFERENCE_5: "ScheduledLibraryUpdatesEnabled=0"
     PLEX_PREFERENCE_6: "TranscodeCountLimit=3"
@@ -7079,35 +7079,7 @@ mattermost:
     tag: latest
     imagePullPolicy: IfNotPresent
 
-  extraInitContainers:
-  - name: migrate-database
-    image: *tooling_image
-    imagePullPolicy: IfNotPresent
-    command:
-    - /bin/bash
-    - -c
-    - |
-      set -e
-
-      if [[ ! -f /config/i-am-migrated ]]
-      then
-        if [[ ! -z "$(ls -A /config-hdd)" ]]
-        then
-          echo "Migrating from /config-hdd/..."
-          time cp /config-hdd/* /config/ -rfpv
-          touch /config/i-am-migrated
-        fi
-      fi
-    volumeMounts:
-    - mountPath: /config
-      name: mattermost-data
-      subPath: data
-    - mountPath: /config-hdd
-      name: confighdd
-      subPath: data
-    env: *bootstrap_env
-    resources: *default_resources
-    securityContext: *default_securitycontext
+  extraInitContainers: []
 
   ## Deployment Strategy
   ## ref: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
@@ -7202,7 +7174,6 @@ mattermost:
       password: "IUzI1NiJ9.eyJhdWQiOiIwMDk1MTkyYjhjZWIyYjVhNDQwMT"
 
     primary:
-      initContainers: *bootstrap_migrate_db    
       readinessProbe:
         enabled: false # probes can make helm fail/restart under some conditions. Either do or do not, there is no try
       livenessProbe:
@@ -7339,7 +7310,7 @@ mattermost:
     #     path: /var/log
     #   name: varlog
   extraVolumeMounts:
-    - name: data
+    - name: mattermost-data
       mountPath: /mattermost/logs
       subPath: logs
       readOnly: true
