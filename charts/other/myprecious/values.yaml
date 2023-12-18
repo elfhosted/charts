@@ -3770,6 +3770,9 @@ lidarr:
         set -x
         set -e
 
+        # Set auth to external
+        sed -i  "s|<AuthenticationMethod>None</AuthenticationMethod>|<AuthenticationMethod>External</AuthenticationMethod>|" /config/config.xml
+        
         mkdir -p /storage/elfstorage/music
         mkdir -p /storage/elfstorage/backup/auto/lidarr
       volumeMounts:
