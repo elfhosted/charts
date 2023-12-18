@@ -409,7 +409,7 @@ data:
           - type: email               
       {{ end }}                               
 
-      {{ if .Values.autoscan.enabled }}
+      {{ if or .Values.plexgluetun.enabled .Values.plexpia.enabled .Values.jellyfin.enabled .Values.emby.enabled }}
       - name: autoscan
         group: manage-media
         url: "http://autoscan:3030/triggers/radarr"
