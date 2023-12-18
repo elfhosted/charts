@@ -5478,6 +5478,12 @@ youtubedl:
       type: emptyDir
       volumeSpec:
         medium: Memory
+    home-elfie:
+      enabled: true
+      mountPath: /home/elfie
+      type: emptyDir
+      volumeSpec:
+        medium: Memory        
     elfbot:
       enabled: "true"
       type: "custom"
@@ -8291,7 +8297,7 @@ autoscanplexpia: &autoscan
         set -e
 
         # If we don't already have an example config, create one
-        if [ ! -f /config/config.yml ];
+        if [[ ! -f /config/config.yml ]];
         then
           cp /bootstrap/config.yml /config/
         fi
