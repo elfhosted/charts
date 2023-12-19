@@ -4030,6 +4030,7 @@ plex: &plex
   priorityClassName: tenant-streaming
   podLabels:
     app.elfhosted.com/name: plex
+    app.elfhosted.com/class: streaming    
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -4045,6 +4046,14 @@ plex: &plex
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex" # Reload the deployment every time the rclones change
+  topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    nodeTaintsPolicy: Honor
+    labelSelector: 
+      matchLabels: 
+        app.elfhosted.com/class: streaming      
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
@@ -4115,6 +4124,7 @@ plexgluetun:
   enabled: false
   podLabels:
     app.elfhosted.com/name: plex
+    app.elfhosted.com/class: streaming
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-plex,plex-gluetun-config"
@@ -4188,8 +4198,6 @@ plexgluetun:
 plexpia:
   <<: *plex
   enabled: false
-  podLabels:
-    app.elfhosted.com/name: plex
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-plex,plex-pia-config"
@@ -4237,6 +4245,8 @@ jellyfin:
     repository: ghcr.io/geek-cookbook/jellyfin
     tag: 10.8.13@sha256:e49a5e445a473f8263d9bfbc5c26aaa32d5be0cde7866e5c88165a364098e58f
   enabled: false
+  podLabels:
+    app.elfhosted.com/class: streaming  
   priorityClassName: tenant-streaming
   securityContext:
     seccompProfile:
@@ -4256,6 +4266,14 @@ jellyfin:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-jellyfin" # Reload the deployment every time the rclones change
+  topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    nodeTaintsPolicy: Honor
+    labelSelector: 
+      matchLabels: 
+        app.elfhosted.com/class: streaming      
   persistence:
     <<: *appmounts
     config:
@@ -4312,6 +4330,8 @@ emby:
     tag: 4.7.14.0@sha256:ccdad65c7c631f60f9b1859e748d075b5923249b0f6b1f2c6058ad8942417fcc
   enabled: false
   priorityClassName: tenant-streaming
+  podLabels:
+    app.elfhosted.com/class: streaming
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4328,6 +4348,14 @@ emby:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-emby" # Reload the deployment every time the rclones change
+  topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    nodeTaintsPolicy: Honor
+    labelSelector: 
+      matchLabels: 
+        app.elfhosted.com/class: streaming       
   persistence:
     <<: *appmounts
     config:
