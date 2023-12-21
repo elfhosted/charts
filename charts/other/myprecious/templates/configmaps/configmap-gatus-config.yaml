@@ -682,7 +682,7 @@ data:
         url: "http://resilio-sync:8888"
         interval: 5m
         conditions:
-          - "[STATUS] == 200"
+          - "[STATUS] == 401"
         alerts:
           - type: email           
       {{ end }}  
