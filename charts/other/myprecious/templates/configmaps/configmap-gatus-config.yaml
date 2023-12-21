@@ -734,7 +734,7 @@ data:
       {{ if .Values.joplinserver.enabled }}
       - name: joplinserver
         group: tools
-        url: "http://joplinserver:22300/images/server_logo.png"
+        url: "https://{{ .Release.Name }}-joplin-server.elfhosted.com"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
