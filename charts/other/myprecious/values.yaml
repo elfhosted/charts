@@ -4093,8 +4093,8 @@ plex: &plex
       enabled: true # necessary for probes
   env:
     # PLEX_PREFERENCE_1: "FriendlyName=ElfHosted | {{ .Release.Name }}"
-    PLEX_PREFERENCE_2: "FSEventLibraryPartialScanEnabled=0"
-    PLEX_PREFERENCE_3: "FSEventLibraryUpdatesEnabled=0"
+    PLEX_PREFERENCE_2: "FSEventLibraryPartialScanEnabled=1"
+    PLEX_PREFERENCE_3: "FSEventLibraryUpdatesEnabled=1"
     PLEX_PREFERENCE_4: "ScannerLowPriority=1"
     PLEX_PREFERENCE_5: "ScheduledLibraryUpdatesEnabled=0"
     PLEX_PREFERENCE_6: "TranscodeCountLimit=3"
