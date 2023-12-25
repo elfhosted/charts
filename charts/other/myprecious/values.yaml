@@ -7671,7 +7671,7 @@ jdownloader:
   priorityClassName: tenant-bulk
   image:
     repository: jlesage/jdownloader-2
-    tag: v23.11.2
+    tag: v23.12.1
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-jdownloader"
