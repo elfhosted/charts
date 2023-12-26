@@ -547,7 +547,7 @@ data:
         {{ if .Values.zurg.enabled }}
         - Zurg:
             icon: real-debrid.png
-            href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/zurg/
+            href: https://{{ .Release.Name }}-zurg.elfhosted.com/dav/
             description: Manage real debrid(-like) services
             siteMonitor: http://zurg:9999
         {{ end }}             
