@@ -267,6 +267,7 @@ appmounts: &appmounts
   rclonegdriveencryptedc: *rclonegdriveencryptedc    
   onedrivea: *onedrivea
   rclonemountwebdava: *rclonemountwebdava
+  rclonemountrealdebridzurg: *rclonemountrealdebridzurg
   rclonemountssha: *rclonemountssha
   storageboxa: *storageboxa
   storageboxb: *storageboxb

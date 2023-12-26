@@ -850,6 +850,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
+          {{ if .Values.zurg.enabled }}
+          - name: "Zurg"
+            logo: "assets/png/real-debrid.png"
+            subtitle: "Manage Real Debrid WebDAV proxy"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/zurg/"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
+
           {{ if .Values.openbooks.enabled }}
           - name: "Openbooks"
             icon: "fas fa-book-open-reader"

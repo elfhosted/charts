@@ -541,6 +541,17 @@ data:
           - type: email           
       {{ end }}    
 
+      {{ if .Values.zurg.enabled }}
+      - name: zurg
+        group: download-media
+        url: "http://zurg:9999"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}          
+
       {{ if .Values.openbooks.enabled }}
       - name: openbooks
         group: download-media

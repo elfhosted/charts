@@ -542,7 +542,15 @@ data:
             href: https://{{ .Release.Name }}-rdtclient.elfhosted.com
             description: Manage real debrid(-like) services
             siteMonitor: http://rdtclient:6500
-        {{ end }}     
+        {{ end }}    
+
+        {{ if .Values.zurg.enabled }}
+        - Zurg:
+            icon: real-debrid.png
+            href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/zurg/
+            description: Manage real debrid(-like) services
+            siteMonitor: http://zurg:9999
+        {{ end }}             
 
         {{ if .Values.openbooks.enabled }}
         - OpenBooks:
