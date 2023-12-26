@@ -5,7 +5,7 @@ metadata:
   name: {{ .Release.Name }}-zurg.elfhosted.com
 spec:
   routes:
-    - match: Host(`{{ .Release.Name }}-zurg-internal.elfhosted.com`)
+    - match: Host(`{{ .Release.Name }}-zurg.elfhosted.com`)
       kind: Rule
       services:
         - name: zurg
