@@ -8351,11 +8351,12 @@ autoscanemby: *autoscan
 
 zurg:
   enabled: false
+  runtimeClassName: kata  
   podLabels:
     app.elfhosted.com/class: bulk  
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    tag: v0.9.2-hotfix.4@sha256:71a62ab853a09746af3e15adf91f18592373f272138d40f6e0e2e7a7a323eb1c
+    tag: v0.9.2-hotfix.4@sha256:706938d0b46b3806cbeaede4df95c0e1775c4a4e8dfd645fb92a3241788856e8
   priorityClassName: tenant-normal
   controller:
     annotations:
