@@ -1,0 +1,20 @@
+{{ if .Values.rclonemountrealdebridzurg.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rclone-{{ .Release.Name }}-realdebrid-zurg
+  labels:
+    name: rclone-{{ .Release.Name }}-realdebrid-zurg
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: rclone
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: csi-rclone
+    volumeHandle: rclone-{{ .Release.Name }}-realdebrid-zurg
+    volumeAttributes:
+      secretName: "{{ .Release.Name }}-realdebrid-zurg"
+{{ end }}
