@@ -8401,6 +8401,7 @@ zurg:
         http:
           port: 9999 
   persistence:
+    elfstorage: *elfstorage
     config:
       enabled: true
       type: custom

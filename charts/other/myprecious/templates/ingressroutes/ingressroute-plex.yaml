@@ -1,4 +1,4 @@
-{{ if or .Values.plex.enabled .Values.plexgluetun.enabled .Values.plexpia.enabled }}
+{{ if or .Values.plexgluetun.enabled .Values.plexpia.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
