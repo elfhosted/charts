@@ -8348,7 +8348,7 @@ zurg:
     app.elfhosted.com/class: bulk  
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    tag: v0.9.2-hotfix.4@sha256:71a62ab853a09746af3e15adf91f18592373f272138d40f6e0e2e7a7a323eb1c
+    tag: v0.9.2-hotfix.4@sha256:d8ef55532cf1cb86b8d78708cfeeb4b62ee30c36577f41418b7169000808c0d1
   priorityClassName: tenant-normal
   controller:
     annotations:
