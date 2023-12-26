@@ -3721,7 +3721,7 @@ lidarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/lidarr-develop
-    tag: 2.1.0.3856@sha256:f62bf47a08258fc784b040c37892d698dcdc896d05bc75d7c33ed469ea7bf60a
+    tag: 2.1.1.3877@sha256:c2c3efb3fef52934d54ece7723ff13a1266812572b9e30eed845766f9be5f5cf
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -7671,7 +7671,7 @@ jdownloader:
   priorityClassName: tenant-bulk
   image:
     repository: jlesage/jdownloader-2
-    tag: v23.11.2
+    tag: v23.12.1
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-jdownloader"
