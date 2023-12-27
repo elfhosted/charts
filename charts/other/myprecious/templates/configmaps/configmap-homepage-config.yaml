@@ -711,10 +711,10 @@ data:
             description: Your configured Rclone remotes  
             siteMonitor: http://filebrowser:8080     
 
-        {{ if .Values.rclonewebdav.enabled }}
+        {{ if .Values.webdav.enabled }}
         - Rclone WebDAV:
             icon: rclone.png
-            href: https://{{ .Release.Name }}-rclonewebdav.elfhosted.com
+            href: https://{{ .Release.Name }}-webdav.elfhosted.com
             description: Your WebDAV endpoint for migration
             siteMonitor: http://rclonebrowser:5574
         {{ end }}

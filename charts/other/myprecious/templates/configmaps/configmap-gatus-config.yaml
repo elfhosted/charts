@@ -601,8 +601,8 @@ data:
         alerts:
           - type: email
 
-      {{ if .Values.rclonewebdav.enabled }}
-      - name: rclonewebdav
+      {{ if .Values.webdav.enabled }}
+      - name: webdav
         group: tools
         url: "http://rclonebrowser:5574"
         interval: 5m

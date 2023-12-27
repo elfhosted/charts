@@ -25,11 +25,11 @@ spec:
     targetPort: 5575
     protocol: TCP
     name: rcloneweb       
-{{ if .Values.rclonewebdav.enabled }}
+{{ if .Values.webdav.enabled }}
   - port: 5574
     targetPort: 5574
     protocol: TCP
-    name: rclonewebdav   
+    name: webdav   
 {{ end }}
   selector:
     app.kubernetes.io/name: rclonebrowser

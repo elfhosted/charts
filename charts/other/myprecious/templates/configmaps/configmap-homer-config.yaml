@@ -1068,12 +1068,12 @@ data:
             url: "https://{{ .Release.Name }}-rclonefm.elfhosted.com"
             target: "_blank" # optional html tag target attribute
 
-          {{ if .Values.rclonewebdav.enabled }}
-          - name: "Rclone WebDAV"
+          {{ if .Values.webdav.enabled }}
+          - name: "WebDAV"
             logo: "assets/png/rclone.png"
-            subtitle: "Rclone WebDAV"
+            subtitle: "WebDAV"
             tag: "public"
             tagstyle: "is-danger"
-            url: "https://{{ .Release.Name }}-rclonewebdav.elfhosted.com"
+            url: "https://{{ .Release.Name }}-webdav.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
