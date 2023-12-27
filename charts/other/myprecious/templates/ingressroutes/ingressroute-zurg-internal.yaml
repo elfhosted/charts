@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Release.Name }}-zurg-internal.elfhosted.com
+  name: {{ .Release.Name }}-zurg.internal.elfhosted.com
 spec:
   entryPoints:
   - web-internal

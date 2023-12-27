@@ -176,7 +176,7 @@ data:
 
     # Apply the port
     if [[ -f "$PORT_FILE_OVERRIDE" ]]; then
-        echo -n $(cat $PORT_FILE)-$(cat $PORT_FILE) > /port-range/port-range.txt
+        echo -n $(cat $PORT_FILE_OVERRIDE)-$(cat $PORT_FILE_OVERRIDE) > /port-range/port-range.txt
 
     elif [[ -f "$PORT_FILE" ]]; then
         echo -n $(cat $PORT_FILE)-$(cat $PORT_FILE) > /port-range/port-range.txt
