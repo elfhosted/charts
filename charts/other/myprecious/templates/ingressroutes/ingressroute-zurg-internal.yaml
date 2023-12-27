@@ -4,14 +4,13 @@ kind: IngressRoute
 metadata:
   name: {{ .Release.Name }}-zurg-internal.elfhosted.com
 spec:
+  entryPoints:
+  - web-internal
   routes:
-    - match: Host(`{{ .Release.Name }}-zurg-internal.elfhosted.com`)
+    - match: Host(`{{ .Release.Name }}-zurg.internal.elfhosted.com`)
       kind: Rule
       services:
         - name: zurg
           kind: Service
           port: 9999
-      middlewares:  
-        - name: whitelist-cluster-ip-range
-          namespace: traefik
 {{ end }}
