@@ -5118,13 +5118,7 @@ gatus:
       mountPath: /data/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-gatus-ssd
-    confighdd:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-gatus          
+          claimName: config-gatus-ssd      
   envFrom:
   - secretRef:
       name: gatus-smtp-config
@@ -5133,34 +5127,6 @@ gatus:
       # -- Store homer configuration as a ConfigMap, but don't specify any config, since we'll supply our own
       enabled: false
   initContainers:
-    bootstrap-ssd:
-      image: *tooling_image
-      imagePullPolicy: IfNotPresent
-      command:
-      - /bin/bash
-      - -c
-      - |
-        set -e
-
-        if [[ ! -f /config/i-am-migrated ]]
-        then
-          if [[ ! -z "$(ls -A /config-hdd)" ]]
-          then
-            echo "Migrating from /config-hdd/..."
-            time cp /config-hdd/* /config/ -rfpv
-            touch /config/i-am-migrated
-          fi
-        fi
-
-      volumeMounts:
-      - mountPath: /config
-        name: data
-      - mountPath: /config-hdd
-        name: confighdd
-      env: *bootstrap_env
-      resources: *default_resources
-      securityContext: *default_securitycontext
-
 
 gotify:
   sso:
