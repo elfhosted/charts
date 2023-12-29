@@ -614,6 +614,8 @@ rutorrentgluetun: &rutorrent
   podLabels:
     app.elfhosted.com/name: rutorrent
     app.elfhosted.com/class: bulk
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "100M"    
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,rutorrent-config,rutorrent-gluetun-config,elfbot-rutorrent" # Reload the deployment every time the yaml config changes
@@ -878,6 +880,8 @@ delugegluetun: &deluge
   podLabels:
     app.elfhosted.com/name: deluge
     app.elfhosted.com/class: bulk
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "100M"    
   sso:
     enabled: true
   automountServiceAccountToken: false
@@ -1127,6 +1131,8 @@ qbittorrentgluetun: &qbittorrent
   podLabels:
     app.elfhosted.com/name: qbittorrent
     app.elfhosted.com/class: bulk
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "100M"    
   enabled: false
   sso:
     enabled: true
@@ -2092,7 +2098,7 @@ filebrowser:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "10M"    
+    kubernetes.io/egress-bandwidth: "100M"    
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,filebrowser-elfbot-script,elfbot-filebrowser" # Reload the deployment every time the rclones change
