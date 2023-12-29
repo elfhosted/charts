@@ -6505,10 +6505,10 @@ rclonebrowser:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
@@ -6520,7 +6520,6 @@ rclonebrowser:
         app.elfhosted.com/name: rclonebrowser        
   automountServiceAccountToken: false
   env:
-    APP_NICENESS: 19 # run at lowest niceness
     S6_READ_ONLY_ROOT: 1
     USER_ID: 568
     GROUP_ID: 568
