@@ -2091,6 +2091,8 @@ filebrowser:
       type: RuntimeDefault
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "10M"    
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,filebrowser-elfbot-script,elfbot-filebrowser" # Reload the deployment every time the rclones change
@@ -6488,7 +6490,7 @@ rclonebrowser:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "10M"
+    kubernetes.io/egress-bandwidth: "100M"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
