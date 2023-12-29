@@ -6528,6 +6528,13 @@ rclonebrowser:
       name: elfhosted-user-config
   persistence:
     <<: *appmounts
+    tmp: # we don't have topolvm on the storage nodes, but we want to use tmp to run rclonebrowser on them
+      enabled: true
+      mountPath: /tmp
+      type: emptyDir
+      volumeSpec:
+        medium: Memory    
+      sizeLimit: 1Gi
     config:
       enabled: true
       type: custom
