@@ -1,0 +1,23 @@
+{{- if .Values.overseerrcustomdomain.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Values.overseerrcustomdomain.cname }}
+spec:
+  routes:
+    - match: Host(`{{ .Values.overseerrcustomdomain.cname }}`)
+      kind: Rule
+      services:
+        - name: overseerr
+          kind: Service
+          port: 5055
+      middlewares:
+        - name: error-pages
+          namespace: traefik
+        {{ if ne "default" .Values.themepark.theme }}
+        - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
+          namespace: theme-park
+        {{ end }}
+  tls:
+    secretName: cert-{{ .Values.overseerrcustomdomain.cname }}
+{{ end }}

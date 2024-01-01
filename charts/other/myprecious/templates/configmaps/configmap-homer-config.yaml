@@ -537,7 +537,11 @@ data:
             subtitle: "Manage Requests"
             tag: "public"
             tagstyle: "is-danger"
+            {{- if .Values.overseerrcustomdomain.enabled }}
+            url: "https://{{ .Values.overseerrcustomdomain.cname }}"
+            {{- else }}
             url: "https://{{ .Release.Name }}-overseerr.elfhosted.com"
+            {{- end }}
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
@@ -547,7 +551,11 @@ data:
             subtitle: "Manage Requests"
             tag: "public"
             tagstyle: "is-danger"
+            {{- if .Values.jellyseerrcustomdomain.enabled }}
+            url: "https://{{ .Values.jellyseerrcustomdomain.cname }}"
+            {{- else }}
             url: "https://{{ .Release.Name }}-jellyseerr.elfhosted.com"
+            {{- end }}
             target: "_blank" # optional html tag target attribute
           {{ end }}
 

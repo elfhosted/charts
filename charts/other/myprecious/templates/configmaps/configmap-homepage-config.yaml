@@ -296,7 +296,11 @@ data:
         {{ if .Values.overseerr.enabled }}
         - Overseerr:
             icon: overseerr.png
-            href: https://{{ .Release.Name }}-overseerr.elfhosted.com
+            {{- if .Values.overseerrcustomdomain.enabled }}
+            href: "https://{{ .Values.overseerrcustomdomain.cname }}"
+            {{- else }}
+            href: "https://{{ .Release.Name }}-overseerr.elfhosted.com"
+            {{- end }}
             description: Manage Requests  
             siteMonitor: http://overseerr:5055   
             widget:
@@ -308,7 +312,11 @@ data:
         {{ if .Values.jellyseerr.enabled }}
         - Jellyseerr:
             icon: jellyseerr.png
-            href: https://{{ .Release.Name }}-jellyseerr.elfhosted.com
+            {{- if .Values.jellyseerrcustomdomain.enabled }}
+            href: "https://{{ .Values.jellyseerrcustomdomain.cname }}"
+            {{- else }}
+            href: "https://{{ .Release.Name }}-jellyseerr.elfhosted.com"
+            {{- end }}
             description: Manage Requests  
             siteMonitor: http://jellyseerr:5055   
             widget:

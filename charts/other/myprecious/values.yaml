@@ -601,6 +601,10 @@ mattermostcustomdomain:
   enabled: false
 vaultwardencustomdomain:
   enabled: false
+jellyseerrcustomdomain:
+  enabled: false  
+overseerrcustomdomain:
+  enabled: false  
 
 rutorrentgluetun: &rutorrent
   enabled: false
