@@ -18,7 +18,7 @@ spec:
         - name: theme-park-overseerr-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
-    - match: Host(`{{ .Release.Name }}-overseerr.elfhosted.com`) && Path(`/app/overseerr/public/`)
+    - match: Host(`{{ .Release.Name }}-overseerr.elfhosted.com`) && Path(`/logo_`)
       kind: Rule
       services:
         - name: overseerr

@@ -583,14 +583,14 @@ data:
         alerts:
           - type: email    
 
-      # - name: kubernetes-dashboard
-      #   group: tools
-      #   url: "http://kubernetes-dashboard:443"
-      #   interval: 5m
-      #   conditions:
-      #     - "[STATUS] == 200"
-      #   alerts:
-      #     - type: email                     
+      - name: kubernetes-dashboard
+        group: tools
+        url: "http://kubernetes-dashboard:9090"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email                     
 
       - name: rcloneui
         group: tools

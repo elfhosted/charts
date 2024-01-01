@@ -5820,8 +5820,8 @@ overseerr:
         - /bin/bash
         - -c
         - | 
-          mkdir -p /config/branding/app/overseerr/public
-          cp --no-clobber -rf /app/overseerr/public/* /config/branding/app/overseerr/public/
+          mkdir -p /config/branding
+          cp --no-clobber -rf /app/overseerr/public/* /config/branding
       volumeMounts:
       - mountPath: /config
         name: config
@@ -5848,6 +5848,8 @@ overseerr:
         name: config
         subPath: branding
         readOnly: true
+      - mountPath: /tmp
+        name: tmp
       resources: *default_resources
       securityContext: *default_securitycontext   
 
@@ -5901,8 +5903,8 @@ jellyseerr:
         - /bin/bash
         - -c
         - | 
-          mkdir -p /config/branding/app/overseerr/public
-          cp --no-clobber -rf /app/overseerr/public/* /config/branding/app/overseerr/public/
+          mkdir -p /config/branding
+          cp --no-clobber -rf /app/overseerr/public/* /config/branding/
       volumeMounts:
       - mountPath: /config
         name: config
@@ -5929,6 +5931,8 @@ jellyseerr:
         name: config
         subPath: branding
         readOnly: true
+      - mountPath: /tmp
+        name: tmp        
       resources: *default_resources
       securityContext: *default_securitycontext      
 
@@ -8566,6 +8570,8 @@ kubernetesdashboard:
   settings:
     ## Cluster name that appears in the browser window title if it is set
     clusterName: "ElfHosted"
+    clusterName: |
+      "{{ .Release.Namespace }}"
     ## Max number of items that can be displayed on each list page
     # itemsPerPage: 10
     ## Number of seconds between every auto-refresh of logs

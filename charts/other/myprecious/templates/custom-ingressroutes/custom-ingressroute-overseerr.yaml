@@ -18,7 +18,7 @@ spec:
         - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
-    - match: Host(`{{ .Values.overseerrcustomdomain.cname }}`) && Path(`/app/overseerr/public/`)
+    - match: Host(`{{ .Values.overseerrcustomdomain.cname }}`) && Path(`/logo_`)
       kind: Rule
       services:
         - name: overseerr
