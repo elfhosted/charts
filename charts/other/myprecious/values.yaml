@@ -1565,7 +1565,7 @@ sabnzbd:
       cpu: 1500m # if par threads is 1, this leaves 0.5cpu for downloading
       memory: 1500Mi
   additionalContainers:
-    backup_queue:
+    backup-queue:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
       command:
@@ -7650,10 +7650,10 @@ rdtclient:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists    
   podSecurityContext:
     seccompProfile:
@@ -8403,10 +8403,10 @@ zurg:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists
 
   topologySpreadConstraints:
