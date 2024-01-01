@@ -909,7 +909,7 @@ data:
             subtitle: "Kubernetes Resources"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-kubernetes.elfhosted.com/?namespace={{ .Release.Namespace }}"
+            url: "https://{{ .Release.Name }}-kubernetes.elfhosted.com"
             target: "_blank" # optional html tag target attribute
 
           {{ if .Values.privatebin.enabled }}
