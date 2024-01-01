@@ -7,7 +7,7 @@ rules:
   - "*"
   resources:
   - configmaps
-  - cronjobs
+  # - cronjobs
   - daemonsets
   - deployments
   - events
@@ -26,6 +26,7 @@ rules:
   - get
   - list
   - watch
+# let kubernetes-dashboard access its prefs via a secret
 - apiGroups:
   - "*"
   resources:
@@ -36,3 +37,10 @@ rules:
   resourceNames: 
   - "kubernetes-dashboard-key-holder"
   - "kubernetes-dashboard-csrf"
+# let tenants effect their own reboots by deleting pods
+- apiGroups:
+  - "*"
+  resources:
+  - pods
+  verbs:
+  - delete
