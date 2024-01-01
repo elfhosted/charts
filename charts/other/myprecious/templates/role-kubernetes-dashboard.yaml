@@ -21,16 +21,17 @@ rules:
   - replicationcontrollers
   - services
   - statefulsets
-  - secrets
   verbs:
   - describe
   - get
   - list
   - watch
-# - apiGroups:
-#   - "*"
-#   resources:
-#   - secrets
-#   verbs:
-#   - update
-# kubernetes-dashboard-key-holder
+- apiGroups:
+  - "*"
+  resources:
+  - secrets
+  verbs:
+  - update
+  resource_names: 
+  - "kubernetes-dashboard-key-holder"
+  - "kubernetes-dashboard-csrf"
