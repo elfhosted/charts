@@ -5815,7 +5815,7 @@ overseerr:
     bootstrap: *bootstrap
     # We do this so that we can override the /app/jellyseer/public path with our own, allowing the user to customize the branding
     copy-branding:
-      image: ghcr.io/geek-cookbook/overseerr:1.7.0@sha256:73e7f3b0c57d785d709412e8c96cb722529e37578e6e38d94ab8874bedcb3758
+      image: ghcr.io/geek-cookbook/overseerr:1.33.2@sha256:07004541caa460eb70626dc73831032f35267eed98cbff5972b7b8ce5fe1a635
       command:
         - /bin/bash
         - -c
