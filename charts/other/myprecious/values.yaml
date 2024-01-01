@@ -8572,7 +8572,7 @@ kubernetesdashboard:
   extraArgs:
     - --enable-skip-login
     - --enable-insecure-login
-    - --system-banner="ElfHosted is built with ❤️ by <A HREF="https://github.com/funkypenguin">@funkypenguin</A> on Kubernetes"
+    - --system-banner=<A HREF="https://elfhosted.com>ElfHosted</A> is <A HREF="https://elfhosted.com/open/>built</A> with ❤️ by <A HREF="https://funkypenguin.co.nz">@funkypenguin</A>, based on <A HREF="https://geek-cookbook.funkypenguin.co.nz/>Funky Penguin's Geek Cookbook</A>'s <A HREF="https://geek-cookbook.funkypenguin.co.nz/kubernetes/>Kubernetes</A> designs. Join the <A HREF="https://discord.funkypenguin.co.nz>geek-party in Discord</A>.
 
   ## Serve application over HTTP without TLS
   ##
