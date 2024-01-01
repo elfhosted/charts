@@ -8570,8 +8570,8 @@ kubernetesdashboard:
   settings:
     ## Cluster name that appears in the browser window title if it is set
     clusterName: "ElfHosted"
-    defaultNamespace: "{{ .Release.Namespace }}"
-    namespaceFallbackList: [ "{{ .Release.Namespace }}" ]
+    # defaultNamespace: "{{ .Release.Namespace }}"
+    # namespaceFallbackList: [ "{{ .Release.Namespace }}" ]
     
     ## Max number of items that can be displayed on each list page
     itemsPerPage: 10

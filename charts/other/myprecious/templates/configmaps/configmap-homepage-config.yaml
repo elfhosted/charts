@@ -590,7 +590,7 @@ data:
 
         - Kubernetes Dashboard:
             icon: kubernetes.png
-            href: https://{{ .Release.Name }}-kubernetes.elfhosted.com
+            href: https://{{ .Release.Name }}-kubernetes.elfhosted.com/?namespace={{ .Release.Namespace }}
             description: Kubernetes Resources
             siteMonitor: http://kubernetes-dashboard:9090
 
