@@ -8558,7 +8558,7 @@ kubernetesdashboard:
   extraArgs:
     - --enable-skip-login
     - --enable-insecure-login
-    - --system-banner="ElfHosted Kubernetes Dashboard"
+    - --system-banner="ElfHosted is built with ❤️ by <A HREF="https://github.com/funkypenguin">@funkypenguin</A> on Kubernetes"
 
   ## Serve application over HTTP without TLS
   ##
