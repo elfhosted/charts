@@ -1582,8 +1582,10 @@ sabnzbd:
             echo "Received SIGTERM, waiting 5s for app to shut down..."
             mkdir -p /config/queue-backup
             sleep 5s
+
             # sync any files < 1MB
-            find /tmp/ -type f -size -1024k | rsync -avr --files-from=- /tmp /config/queue-backup
+            cd /tmp
+            find ./ -type f -size -1024k | rsync -avr --files-from=- /tmp /config/queue-backup
         }
 
         # When we terminate, perform the backup
@@ -8495,4 +8497,65 @@ zurg:
         seccompProfile:
           type: RuntimeDefault
         readOnlyRootFilesystem: true
+kubernetesdashboard:
+
+  extraArgs:
+    - --enable-skip-login
+    - --enable-insecure-login
+    - --system-banner="Kubernetes Dashboard for {{ .Release.Name }}"
+    - --namespace={{ .Release.Namespace }}
+
+
+
+  ## Serve application over HTTP without TLS
+  ##
+  ## Note: If set to true, you may want to add --enable-insecure-login to extraArgs
+  protocolHttp: true
+
+
+  # Global dashboard settings
+  settings:
+    ## Cluster name that appears in the browser window title if it is set
+    clusterName: "ElfHosted"
+    ## Max number of items that can be displayed on each list page
+    # itemsPerPage: 10
+    ## Number of seconds between every auto-refresh of logs
+    # logsAutoRefreshTimeInterval: 5
+    ## Number of seconds between every auto-refresh of every resource. Set 0 to disable
+    # resourceAutoRefreshTimeInterval: 5
+    ## Hide all access denied warnings in the notification panel
+    # disableAccessDeniedNotifications: false
+
+  ## Metrics Scraper
+  ## Container to scrape, store, and retrieve a window of time from the Metrics Server.
+  ## refs: https://github.com/kubernetes-sigs/dashboard-metrics-scraper
+  metricsScraper:
+    ## Wether to enable dashboard-metrics-scraper
+    enabled: true
+    image:
+      repository: kubernetesui/metrics-scraper
+      tag: v1.0.9
+    resources: {}
+    ## SecurityContext especially for the kubernetes dashboard metrics scraper container
+    ## If not set, the global containterSecurityContext values will define these values
+    # containerSecurityContext:
+    #   allowPrivilegeEscalation: false
+    #   readOnlyRootFilesystem: true
+    #   runAsUser: 1001
+    #   runAsGroup: 2001
+  #  args:
+  #    - --log-level=info
+  #    - --logtostderr=true
+
+  # Don't auto-create RBAC for us, we'll do it manually
+  rbac:
+    create: false
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: kubernetes-dashboard
+
 # This file must end on a newline
