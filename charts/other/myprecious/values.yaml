@@ -5901,8 +5901,8 @@ jellyseerr:
         - /bin/bash
         - -c
         - | 
-          mkdir -p /config/branding/app/jellyseerr/public
-          cp --no-clobber -rf /app/jellyseerr/public/* /config/branding/app/jellyseerr/public/
+          mkdir -p /config/branding/app/overseerr/public
+          cp --no-clobber -rf /app/overseerr/public/* /config/branding/app/overseerr/public/
       volumeMounts:
       - mountPath: /config
         name: config
