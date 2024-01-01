@@ -9,7 +9,6 @@ spec:
       services:
         - name: kubernetes-dashboard
           kind: Service
-          port: 8750
+          port: 80
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
-{{ end }}
