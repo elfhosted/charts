@@ -1459,10 +1459,10 @@ sabnzbd:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/storage
+          - key: node-role.elfhosted.com/download
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/storage
+  - key: node-role.elfhosted.com/download
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
