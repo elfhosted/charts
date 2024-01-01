@@ -18,4 +18,16 @@ spec:
         - name: theme-park-overseerr-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
+    - match: Host(`{{ .Release.Name }}-overseerr.elfhosted.com`) && Path(`/app/overseerr/public/`)
+      kind: Rule
+      services:
+        - name: overseerr
+          kind: Service
+          port: 8080
+      middlewares:
+        - name: {{ .Release.Name }}-add-cors-for-homer
+        {{ if ne "default" .Values.themepark.theme }}
+        - name: theme-park-overseerr-{{ .Values.themepark.theme }}
+          namespace: theme-park
+        {{ end }}
 {{ end }}

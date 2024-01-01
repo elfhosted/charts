@@ -14,6 +14,10 @@ spec:
     targetPort: 5055
     protocol: TCP
     name: http
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: branding
   selector:
     app.kubernetes.io/name: jellyseerr
     app.kubernetes.io/instance: {{ .Release.Name }}
