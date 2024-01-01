@@ -5840,7 +5840,7 @@ overseerr:
     limits:
       cpu: 2
       memory: 1Gi
-additionalContainers:
+  additionalContainers:
     branding:
       image: nginxinc/nginx-unprivileged
       volumeMounts:
