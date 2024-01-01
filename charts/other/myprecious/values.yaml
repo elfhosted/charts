@@ -1542,6 +1542,15 @@ sabnzbd:
 
         # fix host_whitelist
         sed -i  's/goldilocks/{{ .Release.Name }}/g' /config/sabnzbd.ini
+
+        # If we've previously backed up a queue, then restore it to /tmp
+        files=$(shopt -s nullglob dotglob; echo /config/queue-backup/*)
+        if (( ${#files} ))
+        then
+          cp /config/queue-backup/* /tmp/ -rfp
+          rm -rf /config/queue-backup
+        fi
+
       volumeMounts:
       - mountPath: /config
         name: config
@@ -1555,6 +1564,41 @@ sabnzbd:
     limits:
       cpu: 1500m # if par threads is 1, this leaves 0.5cpu for downloading
       memory: 1500Mi
+  additionalContainers:
+    backup_queue:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /usr/bin/dumb-init
+      - /bin/bash
+      - -c
+      - |
+        set -e
+        IFS=$'\n' # in case of paths with spaces (looking at you, Plex!)
+
+        function backupqueue_on_shutdown {
+            echo "Received SIGTERM, waiting 5s for app to shut down..."
+            mkdir -p /config/queue-backup
+            sleep 5s
+            time rsync -avr --include="__ADMIN__" /tmp/* /config/queue-backup
+        }
+
+        # When we terminate, perform the backup
+        trap backupqueue_on_shutdown SIGTERM
+
+        # Hang around doing nothing until terminated
+        while true
+        do
+            echo "Waiting for SIGTERM to backup queue from /tmp"
+            sleep infinity
+        done  
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      env: *bootstrap_env
+      securityContext: *default_securitycontext
+      resources: *default_resources  
+
   env:
     HOST_WHITELIST_ENTRIES: "{{ .Release.Name }}.sabnzbd.elfhosted.com"
     SABNZBD_UID: 568
