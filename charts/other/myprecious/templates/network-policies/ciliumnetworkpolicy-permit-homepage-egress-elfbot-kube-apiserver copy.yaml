@@ -1,11 +1,11 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "permit-homepage-egress-elfbot-kube-apiserver"
+  name: "permit-kubernetes-dashboard-egress-elfbot-kube-apiserver"
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/name: homepage
+      app.kubernetes.io/name: kubernetesdashboard
   egress:
     - toEntities:
         - kube-apiserver
