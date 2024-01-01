@@ -8553,8 +8553,22 @@ zurg:
         seccompProfile:
           type: RuntimeDefault
         readOnlyRootFilesystem: true
+
+
 kubernetesdashboard:
 
+  ## Name of Priority Class of pods
+  priorityClassName: "tenant-normal"
+
+  ## Pod resource requests & limits
+  resources:
+    requests:
+      cpu: 1m
+      memory: 10Mi
+    limits:
+      cpu: 100m
+      memory: 100Mi
+      
   extraArgs:
     - --enable-skip-login
     - --enable-insecure-login

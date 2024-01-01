@@ -32,6 +32,7 @@ rules:
   - secrets
   verbs:
   - update
-  resource_names: 
+  - get
+  resourceNames: 
   - "kubernetes-dashboard-key-holder"
   - "kubernetes-dashboard-csrf"
