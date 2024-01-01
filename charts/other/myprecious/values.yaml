@@ -8503,13 +8503,6 @@ kubernetesdashboard:
     - --enable-skip-login
     - --enable-insecure-login
     - --system-banner="ElfHosted Kubernetes Dashboard"
-    - --namespace=$MY_POD_NAMESPACE
-
-  extraEnv:
-  - name: MY_POD_NAMESPACE
-    valueFrom:
-      fieldRef:
-        fieldPath: metadata.namespace
 
   ## Serve application over HTTP without TLS
   ##

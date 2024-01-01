@@ -898,7 +898,7 @@ data:
 
           - name: "Kubernetes Dashboard"
             logo: "assets/png/kubernetes.png"
-            subtitle: "Manage Files"
+            subtitle: "Kubernetes Resources"
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-kubernetes.elfhosted.com"
