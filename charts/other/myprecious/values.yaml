@@ -1583,7 +1583,7 @@ sabnzbd:
             mkdir -p /config/queue-backup
             sleep 5s
             # sync any files < 1MB
-            find . -type f -size -1024k | rsync -avr --files-from=- /tmp /config/queue-backup
+            find /tmp/ -type f -size -1024k | rsync -avr --files-from=- /tmp /config/queue-backup
         }
 
         # When we terminate, perform the backup
@@ -7670,6 +7670,11 @@ rdtclient:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
+    tmp: # We can't use topolvm on the dwarves
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp
+      sizeLimit: 1Gi    
     config:
       enabled: true
       type: custom
