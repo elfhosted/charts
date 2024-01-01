@@ -581,7 +581,16 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
+          - type: email    
+
+      - name: kubernetes-dashboard
+        group: tools
+        url: "http://kubernetes-dashboard:443"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email                     
 
       - name: rcloneui
         group: tools

@@ -67,8 +67,8 @@ data:
 
     ## If you set these, logs will be written to these files.
     ## If blank on windows or macOS, log file paths are chosen for you.
-    #log_file = '~/.notifiarr/notifiarr.log'
-    #http_log = '~/.notifiarr/notifiarr.http.log'
+    log_file = '/config/notifiarr.log'
+    http_log = '/config/notifiarr.http.log'
     ##
     ## Set this to the number of megabytes to rotate files.
     log_file_mb = 100

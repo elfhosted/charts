@@ -896,6 +896,14 @@ data:
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com"
             target: "_blank" # optional html tag target attribute
 
+          - name: "Kubernetes Dashboard"
+            logo: "assets/png/kubernetes.png"
+            subtitle: "Manage Files"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-kubernetes.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+
           {{ if .Values.privatebin.enabled }}
           - name: "Privatebin"
             logo: "assets/png/privatebin.png"

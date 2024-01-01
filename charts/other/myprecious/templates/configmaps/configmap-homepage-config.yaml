@@ -580,6 +580,12 @@ data:
             description: Manage Files
             siteMonitor: http://filebrowser:8080
 
+        - Kubernetes Dashboard:
+            icon: kubernetes.png
+            href: https://{{ .Release.Name }}-kubernetes.elfhosted.com
+            description: Kubernetes Resources
+            siteMonitor: http://kubernetes-dashboard:443
+
         {{ if .Values.privatebin.enabled }}
         - PrivateBin:
             icon: privatebin.png
