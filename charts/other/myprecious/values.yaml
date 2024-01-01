@@ -1554,6 +1554,8 @@ sabnzbd:
       volumeMounts:
       - mountPath: /config
         name: config
+      - mountPath: /tmp
+        name: tmp        
       env: *bootstrap_env
       securityContext: *default_securitycontext
       resources: *default_resources
@@ -1580,7 +1582,8 @@ sabnzbd:
             echo "Received SIGTERM, waiting 5s for app to shut down..."
             mkdir -p /config/queue-backup
             sleep 5s
-            time rsync -avr --include="__ADMIN__" /tmp/* /config/queue-backup
+            # sync any files < 1MB
+            find . -type f -size -1024k | rsync -avr --files-from=- /tmp /config/queue-backup
         }
 
         # When we terminate, perform the backup
@@ -1595,6 +1598,8 @@ sabnzbd:
       volumeMounts:
       - mountPath: /config
         name: config
+      - mountPath: /tmp
+        name: tmp
       env: *bootstrap_env
       securityContext: *default_securitycontext
       resources: *default_resources  
