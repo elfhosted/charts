@@ -27,3 +27,10 @@ rules:
   - get
   - list
   - watch
+# - apiGroups:
+#   - "*"
+#   resources:
+#   - secrets
+#   verbs:
+#   - update
+# kubernetes-dashboard-key-holder
