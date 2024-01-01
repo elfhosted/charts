@@ -18,7 +18,7 @@ spec:
         - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
           namespace: theme-park
         {{ end }}
-    - match: Host(`{{ .Values.jellyseerrcustomdomain.cname }}`) && Path(`/logo_`)
+    - match: Host(`{{ .Values.jellyseerrcustomdomain.cname }}`) && PathPrefix(`/logo_`)
       kind: Rule
       services:
         - name: jellyseerr
