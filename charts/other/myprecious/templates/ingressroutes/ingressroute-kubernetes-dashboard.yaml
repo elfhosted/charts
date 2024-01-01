@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-kubernetes.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-kubernetes.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: kubernetes-dashboard
+          kind: Service
+          port: 8750
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+{{ end }}
