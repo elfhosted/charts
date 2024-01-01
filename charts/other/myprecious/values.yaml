@@ -8572,7 +8572,7 @@ kubernetesdashboard:
   extraArgs:
     - --enable-skip-login
     - --enable-insecure-login
-    - --system-banner=Built</A> with ❤️ by <A HREF="https://funkypenguin.co.nz">@funkypenguin</A> and <A HREF="https://discord.funkypenguin.co.nz">friends</A> (join us!)
+    - --system-banner=Built</A> with ❤️ by <A HREF="https://funkypenguin.co.nz">@funkypenguin</A> and friends (<I><A HREF="https://discord.funkypenguin.co.nz">join us!</A></I>)
 
   ## Serve application over HTTP without TLS
   ##
