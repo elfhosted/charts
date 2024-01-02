@@ -1149,6 +1149,7 @@ delugepia:
       envFrom:
       - configMapRef:
           name: deluge-pia-config
+  initContainers:
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
