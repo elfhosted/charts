@@ -1149,6 +1149,53 @@ delugepia:
       envFrom:
       - configMapRef:
           name: deluge-pia-config
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /config/deluge/torrent_files
+
+        # Setup autobrr access to daemon
+        grep -q autobrr /config/auth || echo 'autobrr:c7RJKKt#KBcM5Z?a:10' >> /config/auth
+
+        JQ_FILTER=".listen_random_port=false"
+        JQ_FILTER="${JQ_FILTER} | .pre_allocate_storage=false"
+        JQ_FILTER="${JQ_FILTER} | .stop_seed_ratio=2"
+        JQ_FILTER="${JQ_FILTER} | .cache_size=52428"
+        JQ_FILTER="${JQ_FILTER} | .share_ratio_limit=2"
+        JQ_FILTER="${JQ_FILTER} | .stop_seed_at_ratio=true"
+
+        jq "${JQ_FILTER}" /config/core.conf > /config/core-new.conf
+        cp /config/core-new.conf /config/core.conf
+
+        # # Avoid session timeouts
+        # sed -i  "s/session_timeout:\".*/session_timeout\": 99999,/" /config/web.conf
+
+        # If the VPN_ENDPOINT_IP is set, but is not an IP address, then convert it to one
+        if [ ! -z ${VPN_ENDPOINT_IP+x} ]
+          then
+          if echo "$VPN_ENDPOINT_IP" | egrep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+          then
+              echo "No changes, VPN_ENDPOINT_IP is an IP"
+          else
+              # only create the file if DNS lookup succeeds
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+          fi
+        fi
+
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /shared
+        name: shared        
+      env: *bootstrap_env
+      securityContext: *default_securitycontext       
   additionalContainers:
     deluge-web:
       image: ghcr.io/geek-cookbook/deluge:2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
@@ -1423,7 +1470,56 @@ qbittorrentpia:
         name: tmp
   initContainers:
     bootstrap: *bootstrap
-    
+    setup:
+      image: *tooling_image
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Remove the lockfile if it exists
+        if [[ -f /config/qBittorrent/lockfile ]]; then
+          rm /config/qBittorrent/lockfile
+        fi
+
+        mkdir -p /config/qBittorrent/torrent_files/complete
+        mkdir -p /config/qBittorrent/torrent_files/incomplete
+
+        # Enforce 1:1 seeding ratio, and then delete
+        sed -i  "s/Session\\\GlobalMaxRatio=.*/Session\\\GlobalMaxRatio=1/" /config/qBittorrent/qBittorrent.conf
+
+        # Permit TCP only
+        sed -i  "s/Session\\\BTProtocol=.*/Session\\\BTProtocol=TCP/" /config/qBittorrent/qBittorrent.conf
+
+        # Disable CSRF protection so that Homer can show qBit stats
+        sed -i  "s/WebUI\\\CSRFProtection=.*/WebUI\\\CSRFProtection=false/" /config/qBittorrent/qBittorrent.conf
+
+        # Insist on tun0
+        sed -i  "s/Session\\\Interface=.*/Session\\\Interface=tun0/" /config/qBittorrent/qBittorrent.conf
+        sed -i  "s/Session\\\InterfaceName=.*/Session\\\InterfaceName=tun0/" /config/qBittorrent/qBittorrent.conf
+
+        # If the VPN_ENDPOINT_IP is set, but is not an IP address, then convert it to one
+        if [ ! -z ${VPN_ENDPOINT_IP+x} ]
+          then
+          if echo "$VPN_ENDPOINT_IP" | egrep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+          then
+              echo "No changes, VPN_ENDPOINT_IP is an IP"
+          else
+              # only create the file if DNS lookup succeeds
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+          fi
+        fi
+
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /shared
+        name: shared  
+      securityContext: *default_securitycontext
+      resources: *default_resources
+
 nzbget:
   enabled: false
   sso:
