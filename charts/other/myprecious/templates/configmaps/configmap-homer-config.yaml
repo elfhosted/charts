@@ -587,8 +587,13 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Live TV Proxy for Plex/Emby"
+            {{ if .Values.xteveexposed.enabled }}
+            tag: "public"
+            tagstyle: "is-danger"
+            {{ else }}
             tag: "protected"
             tagstyle: "is-success"
+            {{ end }}
             url: "https://{{ .Release.Name }}-xteve.elfhosted.com/web/"
             target: "_blank" # optional html tag target attribute
           {{ end }}

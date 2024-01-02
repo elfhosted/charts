@@ -594,6 +594,8 @@ nzbgetexposed:
 mylarrexposed:
   enabled: false
   apikey: 0f97f6a7f352c63eb43fcb7e53ea9d8f
+xteveexposed:
+  enabled: false
 
 uptimekumacustomdomain:
   enabled: false

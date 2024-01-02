@@ -12,7 +12,9 @@ spec:
           kind: Service
           port: 34400
       middlewares:
+        {{- if not .Values.xteveexposed.enabled }}
         - name: {{ .Release.Name }}-traefik-forward-auth
+        {{ end }}      
         - name: error-pages
           namespace: traefik
 {{ end }}
