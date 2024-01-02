@@ -22,7 +22,7 @@ data:
   OPENVPN_CUSTOM_CONFIG: "{{ .Values.delugegluetun.OPENVPN_CUSTOM_CONFIG | default }}"
   SERVER_REGIONS: "{{ .Values.delugegluetun.SERVER_REGIONS | default }}"
   VPN_PORT_FORWARDING: "{{ .Values.delugegluetun.VPN_PORT_FORWARDING | default false }}"
-  VPN_PORT_FORWARDING_PROVIDER: "{{ .Values.delugegluetun.VPN_PORT_FORWARDING_PROVIDER | default false }}"
+  VPN_PORT_FORWARDING_PROVIDER: "{{ .Values.delugegluetun.VPN_PORT_FORWARDING_PROVIDER | default }}"
   VPN_PORT_FORWARDING_STATUS_FILE: /config/forwarded-port
   POST_UP: /gluetun/scripts/up.sh
   PRE_DOWN: /gluetun/scripts/down.sh

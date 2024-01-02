@@ -785,7 +785,7 @@ rutorrentgluetun: &rutorrent
         set -e
         
         # If the VPN_ENDPOINT_IP is set, but is not an IP address, then convert it to one
-        if [ ! -z ${VPN_ENDPOINT_IP+x} ]
+        if [[ ! -z "$VPN_ENDPOINT_IP" ]]
           then
           if echo "$VPN_ENDPOINT_IP" | egrep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
           then
@@ -1053,7 +1053,7 @@ delugegluetun: &deluge
         # sed -i  "s/session_timeout:\".*/session_timeout\": 99999,/" /config/web.conf
 
         # If the VPN_ENDPOINT_IP is set, but is not an IP address, then convert it to one
-        if [ ! -z ${VPN_ENDPOINT_IP+x} ]
+        if [[ ! -z "$VPN_ENDPOINT_IP" ]]
           then
           if echo "$VPN_ENDPOINT_IP" | egrep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
           then
@@ -1179,7 +1179,7 @@ delugepia:
         # sed -i  "s/session_timeout:\".*/session_timeout\": 99999,/" /config/web.conf
 
         # If the VPN_ENDPOINT_IP is set, but is not an IP address, then convert it to one
-        if [ ! -z ${VPN_ENDPOINT_IP+x} ]
+        if [[ ! -z "$VPN_ENDPOINT_IP" ]]
           then
           if echo "$VPN_ENDPOINT_IP" | egrep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
           then
@@ -1376,7 +1376,7 @@ qbittorrentgluetun: &qbittorrent
         sed -i  "s/Session\\\InterfaceName=.*/Session\\\InterfaceName=tun0/" /config/qBittorrent/qBittorrent.conf
 
         # If the VPN_ENDPOINT_IP is set, but is not an IP address, then convert it to one
-        if [ ! -z ${VPN_ENDPOINT_IP+x} ]
+        if [[ ! -z "$VPN_ENDPOINT_IP" ]]
           then
           if echo "$VPN_ENDPOINT_IP" | egrep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
           then
@@ -1502,7 +1502,7 @@ qbittorrentpia:
         sed -i  "s/Session\\\InterfaceName=.*/Session\\\InterfaceName=tun0/" /config/qBittorrent/qBittorrent.conf
 
         # If the VPN_ENDPOINT_IP is set, but is not an IP address, then convert it to one
-        if [ ! -z ${VPN_ENDPOINT_IP+x} ]
+        if [[ ! -z "$VPN_ENDPOINT_IP" ]]
           then
           if echo "$VPN_ENDPOINT_IP" | egrep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
           then
@@ -4365,7 +4365,7 @@ plex: &plex
         set -e
         
         # If the VPN_ENDPOINT_IP is set, but is not an IP address, then convert it to one
-        if [ ! -z ${VPN_ENDPOINT_IP+x} ]
+        if [[ ! -z "$VPN_ENDPOINT_IP" ]]
           then
           if echo "$VPN_ENDPOINT_IP" | egrep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
           then
