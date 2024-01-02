@@ -840,22 +840,6 @@ rutorrentgluetun: &rutorrent
         down: |-
           #!/bin/bash
           echo "disconnected" > /shared/vpnstatus
-
-rutorrentpia:
-  <<: *rutorrent
-  controller:
-    annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,rutorrent-config,rutorrent-pia-config,elfbot-rutorrent" # Reload the deployment every time the yaml config changes
-  addons:
-    vpn:
-      <<: *rutorrent_addons_vpn
-      gluetun:
-        image:
-          repository: thrnz/docker-wireguard-pia
-          tag: latest
-      envFrom:
-      - configMapRef:
-          name: rutorrent-pia-config
   additionalContainers:
     # Use this to provied proxied access to arrs
     dante:
@@ -906,7 +890,23 @@ rutorrentpia:
       - mountPath: /shared
         name: shared        
       resources: *default_resources
-      securityContext: *default_securitycontext
+      securityContext: *default_securitycontext          
+
+rutorrentpia:
+  <<: *rutorrent
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,rutorrent-config,rutorrent-pia-config,elfbot-rutorrent" # Reload the deployment every time the yaml config changes
+  addons:
+    vpn:
+      <<: *rutorrent_addons_vpn
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest
+      envFrom:
+      - configMapRef:
+          name: rutorrent-pia-config
   initContainers:
     bootstrap: *bootstrap # avoid adding setup
         
