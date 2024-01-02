@@ -791,7 +791,8 @@ rutorrentgluetun: &rutorrent
           then
               echo "No changes, VPN_ENDPOINT_IP is an IP"
           else
-              dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+              # only create the file if DNS lookup succeeds
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
           fi
         fi
       volumeMounts:
@@ -1058,7 +1059,8 @@ delugegluetun: &deluge
           then
               echo "No changes, VPN_ENDPOINT_IP is an IP"
           else
-              dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+              # only create the file if DNS lookup succeeds
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
           fi
         fi
 
@@ -1332,7 +1334,8 @@ qbittorrentgluetun: &qbittorrent
           then
               echo "No changes, VPN_ENDPOINT_IP is an IP"
           else
-              dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+              # only create the file if DNS lookup succeeds
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
           fi
         fi
 
@@ -4269,7 +4272,8 @@ plex: &plex
           then
               echo "No changes, VPN_ENDPOINT_IP is an IP"
           else
-              dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+              # only create the file if DNS lookup succeeds
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
           fi
         fi
       volumeMounts:
