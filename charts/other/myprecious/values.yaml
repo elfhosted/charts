@@ -1421,7 +1421,9 @@ qbittorrentpia:
       volumeMounts:
       - mountPath: /tmp
         name: tmp
-
+  initContainers:
+    bootstrap: *bootstrap
+    
 nzbget:
   enabled: false
   sso:
