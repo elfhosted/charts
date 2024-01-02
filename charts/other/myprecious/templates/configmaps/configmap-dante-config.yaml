@@ -1,4 +1,4 @@
-{{ if or .Values.rutorrentgluetun.enabled .Values.rutorrentpia.enabled }}
+{{ if or .Values.rutorrentgluetun.enabled .Values.rutorrentpia.enabled .Values.qbittorrentgluetun.enabled .Values.qbittorrentpia.enabled .Values.delugegluetun.enabled .Values.delugepia.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8,7 +8,11 @@ data:
     logoutput: stderr
     # debug: 1
     internal: eth0 port = 2020
+    {{ if or .Values.delugepia.enabled .Values.rutorrentpia.enabled .Values.qbittorrentpia.enabled }}
     external: wg0
+    {{ else }}
+    external: tun0
+    {{ end }}
     # external.rotation: route
 
     clientmethod: none
