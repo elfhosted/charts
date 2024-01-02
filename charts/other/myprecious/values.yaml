@@ -8777,7 +8777,7 @@ kubernetesdashboard:
       memory: 10Mi
     limits:
       cpu: 100m
-      memory: 100Mi
+      memory: 256Mi
       
   extraArgs:
     - --enable-skip-login
