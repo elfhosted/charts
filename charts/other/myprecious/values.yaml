@@ -808,8 +808,8 @@ rutorrentgluetun: &rutorrent
       type: gluetun
       gluetun:
         image:
-          repository: docker.io/qmcgaw/gluetun
-          tag: pr-1543 # See https://github.com/qdm12/gluetun/issues/1488
+          repository: ghcr.io/geek-cookbook/gluetun
+          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
       securityContext:
         runAsUser: 0
         capabilities:
@@ -1085,8 +1085,8 @@ delugegluetun: &deluge
       type: gluetun
       gluetun:
         image:
-          repository: docker.io/qmcgaw/gluetun
-          tag: pr-1543 # See https://github.com/qdm12/gluetun/issues/1488
+          repository: ghcr.io/geek-cookbook/gluetun
+          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
       securityContext:
         runAsUser: 0
         capabilities:
@@ -4327,8 +4327,8 @@ plexgluetun:
       type: gluetun
       gluetun:
         image:
-          repository: docker.io/qmcgaw/gluetun
-          tag: pr-1543 # See https://github.com/qdm12/gluetun/issues/1488
+          repository: ghcr.io/geek-cookbook/gluetun
+          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
       securityContext:
         runAsUser: 0
         capabilities:
