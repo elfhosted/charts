@@ -827,6 +827,8 @@ rutorrentgluetun: &rutorrent
         name: config
       - mountPath: /storage/elfstorage
         name: elfstorage
+      - mountPath: /shared
+        name: shared        
       config: # We have to set this to null so that we can override with our own config
 
       # The scripts that get run when the VPN connection opens/closes are defined here.
