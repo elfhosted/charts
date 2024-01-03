@@ -6,9 +6,8 @@ data:
   disk_usage.sh: |
     #!/bin/bash
 
-    # # Un-break permissions on config PVCs, if attaching them here has caused a problem
-    # set +e
-    # chown 568:568 /config/* # if this pod (which runs as root) starts first, it can set config volumes to be owned by root
+    # Un-break permissions on config PVCs, if attaching them here has caused a problem
+    chown 568:568 /config/* # if this pod (which runs as root) starts first, it can set config volumes to be owned by root
 
     while true
     do
