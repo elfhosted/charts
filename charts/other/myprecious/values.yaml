@@ -8539,7 +8539,7 @@ wallabag:
       memory: 1Gi
   additionalContainers:
     ui:
-      image: ghcr.io/geek-cookbook/wallabag:2.6.7@sha256:0b35b55f7938fd4c983537d82248209bcc77878b5bba98583173c3b750f21c93
+      image: ghcr.io/geek-cookbook/wallabag:2.6.8@sha256:9a0d45f14a5d8356e27044cb71fc04dcc4df7c161e64699593234bae01f79ab5
       volumeMounts:
       - mountPath: /var/www/wallabag/data
         name: config
