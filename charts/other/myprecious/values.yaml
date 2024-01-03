@@ -6781,10 +6781,10 @@ rclonebrowser:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/storage
             operator: Exists
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/storage
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
