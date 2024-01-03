@@ -5257,7 +5257,7 @@ homer:
       memory: 1Mi
     limits:
       cpu: 100m
-      memory: 64Mi
+      memory: 128Mi
 
 traefikforwardauth:
   type: wordpress
