@@ -155,8 +155,8 @@ data:
         text-subtitle: "#424242"
         card-shadow: rgba(0, 0, 0, 0.1)
         link-hover: "#363636"
-        # background-image: /assets/backgrounds/elfhosted.jpg
-        background-image: https://source.unsplash.com/random/3000/?backgrounds,colors,white # another test
+        background-image: /assets/backgrounds/elfhosted.jpg
+        # background-image: https://source.unsplash.com/random/3000/?backgrounds,colors,white # another test
       dark:
         highlight-primary: "#222526"
         highlight-secondary: "#4285f4"
@@ -171,6 +171,7 @@ data:
         link-hover: "#ffdd57"
         background-image: /assets/backgrounds/elfhosted.jpg
         # background-image: /assets/backgrounds/unsplash-dark.jpg
+        # background-image: https://source.unsplash.com/random/3000/?backgrounds,colors,white # another test
 
 
     # Optional message
