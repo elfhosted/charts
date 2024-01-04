@@ -3365,7 +3365,7 @@ mylar:
   image:
     registry: ghcr.io
     repository: geek-cookbook/mylar3
-    tag: 0.7.6@sha256:5bb74fb44c92658601991a0dadc20d46245706f1a1d57e25bc38a0d43755ed49
+    tag: 0.7.7@sha256:c3fad06a925191f7b39944ac96c8ae85b0fb1e5dfd3592c4f085ff34f18d4eeb
   env:
     PUID: 568
     PGID: 568
