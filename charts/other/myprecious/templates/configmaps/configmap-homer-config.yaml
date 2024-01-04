@@ -74,19 +74,19 @@ data:
       done
 
       PERCENTAGE_USED=$(cat /www/assets/message/disk_space_percent_used)
-      if [[ "$PERCENTAGE_USED" -ge 90 ]]; then
+      if [[ "$PERCENTAGE_USED" -ge 90 || "$CONFIG_PERCENTAGE_USED" -ge 90 ]]; then
         STYLE="is-danger"
         ICON="fa fa-thermometer-full"
         MESSAGE="Time to clean up! 🧹"
-      elif [[ "$PERCENTAGE_USED" -ge 75 ]]; then
+      elif [[ "$PERCENTAGE_USED" -ge 75 || "$CONFIG_PERCENTAGE_USED" -ge 75 ]]; then
         STYLE="is-warning"
         ICON="fa fa-thermometer-three-quarters"
         MESSAGE="Getting full.. 🍔"
-      elif [[ "$PERCENTAGE_USED" -ge 50 ]]; then
+      elif [[ "$PERCENTAGE_USED" -ge 50 || "$CONFIG_PERCENTAGE_USED" -ge 50 ]]; then
         STYLE="is-info"
         ICON="fa fa-thermometer-half"
         MESSAGE="Halfway there.."
-      elif [[ "$PERCENTAGE_USED" -ge 25 ]]; then
+      elif [[ "$PERCENTAGE_USED" -ge 25  || "$CONFIG_PERCENTAGE_USED" -ge 25 ]]; then
         STYLE="is-success"
         ICON="fa fa-thermometer-quarter"
         MESSAGE="Nice and tidy! 👍"
@@ -100,12 +100,12 @@ data:
       echo "{ \"title\":\"Storage usage: ${MESSAGE}\", \"content\":\"${MESSAGE_DETAILS}(<I>Updated roughly hourly</I>)\",\"style\":\"${STYLE}\",\"icon\":\"${ICON}\" }" > /www/assets/message/message.json
 
       # now get a random dark/light background...
-      # curl -s 'https://source.unsplash.com/random/?wallpaper,dark,background' -L --output /www/assets/backgrounds/unsplash-dark.jpg
-      # curl -s 'https://source.unsplash.com/random/?wallpaper,light,background' -L --output /www/assets/backgrounds/unsplash-light.jpg
+      curl -s 'https://source.unsplash.com/random/?wallpaper,dark,background' -L --output /www/assets/backgrounds/unsplash-dark.jpg
+      curl -s 'https://source.unsplash.com/random/?wallpaper,light,background' -L --output /www/assets/backgrounds/unsplash-light.jpg
 
-      # Until we can improve wallpaper now that source.unsplash.com isn't working
-      curl -s 'https://picsum.photos/1024/768' -L --output /www/assets/backgrounds/unsplash-dark.jpg
-      cp /www/assets/backgrounds/unsplash-dark.jpg /www/assets/backgrounds/unsplash-light.jpg
+      # # Until we can improve wallpaper now that source.unsplash.com isn't working
+      # curl -s 'https://picsum.photos/1024/768' -L --output /www/assets/backgrounds/unsplash-dark.jpg
+      # cp /www/assets/backgrounds/unsplash-dark.jpg /www/assets/backgrounds/unsplash-light.jpg
 
       sleep $(shuf -i 1800-5400 -n 1)
     done
