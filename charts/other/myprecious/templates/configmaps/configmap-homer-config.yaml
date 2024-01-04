@@ -100,8 +100,8 @@ data:
       echo "{ \"title\":\"Storage usage: ${MESSAGE}\", \"content\":\"${MESSAGE_DETAILS}(<I>Updated roughly hourly</I>)\",\"style\":\"${STYLE}\",\"icon\":\"${ICON}\" }" > /www/assets/message/message.json
 
       # now get a random dark/light background...
-      curl -s 'https://source.unsplash.com/random/?wallpaper,dark,background' -L --output /www/assets/backgrounds/unsplash-dark.jpg
-      curl -s 'https://source.unsplash.com/random/?wallpaper,light,background' -L --output /www/assets/backgrounds/unsplash-light.jpg
+      # curl -s 'https://source.unsplash.com/random/?wallpaper,dark,background' -L --output /www/assets/backgrounds/unsplash-dark.jpg
+      # curl -s 'https://source.unsplash.com/random/?wallpaper,light,background' -L --output /www/assets/backgrounds/unsplash-light.jpg
 
       # # Until we can improve wallpaper now that source.unsplash.com isn't working
       # curl -s 'https://picsum.photos/1024/768' -L --output /www/assets/backgrounds/unsplash-dark.jpg
@@ -155,7 +155,7 @@ data:
         text-subtitle: "#424242"
         card-shadow: rgba(0, 0, 0, 0.1)
         link-hover: "#363636"
-        background-image: /assets/backgrounds/unsplash-light.jpg
+        background-image: /assets/backgrounds/elfhosted.jpg
       dark:
         highlight-primary: "#222526"
         highlight-secondary: "#4285f4"
@@ -168,8 +168,8 @@ data:
         text-subtitle: "#f5f5f5"
         card-shadow: rgba(0, 0, 0, 0.4)
         link-hover: "#ffdd57"
-        # background-image: /assets/backgrounds/elfhosted.jpg
-        background-image: /assets/backgrounds/unsplash-light.jpg
+        background-image: /assets/backgrounds/elfhosted.jpg
+        # background-image: /assets/backgrounds/unsplash-dark.jpg
 
 
     # Optional message
