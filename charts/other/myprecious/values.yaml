@@ -5207,6 +5207,8 @@ homer:
         subPath: "tools.yml"
       - mountPath: /www/assets/message
         name: message
+      - mountPath: /www/assets/backgrounds
+        name: backgrounds        
       resources: *default_resources
       securityContext: *default_securitycontext
 
