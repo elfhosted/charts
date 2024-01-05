@@ -1622,7 +1622,7 @@ sabnzbd:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sabnzbd
-    tag: 4.1.0@sha256:c2fec7d8609a138a12fed06756a12c0bb798d628592e24162bd9b19ae39b0f37
+    tag: 4.2.0@sha256:06434e761fdcb75a5b879573145153bf61ba03652183426c3ab6e806ead39afd
   priorityClassName: tenant-bulk
   affinity:
     nodeAffinity:
@@ -2970,7 +2970,7 @@ uptimekuma:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/uptime-kuma
-    tag: 1.23.9@sha256:7aafb5f98fe22049006730e0402bae2cc8b8fab3b04eb82def309a26f7ab2626
+    tag: 1.23.11@sha256:29ced26e7bef402d62fd180c8e7f194f3dcff8c01242c80ae1ba8b0b3b9795bd
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -3365,7 +3365,7 @@ mylar:
   image:
     registry: ghcr.io
     repository: geek-cookbook/mylar3
-    tag: 0.7.6@sha256:5bb74fb44c92658601991a0dadc20d46245706f1a1d57e25bc38a0d43755ed49
+    tag: 0.7.7@sha256:c3fad06a925191f7b39944ac96c8ae85b0fb1e5dfd3592c4f085ff34f18d4eeb
   env:
     PUID: 568
     PGID: 568
