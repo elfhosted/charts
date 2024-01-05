@@ -5186,10 +5186,14 @@ homer:
       enabled: true
       type: emptyDir
       mountPath: /www/assets/message
-    backgrounds:
+    homer:
       enabled: true
-      type: emptyDir
+      type: custom
       mountPath: /www/assets/backgrounds
+      subPath: backgrounds
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-homer-ssd      
 
   command:
   - /bin/bash
@@ -5208,7 +5212,9 @@ homer:
       - mountPath: /www/assets/message
         name: message
       - mountPath: /www/assets/backgrounds
-        name: backgrounds        
+        name: homer
+        subPath: backgrounds
+        readOnly: true        
       resources: *default_resources
       securityContext: *default_securitycontext
 
