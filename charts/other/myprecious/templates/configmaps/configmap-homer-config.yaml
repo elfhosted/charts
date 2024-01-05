@@ -10,12 +10,12 @@ data:
     chown 568:568 /config/* # if this pod (which runs as root) starts first, it can set config volumes to be owned by root
 
     # now get a random dark/light background...
-    if [ ! -f /www/assets/backgrounds/unsplash-dark.jpg ]; then
-      curl -s 'https://source.unsplash.com/random/?dark' -L --output /www/assets/backgrounds/unsplash-dark.jpg
+    if [ ! -f /www/assets/backgrounds/background-dark.jpg ]; then
+      curl -s 'https://source.unsplash.com/random/?dark' -L --output /www/assets/backgrounds/background-dark.jpg
     fi
 
-    if [ ! -f /www/assets/backgrounds/unsplash-light.jpg ]; then
-      curl -s 'https://source.unsplash.com/random/?monochrome' -L --output /www/assets/backgrounds/unsplash-light.jpg
+    if [ ! -f /www/assets/backgrounds/background-light.jpg ]; then
+      curl -s 'https://source.unsplash.com/random/?monochrome' -L --output /www/assets/backgrounds/background-light.jpg
     fi
     
     while true
@@ -156,7 +156,7 @@ data:
         text-subtitle: "#424242"
         card-shadow: rgba(0, 0, 0, 0.1)
         link-hover: "#363636"
-        background-image: /assets/backgrounds/light.jpg
+        background-image: /assets/backgrounds/background-light.jpg
       dark:
         highlight-primary: "#222526"
         highlight-secondary: "#4285f4"
@@ -169,7 +169,7 @@ data:
         text-subtitle: "#f5f5f5"
         card-shadow: rgba(0, 0, 0, 0.4)
         link-hover: "#ffdd57"
-        background-image: /assets/backgrounds/dark.jpg
+        background-image: /assets/backgrounds/background-dark.jpg
 
 
     # Optional message
