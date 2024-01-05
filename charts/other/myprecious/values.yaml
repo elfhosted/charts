@@ -8792,7 +8792,7 @@ plexdebrid:
     app.elfhosted.com/class: bulk  
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
-    tag: latest@sha256:dad075c86758ad78939ff4ec9b69a8cbeda100ca8e9a0b521667bb259c364de2
+    tag: latest@sha256:c77a69f065e9033cf5c8ff1ce5cb61064eb1f7ac906ae28fc2f39a1d26c0effb
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -8804,8 +8804,6 @@ plexdebrid:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    runAsUser: 568
-    runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
@@ -8848,16 +8846,11 @@ plexdebrid:
         http:
           port: 3000 
   persistence:
-    elfstorage: *elfstorage  
-    run: # used for s6-init with non-root
-      enabled: true
-      type: emptyDir
-      mountPath: /run
-      sizeLimit: 1Gi    
+    elfstorage: *elfstorage   
     config:
       enabled: true
       type: custom
-      mountPath: /tmp
+      mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-debrid-ssd
@@ -8866,7 +8859,7 @@ plexdebrid:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-plexdebrid
+          name: elfbot-plex-debrid
           optional: true
 
   initContainers:

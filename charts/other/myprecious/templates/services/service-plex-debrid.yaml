@@ -15,6 +15,6 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.kubernetes.io/name: plex-debrid
+    app.kubernetes.io/name: plexdebrid
     app.kubernetes.io/instance: {{ .Release.Name }}
 {{ end }}
