@@ -2504,6 +2504,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin-ssd
+    plexdebrid:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/plex-debrid/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex-debrid-ssd
     plexmetamanager:
       enabled: false
       type: custom
@@ -4846,6 +4853,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin-ssd
+    plexdebrid:
+      enabled: false
+      type: custom
+      mountPath: /config/plex-debrid/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex-debrid-ssd
     plexmetamanager:
       enabled: false
       type: custom
@@ -6976,6 +6990,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin-ssd
+    plexdebrid:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/plex-debrid/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex-debrid-ssd          
     plexmetamanager:
       enabled: false
       type: custom
