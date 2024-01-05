@@ -8752,7 +8752,7 @@ zurg:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-autoscan
+          name: elfbot-zurg
           optional: true
 
   initContainers:
@@ -8785,6 +8785,84 @@ zurg:
           type: RuntimeDefault
         readOnlyRootFilesystem: true
 
+stremio:
+  enabled: false
+  runtimeClassName: kata  
+  podLabels:
+    app.elfhosted.com/class: bulk  
+  image:
+    repository: stremio/server
+    tag: v4.20.3
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true # doesn't work because the node modules in /app try to create files
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/storage
+            operator: Exists
+  tolerations:
+  - key: node-role.elfhosted.com/storage
+    operator: Exists
+
+  topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    nodeTaintsPolicy: Honor
+    labelSelector: 
+      matchLabels: 
+        app.elfhosted.com/name: stremio  
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 100m
+      memory: 1024Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 11470 
+  persistence:
+    elfstorage: *elfstorage
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-stremio-ssd
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-stremio
+          optional: true
+
+  initContainers:
+    bootstrap: *bootstrap
 
 kubernetesdashboard:
 
