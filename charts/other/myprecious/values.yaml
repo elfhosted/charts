@@ -8792,7 +8792,7 @@ plexdebrid:
     app.elfhosted.com/class: bulk  
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
-    tag: latest
+    tag: latest@sha256:dad075c86758ad78939ff4ec9b69a8cbeda100ca8e9a0b521667bb259c364de2
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -8800,7 +8800,7 @@ plexdebrid:
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: true # doesn't work because the node modules in /app try to create files
+    readOnlyRootFilesystem: false # doesn't work because of s6
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
