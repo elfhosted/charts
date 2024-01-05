@@ -8791,8 +8791,8 @@ stremio:
   podLabels:
     app.elfhosted.com/class: bulk  
   image:
-    repository: stremio/server
-    tag: v4.20.3
+    repository: tsaridas/stremio-docker
+    tag: latest
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -8843,7 +8843,7 @@ stremio:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 11470 
+          port: 8080 
   persistence:
     elfstorage: *elfstorage
     config:

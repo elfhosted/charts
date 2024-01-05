@@ -149,7 +149,7 @@ data:
             icon: stremio.png
             href: https://{{ .Release.Name }}-stremio.elfhosted.com
             description: Stream from Real Debrid
-            siteMonitor: http://stremio:11470            
+            siteMonitor: http://stremio:8080            
         {{ end }}                         
 
     - Manage Media:

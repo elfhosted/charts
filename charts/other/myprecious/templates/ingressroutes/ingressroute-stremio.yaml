@@ -10,5 +10,5 @@ spec:
       services:
         - name: stremio
           kind: Service
-          port: 11470
+          port: 8080
 {{ end }}
