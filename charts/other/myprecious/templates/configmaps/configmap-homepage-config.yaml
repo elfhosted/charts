@@ -142,7 +142,15 @@ data:
               type: audiobookshelf
               url: http://audiobookshelf:8000
               key: {{`{{HOMEPAGE_FILE_AUDIOBOOKSHELF_KEY}}`}}            
-        {{ end }}                 
+        {{ end }}   
+
+        {{ if .Values.stremio.enabled }}
+        - Stremio:
+            icon: stremio.png
+            href: https://{{ .Release.Name }}-stremio.elfhosted.com
+            description: Stream from Real Debrid
+            siteMonitor: http://stremio:11470            
+        {{ end }}                         
 
     - Manage Media:
         {{ if .Values.radarr.enabled }}
