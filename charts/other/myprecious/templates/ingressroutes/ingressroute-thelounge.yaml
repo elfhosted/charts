@@ -11,4 +11,8 @@ spec:
         - name: {{ .Release.Name }}-thelounge
           kind: Service
           port: 9000
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth      
+        - name: error-pages
+          namespace: traefik          
 {{ end }}
