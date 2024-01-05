@@ -2469,6 +2469,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-homepage-ssd
+    homer:
+      enabled: true
+      type: custom
+      mountPath: /storage/config/homer
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-homer-ssd              
     jellyseerr:
       enabled: false
       type: custom
