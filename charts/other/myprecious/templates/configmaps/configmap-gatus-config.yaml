@@ -308,7 +308,18 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email               
-      {{ end }}         
+      {{ end }}   
+
+      {{ if .Values.plexdebrid.enabled }}
+      - name: plex-debrid
+        group: manage-media
+        url: "http://plex-debrid:3000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}               
 
       {{ if .Values.xteve.enabled }}
       - name: xteve

@@ -142,15 +142,7 @@ data:
               type: audiobookshelf
               url: http://audiobookshelf:8000
               key: {{`{{HOMEPAGE_FILE_AUDIOBOOKSHELF_KEY}}`}}            
-        {{ end }}   
-
-        {{ if .Values.stremio.enabled }}
-        - Stremio:
-            icon: stremio.png
-            href: https://{{ .Release.Name }}-stremio.elfhosted.com
-            description: Stream from Real Debrid
-            siteMonitor: http://stremio:8080            
-        {{ end }}                         
+        {{ end }}                          
 
     - Manage Media:
         {{ if .Values.radarr.enabled }}
@@ -432,6 +424,14 @@ data:
               type: tdarr
               url: http://tdarr:8265
         {{ end }}   
+
+        {{ if .Values.plex-debrid.enabled }}
+        - plex-debrid:
+            icon: real-debrid.png
+            href: https://{{ .Release.Name }}-plex-debrid.elfhosted.com
+            description: Sync Plex/Jellyfin with Debrid services
+            siteMonitor: http://plex-debrid:3000            
+        {{ end }}          
 
     - Download Media:
         {{ if .Values.nzbget.enabled }}

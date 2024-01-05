@@ -334,18 +334,6 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
-          {{ if .Values.stremio.enabled }}
-          - name: "Stremio"
-            logo: "assets/png/stremio.png"
-            # Alternatively a fa icon can be provided:
-            # icon: "fab fa-photo-video"
-            subtitle: "Stream from Real-Debrid"
-            tag: "public"
-            tagstyle: "is-danger"
-            url: "https://{{ .Release.Name }}-stremio.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-          {{ end }}
-
       - name: "Manage Media"
         icon: "fas fa-photo-video"
         items:
@@ -707,6 +695,18 @@ data:
             url: "https://{{ .Release.Name }}-tdarr.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
+
+          {{ if .Values.plexdebrid.enabled }}
+          - name: "plex-debrid"
+            logo: "assets/png/real-debrid.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Serve Plex / Jellyfin from Debrid"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-plex-debrid.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
 
       - name: "Download Media"
         icon: "fas fa-cloud-arrow-down"

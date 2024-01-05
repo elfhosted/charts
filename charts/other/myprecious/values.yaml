@@ -8785,18 +8785,18 @@ zurg:
           type: RuntimeDefault
         readOnlyRootFilesystem: true
 
-stremio:
+plexdebrid:
   enabled: false
   runtimeClassName: kata  
   podLabels:
     app.elfhosted.com/class: bulk  
   image:
-    repository: tsaridas/stremio-docker
+    repository: ghcr.io/geek-cookbook/plex-debrid
     tag: latest
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio"
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-plex-debrid"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -8827,7 +8827,7 @@ stremio:
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
-        app.elfhosted.com/name: stremio  
+        app.elfhosted.com/name: plex-debrid  
   resources:
     requests:
       cpu: 10m
@@ -8843,22 +8843,21 @@ stremio:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 8080 
+          port: 3000 
   persistence:
-    elfstorage: *elfstorage
     config:
       enabled: true
       type: custom
       mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-stremio-ssd
+          claimName: config-plex-debrid-ssd
     elfbot:
       enabled: "true"
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-stremio
+          name: elfbot-plexdebrid
           optional: true
 
   initContainers:
