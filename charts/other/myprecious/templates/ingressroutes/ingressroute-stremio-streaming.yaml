@@ -2,7 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Release.Name }}-stremio.elfhosted.com
+  name: {{ .Release.Name }}-stremio-streaming.elfhosted.com
 spec:
   routes:
     - match: Host(`{{ .Release.Name }}-stremio-streaming.elfhosted.com`)
