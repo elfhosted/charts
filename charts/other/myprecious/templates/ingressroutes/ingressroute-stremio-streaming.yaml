@@ -5,12 +5,10 @@ metadata:
   name: {{ .Release.Name }}-stremio.elfhosted.com
 spec:
   routes:
-    - match: Host(`{{ .Release.Name }}-stremio.elfhosted.com`)
+    - match: Host(`{{ .Release.Name }}-stremio-streaming.elfhosted.com`)
       kind: Rule
       services:
         - name: stremio
           kind: Service
-          port: 8080
-      middlewares:
-        - name: {{ .Release.Name }}-traefik-forward-auth          
+          port: 11470
 {{ end }}
