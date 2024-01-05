@@ -8845,10 +8845,11 @@ plexdebrid:
         http:
           port: 3000 
   persistence:
+    elfstorage: *elfstorage  
     config:
       enabled: true
       type: custom
-      mountPath: /config
+      mountPath: /tmp
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-debrid-ssd
