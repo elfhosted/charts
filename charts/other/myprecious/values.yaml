@@ -8809,6 +8809,9 @@ plexdebrid:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
+  env:
+    PUID: 568
+    PGID: 568
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -8846,6 +8849,11 @@ plexdebrid:
           port: 3000 
   persistence:
     elfstorage: *elfstorage  
+    run: # used for s6-init with non-root
+      enabled: true
+      type: emptyDir
+      mountPath: /run
+      sizeLimit: 1Gi    
     config:
       enabled: true
       type: custom
