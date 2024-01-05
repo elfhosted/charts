@@ -425,7 +425,7 @@ data:
               url: http://tdarr:8265
         {{ end }}   
 
-        {{ if .Values.plex-debrid.enabled }}
+        {{ if .Values.plexdebrid.enabled }}
         - plex-debrid:
             icon: real-debrid.png
             href: https://{{ .Release.Name }}-plex-debrid.elfhosted.com

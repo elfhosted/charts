@@ -701,7 +701,7 @@ data:
             logo: "assets/png/real-debrid.png"
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
-            subtitle: "Serve Plex / Jellyfin from Debrid"
+            subtitle: "Sync Plex / Jellyfin with Debrid services"
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-plex-debrid.elfhosted.com"
