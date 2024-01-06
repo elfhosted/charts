@@ -8704,7 +8704,7 @@ autoscanemby: *autoscan
 
 zurg:
   enabled: false
-  runtimeClassName: kata  
+  # runtimeClassName: kata  
   podLabels:
     app.elfhosted.com/class: bulk  
   image:
