@@ -7968,6 +7968,7 @@ rdtclient:
             operator: In
             values:
             - real-debrid
+        topologyKey: kubernetes.io/hostname              
   topologySpreadConstraints:
   - maxSkew: 1
     topologyKey: kubernetes.io/hostname
@@ -8765,7 +8766,8 @@ zurg:
           - key: app.elfhosted.com/affinity
             operator: In
             values:
-            - real-debrid           
+            - real-debrid  
+        topologyKey: kubernetes.io/hostname                       
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists
@@ -8887,7 +8889,8 @@ plexdebrid:
           - key: app.elfhosted.com/affinity
             operator: In
             values:
-            - real-debrid               
+            - real-debrid  
+        topologyKey: kubernetes.io/hostname             
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists
