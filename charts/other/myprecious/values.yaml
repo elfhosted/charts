@@ -7970,7 +7970,7 @@ rdtclient:
             - real-debrid
         topologyKey: kubernetes.io/hostname              
   topologySpreadConstraints:
-  - maxSkew: 1
+  - maxSkew: 3
     topologyKey: kubernetes.io/hostname
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
@@ -8632,7 +8632,7 @@ wallabag:
           cpu: 500m 
           memory: 200Mi        
 
-autoscanplexpia: &autoscan
+autoscanplex: &autoscan
   enabled: false
   podLabels:
     app.elfhosted.com/name: autoscan  
@@ -8721,6 +8721,7 @@ autoscanplexpia: &autoscan
           type: RuntimeDefault
         readOnlyRootFilesystem: true
 
+autoscanplexpia: *autoscan
 autoscanplexgluetun: *autoscan
 autoscanjellyfin: *autoscan
 autoscanemby: *autoscan

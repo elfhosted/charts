@@ -347,6 +347,11 @@ dependencies:
 
 # autoscan is installed if we have any streamers installed
   - name: app-template
+    condition: plex.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: autoscanplex
+  - name: app-template
     condition: plexgluetun.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
