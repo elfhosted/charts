@@ -8632,7 +8632,7 @@ wallabag:
           cpu: 500m 
           memory: 200Mi        
 
-autoscanplex: &autoscan
+autoscan:
   podLabels:
     app.elfhosted.com/name: autoscan  
   image:
