@@ -8633,7 +8633,7 @@ wallabag:
           memory: 200Mi        
 
 autoscanplex: &autoscan
-  enabled: false
+  enabled: true
   podLabels:
     app.elfhosted.com/name: autoscan  
   image:
