@@ -1,4 +1,4 @@
-{{ if .Values.plexpia.enabled }}
+{{ if or .Values.plex.enabled .Values.plexpia.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8,11 +8,8 @@ data:
   IPTABLES_BACKEND: nft
   KILLSWITCH: "true"
   LOCAL_NETWORK: 10.2.0.0/15,10.43.0.0/16
-  USER: {{ .Values.plexpia.USER | default }}
-  PASS: {{ .Values.plexpia.PASS | default }}
-  # LOC: nl_amsterdam
   LOC: de-frankfurt
-  PORT_FORWARDING: "1"
+  PORT_FORWARDING: "0"
   PORT_PERSIST: "1"
   NFTABLES: "1"
   PORT_FILE: /config/forwarded-port

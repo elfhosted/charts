@@ -4400,7 +4400,7 @@ plex: &plex
       - configMapRef:
           name: plex-pia-config
       - secretRef:
-          name: plex-vpn   
+          name: plex-vpn
       additionalVolumeMounts:
       - mountPath: /config
         name: config
@@ -4515,6 +4515,8 @@ plexpia:
       envFrom:
       - configMapRef:
           name: plex-pia-config
+      - secretRef:
+          name: plex-vpn          
   initContainers:
     bootstrap: *bootstrap # avoid the setup pod, it's unnecessary          
 
