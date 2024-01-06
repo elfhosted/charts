@@ -4322,7 +4322,7 @@ plex: &plex
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
-    tag: rolling@sha256:4bdc5270ffd9499fb1b91829d418f8a101fe6278df2254bba61a7d118c24b95b
+    tag: 1.32.8.7639-fb6452ebf@sha256:4bdc5270ffd9499fb1b91829d418f8a101fe6278df2254bba61a7d118c24b95b
   persistence:
     <<: *appmounts
     config:
@@ -4383,18 +4383,43 @@ plex: &plex
   initContainers:
     bootstrap: *bootstrap
   addons:
-    vpn:
-      <<: *plex_addons_vpn
+    vpn: &plex_addons_vpn
+      enabled: true
+      type: gluetun
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
           tag: latest
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE
       envFrom:
       - configMapRef:
           name: plex-pia-config
       - secretRef:
-          name: plex-vpn       
+          name: plex-vpn   
+      additionalVolumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      config: # We have to set this to null so that we can override with our own config
 
+      # The scripts that get run when the VPN connection opens/closes are defined here.
+      # The default scripts will write a string to represent the current connection state to a file.
+      # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
+      scripts:
+        up: |-
+          #!/bin/bash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/bash
+          echo "disconnected" > /shared/vpnstatus  
+    
 plexgluetun:
   <<: *plex
   enabled: false
@@ -4436,40 +4461,16 @@ plexgluetun:
       nameOverride: plex
       enabled: true # necessary for probes, but probes aren't working with vpn addon currently
   addons:
-    vpn: &plex_addons_vpn
-      enabled: true
-      type: gluetun
+    vpn:
+      <<: *plex_addons_vpn
       gluetun:
         image:
           repository: ghcr.io/geek-cookbook/gluetun
           tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
-      securityContext:
-        runAsUser: 0
-        capabilities:
-          add:
-            - NET_ADMIN
-            - SYS_MODULE
       envFrom:
       - configMapRef:
           name: plex-gluetun-config
-      additionalVolumeMounts:
-      - mountPath: /config
-        name: config
-      - mountPath: /storage/elfstorage
-        name: elfstorage
-      config: # We have to set this to null so that we can override with our own config
 
-      # The scripts that get run when the VPN connection opens/closes are defined here.
-      # The default scripts will write a string to represent the current connection state to a file.
-      # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
-      scripts:
-        up: |-
-          #!/bin/bash
-          echo "connected" > /shared/vpnstatus
-
-        down: |-
-          #!/bin/bash
-          echo "disconnected" > /shared/vpnstatus
 
 plexpia:
   <<: *plex
