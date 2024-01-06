@@ -7931,7 +7931,7 @@ rdtclient:
   priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.50@sha256:b557a83bfa9c8f4360f4f8e5ff210d7463c301af602948fcc947b2d7a676f248
+    tag: v2.0.53@sha256:d611ad3e95a071a89f0aa2b1960af2fe1684d36f11f9731399cae17506af0000
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
