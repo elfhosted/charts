@@ -2518,6 +2518,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
+    plex:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/plex/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex-ssd
     plexpia:
       enabled: false
       type: custom
@@ -4375,34 +4382,18 @@ plex: &plex
       memory: 2048Mi
   initContainers:
     bootstrap: *bootstrap
-    setup:
-      image: *tooling_image
-      command:
-      - /bin/bash
-      - -c
-      - |
-        set -x
-        set -e
-        
-        # If the VPN_ENDPOINT_IP is set, but is not an IP address, then convert it to one
-        if [[ ! -z "$VPN_ENDPOINT_IP" ]]
-          then
-          if echo "$VPN_ENDPOINT_IP" | egrep -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
-          then
-              echo "No changes, VPN_ENDPOINT_IP is an IP"
-          else
-              # only create the file if DNS lookup succeeds
-              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
-          fi
-        fi
-      volumeMounts:
-      - mountPath: /shared
-        name: shared  
-      securityContext: *default_securitycontext
-      resources: *default_resources
+  addons:
+    vpn:
+      <<: *plex_addons_vpn
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest
       envFrom:
       - configMapRef:
-          name: plex-gluetun-config    
+          name: plex-pia-config
+      - secretRef:
+          name: plex-vpn       
 
 plexgluetun:
   <<: *plex
@@ -4867,6 +4858,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
+    plex:
+      enabled: false
+      type: custom
+      mountPath: /config/plex/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex-ssd
     plexpia:
       enabled: false
       type: custom
@@ -7004,6 +7002,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
+    plex:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/plex/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex-ssd
     plexpia:
       enabled: false
       type: custom
