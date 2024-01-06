@@ -8655,6 +8655,8 @@ autoscanplex: &autoscan
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
+  env:
+     AUTOSCAN_VERBOSITY: 1
   resources:
     requests:
       cpu: 10m
