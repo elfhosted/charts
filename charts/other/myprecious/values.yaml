@@ -8633,7 +8633,6 @@ wallabag:
           memory: 200Mi        
 
 autoscanplex: &autoscan
-  enabled: true
   podLabels:
     app.elfhosted.com/name: autoscan  
   image:
@@ -8723,10 +8722,10 @@ autoscanplex: &autoscan
           type: RuntimeDefault
         readOnlyRootFilesystem: true
 
-autoscanplexpia: *autoscan
-autoscanplexgluetun: *autoscan
-autoscanjellyfin: *autoscan
-autoscanemby: *autoscan
+# autoscanplexpia: *autoscan
+# autoscanplexgluetun: *autoscan
+# autoscanjellyfin: *autoscan
+# autoscanemby: *autoscan
 
 zurg:
   enabled: false
