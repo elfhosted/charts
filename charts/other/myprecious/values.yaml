@@ -4371,7 +4371,10 @@ plex: &plex
     PLEX_PREFERENCE_13: "MinutesAllowedPaused=30"
     PLEX_PREFERENCE_14: "GenerateIntroMarkerBehavior=scheduled"
     PLEX_PREFERENCE_15: "ButlerStartHour=5"
-    PLEX_PREFERENCE_16: "ButlerEndHour=13"
+    PLEX_PREFERENCE_16: "ButlerEndHour=6"
+    PLEX_PREFERENCE_17: "ButlerTaskDeepMediaAnalysis=0" # this wrecks remote mounts
+    PLEX_PREFERENCE_18: "ButlerTaskUpgradeMediaAnalysis=0" # suspect this does too
+    
     ADVERTISE_IP: "https://{{ .Release.Name }}-plex.elfhosted.com:443"
   resources:
     requests:
@@ -7937,6 +7940,9 @@ rdtclient:
   sso:
     enabled: true
   priorityClassName: tenant-bulk
+  podLabels:
+    app.elfhosted.com/class: bulk  
+    app.elfhosted.com/affinity: real-debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
     tag: v2.0.53@sha256:d611ad3e95a071a89f0aa2b1960af2fe1684d36f11f9731399cae17506af0000
@@ -7954,6 +7960,22 @@ rdtclient:
         - matchExpressions:
           - key: node-role.elfhosted.com/storage
             operator: Exists
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.elfhosted.com/affinity
+            operator: In
+            values:
+            - real-debrid
+  topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: DoNotSchedule
+    nodeTaintsPolicy: Honor
+    labelSelector: 
+      matchLabels: 
+        app.elfhosted.com/class: bulk              
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists    
@@ -8707,6 +8729,7 @@ zurg:
   runtimeClassName: kata  
   podLabels:
     app.elfhosted.com/class: bulk  
+    app.elfhosted.com/affinity: real-debrid
   podAnnotations:
     kubernetes.io/egress-bandwidth: "100M"    
   image:
@@ -8735,6 +8758,14 @@ zurg:
         - matchExpressions:
           - key: node-role.elfhosted.com/storage
             operator: Exists
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.elfhosted.com/affinity
+            operator: In
+            values:
+            - real-debrid           
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists
@@ -8821,9 +8852,10 @@ plexdebrid:
   runtimeClassName: kata  
   podLabels:
     app.elfhosted.com/class: bulk  
+    app.elfhosted.com/affinity: real-debrid
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
-    tag: dev-a7c3efbcee6c4e9b47e5a1b7c2510c10f69c5c50@sha256:66a78f7cc55bda47726ef6c8c5fc5ef9049fa170db16f106386d79733a7983eb
+    tag: rolling@sha256:66a78f7cc55bda47726ef6c8c5fc5ef9049fa170db16f106386d79733a7983eb
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -8848,6 +8880,14 @@ plexdebrid:
         - matchExpressions:
           - key: node-role.elfhosted.com/storage
             operator: Exists
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.elfhosted.com/affinity
+            operator: In
+            values:
+            - real-debrid               
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists
