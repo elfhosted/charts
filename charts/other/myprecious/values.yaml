@@ -8813,7 +8813,7 @@ plexdebrid:
     app.elfhosted.com/class: bulk  
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
-    tag: latest@sha256:c77a69f065e9033cf5c8ff1ce5cb61064eb1f7ac906ae28fc2f39a1d26c0effb
+    tag: dev-a7c3efbcee6c4e9b47e5a1b7c2510c10f69c5c50@sha256:4ca6915f2c17302b1008e1749f890720dd6549e43aa10fce41312f44487c25d9
   priorityClassName: tenant-normal
   controller:
     annotations:
