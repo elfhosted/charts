@@ -4357,9 +4357,9 @@ plex: &plex
       enabled: true # necessary for probes
   env:
     # PLEX_PREFERENCE_1: "FriendlyName=ElfHosted | {{ .Release.Name }}"
-    # PLEX_PREFERENCE_2: "FSEventLibraryPartialScanEnabled=1"
-    # PLEX_PREFERENCE_3: "FSEventLibraryUpdatesEnabled=1"
-    # PLEX_PREFERENCE_4: "ScheduledLibraryUpdatesEnabled=0"
+    PLEX_PREFERENCE_2: "FSEventLibraryPartialScanEnabled=1"
+    PLEX_PREFERENCE_3: "FSEventLibraryUpdatesEnabled=1"
+    PLEX_PREFERENCE_4: "TranscoderPhotoFileSizeLimitMiB=1"
     PLEX_PREFERENCE_5: "ScannerLowPriority=1"
     PLEX_PREFERENCE_6: "TranscodeCountLimit=3"
     PLEX_PREFERENCE_7: "TranscoderQuality=1"
@@ -8707,6 +8707,8 @@ zurg:
   runtimeClassName: kata  
   podLabels:
     app.elfhosted.com/class: bulk  
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "100M"    
   image:
     repository: ghcr.io/geek-cookbook/zurg
     tag: v0.9.2-hotfix.4@sha256:706938d0b46b3806cbeaede4df95c0e1775c4a4e8dfd645fb92a3241788856e8
