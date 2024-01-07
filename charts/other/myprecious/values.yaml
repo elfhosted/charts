@@ -8868,7 +8868,13 @@ plexdebrid:
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: false # doesn't work because of s6
+    readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    runAsUser: 568
+    runAsGroup: 568
+    capabilities:
+      drop:
+      - ALL
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -8878,6 +8884,7 @@ plexdebrid:
   env:
     PUID: 568
     PGID: 568
+    HOME: /elf-config
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -8927,7 +8934,7 @@ plexdebrid:
     config:
       enabled: true
       type: custom
-      mountPath: /config
+      mountPath: /elf-config
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-debrid-ssd
