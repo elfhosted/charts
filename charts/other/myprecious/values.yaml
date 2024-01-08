@@ -8854,7 +8854,7 @@ zurg:
 
 plexdebrid:
   enabled: false
-  runtimeClassName: kata  
+  # runtimeClassName: kata  
   podLabels:
     app.elfhosted.com/class: bulk  
     app.elfhosted.com/affinity: real-debrid
@@ -8927,7 +8927,7 @@ plexdebrid:
     config:
       enabled: true
       type: custom
-      mountPath: /config
+      mountPath: /config/elfhosted
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-debrid-ssd
