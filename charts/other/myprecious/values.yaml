@@ -3460,7 +3460,7 @@ komga:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/komga
-    tag: 1.9.2@sha256:5408897b7936d94dc8404319e21ef4444741721c58ee10c46e569ad7ee6876ad
+    tag: 1.10.0@sha256:6e142c3a66c5b7d3d16c2d01c914573b18893ae70528b19d4fe8b74cfaabe10d
   env:
     KOMGA_CONFIGDIR: /config
     KOMGA_REMEMBERME_KEY: yesplease
@@ -3517,7 +3517,7 @@ kavita:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/kavita
-    tag: 0.7.11@sha256:efdbf362e3a8eda6bbed89f633c26f9df4af55b5852d71f5e50d3a620f54f2ae
+    tag: 0.7.12@sha256:3bff34e5647cf9967f57e23aa42b8797dae33bf4b0acb666038484e09b90f814
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3900,7 +3900,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.11.4.4173@sha256:dbbb55445135f5a0feea3488573c8c1d1d354dc77b479c3cba2b32499c11d4ff
+    tag: 1.12.0.4188@sha256:32feb766d369cc231cb8a4bbe5f4659a3c459823e04027b746430a0827477ed5
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3979,7 +3979,7 @@ lidarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/lidarr-develop
-    tag: 2.1.1.3877@sha256:c2c3efb3fef52934d54ece7723ff13a1266812572b9e30eed845766f9be5f5cf
+    tag: 2.1.2.3893@sha256:db3cd5678503c7ccbf84147c4765f345ed73c086094a7a00e8c9666e6e3624d2
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -5472,7 +5472,7 @@ flaresolverr:
   image:
     registry: ghcr.io
     repository: flaresolverr/flaresolverr
-    tag: v3.3.12
+    tag: v3.3.13
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -7945,7 +7945,7 @@ rdtclient:
     app.elfhosted.com/affinity: real-debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.53@sha256:d611ad3e95a071a89f0aa2b1960af2fe1684d36f11f9731399cae17506af0000
+    tag: v2.0.54@sha256:cbc1e44e8b6d4d2784feb67322a17ee31f3c3d44403bc420a5c5b653fd427c21
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
@@ -8878,7 +8878,6 @@ plexdebrid:
   env:
     PUID: 568
     PGID: 568
-    HOME: /elf-config
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -8928,7 +8927,7 @@ plexdebrid:
     config:
       enabled: true
       type: custom
-      mountPath: /elf-config
+      mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-debrid-ssd
