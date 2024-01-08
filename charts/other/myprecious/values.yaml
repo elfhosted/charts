@@ -4310,7 +4310,7 @@ plex: &plex
   automountServiceAccountToken: false
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex" # Reload the deployment every time the rclones change
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex,elfbot-zurg" # Reload the deployment every time the rclones change
   topologySpreadConstraints:
   - maxSkew: 1
     topologyKey: kubernetes.io/hostname
@@ -8733,7 +8733,6 @@ zurg:
   runtimeClassName: kata  
   podLabels:
     app.elfhosted.com/class: bulk  
-    app.elfhosted.com/affinity: real-debrid
   podAnnotations:
     kubernetes.io/egress-bandwidth: "100M"    
   image:
@@ -8762,15 +8761,6 @@ zurg:
         - matchExpressions:
           - key: node-role.elfhosted.com/storage
             operator: Exists
-    podAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: app.elfhosted.com/affinity
-            operator: In
-            values:
-            - real-debrid  
-        topologyKey: kubernetes.io/hostname                       
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists
