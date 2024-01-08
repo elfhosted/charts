@@ -8860,7 +8860,7 @@ plexdebrid:
     app.elfhosted.com/affinity: real-debrid
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
-    tag: rolling@sha256:66a78f7cc55bda47726ef6c8c5fc5ef9049fa170db16f106386d79733a7983eb
+    tag: rolling@sha256:67853adb8084f58b30d540a3c17c1c73f495d61c7b69537e2fddd26cce3d9335
   priorityClassName: tenant-normal
   controller:
     annotations:
