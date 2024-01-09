@@ -3955,6 +3955,10 @@ prowlarr:
         # Set auth to external
         sed -i  "s|<AuthenticationMethod>None</AuthenticationMethod>|<AuthenticationMethod>External</AuthenticationMethod>|" /config/config.xml
         mkdir -p /storage/elfstorage/backup/auto/prowlarr
+
+        # Get custom torrent.io definition
+        mkdir -p /config/Definitions/Custom
+        curl https://raw.githubusercontent.com/dreulavelle/Prowlarr-Indexers/main/Custom/torrentio.yml > /config/Definitions/Custom/torrentio.yaml
       volumeMounts:
       - mountPath: /config
         name: config
