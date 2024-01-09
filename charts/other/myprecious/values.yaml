@@ -3958,7 +3958,7 @@ prowlarr:
 
         # Get custom torrent.io definition
         mkdir -p /config/Definitions/Custom
-        curl https://raw.githubusercontent.com/dreulavelle/Prowlarr-Indexers/main/Custom/torrentio.yml > /config/Definitions/Custom/torrentio.yaml
+        curl https://raw.githubusercontent.com/dreulavelle/Prowlarr-Indexers/main/Custom/torrentio.yml > /config/Definitions/Custom/torrentio.yml
       volumeMounts:
       - mountPath: /config
         name: config
