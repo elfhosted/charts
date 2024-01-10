@@ -7949,7 +7949,7 @@ rdtclient:
     app.elfhosted.com/affinity: real-debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.56@sha256:abcb7f1ce69ab128b86d3790b938bcff55a82b905b0d0e06d33210c87ace58c4
+    tag: v2.0.57@sha256:541a377fd33206a6a8074ea184a2dc52482fb17a40c7e2cb3c42373cb3e6fa89
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
