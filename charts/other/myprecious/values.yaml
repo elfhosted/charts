@@ -8845,25 +8845,6 @@ zurg:
         seccompProfile:
           type: RuntimeDefault
         readOnlyRootFilesystem: true
-  addons:
-    vpn: &plex_addons_vpn
-      enabled: true
-      type: gluetun
-      gluetun:
-        image:
-          repository: thrnz/docker-wireguard-pia
-          tag: latest
-      securityContext:
-        runAsUser: 0
-        capabilities:
-          add:
-            - NET_ADMIN
-            - SYS_MODULE
-      envFrom:
-      - configMapRef:
-          name: plex-pia-config
-      - secretRef:
-          name: plex-vpn
 
 plexdebrid:
   enabled: false
