@@ -1163,6 +1163,7 @@ delugepia:
       - configMapRef:
           name: deluge-pia-config
   initContainers:
+    bootstrap: *bootstrap
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
