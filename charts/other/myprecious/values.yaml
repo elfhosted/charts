@@ -648,7 +648,7 @@ rutorrentgluetun: &rutorrent
 
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -940,7 +940,7 @@ delugegluetun: &deluge
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -1256,7 +1256,7 @@ qbittorrentgluetun: &qbittorrent
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -1549,7 +1549,7 @@ nzbget:
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -1636,7 +1636,7 @@ sabnzbd:
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -2336,7 +2336,7 @@ filebrowser:
     operator: Exists    
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -4317,7 +4317,7 @@ plex: &plex
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex,elfbot-zurg" # Reload the deployment every time the rclones change
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -4556,7 +4556,7 @@ jellyfin:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-jellyfin" # Reload the deployment every time the rclones change
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -4638,7 +4638,7 @@ emby:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-emby" # Reload the deployment every time the rclones change
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -6825,7 +6825,7 @@ rclonebrowser:
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -7965,7 +7965,7 @@ rdtclient:
             operator: Exists           
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: zone
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
@@ -8760,7 +8760,7 @@ zurg:
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: zone
+    topologyKey: node
     whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
