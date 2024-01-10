@@ -641,19 +641,22 @@ rutorrentgluetun: &rutorrent
         nodeSelectorTerms:
         - matchExpressions:
           - key: node-role.elfhosted.com/download
-            operator: Exists
+            operator: Exists  
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - bulk
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
   tolerations:
   - key: node-role.elfhosted.com/download
     operator: Exists
-
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: bulk
 
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
@@ -934,18 +937,22 @@ delugegluetun: &deluge
         nodeSelectorTerms:
         - matchExpressions:
           - key: node-role.elfhosted.com/download
-            operator: Exists
+            operator: Exists  
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - bulk
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
   tolerations:
   - key: node-role.elfhosted.com/download
     operator: Exists
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: bulk
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1250,18 +1257,22 @@ qbittorrentgluetun: &qbittorrent
         nodeSelectorTerms:
         - matchExpressions:
           - key: node-role.elfhosted.com/download
-            operator: Exists
+            operator: Exists  
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - bulk
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
   tolerations:
   - key: node-role.elfhosted.com/download
     operator: Exists
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: bulk
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -1543,18 +1554,22 @@ nzbget:
         nodeSelectorTerms:
         - matchExpressions:
           - key: node-role.elfhosted.com/download
-            operator: Exists
+            operator: Exists 
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - bulk
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
   tolerations:
   - key: node-role.elfhosted.com/download
-    operator: Exists
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: bulk       
+    operator: Exists       
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1631,17 +1646,21 @@ sabnzbd:
         - matchExpressions:
           - key: node-role.elfhosted.com/download
             operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - bulk
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
   tolerations:
   - key: node-role.elfhosted.com/download
-    operator: Exists
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: bulk     
+    operator: Exists  
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-sabnzbd"
@@ -2331,17 +2350,21 @@ filebrowser:
         - matchExpressions:
           - key: node-role.elfhosted.com/download
             operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/name
+              operator: In
+              values:
+              - filebrowser
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}              
   tolerations:
   - key: node-role.elfhosted.com/download
     operator: Exists    
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/name: filebrowser    
   # We will use this to alter configmaps to trigger pod restarts
   serviceAccount:
     create: true
@@ -4299,7 +4322,20 @@ plex: &plex
   priorityClassName: tenant-streaming
   podLabels:
     app.elfhosted.com/name: plex
-    app.elfhosted.com/class: streaming    
+    app.elfhosted.com/class: streaming   
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - streaming
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}     
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -4314,15 +4350,7 @@ plex: &plex
   automountServiceAccountToken: false
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex,elfbot-zurg" # Reload the deployment every time the rclones change
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: streaming      
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex,elfbot-zurg" # Reload the deployment every time the rclones change   
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
@@ -4554,14 +4582,19 @@ jellyfin:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-jellyfin" # Reload the deployment every time the rclones change
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: streaming      
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - streaming
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}              
   persistence:
     <<: *appmounts
     config:
@@ -4636,14 +4669,19 @@ emby:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-emby" # Reload the deployment every time the rclones change
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: streaming       
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - streaming
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}     
   persistence:
     <<: *appmounts
     config:
@@ -6820,17 +6858,21 @@ rclonebrowser:
         - matchExpressions:
           - key: node-role.elfhosted.com/storage
             operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/name
+              operator: In
+              values:
+              - rclonebrowser
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}              
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/name: rclonebrowser        
   automountServiceAccountToken: false
   env:
     S6_READ_ONLY_ROOT: 1
@@ -7962,15 +8004,19 @@ rdtclient:
         nodeSelectorTerms:
         - matchExpressions:
           - key: node-role.elfhosted.com/storage
-            operator: Exists           
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: debrid              
+            operator: Exists     
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - debrid
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists    
@@ -8755,17 +8801,21 @@ zurg:
         - matchExpressions:
           - key: node-role.elfhosted.com/storage
             operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - debrid
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: node
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/class: debrid  
   resources:
     requests:
       cpu: 10m
