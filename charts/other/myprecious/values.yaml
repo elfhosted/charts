@@ -7945,8 +7945,7 @@ rdtclient:
     enabled: true
   priorityClassName: tenant-bulk
   podLabels:
-    app.elfhosted.com/class: bulk  
-    app.elfhosted.com/affinity: real-debrid  
+    app.elfhosted.com/class: debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
     tag: v2.0.57@sha256:541a377fd33206a6a8074ea184a2dc52482fb17a40c7e2cb3c42373cb3e6fa89
@@ -7963,24 +7962,15 @@ rdtclient:
         nodeSelectorTerms:
         - matchExpressions:
           - key: node-role.elfhosted.com/storage
-            operator: Exists
-    podAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: app.elfhosted.com/affinity
-            operator: In
-            values:
-            - real-debrid
-        topologyKey: kubernetes.io/hostname              
+            operator: Exists           
   topologySpreadConstraints:
-  - maxSkew: 3
+  - maxSkew: 1
     topologyKey: kubernetes.io/hostname
-    whenUnsatisfiable: DoNotSchedule
+    whenUnsatisfiable: ScheduleAnyway
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
-        app.elfhosted.com/class: bulk              
+        app.elfhosted.com/class: debrid              
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists    
@@ -8736,7 +8726,7 @@ zurg:
   enabled: false
   runtimeClassName: kata  
   podLabels:
-    app.elfhosted.com/class: bulk  
+    app.elfhosted.com/class: debrid  
   podAnnotations:
     kubernetes.io/egress-bandwidth: "100M"    
   image:
@@ -8768,7 +8758,6 @@ zurg:
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists
-
   topologySpreadConstraints:
   - maxSkew: 1
     topologyKey: kubernetes.io/hostname
@@ -8776,7 +8765,7 @@ zurg:
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
-        app.elfhosted.com/class: bulk  
+        app.elfhosted.com/class: debrid  
   resources:
     requests:
       cpu: 10m
@@ -8848,10 +8837,7 @@ zurg:
 
 plexdebrid:
   enabled: false
-  # runtimeClassName: kata  
-  podLabels:
-    app.elfhosted.com/class: bulk  
-    app.elfhosted.com/affinity: real-debrid
+  runtimeClassName: kata  
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
     tag: rolling@sha256:22c8d85ac75ace24e594420d991eb27b8a62dc38eaba6136f16f7d9437fd1c88
@@ -8872,34 +8858,6 @@ plexdebrid:
   env:
     PUID: 568
     PGID: 568
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/storage
-            operator: Exists
-    podAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - labelSelector:
-          matchExpressions:
-          - key: app.elfhosted.com/affinity
-            operator: In
-            values:
-            - real-debrid  
-        topologyKey: kubernetes.io/hostname             
-  tolerations:
-  - key: node-role.elfhosted.com/storage
-    operator: Exists
-
-  topologySpreadConstraints:
-  - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
-    whenUnsatisfiable: DoNotSchedule
-    nodeTaintsPolicy: Honor
-    labelSelector: 
-      matchLabels: 
-        app.elfhosted.com/name: plex-debrid  
   resources:
     requests:
       cpu: 10m
