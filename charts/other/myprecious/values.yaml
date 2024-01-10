@@ -7965,8 +7965,8 @@ rdtclient:
             operator: Exists           
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
-    whenUnsatisfiable: ScheduleAnyway
+    topologyKey: zone
+    whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
@@ -8760,8 +8760,8 @@ zurg:
     operator: Exists
   topologySpreadConstraints:
   - maxSkew: 1
-    topologyKey: kubernetes.io/hostname
-    whenUnsatisfiable: ScheduleAnyway
+    topologyKey: zone
+    whenUnsatisfiable: DoNotSchedule
     nodeTaintsPolicy: Honor
     labelSelector: 
       matchLabels: 
