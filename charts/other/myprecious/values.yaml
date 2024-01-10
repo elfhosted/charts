@@ -3570,7 +3570,7 @@ calibre:
   runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.3.0@sha256:56e99d20f8cdda33464f034ed0c9619286fcec26a753a9e1308f3a587f2fdb2d
+    tag: 7.3.0@sha256:3b62cc8f8ce17bd4617ca632ee1f03c306b0e3c96ce40475cf68e182bbc00f02
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -7949,7 +7949,7 @@ rdtclient:
     app.elfhosted.com/affinity: real-debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.56@sha256:abcb7f1ce69ab128b86d3790b938bcff55a82b905b0d0e06d33210c87ace58c4
+    tag: v2.0.57@sha256:541a377fd33206a6a8074ea184a2dc52482fb17a40c7e2cb3c42373cb3e6fa89
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
