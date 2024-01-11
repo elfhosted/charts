@@ -4453,7 +4453,7 @@ plex: &plex
           - /usr/bin/env
           - bash
           - -c
-          - curl --fail localhost:32400 && ls /storage/* > /dev/null
+          - ls /storage/* > /dev/null
         failureThreshold: 5
         initialDelaySeconds: 60
         periodSeconds: 10
@@ -4658,7 +4658,7 @@ jellyfin:
           - /usr/bin/env
           - bash
           - -c
-          - curl --fail localhost:8096 && ls /storage/* > /dev/null
+          - ls /storage/* > /dev/null
         failureThreshold: 5
         initialDelaySeconds: 60
         periodSeconds: 10
@@ -4756,7 +4756,7 @@ emby:
           - /usr/bin/env
           - bash
           - -c
-          - curl --fail localhost:8096 && ls /storage/* > /dev/null
+          - ls /storage/* > /dev/null
         failureThreshold: 5
         initialDelaySeconds: 60
         periodSeconds: 10
