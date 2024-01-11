@@ -8056,16 +8056,14 @@ rdtclient:
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}
     podAffinity: # snuggle if you're in the same namespace
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 200  
-        podAffinityTerm:    
-          labelSelector:
+      requiredDuringSchedulingIgnoredDuringExecution: 
+        - labelSelector:
             matchExpressions:
             - key: app.elfhosted.com/class
               operator: In
               values:
               - debrid
-          topologyKey: "kubernetes.io/hostname"              
+          topologyKey: "kubernetes.io/hostname"          
   tolerations:
   - key: node-role.elfhosted.com/storage
     operator: Exists    
@@ -8863,10 +8861,8 @@ zurg:
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}
     podAffinity: # snuggle if you're in the same namespace
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 200  
-        podAffinityTerm:    
-          labelSelector:
+      requiredDuringSchedulingIgnoredDuringExecution: 
+        - labelSelector:
             matchExpressions:
             - key: app.elfhosted.com/class
               operator: In
