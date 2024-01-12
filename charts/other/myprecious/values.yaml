@@ -4414,8 +4414,8 @@ plex: &plex
       cpu: "10m"
       memory: 512Mi
     limits:
-      cpu: "2"
-      memory: 2048Mi
+      cpu: "1500m"
+      memory: 4096Mi
   initContainers:
     bootstrap: *bootstrap
   addons:
