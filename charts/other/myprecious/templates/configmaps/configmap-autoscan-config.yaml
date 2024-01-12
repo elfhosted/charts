@@ -7,7 +7,7 @@ data:
     # port for Autoscan webhooks to listen on
     port: 3030
 
-    # override the minimum age to 30 minutes:
+    # override the default minimum age of 30 minutes:
     minimum-age: 1m
 
     # Uncomment the streamer(s) you use, and set the necessary API token

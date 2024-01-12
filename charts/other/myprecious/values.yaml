@@ -6894,7 +6894,7 @@ rclonebrowser:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/storage
+          - key: node-role.elfhosted.com/download
             operator: Exists
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
@@ -6909,7 +6909,7 @@ rclonebrowser:
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}              
   tolerations:
-  - key: node-role.elfhosted.com/storage
+  - key: node-role.elfhosted.com/download
     operator: Exists
   automountServiceAccountToken: false
   env:
