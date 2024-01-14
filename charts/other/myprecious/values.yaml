@@ -8030,10 +8030,9 @@ rdtclient:
   image:
     repository: laster13/rdtclient
     tag: amd64
-  command:
-    - /bin/bash
-    - -c
-    - dotnet RdtClient.Web.dll
+  env:
+    PUID: 568
+    PGID: 568
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
@@ -8075,8 +8074,8 @@ rdtclient:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    runAsUser: 568
-    runAsGroup: 568
+    # runAsUser: 568
+    # runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
