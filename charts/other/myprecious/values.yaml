@@ -8040,7 +8040,7 @@ rdtclient:
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: true
+    readOnlyRootFilesystem: false
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
