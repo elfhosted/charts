@@ -607,6 +607,8 @@ jellyseerrcustomdomain:
   enabled: false  
 overseerrcustomdomain:
   enabled: false  
+plexcustomdomain:
+  enabled: false    
 
 rutorrentgluetun: &rutorrent
   enabled: false
