@@ -1919,6 +1919,7 @@ radarr:
         set -e
 
         mkdir -p /storage/elfstorage/movies
+        mkdir -p /storage/elfstorage/downloads/completed/radarr
         mkdir -p /storage/elfstorage/backup/auto/radarr
 
         # Set auth to external
@@ -2001,9 +2002,9 @@ radarr4k:
         set -x
         set -e
 
-        mkdir -p /storage/elfstorage/movies4k
+        mkdir -p /storage/elfstorage/movies-4k
         mkdir -p /storage/elfstorage/backup/auto/radarr4k
-        mkdir -p "/storage/elfstorage/downloads/completed/Movies 4K"
+        mkdir -p "/storage/elfstorage/downloads/completed/radarr4k"
 
         # Set auth to external
         sed -i  "s|<AuthenticationMethod>None</AuthenticationMethod>|<AuthenticationMethod>External</AuthenticationMethod>|" /config/config.xml
@@ -3740,6 +3741,8 @@ sonarr:
 
         mkdir -p /storage/elfstorage/series
         mkdir -p /storage/elfstorage/backup/auto/sonarr
+        mkdir -p /storage/elfstorage/downloads/completed/sonarr
+
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
@@ -3813,9 +3816,10 @@ sonarr4k:
         set -x
         set -e
 
-        mkdir -p /storage/elfstorage/series
+        mkdir -p /storage/elfstorage/series-4k
         mkdir -p /storage/elfstorage/backup/auto/sonarr4k
-        mkdir -p "/storage/elfstorage/downloads/completed/Series 4K"
+        mkdir -p /storage/elfstorage/downloads/completed/sonarr
+
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
