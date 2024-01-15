@@ -1,0 +1,23 @@
+{{- if .Values.plexcustomdomain.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Values.plexcustomdomain.cname }}
+spec:
+  routes:
+    - match: Host(`{{ .Values.plexcustomdomain.cname }}`)
+      kind: Rule
+      services:
+        - name: plex
+          kind: Service
+          port: 32400
+      middlewares:
+        - name: error-pages
+          namespace: traefik
+        {{ if ne "default" .Values.themepark.theme }}
+        - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
+          namespace: theme-park
+        {{ end }}
+  tls:
+    secretName: cert-{{ .Values.plexcustomdomain.cname }}
+{{ end }}

@@ -4351,7 +4351,7 @@ plex: &plex
   automountServiceAccountToken: false
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex,elfbot-zurg" # Reload the deployment every time the rclones change   
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex,elfbot-zurg,plex-config" # Reload the deployment every time the rclones change   
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
@@ -4388,27 +4388,9 @@ plex: &plex
   service:
     main:
       enabled: true # necessary for probes
-  env:
-    # PLEX_PREFERENCE_1: "FriendlyName=ElfHosted | {{ .Release.Name }}"
-    PLEX_PREFERENCE_2: "FSEventLibraryPartialScanEnabled=1"
-    PLEX_PREFERENCE_3: "FSEventLibraryUpdatesEnabled=1"
-    PLEX_PREFERENCE_4: "TranscoderPhotoFileSizeLimitMiB=1"
-    PLEX_PREFERENCE_5: "ScannerLowPriority=1"
-    PLEX_PREFERENCE_6: "TranscodeCountLimit=3"
-    PLEX_PREFERENCE_7: "TranscoderQuality=1"
-    PLEX_PREFERENCE_8: "BackgroundTranscodeLowPriority=1"
-    PLEX_PREFERENCE_9: "LongRunningJobThreads=1"
-    PLEX_PREFERENCE_10: "TranscoderH264BackgroundPreset=ultrafast"
-    PLEX_PREFERENCE_11: "RelayEnabled=0"
-    PLEX_PREFERENCE_12: "TranscoderTempDirectory=/transcode"
-    PLEX_PREFERENCE_13: "MinutesAllowedPaused=30"
-    PLEX_PREFERENCE_14: "GenerateIntroMarkerBehavior=scheduled"
-    PLEX_PREFERENCE_15: "ButlerStartHour=5"
-    PLEX_PREFERENCE_16: "ButlerEndHour=6"
-    PLEX_PREFERENCE_17: "ButlerTaskDeepMediaAnalysis=0" # this wrecks remote mounts
-    PLEX_PREFERENCE_18: "ButlerTaskUpgradeMediaAnalysis=0" # suspect this does too
-    
-    ADVERTISE_IP: "https://{{ .Release.Name }}-plex.elfhosted.com:443"
+  envFrom:
+  - configMapRef:
+      name: plex-config
   resources:
     requests:
       cpu: "10m"

@@ -1,0 +1,14 @@
+{{- if .Values.plexcustomdomain.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: custom-domain-plex-{{ .Values.plexcustomdomain.cname }}
+spec:
+  secretName: cert-{{ .Values.plexcustomdomain.cname }}
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: {{ .Values.plexcustomdomain.cname }}
+  dnsNames:
+  - {{ .Values.plexcustomdomain.cname }}
+{{ end }}  
