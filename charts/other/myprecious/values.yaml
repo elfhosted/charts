@@ -619,7 +619,6 @@ rutorrentgluetun: &rutorrent
   priorityClassName: tenant-bulk
   podLabels:
     app.elfhosted.com/name: rutorrent
-    app.elfhosted.com/class: bulk
   podAnnotations:
     kubernetes.io/egress-bandwidth: "100M"    
   controller:
@@ -648,10 +647,10 @@ rutorrentgluetun: &rutorrent
         podAffinityTerm:    
           labelSelector:
             matchExpressions:
-            - key: app.elfhosted.com/class
+            - key: app.elfhosted.com/name
               operator: In
               values:
-              - bulk
+              - rutorrent
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}            
   tolerations:
@@ -921,7 +920,6 @@ delugegluetun: &deluge
   enabled: false
   podLabels:
     app.elfhosted.com/name: deluge
-    app.elfhosted.com/class: bulk
   podAnnotations:
     kubernetes.io/egress-bandwidth: "100M"    
   sso:
@@ -944,10 +942,10 @@ delugegluetun: &deluge
         podAffinityTerm:    
           labelSelector:
             matchExpressions:
-            - key: app.elfhosted.com/class
+            - key: app.elfhosted.com/name
               operator: In
               values:
-              - bulk
+              - deluge
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}            
   tolerations:
@@ -1240,7 +1238,6 @@ delugepia:
 qbittorrentgluetun: &qbittorrent
   podLabels:
     app.elfhosted.com/name: qbittorrent
-    app.elfhosted.com/class: bulk
   podAnnotations:
     kubernetes.io/egress-bandwidth: "100M"    
   enabled: false
@@ -1265,10 +1262,10 @@ qbittorrentgluetun: &qbittorrent
         podAffinityTerm:    
           labelSelector:
             matchExpressions:
-            - key: app.elfhosted.com/class
+            - key: app.elfhosted.com/name
               operator: In
               values:
-              - bulk
+              - qbittorrent
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}            
   tolerations:
@@ -1548,7 +1545,7 @@ nzbget:
     tag: 22.0@sha256:96afa2f82e9847392e3f155e822385c4ac4ecf361fb12c56d3a217900299f020
   priorityClassName: tenant-bulk
   podLabels:
-    app.elfhosted.com/class: bulk
+    app.elfhosted.com/class: nzb
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -1565,7 +1562,7 @@ nzbget:
             - key: app.elfhosted.com/class
               operator: In
               values:
-              - bulk
+              - nzb
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}            
   tolerations:
@@ -1632,7 +1629,7 @@ sabnzbd:
   enabled: false
   hostname: sabnzbd # required to prevent whitelisting requirement per https://sabnzbd.org/wiki/extra/hostname-check.html
   podLabels:
-    app.elfhosted.com/class: bulk  
+    app.elfhosted.com/class: nzb  
   sso:
     enabled: true
   image:
@@ -1656,7 +1653,7 @@ sabnzbd:
             - key: app.elfhosted.com/class
               operator: In
               values:
-              - bulk
+              - nzb
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}            
   tolerations:
