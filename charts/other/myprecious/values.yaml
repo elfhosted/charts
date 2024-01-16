@@ -4025,6 +4025,9 @@ lidarr:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-lidarr" # Reload the deployment every time the rclones change
   automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: lidarr-config  
   persistence:
     <<: *appmounts
     config:
