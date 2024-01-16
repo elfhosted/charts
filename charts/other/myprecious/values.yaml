@@ -8006,7 +8006,6 @@ syncthing:
 rdtclient:
   enabled: false
   hostname: elfhosted
-  # runtimeClassName: kata
   sso:
     enabled: true
   priorityClassName: tenant-bulk
@@ -8806,14 +8805,13 @@ autoscanemby: *autoscan
 
 zurg:
   enabled: false
-  runtimeClassName: kata  
   podLabels:
     app.elfhosted.com/class: debrid  
   podAnnotations:
     kubernetes.io/egress-bandwidth: "100M"    
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    tag: v0.9.2-hotfix.4@sha256:706938d0b46b3806cbeaede4df95c0e1775c4a4e8dfd645fb92a3241788856e8
+    tag: v0.9.3@sha256:c839eba3dc09ebed6f87aa4dcb335dcc097cd6578045c0aadd22913e18e790cb
   priorityClassName: tenant-normal
   controller:
     annotations:
