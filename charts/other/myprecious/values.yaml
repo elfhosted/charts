@@ -4431,22 +4431,22 @@ plex: &plex
       - mountPath: /storage/elfstorage
         name: elfstorage
       config: # We have to set this to null so that we can override with our own config
-  probes:
-    liveness:
-      enabled: true
-      custom: true
-      spec:
-        exec:
-          command:
-          - /usr/bin/env
-          - bash
-          - -c
-          - ls /storage/* > /dev/null
-        failureThreshold: 5
-        initialDelaySeconds: 60
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 10
+  # probes:
+  #   liveness:
+  #     enabled: true
+  #     custom: true
+  #     spec:
+  #       exec:
+  #         command:
+  #         - /usr/bin/env
+  #         - bash
+  #         - -c
+  #         - ls /storage/* > /dev/null
+  #       failureThreshold: 5
+  #       initialDelaySeconds: 60
+  #       periodSeconds: 10
+  #       successThreshold: 1
+  #       timeoutSeconds: 10
 
 
 plexgluetun:
@@ -4636,22 +4636,22 @@ jellyfin:
       env:
         JELLYFIXER_INTERNAL_URL: http://jellyfin:8096
         JELLYFIXER_EXTERNAL_URL: https://{{ .Release.Name }}-jellyfin.elfhosted.com
-  probes:
-    liveness:
-      enabled: true
-      custom: true
-      spec:
-        exec:
-          command:
-          - /usr/bin/env
-          - bash
-          - -c
-          - ls /storage/* > /dev/null
-        failureThreshold: 5
-        initialDelaySeconds: 60
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 10
+  # probes:
+  #   liveness:
+  #     enabled: true
+  #     custom: true
+  #     spec:
+  #       exec:
+  #         command:
+  #         - /usr/bin/env
+  #         - bash
+  #         - -c
+  #         - ls /storage/* > /dev/null
+  #       failureThreshold: 5
+  #       initialDelaySeconds: 60
+  #       periodSeconds: 10
+  #       successThreshold: 1
+  #       timeoutSeconds: 10
 
 emby:
   hostname: elfhosted
@@ -4734,22 +4734,22 @@ emby:
     limits:
       cpu: 1
       memory: 2048Mi
-  probes:
-    liveness:
-      enabled: true
-      custom: true
-      spec:
-        exec:
-          command:
-          - /usr/bin/env
-          - bash
-          - -c
-          - ls /storage/* > /dev/null
-        failureThreshold: 5
-        initialDelaySeconds: 60
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 10      
+  # probes:
+  #   liveness:
+  #     enabled: true
+  #     custom: true
+  #     spec:
+  #       exec:
+  #         command:
+  #         - /usr/bin/env
+  #         - bash
+  #         - -c
+  #         - ls /storage/* > /dev/null
+  #       failureThreshold: 5
+  #       initialDelaySeconds: 60
+  #       periodSeconds: 10
+  #       successThreshold: 1
+  #       timeoutSeconds: 10      
 
 homer:
   priorityClassName: tenant-normal

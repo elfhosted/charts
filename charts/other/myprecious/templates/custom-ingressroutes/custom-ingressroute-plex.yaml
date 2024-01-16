@@ -12,8 +12,6 @@ spec:
           kind: Service
           port: 32400
       middlewares:
-        - name: error-pages
-          namespace: traefik
         {{ if ne "default" .Values.themepark.theme }}
         - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
           namespace: theme-park
