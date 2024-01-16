@@ -8028,12 +8028,6 @@ rdtclient:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
   affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/storage
-            operator: Exists     
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
       - weight: 100  
@@ -8054,10 +8048,7 @@ rdtclient:
               operator: In
               values:
               - debrid
-          topologyKey: "kubernetes.io/hostname"          
-  tolerations:
-  - key: node-role.elfhosted.com/storage
-    operator: Exists    
+          topologyKey: "kubernetes.io/hostname"
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
