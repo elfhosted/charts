@@ -8844,18 +8844,8 @@ zurg:
               operator: In
               values:
               - debrid
+              - streaming # prefer to be located with streamers
           topologyKey: "kubernetes.io/hostname"
-      # prefer to be located with streamers
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 100  
-        podAffinityTerm:    
-        - labelSelector:
-            matchExpressions:
-            - key: app.elfhosted.com/class
-              operator: In
-              values:
-              - streaming
-          topologyKey: "kubernetes.io/hostname"  
   resources:
     requests:
       cpu: 10m
