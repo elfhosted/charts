@@ -7469,7 +7469,7 @@ rclonebrowser:
       memory: 60Mi
     limits:
       cpu: 150m
-      memory: 256Mi
+      memory: 512Mi
 
 jfa:
   enabled: false
