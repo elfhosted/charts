@@ -4170,7 +4170,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.16.2380@sha256:7eb0f517b8aac07171c868fd494ce73456665c0afda63a2dd5638d609db08e7a
+    tag: 0.3.16.2386@sha256:3960ca5518ec678e5e249085f7250e83bbfed49fd160ef7c073cfe6ab93a7283
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4251,7 +4251,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.16.2380@sha256:7eb0f517b8aac07171c868fd494ce73456665c0afda63a2dd5638d609db08e7a
+    tag: 0.3.16.2386@sha256:3960ca5518ec678e5e249085f7250e83bbfed49fd160ef7c073cfe6ab93a7283
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6236,7 +6236,7 @@ audiobookshelf:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/audiobookshelf
-    tag: 2.7.1@sha256:f6fa0969bb8d69967b229f39fba0183ee56f9dcb2f7c8501ad747560f479790c
+    tag: 2.7.2@sha256:c59d1b174b86727226fd43b5f4a9bba456c2e0783587f743a6df9272d18b83c6
   priorityClassName: tenant-streaming
   securityContext:
     seccompProfile:
