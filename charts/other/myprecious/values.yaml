@@ -4342,7 +4342,19 @@ plex: &plex
               values:
               - streaming
           topologyKey: "kubernetes.io/hostname"
-          namespaceSelector: {}     
+          namespaceSelector: {}
+    podAffinity: 
+      # prefer to be located with zurg
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - zurg
+          topologyKey: "kubernetes.io/hostname"
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -8844,7 +8856,6 @@ zurg:
               operator: In
               values:
               - debrid
-              - streaming # prefer to be located with streamers
           topologyKey: "kubernetes.io/hostname"
   resources:
     requests:
