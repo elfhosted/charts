@@ -8034,10 +8034,10 @@ rdtclient:
         podAffinityTerm:    
           labelSelector:
             matchExpressions:
-            - key: app.elfhosted.com/class
+            - key: app.kubernetes.io/name
               operator: In
               values:
-              - debrid
+              - rdtclient
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}
     podAffinity: # snuggle if you're in the same namespace
@@ -8823,22 +8823,16 @@ zurg:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/storage
-            operator: Exists
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
       - weight: 100  
         podAffinityTerm:    
           labelSelector:
             matchExpressions:
-            - key: app.elfhosted.com/class
+            - key: app.kubernetes.io/name
               operator: In
               values:
-              - debrid
+              - zurg
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}
     podAffinity: # snuggle if you're in the same namespace
@@ -8850,9 +8844,6 @@ zurg:
               values:
               - debrid
           topologyKey: "kubernetes.io/hostname"       
-  tolerations:
-  - key: node-role.elfhosted.com/storage
-    operator: Exists
   resources:
     requests:
       cpu: 10m
