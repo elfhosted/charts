@@ -103,6 +103,13 @@ rclonemountrealdebridzurg: &rclonemountrealdebridzurg
     persistentVolumeClaim:
       claimName: realdebrid-zurg
   mountPath: /storage/realdebrid-zurg
+rclonemountalldebrid: &rclonemountalldebrid
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: alldebrid
+  mountPath: /storage/alldebrid
 rclonemountssha: &rclonemountssha
   enabled: false
   type: custom
@@ -268,6 +275,7 @@ appmounts: &appmounts
   onedrivea: *onedrivea
   rclonemountwebdava: *rclonemountwebdava
   rclonemountrealdebridzurg: *rclonemountrealdebridzurg
+  rclonemountralldebrid: *rclonemountalldebrid
   rclonemountssha: *rclonemountssha
   storageboxa: *storageboxa
   storageboxb: *storageboxb
