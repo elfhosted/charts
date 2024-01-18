@@ -6872,12 +6872,12 @@ rclonebrowser:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.65.1@sha256:b6fa17dea5783536186264dc28d6b1539a33a7ce1e5737d04e31d2fd440c2852
+    tag: 1.65.1@sha256:sha256:b6fa17dea5783536186264dc28d6b1539a33a7ce1e5737d04e31d2fd440c2852
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M"
+    kubernetes.io/egress-bandwidth: "40M"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
