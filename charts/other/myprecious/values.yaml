@@ -3360,7 +3360,7 @@ lazylibrarian:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
-    tag: rolling@sha256:a70b517269d2d2a50feac971bf3531672660f640896f4e60cdc7e6ea4a352688
+    tag: rolling@sha256:b6b5f37599c94663393e9275bb65b0e2eeacfbad00d5639c21dc4edae88f7fc4
   enabled: false
   controller:
     annotations:
@@ -5996,7 +5996,7 @@ unpackerr:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/unpackerr
-    tag: 0.12.0@sha256:a452fa96e01ac2387f657abd3d2054889ba546b15a5aa5ddd66b88d731a37b61
+    tag: 0.13.0@sha256:2c0253345b80a10cca02b328071078a79fc2b20036cc0b60724ca17e6a707344
   priorityClassName: tenant-bulk
   controller:
     annotations:
