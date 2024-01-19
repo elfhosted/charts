@@ -558,8 +558,11 @@ data:
         url: "http://zurg:9999"
         interval: 5m
         conditions:
-          - "[STATUS] == 200"
-          - "[STATUS] == 401"
+        {{- if not .Values.zurgexposed.enabled }}
+        - "[STATUS] == 200"
+        {{ else }}
+        - "[STATUS] == 401"
+        {{ end }}
         alerts:
           - type: email           
       {{ end }}          
