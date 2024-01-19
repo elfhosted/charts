@@ -8933,22 +8933,22 @@ zurg:
         seccompProfile:
           type: RuntimeDefault
         readOnlyRootFilesystem: true
-  # addons:
-  #   vpn:
-  #     gluetun:
-  #       image:
-  #         repository: thrnz/docker-wireguard-pia
-  #         tag: latest
-  #     envFrom:
-  #     - secretRef:
-  #         name: zurg-vpn
-  #     securityContext:
-  #       runAsUser: 0
-  #       capabilities:
-  #         add:
-  #           - NET_ADMIN
-  #           - SYS_MODULE
-  #     config: # We have to set this to null so that we can override with our own config
+  addons:
+    vpn:
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest
+      envFrom:
+      - secretRef:
+          name: zurg-vpn
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE
+      config: # We have to set this to null so that we can override with our own config
 
 plexdebrid:
   enabled: false
