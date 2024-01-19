@@ -8941,6 +8941,8 @@ zurg:
           repository: thrnz/docker-wireguard-pia
           tag: latest
       envFrom:
+      - configMapRef:
+          name: zurg-pia-config      
       - secretRef:
           name: zurg-vpn
       securityContext:
