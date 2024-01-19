@@ -12,5 +12,7 @@ spec:
           kind: Service
           port: 9999
       middlewares:  
+        {{- if not .Values.zurgexposed.enabled }}
         - name: {{ .Release.Name }}-traefik-forward-auth
+        {{ end }}
 {{ end }}

@@ -23,6 +23,14 @@ data:
     enable_repair: true # BEWARE! THERE CAN ONLY BE 1 INSTANCE OF ZURG THAT SHOULD REPAIR YOUR TORRENTS
     # on_library_update: sh plex_update.sh "$@"
 
+    # for public zurg exposure
+
+    # Credentials if you want to expose zurg publically, bypassing Plex
+    {{ if .Values.zurgexposed.enabled }}
+    username: "{{ .Release.Name }}"
+    password: "{{ .Values.zurgexposed.password }}"
+    {{ end }}
+        
     on_library_update: |
       # Log the updated directories and send refresh request to autoscan
       for arg in "$@"
