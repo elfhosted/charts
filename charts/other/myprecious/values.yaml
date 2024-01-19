@@ -4383,7 +4383,7 @@ plex: &plex
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
-    tag: 1.32.8.7639-fb6452ebf@sha256:4bdc5270ffd9499fb1b91829d418f8a101fe6278df2254bba61a7d118c24b95b
+    tag: 1.32.8.7639-fb6452ebf@sha256:c11f495932f88e78d791a3069f860e4dd0ecb11b4e1810bf05ae666ddf9b1d18
   persistence:
     <<: *appmounts
     config:
@@ -4410,6 +4410,12 @@ plex: &plex
       type: hostPath
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"
+    shared:
+      enabled: true
+      mountPath: /shared
+      type: emptyDir
+      volumeSpec:
+        medium: Memory      
   ingress:
     main:
       enabled: false
@@ -4453,6 +4459,15 @@ plex: &plex
       - mountPath: /storage/elfstorage
         name: elfstorage
       config: # We have to set this to null so that we can override with our own config
+      scripts:
+        up: |-
+          #!/bin/bash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/bash
+          echo "disconnected" > /shared/vpnstatus
+                
   # probes:
   #   liveness:
   #     enabled: true
