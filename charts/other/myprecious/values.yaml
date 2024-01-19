@@ -8935,6 +8935,7 @@ zurg:
         readOnlyRootFilesystem: true
   addons:
     vpn:
+      enabled: true
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
