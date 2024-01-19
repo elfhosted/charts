@@ -8827,8 +8827,8 @@ zurg:
     kubernetes.io/egress-bandwidth: "100M"    
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    # tag: v0.9.3@sha256:9361533d4d0bc98af9ee8961c70e417ae9ed0d5a61bb15fe67e009f0b16c67a7 
-    tag: v0.9.2-hotfix.4@sha256:706938d0b46b3806cbeaede4df95c0e1775c4a4e8dfd645fb92a3241788856e8
+    tag: v0.9.3@sha256:9efd844714b15bd2dcc7ac16befbb8d1adc391ae412ae36f303c125f9b4fc4ae
+    # tag: v0.9.2-hotfix.4@sha256:706938d0b46b3806cbeaede4df95c0e1775c4a4e8dfd645fb92a3241788856e8
   priorityClassName: tenant-normal
   controller:
     annotations:
