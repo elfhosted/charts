@@ -8825,7 +8825,8 @@ zurg:
     kubernetes.io/egress-bandwidth: "100M"    
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    tag: v0.9.3@sha256:9361533d4d0bc98af9ee8961c70e417ae9ed0d5a61bb15fe67e009f0b16c67a7 
+    # tag: v0.9.3@sha256:9361533d4d0bc98af9ee8961c70e417ae9ed0d5a61bb15fe67e009f0b16c67a7 
+    tag: v0.9.2-hotfix.4@sha256:706938d0b46b3806cbeaede4df95c0e1775c4a4e8dfd645fb92a3241788856e8
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -8935,7 +8936,7 @@ zurg:
         readOnlyRootFilesystem: true
   addons:
     vpn:
-      enabled: true
+      enabled: false # in case we ever need it
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
