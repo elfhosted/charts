@@ -14,5 +14,7 @@ spec:
       middlewares:  
         {{- if not .Values.zurgexposed.enabled }}
         - name: {{ .Release.Name }}-traefik-forward-auth
+        {{ else }}
+        - name: {{ .Release.Name }}-zurg-basic-auth
         {{ end }}
 {{ end }}
