@@ -552,7 +552,7 @@ data:
           - type: email           
       {{ end }}    
 
-      {{ if .Values.zurg.enabled }}
+      {{ if or .Values.zurg.enabled .Values.zurggluetun.enabled }}
       - name: zurg
         group: download-media
         url: "http://zurg:9999"

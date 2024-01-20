@@ -8834,10 +8834,11 @@ autoscanplexgluetun: *autoscan
 autoscanjellyfin: *autoscan
 autoscanemby: *autoscan
 
-zurg:
+zurg: &zurg
   enabled: false
   podLabels:
-    app.elfhosted.com/class: debrid  
+    app.elfhosted.com/class: debrid
+    app.elfhosted.com/name: zurg  
   podAnnotations:
     kubernetes.io/egress-bandwidth: "100M"    
   image:
@@ -8970,6 +8971,32 @@ zurg:
             - NET_ADMIN
             - SYS_MODULE
       config: # We have to set this to null so that we can override with our own config
+
+zurggluetun:
+  <<: *zurg
+  enabled: false
+  podLabels:
+    app.elfhosted.com/name: zurg
+    app.elfhosted.com/class: streaming
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-zurg,zurg-gluetun-config"
+  service:
+    main:
+      nameOverride: zurg
+      enabled: true # necessary for probes, but probes aren't working with vpn addon currently
+  addons:
+    vpn:
+      enabled: true
+      <<: *zurg_addons_vpn
+      gluetun:
+        image:
+          repository: ghcr.io/geek-cookbook/gluetun
+          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
+      envFrom:
+      - configMapRef:
+          name: zurg-gluetun-config
+
 
 plexdebrid:
   enabled: false

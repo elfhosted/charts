@@ -560,7 +560,7 @@ data:
             siteMonitor: http://rdtclient:6500
         {{ end }}    
 
-        {{ if .Values.zurg.enabled }}
+        {{ if or .Values.zurg.enabled .Values.zurggluetun.enabled }}
         - Zurg:
             icon: real-debrid.png
             href: https://{{ .Release.Name }}-zurg.elfhosted.com/http/

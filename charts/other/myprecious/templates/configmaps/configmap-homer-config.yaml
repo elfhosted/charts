@@ -877,7 +877,7 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
-          {{ if .Values.zurg.enabled }}
+          {{ if or .Values.zurg.enabled .Values.zurggluetun.enabled }}
           - name: "Zurg"
             logo: "assets/png/real-debrid.png"
             subtitle: "Manage Real Debrid WebDAV proxy"

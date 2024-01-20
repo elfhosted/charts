@@ -1,0 +1,34 @@
+{{ if .Values.zurggluetun.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zurg-gluetun-config
+data:
+
+  # These are used by the gluetun image
+  DOT: "off"
+  VPN_SERVICE_PROVIDER: "{{ .Values.zurggluetun.VPN_SERVICE_PROVIDER | default }}"
+  VPN_TYPE: "{{ .Values.zurggluetun.VPN_TYPE | default }}"
+  VPN_ENDPOINT_IP: "{{ .Values.zurggluetun.VPN_ENDPOINT_IP | default }}"
+  VPN_ENDPOINT_PORT: "{{ .Values.zurggluetun.VPN_ENDPOINT_PORT | default }}"
+  OPENVPN_USER: "{{ .Values.zurggluetun.OPENVPN_USER | default }}"
+  OPENVPN_PASSWORD: "{{ .Values.zurggluetun.OPENVPN_PASSWORD | default }}"
+  WIREGUARD_PUBLIC_KEY: "{{ .Values.zurggluetun.WIREGUARD_PUBLIC_KEY | default }}"
+  WIREGUARD_PRIVATE_KEY: "{{ .Values.zurggluetun.WIREGUARD_PRIVATE_KEY | default }}"
+  WIREGUARD_PRESHARED_KEY: "{{ .Values.zurggluetun.WIREGUARD_PRESHARED_KEY | default }}"
+  WIREGUARD_ADDRESSES: "{{ .Values.zurggluetun.WIREGUARD_ADDRESSES | default }}"
+  SERVER_COUNTRIES: "{{ .Values.zurggluetun.SERVER_COUNTRIES | default }}"
+  SERVER_CITIES: "{{ .Values.zurggluetun.SERVER_CITIES | default }}"
+  OPENVPN_CUSTOM_CONFIG: "{{ .Values.zurggluetun.OPENVPN_CUSTOM_CONFIG | default }}"
+  SERVER_REGIONS: "{{ .Values.zurggluetun.SERVER_REGIONS | default }}"
+  VPN_PORT_FORWARDING: "{{ .Values.zurggluetun.VPN_PORT_FORWARDING | default false }}"
+  VPN_PORT_FORWARDING_PROVIDER: "{{ .Values.zurggluetun.VPN_PORT_FORWARDING_PROVIDER | default }}"
+  VPN_PORT_FORWARDING_STATUS_FILE: /config/forwarded-port
+  POST_UP: /gluetun/scripts/up.sh
+  PRE_DOWN: /gluetun/scripts/down.sh
+  HTTP_CONTROL_SERVER_PORT: "8042"
+  HTTP_CONTROL_SERVER_ADDRESS: ":8042"
+
+  # Avoid breaking kube probes
+  FIREWALL_INPUT_PORTS: "9999"
+{{ end }}
