@@ -39,7 +39,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true,
-      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent"]
+      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","zurg"]
     } 
   ],
   // since we version by bumping, each PR needs to be rebased every time we merge

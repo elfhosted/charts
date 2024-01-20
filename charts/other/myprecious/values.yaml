@@ -8969,7 +8969,7 @@ zurg: &zurg
         # Disable native auth (we do it with traefik instead when necessary)
         sed -i  "s/^username:/#username/" /config/config.yml
         sed -i  "s/^password:/#password/" /config/config.yml
-        
+
       volumeMounts:
       - mountPath: /config
         name: config
