@@ -1,0 +1,9 @@
+{{ if .Values.zurgexposed.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-zurg-basic-auth
+spec:
+  basicAuth:
+    secret: zurg-basic-auth
+{{ end }}

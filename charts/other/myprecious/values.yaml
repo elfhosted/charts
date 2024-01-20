@@ -8922,7 +8922,12 @@ zurg: &zurg
         configMap:
           name: elfbot-zurg
           optional: true
-
+    shared:
+      enabled: true
+      mountPath: /shared
+      type: emptyDir
+      volumeSpec:
+        medium: Memory
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
@@ -8985,6 +8990,8 @@ zurggluetun:
     main:
       nameOverride: zurg
       enabled: true # necessary for probes, but probes aren't working with vpn addon currently
+  env:
+    WAIT_FOR_VPN: "true"
   addons:
     vpn:
       enabled: true
