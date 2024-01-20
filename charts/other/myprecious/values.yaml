@@ -8957,6 +8957,23 @@ zurg: &zurg
         seccompProfile:
           type: RuntimeDefault
         readOnlyRootFilesystem: true
+    setup:
+      image: *tooling_image
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Disable native auth (we do it with traefik instead when necessary)
+        sed -i  "s/^username:/#username/" /config/config.yml
+        sed -i  "s/^password:/#password/" /config/config.yml
+        
+      volumeMounts:
+      - mountPath: /config
+        name: config
+        
   addons:
     vpn: &zurg_addons_vpn
       enabled: false # in case we ever need it
