@@ -12,7 +12,7 @@ data:
     # basic functionality
     host: "[::]" # do not change this if you are running it inside a docker container
     port: 9999 # do not change this if you are running it inside a docker container
-    concurrent_workers: 50
+    concurrent_workers: 200
     check_for_changes_every_secs: 15
 
     # misc configs
@@ -20,7 +20,7 @@ data:
     retain_rd_torrent_name: true # if true, it will strictly follow RD API torrent name property w/c should make this more compatible with rdt-client
     auto_delete_rar_torrents: true # if true, zurg will delete unstreamable rar files (these torrents will always be compressed in a rar archive no matter what files you select)
     use_download_cache: true # if true, during zurg initialization, it will fetch all downloads to unrestrict links faster
-    enable_repair: false # BEWARE! THERE CAN ONLY BE 1 INSTANCE OF ZURG THAT SHOULD REPAIR YOUR TORRENTS
+    enable_repair: true # BEWARE! THERE CAN ONLY BE 1 INSTANCE OF ZURG THAT SHOULD REPAIR YOUR TORRENTS
     # on_library_update: sh plex_update.sh "$@"
         
     on_library_update: |
@@ -77,4 +77,47 @@ data:
         only_show_the_biggest_file: true # let's not show the other files besides the movie itself
         filters:
           - regex: /.*/ # you cannot leave a directory without filters because it will not have any torrents in it
+  plex_update.sh: |
+    #!/bin/bash
+
+    # PLEX PARTIAL SCAN script or PLEX UPDATE script
+    # When zurg detects changes, it can trigger this script IF your config.yml contains
+    # on_library_update: sh plex_update.sh "$@"
+    # Modified from https://github.com/debridmediamanager/zurg-testing/blob/main/plex_update.sh
+
+    plex_url="http://plex:32400" # If you're using zurg inside a Docker container, by default it is 172.17.0.1:32400
+    token="yourplextoken" # open Plex in a browser, open dev console and copy-paste this: window.localStorage.getItem("myPlexAccessToken")
+    zurg_mount="/storage/realdebrid-zurg" # replace with your zurg mount path, ensure this is what Plex sees
+
+    # Get the list of section IDs
+    section_ids=$(curl -sLX GET "$plex_url/library/sections" -H "X-Plex-Token: $token" | xmllint --xpath "//Directory/@key" - | sed 's/key="//g' | tr '"' '\n')
+
+    for arg in "$@"
+    do
+        modified_arg="$zurg_mount/$arg"
+        echo "Detected update on: $arg"
+        echo "Absolute path: $modified_arg"
+
+        encoded_arg=$(echo -n "$modified_arg" | python3 -c "import sys, urllib.parse as ul; print (ul.quote_plus(sys.stdin.read()))")
+
+        if [ -z "$encoded_arg" ]; then
+            echo "Error: Encoded argument is empty. Check the input or encoding process."
+            continue
+        fi
+
+        for section_id in $section_ids
+        do
+            final_url="${plex_url}/library/sections/${section_id}/refresh?path=${encoded_arg}&X-Plex-Token=${token}"
+
+            echo "Encoded argument: $encoded_arg"
+            echo "Section ID: $section_id"
+            echo "Final URL: $final_url"
+
+            curl -s "$final_url"
+        done
+    done
+
+    echo "All updated sections refreshed"
+
+    # credits to godver3  
 {{ end }}

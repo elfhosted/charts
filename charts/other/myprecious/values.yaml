@@ -8843,8 +8843,7 @@ zurg: &zurg
     kubernetes.io/egress-bandwidth: "100M"    
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    tag: v0.9.3-hotfix.1@sha256:a3045e080ed1dba3bcd7bd2b7462103f5a6308d6b06e52cd964bf327115950f8
-    # tag: v0.9.2-hotfix.4@sha256:79e5ec3e5c769a376bf26cf6bf6852853c5a1d49eb10f8c2e96ba5bde9a48ca9
+    tag: v0.9.3-hotfix.1@sha256:38d59b209db726e3019dc4e242888698c7e88e7d23ba4a6c51f87d39d3541c01
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -8948,6 +8947,13 @@ zurg: &zurg
         then
           cp /bootstrap/config.yml /config/
         fi
+
+        # If we don't already have an example plex_update, create one
+        if [[ ! -f /config/plex_update.sh ]];
+        then
+          cp /bootstrap/plex_update.sh /config/
+        fi
+
       volumeMounts:
       - mountPath: /config
         name: config
