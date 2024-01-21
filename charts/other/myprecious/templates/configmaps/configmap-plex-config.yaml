@@ -10,7 +10,7 @@ data:
   PLEX_PREFERENCE_4: "TranscoderPhotoFileSizeLimitMiB=1"
   PLEX_PREFERENCE_5: "ScannerLowPriority=1"
   PLEX_PREFERENCE_6: "TranscodeCountLimit=3"
-  PLEX_PREFERENCE_7: "TranscoderQuality=1"
+  # PLEX_PREFERENCE_7: "TranscoderQuality=1" # we have transcode-killer now, so no need to force low quality
   PLEX_PREFERENCE_8: "BackgroundTranscodeLowPriority=1"
   PLEX_PREFERENCE_9: "LongRunningJobThreads=1"
   PLEX_PREFERENCE_10: "TranscoderH264BackgroundPreset=ultrafast"
