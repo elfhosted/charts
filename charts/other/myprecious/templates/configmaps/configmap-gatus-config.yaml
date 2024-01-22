@@ -423,10 +423,10 @@ data:
       {{ if or .Values.autoscan.enabled }}
       - name: autoscan
         group: manage-media
-        url: "http://autoscan:3030/triggers/radarr"
+        url: "http://autoscan:3030/triggers/manual/"
         interval: 5m
         conditions:
-          - "[STATUS] == 405"
+          - "[STATUS] == 200"
         alerts:
           - type: email               
       {{ end }} 
