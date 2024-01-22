@@ -3171,7 +3171,7 @@ nzbhydra:
   image:
     registry: ghcr.io
     repository: geek-cookbook/nzbhydra2
-    tag: 5.3.5@sha256:7e9a121eba698f7f4cee50da3ebcecaf58635e4ba8e4f170cba11c4a2f561fd5
+    tag: 5.3.7@sha256:f221fdaf7006ddb81d2c802e3e422aa088a16e36c59608e1825b12068247c3a9
   priorityClassName: 
   controller:
     annotations:
