@@ -2349,7 +2349,7 @@ filebrowser:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M"    
+    kubernetes.io/egress-bandwidth: "40M"    
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,filebrowser-elfbot-script,elfbot-filebrowser" # Reload the deployment every time the rclones change
@@ -8833,7 +8833,7 @@ zurg: &zurg
     app.elfhosted.com/class: debrid
     app.elfhosted.com/name: zurg  
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M"    
+    kubernetes.io/egress-bandwidth: "40M"    
   image:
     repository: ghcr.io/geek-cookbook/zurg
     tag: v0.9.3-hotfix.1@sha256:38d59b209db726e3019dc4e242888698c7e88e7d23ba4a6c51f87d39d3541c01
