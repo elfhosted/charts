@@ -21,18 +21,19 @@ data:
     auto_delete_rar_torrents: true # if true, zurg will delete unstreamable rar files (these torrents will always be compressed in a rar archive no matter what files you select)
     use_download_cache: true # if true, during zurg initialization, it will fetch all downloads to unrestrict links faster
     enable_repair: true # BEWARE! THERE CAN ONLY BE 1 INSTANCE OF ZURG THAT SHOULD REPAIR YOUR TORRENTS
-    # on_library_update: sh plex_update.sh "$@"
+    on_library_update: sh plex_update.sh "$@"
         
-    on_library_update: |
-      # Log the updated directories and send refresh request to autoscan
-      for arg in "$@"
-      do
-          echo "Detected update on: $arg"
-          # URL encode the directory path
-          encoded_arg=$(python -c "import urllib.parse; print(urllib.parse.quote_plus('$arg'))")
-          curl -s -X GET "http://autoscan:3030/triggers/manual?dir=/storage/realdebrid-zurg/$encoded_arg" 
-      done
-      echo "All updated sections refreshed."
+    # advanced alternative for Jellyfin/Emby support
+    # on_library_update: |
+    #   # Log the updated directories and send refresh request to autoscan
+    #   for arg in "$@"
+    #   do
+    #       echo "Detected update on: $arg"
+    #       # URL encode the directory path
+    #       encoded_arg=$(python -c "import urllib.parse; print(urllib.parse.quote_plus('$arg'))")
+    #       curl -s -X GET "http://autoscan:3030/triggers/manual?dir=/storage/realdebrid-zurg/$encoded_arg" 
+    #   done
+    #   echo "All updated sections refreshed."
 
     # network configs
     network_buffer_size: 1048576 # 1 MiB
