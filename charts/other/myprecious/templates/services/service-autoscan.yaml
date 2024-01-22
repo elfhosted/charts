@@ -15,5 +15,5 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.elfhosted.com/name: autoscan
+    app.kubernetes.io/name: autoscan
 {{ end }}
