@@ -6013,7 +6013,7 @@ unpackerr:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/unpackerr
-    tag: 0.13.0@sha256:2c0253345b80a10cca02b328071078a79fc2b20036cc0b60724ca17e6a707344
+    tag: 0.13.1@sha256:8a1ea827aaa92a2c8d792c159b135af154fa00b286f421b897c4d511e6d5b761
   priorityClassName: tenant-bulk
   controller:
     annotations:
