@@ -672,7 +672,7 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
-          {{ if or .Values.plex.enabled .Values.plexgluetun.enabled .Values.plexpia.enabled .Values.jellyfin.enabled .Values.emby.enabled }}
+          {{ if .Values.autoscan.enabled }}
           - name: "Autoscan"
             # logo: "assets/png/autoscan.png"
             # Alternatively a fa icon can be provided:
