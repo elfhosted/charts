@@ -4102,7 +4102,7 @@ navidrome:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/navidrome
-    tag: 0.50.2@sha256:51714d1eed770d1730931555642132f1466298903972c15d982c69917ae79bb9
+    tag: 0.51.0@sha256:669c02b39662a91456dc3c9bc11a5f5c29847eb1a9d208795c86670ef2e28572
   sso:
     enabled: true
   priorityClassName: tenant-streaming
@@ -6013,7 +6013,7 @@ unpackerr:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/unpackerr
-    tag: 0.13.0@sha256:2c0253345b80a10cca02b328071078a79fc2b20036cc0b60724ca17e6a707344
+    tag: 0.13.1@sha256:8a1ea827aaa92a2c8d792c159b135af154fa00b286f421b897c4d511e6d5b761
   priorityClassName: tenant-bulk
   controller:
     annotations:
