@@ -7,7 +7,7 @@ data:
   # PLEX_PREFERENCE_1: "FriendlyName=ElfHosted | {{ .Release.Name }}"
   PLEX_PREFERENCE_2: "FSEventLibraryPartialScanEnabled=1"
   PLEX_PREFERENCE_3: "FSEventLibraryUpdatesEnabled=1"
-  PLEX_PREFERENCE_4: "TranscoderPhotoFileSizeLimitMiB=1"
+  PLEX_PREFERENCE_4: "TranscoderPhotoFileSizeLimitMiB=10"
   PLEX_PREFERENCE_5: "ScannerLowPriority=1"
   PLEX_PREFERENCE_6: "TranscodeCountLimit=3"
   # PLEX_PREFERENCE_7: "TranscoderQuality=1" # we have transcode-killer now, so no need to force low quality
