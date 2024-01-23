@@ -8835,7 +8835,7 @@ zurg: &zurg
     app.elfhosted.com/class: debrid
     app.elfhosted.com/name: zurg  
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "80M"    
+    kubernetes.io/egress-bandwidth: "100M"    
   image:
     repository: ghcr.io/geek-cookbook/zurg
     # tag: v0.9.3-hotfix.1@sha256:6d5020b323645664cf9bc80c5478c57cad20a14291bd63da313383f7f4776ec8
