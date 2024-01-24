@@ -4437,7 +4437,7 @@ plex: &plex
   initContainers:
     bootstrap: *bootstrap
     update-dns:
-      image: *tooling_image
+      image: dpig/cloudflare-cli
       imagePullPolicy: IfNotPresent
       command:
       - /bin/ash
@@ -4445,9 +4445,6 @@ plex: &plex
       - |
         set -x
         set -e
-
-        # Username is namespace minus the "aa-" prefix
-        NAME=${MY_POD_NAMESPACE##*aa-}
 
         # Detect external address
         MY_NODE_IP=$wget -qO- ipinfo.io/ip)
@@ -4465,15 +4462,15 @@ plex: &plex
         fi
 
         # Does a DNS entry exist for me?
-        cfcli find $NAME-plex | grep $NAME-plex
+        cfcli find $ELF_TENANT_NAME-$ELF_APP_NAME | grep $ELF_TENANT_NAME-$ELF_APP_NAME
 
         if [[ $? -eq 0 ]]
         then
           # A record exists, so update it
-          cfcli edit -t CNAME $NAME $MY_NODE_NAME.elfhosted.com
+          cfcli edit -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
         else
           # No record exists, so create it
-          cfcli add -t CNAME $NAME $MY_NODE_NAME.elfhosted.com
+          cfcli add -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
         fi
       env:
         - name: MY_NODE_NAME
@@ -4483,7 +4480,15 @@ plex: &plex
         - name: MY_POD_NAMESPACE
           valueFrom:
             fieldRef:
-              fieldPath: metadata.namespace    
+              fieldPath: metadata.namespace   
+        - name: ELF_APP_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['app.elfhosted.com/name']   
+        - name: ELF_TENANT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['app.kubernetes.io/instance'] 
         - name: CF_API_DOMAIN
           value: elfhosted.com          
       envFrom:
