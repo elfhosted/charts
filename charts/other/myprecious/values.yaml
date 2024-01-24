@@ -5478,6 +5478,14 @@ traefikforwardauth:
     pullPolicy: IfNotPresent
     tag: 3.1.0@sha256:568cca312839667daaf58ae4b9fcee9efc7c9ea2d96dd8005fed57d446b5dfeb
 
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists  
+
   middleware:
     # middleware.enabled -- Enable to deploy a preconfigured middleware
     enabled: false
@@ -5545,6 +5553,13 @@ gatus:
     strategy: RollingUpdate
     annotations:
       configmap.reloader.stakater.com/reload: "gatus-config"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/storage
+            operator: Exists        
   env:
     GATUS_CONFIG_PATH: /config/config.yaml
     SMTP_FROM: 'health@elfhosted.com'
