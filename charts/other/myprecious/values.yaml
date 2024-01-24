@@ -5483,8 +5483,11 @@ traefikforwardauth:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download-only
+          - key: node-role.elfhosted.com/storage
             operator: Exists  
+  tolerations:
+  - key: node-role.elfhosted.com/storage
+    operator: Exists            
 
   middleware:
     # middleware.enabled -- Enable to deploy a preconfigured middleware
@@ -5559,7 +5562,10 @@ gatus:
         nodeSelectorTerms:
         - matchExpressions:
           - key: node-role.elfhosted.com/storage
-            operator: Exists        
+            operator: Exists      
+  tolerations:
+  - key: node-role.elfhosted.com/storage
+    operator: Exists              
   env:
     GATUS_CONFIG_PATH: /config/config.yaml
     SMTP_FROM: 'health@elfhosted.com'
