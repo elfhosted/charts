@@ -1,5 +1,5 @@
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: false
+safeToRelease: true
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
@@ -4720,6 +4720,7 @@ jellyfin:
       mountPath: "/dev/dri/renderD128"
   initContainers:
     bootstrap: *bootstrap
+    update-dns: *update_dns
   ingress:
     main:
       enabled: false
@@ -4824,6 +4825,7 @@ emby:
 
   initContainers:
     bootstrap: *bootstrap
+    update-dns: *update_dns
   ingress:
     main:
       enabled: false
@@ -6959,7 +6961,7 @@ webdav:
 
 rclonebrowser:
   podLabels:
-    app.elfhosted.com/name: rclonebrowser
+    app.elfhosted.com/name: webdav
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
@@ -7522,6 +7524,7 @@ rclonebrowser:
 
   initContainers:
     bootstrap: *bootstrap
+    update-dns: *update_dns
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
