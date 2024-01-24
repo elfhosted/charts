@@ -363,6 +363,68 @@ bootstrap-migrate-db: &bootstrap_migrate_db
     env: *bootstrap_env
     resources: *default_resources
     securityContext: *default_securitycontext
+
+update_dns: &update_dns
+  image: dpig/cloudflare-cli
+  imagePullPolicy: IfNotPresent
+  command:
+  - /bin/ash
+  - -c
+  - |
+    set -x
+
+    # Detect external address
+    MY_NODE_IP=$(wget -qO- ipinfo.io/ip)
+
+    # Does a DNS entry exist for my node?
+    cfcli find $MY_NODE_NAME | grep $MY_NODE_NAME.elfhosted.com
+
+    if [[ $? -eq 0 ]]
+    then
+      # If it exists but it's not correct, then update it
+      (cfcli find $MY_NODE_NAME | grep $MY_NODE_IP) || cfcli edit -t A $MY_NODE_NAME $MY_NODE_IP
+    else
+      # No record exists, so create it
+      cfcli add -t $MY_NODE_NAME $MY_NODE_IP
+    fi
+
+    # Does a DNS entry exist for me?
+    cfcli find $ELF_TENANT_NAME-$ELF_APP_NAME | grep $ELF_TENANT_NAME-$ELF_APP_NAME
+
+    if [[ $? -eq 0 ]]
+    then
+      # A record exists, so update it
+      cfcli edit -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
+    else
+      # No record exists, so create it
+      cfcli add -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
+    fi
+  env:
+    - name: MY_NODE_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
+    - name: MY_POD_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace   
+    - name: ELF_APP_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.labels['app.elfhosted.com/name']   
+    - name: ELF_TENANT_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.labels['app.kubernetes.io/instance'] 
+    - name: CF_API_DOMAIN
+      value: elfhosted.com          
+  envFrom:
+  - secretRef:
+      name: cloudflare-api-token
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true    
     
 bootstrap: &bootstrap
   image: *tooling_image
@@ -4436,68 +4498,8 @@ plex: &plex
       memory: 4096Mi
   initContainers:
     bootstrap: *bootstrap
-    update-dns:
-      image: dpig/cloudflare-cli
-      imagePullPolicy: IfNotPresent
-      command:
-      - /bin/ash
-      - -c
-      - |
-        set -x
-        set -e
+    update-dns: *update_dns
 
-        # Detect external address
-        MY_NODE_IP=$wget -qO- ipinfo.io/ip)
-
-        # Does a DNS entry exist for my node?
-        cfcli find $MY_NODE_NAME | grep $MY_NODE_NAME.elfhosted.com
-
-        if [[ $? -eq 0 ]]
-        then
-          # If it exists but it's not correct, then update it
-          (cfcli find $MY_NODE_NAME | grep $MY_NODE_IP) || cfcli edit -t A $MY_NODE_NAME $MY_NODE_IP
-        else
-          # No record exists, so create it
-          cfcli add -t $MY_NODE_NAME $MY_NODE_IP
-        fi
-
-        # Does a DNS entry exist for me?
-        cfcli find $ELF_TENANT_NAME-$ELF_APP_NAME | grep $ELF_TENANT_NAME-$ELF_APP_NAME
-
-        if [[ $? -eq 0 ]]
-        then
-          # A record exists, so update it
-          cfcli edit -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
-        else
-          # No record exists, so create it
-          cfcli add -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
-        fi
-      env:
-        - name: MY_NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        - name: MY_POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace   
-        - name: ELF_APP_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.labels['app.elfhosted.com/name']   
-        - name: ELF_TENANT_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.labels['app.kubernetes.io/instance'] 
-        - name: CF_API_DOMAIN
-          value: elfhosted.com          
-      envFrom:
-      - secretRef:
-          name: cloudflare-api-token
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
-        readOnlyRootFilesystem: true    
   addons:
     vpn: &plex_addons_vpn
       enabled: true
