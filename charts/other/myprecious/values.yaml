@@ -2421,7 +2421,7 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-autobrr-ssd
     autoscan:
-      enabled: true # all users have one of these, although only the plex/jelly/emby users actually _use_ them
+      enabled: false
       type: custom
       mountPath: /storage/config/autoscan/
       volumeSpec:
@@ -4846,7 +4846,7 @@ homer:
         persistentVolumeClaim:
           claimName: config-autobrr-ssd
     autoscan:
-      enabled: true
+      enabled: false
       type: custom
       mountPath: /config/autoscan/
       volumeSpec:
@@ -6994,7 +6994,7 @@ rclonebrowser:
         persistentVolumeClaim:
           claimName: config-autobrr-ssd
     autoscan:
-      enabled: true
+      enabled: false
       type: custom
       mountPath: /storage/config/autoscan/
       volumeSpec:
@@ -8838,8 +8838,8 @@ zurg: &zurg
     kubernetes.io/egress-bandwidth: "100M"    
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    # tag: v0.9.3-hotfix.1@sha256:6d5020b323645664cf9bc80c5478c57cad20a14291bd63da313383f7f4776ec8
-    tag: v0.9.2-hotfix.4@sha256:5419110f609418052f4b716e7d8adc6a0e2e7c3869c332641fc060aa3b6374ad
+    tag: v0.9.3-hotfix.2@sha256:13a6d6ee3abad570b507c556b6a0d1ccc3281e72a3cd072c751f434460395761
+    # tag: v0.9.2-hotfix.4@sha256:5419110f609418052f4b716e7d8adc6a0e2e7c3869c332641fc060aa3b6374ad
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -8980,7 +8980,7 @@ zurg: &zurg
         
   addons:
     vpn: &zurg_addons_vpn
-      enabled: false # in case we ever need it
+      enabled: true # in case we ever need it
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
