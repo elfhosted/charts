@@ -8184,11 +8184,6 @@ rdtclient:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
-    tmp: # We can't use topolvm on the dwarves
-      enabled: true
-      type: emptyDir
-      mountPath: /tmp
-      sizeLimit: 1Gi    
     config:
       enabled: true
       type: custom
@@ -8203,6 +8198,19 @@ rdtclient:
         configMap:
           name: elfbot-rdtclient
           optional: true
+    downloads: # in case users use /downloads in error - rather let it fill up than messing up the host node
+      enabled: true
+      type: custom
+      mountPath: /downloads
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 1Mi
 
   ingress:
     main:
