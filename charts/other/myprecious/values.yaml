@@ -4449,6 +4449,21 @@ plex: &plex
         # Username is namespace minus the "aa-" prefix
         NAME=${MY_POD_NAMESPACE##*aa-}
 
+        # Detect external address
+        MY_NODE_IP=$wget -qO- ipinfo.io/ip)
+
+        # Does a DNS entry exist for my node?
+        cfcli find $MY_NODE_NAME | grep $MY_NODE_NAME.elfhosted.com
+
+        if [[ $? -eq 0 ]]
+        then
+          # If it exists but it's not correct, then update it
+          (cfcli find $MY_NODE_NAME | grep $MY_NODE_IP) || cfcli edit -t A $MY_NODE_NAME $MY_NODE_IP
+        else
+          # No record exists, so create it
+          cfcli add -t $MY_NODE_NAME $MY_NODE_IP
+        fi
+
         # Does a DNS entry exist for me?
         cfcli find $NAME-plex | grep $NAME-plex
 
@@ -4468,7 +4483,7 @@ plex: &plex
         - name: MY_POD_NAMESPACE
           valueFrom:
             fieldRef:
-              fieldPath: spec.namespace    
+              fieldPath: metadata.namespace    
         - name: CF_API_DOMAIN
           value: elfhosted.com          
       envFrom:
