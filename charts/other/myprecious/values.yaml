@@ -385,7 +385,7 @@ update_dns: &update_dns
       (cfcli find $MY_NODE_NAME | grep $MY_NODE_IP) || cfcli edit -t A $MY_NODE_NAME $MY_NODE_IP
     else
       # No record exists, so create it
-      cfcli add -t $MY_NODE_NAME $MY_NODE_IP
+      cfcli add -t A $MY_NODE_NAME $MY_NODE_IP
     fi
 
     # Does a DNS entry exist for me?
@@ -4660,6 +4660,7 @@ jellyfin:
   enabled: false
   podLabels:
     app.elfhosted.com/class: streaming  
+    app.elfhosted.com/name: jellyfin
   priorityClassName: tenant-streaming
   securityContext:
     seccompProfile:
@@ -4767,6 +4768,7 @@ emby:
   priorityClassName: tenant-streaming
   podLabels:
     app.elfhosted.com/class: streaming
+    app.elfhosted.com/name: emby
   securityContext:
     seccompProfile:
       type: RuntimeDefault
