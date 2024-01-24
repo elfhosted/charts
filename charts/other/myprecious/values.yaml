@@ -4436,6 +4436,48 @@ plex: &plex
       memory: 4096Mi
   initContainers:
     bootstrap: *bootstrap
+    update-dns:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/ash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Username is namespace minus the "aa-" prefix
+        NAME=${MY_POD_NAMESPACE##*aa-}
+
+        # Does a DNS entry exist for me?
+        cfcli find $NAME-plex | grep $NAME-plex
+
+        if [[ $? -eq 0 ]]
+        then
+          # A record exists, so update it
+          cfcli edit -t CNAME $NAME $MY_NODE_NAME.elfhosted.com
+        else
+          # No record exists, so create it
+          cfcli add -t CNAME $NAME $MY_NODE_NAME.elfhosted.com
+        fi
+      env:
+        - name: MY_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.namespace    
+        - name: CF_API_DOMAIN
+          value: elfhosted.com          
+      envFrom:
+      - secretRef:
+          name: cloudflare-api-token
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true    
   addons:
     vpn: &plex_addons_vpn
       enabled: true
