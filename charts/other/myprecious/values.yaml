@@ -371,7 +371,6 @@ update_dns: &update_dns
   - /bin/ash
   - -c
   - |
-    set -x
 
     # Detect external address
     MY_NODE_IP=$(wget -qO- ipinfo.io/ip)
@@ -1625,7 +1624,7 @@ nzbget:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/download-only
             operator: Exists 
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
@@ -1640,7 +1639,7 @@ nzbget:
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}            
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/download-only
     operator: Exists       
   securityContext:
     seccompProfile:
@@ -1716,7 +1715,7 @@ sabnzbd:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/download
+          - key: node-role.elfhosted.com/download-only
             operator: Exists
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
@@ -1731,7 +1730,7 @@ sabnzbd:
           topologyKey: "kubernetes.io/hostname"
           namespaceSelector: {}            
   tolerations:
-  - key: node-role.elfhosted.com/download
+  - key: node-role.elfhosted.com/download-only
     operator: Exists  
   controller:
     annotations:
@@ -8136,6 +8135,12 @@ rdtclient:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
   affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists  
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
       - weight: 100  
@@ -8157,6 +8162,9 @@ rdtclient:
               values:
               - debrid
           topologyKey: "kubernetes.io/hostname"
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists                
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -8913,6 +8921,9 @@ zurg: &zurg
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-zurg"
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists            
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -8928,6 +8939,12 @@ zurg: &zurg
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists  
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
       - weight: 100  
