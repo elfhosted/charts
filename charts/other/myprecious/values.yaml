@@ -8838,8 +8838,8 @@ zurg: &zurg
     kubernetes.io/egress-bandwidth: "100M"    
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    # tag: v0.9.3-hotfix.2@sha256:13a6d6ee3abad570b507c556b6a0d1ccc3281e72a3cd072c751f434460395761
-    tag: v0.9.2-hotfix.4@sha256:5419110f609418052f4b716e7d8adc6a0e2e7c3869c332641fc060aa3b6374ad
+    tag: v0.9.3-hotfix.2@sha256:13a6d6ee3abad570b507c556b6a0d1ccc3281e72a3cd072c751f434460395761
+    # tag: v0.9.2-hotfix.4@sha256:5419110f609418052f4b716e7d8adc6a0e2e7c3869c332641fc060aa3b6374ad
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -8973,6 +8973,9 @@ zurg: &zurg
         # Disable native auth (we do it with traefik instead when necessary)
         sed -i  "s/^username:/#username/" /config/config.yml
         sed -i  "s/^password:/#password/" /config/config.yml
+
+        # Ensure download cache is disabled (works better when IPs change)
+        sed -i  "s/use_download_cache: true/use_download_cache: false/" /config/config.yml
 
       volumeMounts:
       - mountPath: /config
