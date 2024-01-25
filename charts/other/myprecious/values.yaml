@@ -4466,11 +4466,19 @@ plex: &plex
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-ssd
-    transcode:
+    transcode: # in case users use /tmp
       enabled: true
-      type: emptyDir
+      type: custom
       mountPath: /transcode
-      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 50Gi
     elfbot:
       enabled: "true"
       type: "custom"
@@ -4592,11 +4600,19 @@ plexgluetun:
         configMap:
           name: elfbot-plex
           optional: true
-    transcode:
+    transcode: # in case users use /tmp
       enabled: true
-      type: emptyDir
+      type: custom
       mountPath: /transcode
-      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 50Gi
   service:
     main:
       nameOverride: plex
@@ -4641,11 +4657,19 @@ plexpia:
         configMap:
           name: elfbot-plex
           optional: true
-    transcode:
+    transcode: # in case users use /tmp
       enabled: true
-      type: emptyDir
+      type: custom
       mountPath: /transcode
-      sizeLimit: 50Gi # Don't allow > 50GB in transcoding files
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 50Gi
   addons:
     vpn:
       <<: *plex_addons_vpn
@@ -4713,11 +4737,19 @@ jellyfin:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jellyfin-ssd
-    transcode:
+    transcode: # in case users use /tmp
       enabled: true
-      type: emptyDir
-      mountPath: /config/transcodes
-      sizeLimit: 50Gi # Don't allow > 10GB in transcoding files
+      type: custom
+      mountPath: /transcode
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 50Gi
     elfbot:
       enabled: "true"
       type: "custom"
@@ -4820,11 +4852,24 @@ emby:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-emby-ssd
-    transcode-temp:
+    # transcode-temp:
+    #   enabled: true
+    #   type: emptyDir
+    #   mountPath: /config/transcoding-temp
+    #   sizeLimit: 50Gi # Don't allow > 10GB in transcoding files
+    transcode: # in case users use /tmp
       enabled: true
-      type: emptyDir
+      type: custom
       mountPath: /config/transcoding-temp
-      sizeLimit: 50Gi # Don't allow > 10GB in transcoding files
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 50Gi      
     elfbot:
       enabled: "true"
       type: "custom"
