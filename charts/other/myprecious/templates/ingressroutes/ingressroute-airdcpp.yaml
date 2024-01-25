@@ -1,0 +1,18 @@
+{{ if .Values.airdcpp.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-airdcpp.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-airdcpp.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: airdcpp
+          kind: Service
+          port: 5600
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}

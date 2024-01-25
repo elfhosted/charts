@@ -1,0 +1,20 @@
+{{ if .Values.airdcpp.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: airdcpp
+  labels:
+    app.kubernetes.io/name: airdcpp
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5600
+    targetPort: 5600
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: airdcpp
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

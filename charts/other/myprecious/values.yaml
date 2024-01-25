@@ -8977,7 +8977,66 @@ iceberg:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-autoscan
+          name: elfbot-iceberg
+          optional: true
+  initContainers:
+    bootstrap: *bootstrap
+
+airdcpp:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/airdcpp
+    tag: 2.9.0@sha256:d267845aca17f239a39c7417664ce0db52c80c50f4c51735301f4a7255e5760f
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-airdcpp"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  # envFrom:
+  # - configMapRef:
+  #     name: airdcpp-config
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 100m
+      memory: 1024Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5600 
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-airdcpp-ssd
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-airdcpp
           optional: true
   initContainers:
     bootstrap: *bootstrap
