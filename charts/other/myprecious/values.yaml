@@ -8927,15 +8927,15 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: dev@sha256:814ee8a40831a44227cb362190d8b105797c608224ae2ef73a4c9058a9f102d3
+    tag: rolling@sha256:e601b674ac8012d9dc4501c3a4e02c8bf2a377c9d36eff002ec8b6d049243029
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-autoscan"
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-iceberg"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: true # doesn't work because the node modules in /app try to create files
+    readOnlyRootFilesystem: true
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -8944,8 +8944,9 @@ iceberg:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  env:
-     AUTOSCAN_VERBOSITY: 1
+  envFrom:
+  - configMapRef:
+      name: iceberg-config
   resources:
     requests:
       cpu: 10m
@@ -8961,7 +8962,7 @@ iceberg:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 3030 
+          port: 3000 
   persistence:
     <<: *appmounts
     config:
@@ -8970,13 +8971,7 @@ iceberg:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-autoscan-ssd
-    example-config:
-      enabled: "true"
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: autoscan-config
+          claimName: config-iceberg-ssd
     elfbot:
       enabled: "true"
       type: "custom"
@@ -8984,33 +8979,8 @@ iceberg:
         configMap:
           name: elfbot-autoscan
           optional: true
-
   initContainers:
     bootstrap: *bootstrap
-    copy-example-config:
-      image: *tooling_image
-      imagePullPolicy: IfNotPresent
-      command:
-      - /bin/bash
-      - -c
-      - |
-        set -x
-        set -e
-
-        # If we don't already have an example config, create one
-        if [[ ! -f /config/config.yml ]];
-        then
-          cp /bootstrap/config.yml /config/
-        fi
-      volumeMounts:
-      - mountPath: /config
-        name: config
-      - name: example-config
-        mountPath: "/bootstrap/"
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
-        readOnlyRootFilesystem: true
 
 zurg: &zurg
   enabled: false
