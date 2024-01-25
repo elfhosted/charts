@@ -9047,13 +9047,7 @@ iceberg:
     cd backend
     source /venv/bin/activate
     exec python /iceberg/backend/main.py
-  resources:
-    requests:
-      cpu: 10m
-      memory: 16Mi
-    limits:
-      cpu: 100m
-      memory: 1024Mi
+  resources: *default_resources
   ingress:
     main:
       enabled: false
@@ -9090,6 +9084,10 @@ iceberg:
       volumeMounts:
       - mountPath: /iceberg/data
         name: config
+    envFrom:
+    - configMapRef:
+        name: iceberg-config        
+    resources: *default_resources
 
 airdcpp:
   enabled: false
