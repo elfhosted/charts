@@ -283,6 +283,7 @@ appmounts: &appmounts
   rclonemountwebdava: *rclonemountwebdava
   rclonemountrealdebridzurg: *rclonemountrealdebridzurg
   rclonemountralldebrid: *rclonemountalldebrid
+  rclonemountputio: *rclonemountputio
   rclonemountssha: *rclonemountssha
   storageboxa: *storageboxa
   storageboxb: *storageboxb

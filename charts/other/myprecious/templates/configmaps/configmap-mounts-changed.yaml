@@ -9,4 +9,5 @@ data:
   rclonec: {{ tpl (toYaml .Values.rclonec) . | sha256sum }}
   storageboxa: {{ tpl (toYaml .Values.storageboxa) . | sha256sum }}
   storageboxb: {{ tpl (toYaml .Values.storageboxb) . | sha256sum }}
-  storageboxc: {{ tpl (toYaml .Values.storageboxc) . | sha256sum }}    
+  storageboxc: {{ tpl (toYaml .Values.storageboxc) . | sha256sum }}
+  rclonemountputio: {{ tpl (toYaml .Values.rclonemountputio) . | sha256sum }}    
