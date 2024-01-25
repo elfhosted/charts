@@ -431,7 +431,15 @@ data:
             href: https://{{ .Release.Name }}-plex-debrid.elfhosted.com
             description: Sync Plex/Jellyfin with Debrid services
             siteMonitor: http://plex-debrid:3000            
-        {{ end }}          
+        {{ end }}     
+
+        {{ if .Values.iceberg.enabled }}
+        - Iceberg:
+            icon: mdi-image-filter-hdr-outline
+            href: https://{{ .Release.Name }}-plex-debrid.elfhosted.com
+            description: Sync Plex/Jellyfin with Debrid services
+            siteMonitor: http://plex-debrid:3000            
+        {{ end }}                  
 
     - Download Media:
         {{ if .Values.nzbget.enabled }}
@@ -591,7 +599,7 @@ data:
 
         {{ if .Values.airdcpp.enabled }}
         - AirDC++:
-            icon: airdcpp.png
+            icon: mdi-image-chart-bubble
             href: https://{{ .Release.Name }}-airdcpp.elfhosted.com
             description: Manage Downloads
             siteMonitor: http://airdcpp:5600

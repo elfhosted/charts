@@ -2586,7 +2586,7 @@ filebrowser:
     iceberg:
       enabled: false
       type: custom
-      mountPath: /config/iceberg/
+      mountPath: /storage/config/iceberg/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-iceberg-ssd                   

@@ -599,7 +599,7 @@ data:
       {{ if .Values.airdcpp.enabled }}
       - name: airdcpp
         group: manage-media
-        url: "http://airdcpp:5600"
+        url: "http://airdcpp:5600/login"
         interval: 5m
         conditions:
           - "[STATUS] == 200"

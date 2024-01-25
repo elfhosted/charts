@@ -713,6 +713,7 @@ data:
             # logo: "assets/png/real-debrid.png"
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
+            icon: "fas fa-mountain"
             subtitle: "Sync Plex / Jellyfin with Debrid services"
             tag: "protected"
             tagstyle: "is-success"
@@ -921,7 +922,7 @@ data:
 
           {{ if .Values.airdcpp.enabled }}
           - name: "AirDC++"
-            logo: "assets/png/airdcpp.png"
+            icon: "fas fa-wind"
             subtitle: "Manage DC++ Sharing"
             tag: "protected"
             tagstyle: "is-success"
