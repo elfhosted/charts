@@ -8185,8 +8185,8 @@ rdtclient:
   podLabels:
     app.elfhosted.com/class: debrid  
   image:
-    repository: ghcr.io/geek-cookbook/rdtclient
-    tag: rolling:sha256:f777bfef3658775a55d015652172b1b95b985d1f4fae967559df11d56531a681
+    repository: ghcr.io/geek-cookbook/rdtclient-laster13
+    tag: rolling@sha256:f777bfef3658775a55d015652172b1b95b985d1f4fae967559df11d56531a681
   env:
     PUID: 568
     PGID: 568
@@ -8990,8 +8990,16 @@ iceberg:
   - configMapRef:
       name: iceberg-config
   command:
-  - node 
-  - /iceberg/frontend/build
+  - /usr/bin/dumb-init
+  - /bin/bash
+  - -c
+  - |
+    set -e
+    set -x
+    
+    cd backend
+    source /venv/bin/activate
+    exec python /iceberg/backend/main.py
   resources:
     requests:
       cpu: 10m
@@ -9007,7 +9015,7 @@ iceberg:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 3000 
+          port: 8080 
   persistence:
     <<: *appmounts
     config:
@@ -9027,19 +9035,11 @@ iceberg:
   initContainers:
     bootstrap: *bootstrap
   additionalContainers:
-    backend:
+    frontend:
       image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:fc5b47a28518db2eea1ce3ad5ec78689cc9d638fc8f54c9e72d1e53fead7dcf2
       command:
-      - /usr/bin/dumb-init
-      - /bin/bash
-      - -c
-      - |
-        set -e
-        set -x
-        
-        cd backend
-        source /venv/bin/activate
-        exec python /iceberg/backend/main.py
+      - node 
+      - /iceberg/frontend/build
       volumeMounts:
       - mountPath: /iceberg/data
         name: config
