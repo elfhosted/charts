@@ -8210,7 +8210,7 @@ rdtclient:
               storageClassName: "topolvm-provisioner-thin"
               resources:
                 requests:
-                  storage: 1Mi
+                  storage: 100Mi
 
   ingress:
     main:
@@ -8839,6 +8839,95 @@ autoscan:
   image:
     repository: ghcr.io/geek-cookbook/autoscan
     tag: 1.4.0@sha256:814ee8a40831a44227cb362190d8b105797c608224ae2ef73a4c9058a9f102d3
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-autoscan"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true # doesn't work because the node modules in /app try to create files
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  env:
+     AUTOSCAN_VERBOSITY: 1
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 100m
+      memory: 1024Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 3030 
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-autoscan-ssd
+    example-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: autoscan-config
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-autoscan
+          optional: true
+
+  initContainers:
+    bootstrap: *bootstrap
+    copy-example-config:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # If we don't already have an example config, create one
+        if [[ ! -f /config/config.yml ]];
+        then
+          cp /bootstrap/config.yml /config/
+        fi
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - name: example-config
+        mountPath: "/bootstrap/"
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true
+
+iceberg:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/iceberg
+    tag: dev@sha256:814ee8a40831a44227cb362190d8b105797c608224ae2ef73a4c9058a9f102d3
   priorityClassName: tenant-normal
   controller:
     annotations:
