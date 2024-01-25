@@ -1,0 +1,18 @@
+{{ if .Values.rclonemountputio.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: putio
+  labels:
+    velero.io/exclude-from-backup: "true"
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rclone
+  selector:
+    matchLabels:
+      name: rclone-{{ .Release.Name }}-putio
+{{ end }}

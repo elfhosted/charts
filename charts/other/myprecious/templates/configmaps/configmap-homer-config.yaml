@@ -709,7 +709,7 @@ data:
           {{ end }}   
 
           {{ if .Values.iceberg.enabled }}
-          - name: "iceberg"
+          - name: "Iceberg"
             # logo: "assets/png/real-debrid.png"
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"

@@ -110,6 +110,13 @@ rclonemountalldebrid: &rclonemountalldebrid
     persistentVolumeClaim:
       claimName: alldebrid
   mountPath: /storage/alldebrid
+rclonemountputio: &rclonemountputio
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: putio
+  mountPath: /storage/putio  
 rclonemountssha: &rclonemountssha
   enabled: false
   type: custom
