@@ -9027,7 +9027,7 @@ airdcpp:
     config:
       enabled: true
       type: custom
-      mountPath: /config/
+      mountPath: /.airdcpp/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-airdcpp-ssd
