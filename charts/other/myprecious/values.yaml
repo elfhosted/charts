@@ -4403,6 +4403,8 @@ plex: &plex
   podLabels:
     app.elfhosted.com/name: plex
     app.elfhosted.com/class: streaming   
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
@@ -4648,6 +4650,8 @@ jellyfin:
   podLabels:
     app.elfhosted.com/class: streaming  
     app.elfhosted.com/name: jellyfin
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
   priorityClassName: tenant-streaming
   securityContext:
     seccompProfile:
@@ -4756,6 +4760,8 @@ emby:
   podLabels:
     app.elfhosted.com/class: streaming
     app.elfhosted.com/name: emby
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux    
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -8927,7 +8933,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:e601b674ac8012d9dc4501c3a4e02c8bf2a377c9d36eff002ec8b6d049243029
+    tag: rolling@sha256:fc5b47a28518db2eea1ce3ad5ec78689cc9d638fc8f54c9e72d1e53fead7dcf2
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9047,7 +9053,7 @@ zurg: &zurg
     app.elfhosted.com/class: debrid
     app.elfhosted.com/name: zurg  
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M"    
+    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
   image:
     repository: ghcr.io/geek-cookbook/zurg
     tag: v0.9.3-hotfix.2@sha256:ee9a0b9102b4ab240569e54a59070a74351719fc7d60c7a49faec01e6dcf61ef
