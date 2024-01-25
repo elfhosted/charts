@@ -1677,7 +1677,7 @@ nzbget:
               storageClassName: "topolvm-provisioner-thin"
               resources:
                 requests:
-                  storage: 1000Gi      
+                  storage: 100Gi      
       #   persistentVolumeClaim:
       #     claimName: config-nzbget-ssd          
       # sizeLimit: 1000Gi
@@ -1772,7 +1772,7 @@ sabnzbd:
               storageClassName: "topolvm-provisioner-thin"
               resources:
                 requests:
-                  storage: 1000Gi      
+                  storage: 100Gi      
     elfbot:
       enabled: "true"
       type: "custom"
