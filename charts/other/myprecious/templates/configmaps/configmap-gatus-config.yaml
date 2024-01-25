@@ -319,7 +319,18 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email               
-      {{ end }}               
+      {{ end }}   
+
+      {{ if .Values.iceberg.enabled }}
+      - name: iceberg
+        group: manage-media
+        url: "http://iceberg:3000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}                     
 
       {{ if .Values.xteve.enabled }}
       - name: xteve
@@ -584,6 +595,17 @@ data:
         alerts:
           - type: email               
       {{ end }}     
+
+      {{ if .Values.airdcpp.enabled }}
+      - name: airdcpp
+        group: manage-media
+        url: "http://airdcpp:5600"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}           
 
       - name: filebrowser
         group: tools

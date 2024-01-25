@@ -706,7 +706,19 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-plex-debrid.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}          
+          {{ end }}   
+
+          {{ if .Values.iceberg.enabled }}
+          - name: "iceberg"
+            # logo: "assets/png/real-debrid.png"
+            # Alternatively a fa icon can be provided:
+            # icon: "fab fa-photo-video"
+            subtitle: "Sync Plex / Jellyfin with Debrid services"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-iceberg.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                    
 
       - name: "Download Media"
         icon: "fas fa-cloud-arrow-down"
@@ -906,6 +918,16 @@ data:
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/jdownloader/"
             target: "_blank" # optional html tag target attribute
           {{ end }}
+
+          {{ if .Values.airdcpp.enabled }}
+          - name: "AirDC++"
+            logo: "assets/png/airdcpp.png"
+            subtitle: "Manage DC++ Sharing"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-airdcpp.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
 
   tools.yml: |
     ---

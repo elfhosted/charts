@@ -2474,6 +2474,13 @@ filebrowser:
           defaultMode: 0755
 
     # We need one of these per-app. The global section will override the false enablement
+    airdcpp:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/airdcpp/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-airdcpp-ssd
     autobrr:
       enabled: false
       type: custom
@@ -2557,7 +2564,7 @@ filebrowser:
       mountPath: /storage/config/gotify/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-gotify-ssd           
+          claimName: config-gotify-ssd                    
     homepage:
       enabled: false
       type: custom
@@ -2571,7 +2578,14 @@ filebrowser:
       mountPath: /storage/config/homer
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-homer-ssd              
+          claimName: config-homer-ssd     
+    iceberg:
+      enabled: false
+      type: custom
+      mountPath: /config/iceberg/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-iceberg-ssd                   
     jellyseerr:
       enabled: false
       type: custom
@@ -4404,7 +4418,7 @@ plex: &plex
     app.elfhosted.com/name: plex
     app.elfhosted.com/class: streaming   
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
+    kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
@@ -4651,7 +4665,7 @@ jellyfin:
     app.elfhosted.com/class: streaming  
     app.elfhosted.com/name: jellyfin
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
+    kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux
   priorityClassName: tenant-streaming
   securityContext:
     seccompProfile:
@@ -4761,7 +4775,7 @@ emby:
     app.elfhosted.com/class: streaming
     app.elfhosted.com/name: emby
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux    
+    kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux    
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4899,6 +4913,13 @@ homer:
         configMap:
           name: homer-config
     # We need one of these per-app. The global section will override the false enablement
+    airdcpp:
+      enabled: false
+      type: custom
+      mountPath: /config/airdcpp/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-airdcpp-ssd
     autobrr:
       enabled: false
       type: custom
@@ -4990,6 +5011,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-homepage-ssd
+    iceberg:
+      enabled: false
+      type: custom
+      mountPath: /config/iceberg/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-iceberg-ssd          
     jellyseerr:
       enabled: false
       type: custom
@@ -7068,6 +7096,13 @@ rclonebrowser:
           optional: true
 
     # We need one of these per-app. The global section will override the false enablement
+    airdcpp:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/airdcpp/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-airdcpp-ssd
     autobrr:
       enabled: false
       type: custom
@@ -7151,7 +7186,7 @@ rclonebrowser:
       mountPath: /storage/config/gotify/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-gotify-ssd          
+          claimName: config-gotify-ssd                    
     homepage:
       enabled: false
       type: custom
@@ -7159,6 +7194,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-homepage-ssd
+    iceberg:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/iceberg/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-iceberg-ssd             
     jellyseerr:
       enabled: false
       type: custom
@@ -9053,7 +9095,7 @@ zurg: &zurg
     app.elfhosted.com/class: debrid
     app.elfhosted.com/name: zurg  
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
+    kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux
   image:
     repository: ghcr.io/geek-cookbook/zurg
     tag: v0.9.3-hotfix.2@sha256:ee9a0b9102b4ab240569e54a59070a74351719fc7d60c7a49faec01e6dcf61ef

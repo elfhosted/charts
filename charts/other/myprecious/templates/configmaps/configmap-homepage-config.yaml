@@ -587,7 +587,15 @@ data:
               username: {{ .Values.jdownloader.MYJDOWNLOADER_EMAIL | default }}
               password: {{ .Values.jdownloader.MYJDOWNLOADER_PASSWORD | default }}
               client: {{ .Release.Name }}.elfhosted.com
-        {{ end }}                 
+        {{ end }}         
+
+        {{ if .Values.airdcpp.enabled }}
+        - AirDC++:
+            icon: airdcpp.png
+            href: https://{{ .Release.Name }}-airdcpp.elfhosted.com
+            description: Manage Downloads
+            siteMonitor: http://airdcpp:5600
+        {{ end }}                   
 
     - General Tools:
         - File Browser:
