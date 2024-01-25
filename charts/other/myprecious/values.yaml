@@ -9100,7 +9100,7 @@ airdcpp:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/airdcpp
-    tag: 2.9.0@sha256:d267845aca17f239a39c7417664ce0db52c80c50f4c51735301f4a7255e5760f
+    tag: 2.9.0@sha256:1a893547575da0199c9d00e8a66416561e488aa4f6c5a85aa292151634c3f3a2
   priorityClassName: tenant-normal
   controller:
     annotations:
