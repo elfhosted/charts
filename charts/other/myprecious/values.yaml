@@ -9095,7 +9095,7 @@ iceberg:
       envFrom:
       - configMapRef:
           name: iceberg-config        
-    resources: *default_resources
+      resources: *default_resources
 
 airdcpp:
   enabled: false
