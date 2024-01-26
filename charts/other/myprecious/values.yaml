@@ -9055,7 +9055,7 @@ iceberg:
     cd backend
     source /venv/bin/activate
     exec python /iceberg/backend/main.py
-  # resources: *default_resources
+  resources: *default_resources
   ingress:
     main:
       enabled: false
@@ -9092,10 +9092,10 @@ iceberg:
       volumeMounts:
       - mountPath: /iceberg/data
         name: config
-    envFrom:
-    - configMapRef:
-        name: iceberg-config        
-    # resources: *default_resources
+      envFrom:
+      - configMapRef:
+          name: iceberg-config        
+    resources: *default_resources
 
 airdcpp:
   enabled: false
@@ -9331,6 +9331,10 @@ zurg: &zurg
 
         # Ensure download cache is disabled (works better when IPs change)
         sed -i  "s/use_download_cache: true/use_download_cache: false/" /config/config.yml
+
+        # Ensure repair is disabled (unreliable on 0.9.3 still)
+        sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
+
 
       volumeMounts:
       - mountPath: /config
