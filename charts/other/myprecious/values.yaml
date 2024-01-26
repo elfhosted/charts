@@ -9055,7 +9055,7 @@ iceberg:
     cd backend
     source /venv/bin/activate
     exec python /iceberg/backend/main.py
-  resources: *default_resources
+  # resources: *default_resources
   ingress:
     main:
       enabled: false
@@ -9095,7 +9095,7 @@ iceberg:
     envFrom:
     - configMapRef:
         name: iceberg-config        
-    resources: *default_resources
+    # resources: *default_resources
 
 airdcpp:
   enabled: false
