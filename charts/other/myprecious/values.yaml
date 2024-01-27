@@ -307,7 +307,7 @@ default_resources: &default_resources
   limits:
     cpu: 1
     memory: 1024Mi # just a safety net against bugs!
-    ephemeral-storage: 100Mi # a safety net against node ephemeral space exhaustion
+    ephemeral-storage: 2Gi # a safety net against node ephemeral space exhaustion
 
 default_securitycontext: &default_securitycontext
   seccompProfile:
@@ -8753,7 +8753,7 @@ homepage:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/gethomepage/homepage
-    tag: v0.8.6
+    tag: v0.8.7
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-homepage,homepage-config,homepage-env"
@@ -9037,7 +9037,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:ebfd53c759ada19f1cc89a1e1aec652c9d6a345129ef528e2aa793e325d18e0c
+    tag: rolling@sha256:8c876db0c91983476ec44203b18f871a3ff82a8f1d48759709b25b7aeaf40a03
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9098,7 +9098,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:ebfd53c759ada19f1cc89a1e1aec652c9d6a345129ef528e2aa793e325d18e0c
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:8c876db0c91983476ec44203b18f871a3ff82a8f1d48759709b25b7aeaf40a03
       command:
       - node 
       - /iceberg/frontend/build
