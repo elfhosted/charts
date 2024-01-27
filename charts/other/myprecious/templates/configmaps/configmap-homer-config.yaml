@@ -790,7 +790,6 @@ data:
           - name: "Stremio Jackett"
             logo: "assets/png/jackett.png"
             subtitle: "Access Jackett via Stremio"
-            {{ if .Values.jackettexposed.enabled }}
             tag: "public"
             tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-stremio-jackett.elfhosted.com"
