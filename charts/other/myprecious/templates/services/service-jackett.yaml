@@ -1,0 +1,20 @@
+{{ if .Values.jackett.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: jackett
+  labels:
+    app.kubernetes.io/name: jackett
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9117
+    targetPort: 9117
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: jackett
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

@@ -1,0 +1,17 @@
+{{ if .Values.stremiojackett.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-stremio-jackett.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-stremio-jackett.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: stremiojackett
+          kind: Service
+          port: 3000
+      middlewares:  
+        - name: error-pages
+          namespace: traefik
+{{ end }}

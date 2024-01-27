@@ -9188,6 +9188,124 @@ airdcpp:
             - SYS_MODULE
       config: # We have to set this to null so that we can override with our own config    
 
+jackett:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/jackett
+    tag: 0.21.1635@sha256:0f3a2bb15eefa90338ae1a373d474c0e366782f0fbcb6b920b66da5c44f0bee1
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-jackett"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  # envFrom:
+  # - configMapRef:
+  #     name: airdcpp-config
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 100m
+      memory: 1024Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 9117 
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jackett-ssd
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-jackett
+          optional: true
+  initContainers:
+    bootstrap: *bootstrap
+
+stremiojackett:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/stremio-jackett
+    tag: 1.1.6@sha256:5a84dfe6b316fdefdf2993168020587d2438de8f6ed0381a94ae5618753c71e2
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-stremio-jackett"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  # envFrom:
+  # - configMapRef:
+  #     name: airdcpp-config
+  resources:
+    requests:
+      cpu: 10m
+      memory: 16Mi
+    limits:
+      cpu: 100m
+      memory: 1024Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 9117 
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-stremio-jackett-ssd
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-stremio-jackett
+          optional: true
+  initContainers:
+    bootstrap: *bootstrap
+
 zurg: &zurg
   enabled: false
   podLabels:

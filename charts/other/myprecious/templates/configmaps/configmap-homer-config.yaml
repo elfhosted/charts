@@ -776,6 +776,27 @@ data:
             useCredentials: true
           {{ end }}
 
+          {{ if .Values.jackett.enabled }}
+          - name: "Jackett"
+            logo: "assets/png/jackett.png"
+            subtitle: "Manage Indexers / Trackers"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-jackett.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.stremiojackett.enabled }}
+          - name: "Stremio Jackett"
+            logo: "assets/png/jackett.png"
+            subtitle: "Access Jackett via Stremio"
+            {{ if .Values.jackettexposed.enabled }}
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-stremio-jackett.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
+
           {{ if .Values.nzbhydra.enabled }}
           - name: "NZBHydra"
             logo: "assets/png/nzbhydra.png"

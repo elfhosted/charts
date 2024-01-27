@@ -475,6 +475,28 @@ data:
           - type: email               
       {{ end }}  
 
+      {{ if .Values.jackett.enabled }}
+      - name: jackett
+        group: download-media
+        url: "http://jackett:9117"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}        
+
+      {{ if .Values.stremiojackett.enabled }}
+      - name: stremio-jackett
+        group: download-media
+        url: "http://stremiojackett:3000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}              
+
       {{ if .Values.nzbhydra.enabled }}
       - name: nzbhydra
         group: download-media

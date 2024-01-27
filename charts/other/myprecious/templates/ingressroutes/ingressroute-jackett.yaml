@@ -1,0 +1,17 @@
+{{ if .Values.jackett.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-jackett.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-jackett.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: jackett
+          kind: Service
+          port: 9117
+      middlewares:  
+        - name: error-pages
+          namespace: traefik
+{{ end }}

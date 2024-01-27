@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.2829-pre-01
+version: 1.0.2829-pre-02
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -369,7 +369,17 @@ dependencies:
     condition: airdcpp.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: airdcpp                
+    alias: airdcpp     
+  - name: app-template
+    condition: jackett.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: jackett
+  - name: app-template
+    condition: stremiojackett.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: stremiojackett                        
   - name: kubernetes-dashboard
     repository: http://chartmuseum.chartmuseum:8080
     alias: kubernetesdashboard

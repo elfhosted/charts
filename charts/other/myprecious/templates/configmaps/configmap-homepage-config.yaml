@@ -477,6 +477,22 @@ data:
               key: {{ .Values.prowlarrexposed.apikey }} 
         {{ end }}  
 
+        {{ if .Values.jackett.enabled }}
+        - Jackett:
+            icon: jackett.png
+            href: https://{{ .Release.Name }}-jackett.elfhosted.com
+            description: Manage Indexers  
+            siteMonitor: http://jackett:9117
+        {{ end }}   
+
+        {{ if .Values.stremiojackett.enabled }}
+        - Stremio-Jackett:
+            icon: jackett.png
+            href: https://{{ .Release.Name }}-jackett.elfhosted.com
+            description: Use Jackett in Stremio
+            siteMonitor: http://stremio-jackett:3000
+        {{ end }}                  
+
         {{ if .Values.nzbhydra.enabled }}
         - NZBHydra:
             icon: nzbhydra.png
