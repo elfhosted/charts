@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: config-stremio-jackett
+  name: config-stremio-jackett-ssd
   annotations:
     helm.sh/resource-policy: keep
 spec:
