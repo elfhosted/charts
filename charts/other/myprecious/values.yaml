@@ -8753,7 +8753,7 @@ homepage:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/gethomepage/homepage
-    tag: v0.8.6
+    tag: v0.8.7
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-homepage,homepage-config,homepage-env"
