@@ -4271,7 +4271,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.17.2406@sha256:e4b2f96538239eb321844a04255cfce7a793d50356f2a936942a0eabbb13f94d
+    tag: 0.3.17.2409@sha256:4fa860172919d5da93e0fb4d34b9a8b1e6aa744c11ce7ae76951a3315c33260c
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4352,7 +4352,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.17.2406@sha256:e4b2f96538239eb321844a04255cfce7a793d50356f2a936942a0eabbb13f94d
+    tag: 0.3.17.2409@sha256:4fa860172919d5da93e0fb4d34b9a8b1e6aa744c11ce7ae76951a3315c33260c
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6084,7 +6084,7 @@ thelounge:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/thelounge
-    tag: "4.4.1@sha256:26c87c70f7f1a6d020232c81ff2ff051dcf57a652ea09d8950d6a066ab358b28"
+    tag: "4.4.1@sha256:5279dffcadfa40550038a0d84b85934c0c6dc920020de1c64eae5fa035fc486b"
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -6137,7 +6137,7 @@ thelounge:
   initContainers:
     bootstrap: *bootstrap
     create-user:
-      image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:26c87c70f7f1a6d020232c81ff2ff051dcf57a652ea09d8950d6a066ab358b28
+      image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:5279dffcadfa40550038a0d84b85934c0c6dc920020de1c64eae5fa035fc486b
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
