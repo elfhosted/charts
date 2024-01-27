@@ -8,10 +8,10 @@ spec:
     - match: Host(`{{ .Release.Name }}-stremio-jackett.elfhosted.com`)
       kind: Rule
       services:
-        - name: stremiojackett
+        - name: stremio-jackett
           kind: Service
           port: 7001
-      middlewares:  
+      middlewares:
         - name: error-pages
           namespace: traefik
 {{ end }}
