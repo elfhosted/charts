@@ -6084,7 +6084,7 @@ thelounge:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/thelounge
-    tag: "4.4.1@sha256:26c87c70f7f1a6d020232c81ff2ff051dcf57a652ea09d8950d6a066ab358b28"
+    tag: "4.4.1@sha256:5279dffcadfa40550038a0d84b85934c0c6dc920020de1c64eae5fa035fc486b"
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -6137,7 +6137,7 @@ thelounge:
   initContainers:
     bootstrap: *bootstrap
     create-user:
-      image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:26c87c70f7f1a6d020232c81ff2ff051dcf57a652ea09d8950d6a066ab358b28
+      image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:5279dffcadfa40550038a0d84b85934c0c6dc920020de1c64eae5fa035fc486b
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
