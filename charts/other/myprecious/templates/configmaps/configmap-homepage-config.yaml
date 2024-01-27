@@ -483,6 +483,9 @@ data:
             href: https://{{ .Release.Name }}-jackett.elfhosted.com
             description: Manage Indexers  
             siteMonitor: http://jackett:9117
+            widget:
+              type: jackett
+              url: http://jackett:9117          
         {{ end }}   
 
         {{ if .Values.stremiojackett.enabled }}
