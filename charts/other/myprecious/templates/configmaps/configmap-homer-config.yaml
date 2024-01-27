@@ -780,8 +780,8 @@ data:
           - name: "Jackett"
             logo: "assets/png/jackett.png"
             subtitle: "Manage Indexers / Trackers"
-            tag: "public"
-            tagstyle: "is-danger"
+            tag: "protected"
+            tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-jackett.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}

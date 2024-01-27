@@ -12,6 +12,7 @@ spec:
           kind: Service
           port: 9117
       middlewares:  
+        - name: {{ .Release.Name }}-traefik-forward-auth            
         - name: error-pages
           namespace: traefik
 {{ end }}

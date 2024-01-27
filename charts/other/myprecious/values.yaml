@@ -9292,7 +9292,7 @@ stremiojackett:
     config:
       enabled: true
       type: custom
-      mountPath: /config/
+      mountPath: /home/elfie/.npm
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-stremio-jackett-ssd
