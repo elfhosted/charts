@@ -668,7 +668,7 @@ data:
             subtitle: "Unpack Media"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/plex-meta-manager/"
+            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/plexmetamanager/"
             target: "_blank" # optional html tag target attribute
           {{ end }}
 

@@ -15,7 +15,7 @@ data:
   rclonegdriveencryptedb: {{ tpl (toYaml .Values.rclonegdriveencryptedb) . | sha256sum }}
   rclonegdriveencryptedc: {{ tpl (toYaml .Values.rclonegdriveencryptedc) . | sha256sum }}
   rclonemountputio: {{ tpl (toYaml .Values.rclonemountputio) . | sha256sum }}
-  rclonemountralldebrid: {{ tpl (toYaml .Values.rclonemountralldebrid) . | sha256sum }}
+  rclonemountalldebrid: {{ tpl (toYaml .Values.rclonemountalldebrid) . | sha256sum }}
   rclonemountrealdebridzurg: {{ tpl (toYaml .Values.rclonemountrealdebridzurg) . | sha256sum }}
   rclonemountssha: {{ tpl (toYaml .Values.rclonemountssha) . | sha256sum }}
   rclonemountwebdava: {{ tpl (toYaml .Values.rclonemountwebdava) . | sha256sum }}

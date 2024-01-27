@@ -282,7 +282,7 @@ appmounts: &appmounts
   onedrivea: *onedrivea
   rclonemountwebdava: *rclonemountwebdava
   rclonemountrealdebridzurg: *rclonemountrealdebridzurg
-  rclonemountralldebrid: *rclonemountalldebrid
+  rclonemountalldebrid: *rclonemountalldebrid
   rclonemountputio: *rclonemountputio
   rclonemountssha: *rclonemountssha
   storageboxa: *storageboxa
