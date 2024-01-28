@@ -8236,9 +8236,9 @@ rdtclient:
   podLabels:
     app.elfhosted.com/class: debrid  
   image:
-    repository: laster13/rdtclient
-    tag: amd64
-    # repository: ghcr.io/geek-cookbook/rdtclient-laster13
+    repository: ghcr.io/geek-cookbook/rdtclient-laster13
+    tag: sha256:f777bfef3658775a55d015652172b1b95b985d1f4fae967559df11d56531a681
+    # repository: laster13/rdtclient
     # tag: rolling@sha256:f777bfef3658775a55d015652172b1b95b985d1f4fae967559df11d56531a681
   env:
     PUID: 568
