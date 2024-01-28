@@ -8912,7 +8912,7 @@ wallabag:
       cpu: 10m
       memory: 32Mi
     limits:
-      cpu: 100m 
+      cpu: 1 
       memory: 1Gi
   additionalContainers:
     ui:
@@ -8970,7 +8970,7 @@ autoscan:
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 100m
+      cpu: 1
       memory: 1024Mi
   ingress:
     main:
@@ -9137,7 +9137,7 @@ airdcpp:
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 100m
+      cpu: 1
       memory: 1024Mi
   ingress:
     main:
@@ -9215,7 +9215,7 @@ jackett:
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 100m
+      cpu: 1
       memory: 1024Mi
   ingress:
     main:
@@ -9370,7 +9370,7 @@ zurg: &zurg
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 100m
+      cpu: 1
       memory: 1024Mi
   ingress:
     main:
@@ -9588,7 +9588,7 @@ kubernetesdashboard:
       memory: 10Mi
     limits:
       cpu: 100m
-      memory: 256Mi
+      memory: 512Mi
       
   extraArgs:
     - --enable-skip-login
