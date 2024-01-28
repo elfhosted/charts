@@ -9251,7 +9251,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: 1.1.6@sha256:5a84dfe6b316fdefdf2993168020587d2438de8f6ed0381a94ae5618753c71e2
+    tag: 1.1.6@sha256:cb4363de434a408a7d1b463b077f91547a2e29369871f7e67a38811322d4a4f8
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9276,8 +9276,8 @@ stremiojackett:
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 100m
-      memory: 1024Mi
+      cpu: 1
+      memory: 100Mi
   ingress:
     main:
       enabled: false

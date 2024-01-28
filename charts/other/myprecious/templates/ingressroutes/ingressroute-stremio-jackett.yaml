@@ -14,4 +14,14 @@ spec:
       middlewares:
         - name: error-pages
           namespace: traefik
+    - match: Host(`{{ .Release.Name }}-stremio-jackett.elfhosted.com`) && PathPrefix(`/configure/`)
+      kind: Rule
+      services:
+        - name: stremio-jackett
+          kind: Service
+          port: 7001
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik          
 {{ end }}
