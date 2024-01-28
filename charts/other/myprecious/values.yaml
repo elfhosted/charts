@@ -2427,29 +2427,7 @@ filebrowser:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,filebrowser-elfbot-script,elfbot-filebrowser" # Reload the deployment every time the rclones change
-    strategy: RollingUpdate
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download
-            operator: Exists
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 100  
-        podAffinityTerm:    
-          labelSelector:
-            matchExpressions:
-            - key: app.elfhosted.com/name
-              operator: In
-              values:
-              - filebrowser
-          topologyKey: "kubernetes.io/hostname"
-          namespaceSelector: {}              
-  tolerations:
-  - key: node-role.elfhosted.com/download
-    operator: Exists    
+    strategy: RollingUpdate           
   # We will use this to alter configmaps to trigger pod restarts
   serviceAccount:
     create: true
@@ -2597,7 +2575,14 @@ filebrowser:
       mountPath: /storage/config/iceberg/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-iceberg-ssd                   
+          claimName: config-iceberg-ssd  
+    jackett:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/jackett/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jackett-ssd                           
     jellyseerr:
       enabled: false
       type: custom
@@ -2906,6 +2891,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-sonarr4k-ssd
+    stremiojackett:
+      enabled: false
+      type: custom
+      mountPath: /config/stremio-jackett/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-stremio-jackett-ssd              
     syncthing:
       enabled: false
       type: custom
@@ -5076,7 +5068,14 @@ homer:
       mountPath: /config/iceberg/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-iceberg-ssd          
+          claimName: config-iceberg-ssd    
+    jackett:
+      enabled: false
+      type: custom
+      mountPath: /config/jackett/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jackett-ssd                
     jellyseerr:
       enabled: false
       type: custom
@@ -5385,6 +5384,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-sonarr4k-ssd
+    stremiojackett:
+      enabled: false
+      type: custom
+      mountPath: /config/stremio-jackett/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-stremio-jackett-ssd          
     syncthing:
       enabled: false
       type: custom
@@ -7085,28 +7091,6 @@ rclonebrowser:
     # runAsGroup: 568
     # fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download
-            operator: Exists
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 100  
-        podAffinityTerm:    
-          labelSelector:
-            matchExpressions:
-            - key: app.elfhosted.com/name
-              operator: In
-              values:
-              - rclonebrowser
-          topologyKey: "kubernetes.io/hostname"
-          namespaceSelector: {}              
-  tolerations:
-  - key: node-role.elfhosted.com/download
-    operator: Exists
   automountServiceAccountToken: false
   env:
     S6_READ_ONLY_ROOT: 1
@@ -7260,6 +7244,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-iceberg-ssd             
+    jackett:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/jackett/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jackett-ssd
     jellyseerr:
       enabled: false
       type: custom
@@ -7561,6 +7552,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-sonarr4k-ssd
+    stremiojackett:
+      enabled: false
+      type: custom
+      mountPath: /config/stremio-jackett/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-stremio-jackett-ssd              
     syncthing:
       enabled: false
       type: custom

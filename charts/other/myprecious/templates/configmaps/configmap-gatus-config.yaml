@@ -489,7 +489,7 @@ data:
       {{ if .Values.stremiojackett.enabled }}
       - name: stremio-jackett
         group: download-media
-        url: "http://stremiojackett:3000"
+        url: "http://stremiojackett:7001"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
