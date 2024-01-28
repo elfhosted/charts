@@ -8331,7 +8331,7 @@ rdtclient:
       ephemeral-storage: 50Mi
     limits:
       cpu: 1
-      memory: 1Gi
+      memory: 2Gi
       ephemeral-storage: 100Mi # a safety net against node ephemeral space exhaustion
   initContainers:
     bootstrap: *bootstrap
