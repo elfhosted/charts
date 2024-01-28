@@ -3783,7 +3783,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.747@sha256:80b562de50b641e966565ca1252326cb168fccfe20f3c9e974fb936d43db8b27
+    tag: 4.0.1.1014@sha256:5ebb50c346ae95afb2e5f2fbebe4e65d9b7fb321f8d7a630c646408cdd524850
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3861,7 +3861,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.0.747@sha256:80b562de50b641e966565ca1252326cb168fccfe20f3c9e974fb936d43db8b27
+    tag: 4.0.1.1014@sha256:5ebb50c346ae95afb2e5f2fbebe4e65d9b7fb321f8d7a630c646408cdd524850
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -9035,7 +9035,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:672fdeafea25367d0f4094cac4a1a90b2e8c11958c214d9ef71aecbebf8fb53d
+    tag: rolling@sha256:20982cf4cf0078cd9d8e72a5095c572a385a2c166366a9f6c2a597c4b726ce36
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9096,7 +9096,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:672fdeafea25367d0f4094cac4a1a90b2e8c11958c214d9ef71aecbebf8fb53d
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:20982cf4cf0078cd9d8e72a5095c572a385a2c166366a9f6c2a597c4b726ce36
       command:
       - node 
       - /iceberg/frontend/build
