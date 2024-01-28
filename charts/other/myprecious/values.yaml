@@ -3783,7 +3783,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.1.1014@sha256:5ebb50c346ae95afb2e5f2fbebe4e65d9b7fb321f8d7a630c646408cdd524850
+    tag: 4.0.0.747@sha256:80b562de50b641e966565ca1252326cb168fccfe20f3c9e974fb936d43db8b27
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3861,7 +3861,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.1.1014@sha256:5ebb50c346ae95afb2e5f2fbebe4e65d9b7fb321f8d7a630c646408cdd524850
+    tag: 4.0.0.747@sha256:80b562de50b641e966565ca1252326cb168fccfe20f3c9e974fb936d43db8b27
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4078,7 +4078,7 @@ prowlarr:
 
         # Get custom torrent.io definition
         mkdir -p /config/Definitions/Custom
-        curl https://raw.githubusercontent.com/dreulavelle/Prowlarr-Indexers/main/Custom/torrentio.yml | sed -i s/torrentio.strem.fun/torrent> /config/Definitions/Custom/torrentio.yml
+        curl https://raw.githubusercontent.com/dreulavelle/Prowlarr-Indexers/main/Custom/torrentio.yml > /config/Definitions/Custom/torrentio.yml
       volumeMounts:
       - mountPath: /config
         name: config
@@ -8330,8 +8330,8 @@ rdtclient:
       memory: 10Mi
       ephemeral-storage: 50Mi
     limits:
-      cpu: 1
-      memory: 2Gi
+      cpu: 100m
+      memory: 1Gi
       ephemeral-storage: 100Mi # a safety net against node ephemeral space exhaustion
   initContainers:
     bootstrap: *bootstrap
@@ -8912,7 +8912,7 @@ wallabag:
       cpu: 10m
       memory: 32Mi
     limits:
-      cpu: 1 
+      cpu: 100m 
       memory: 1Gi
   additionalContainers:
     ui:
@@ -8970,7 +8970,7 @@ autoscan:
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 1
+      cpu: 100m
       memory: 1024Mi
   ingress:
     main:
@@ -9035,7 +9035,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:20982cf4cf0078cd9d8e72a5095c572a385a2c166366a9f6c2a597c4b726ce36
+    tag: rolling@sha256:672fdeafea25367d0f4094cac4a1a90b2e8c11958c214d9ef71aecbebf8fb53d
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9096,7 +9096,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:20982cf4cf0078cd9d8e72a5095c572a385a2c166366a9f6c2a597c4b726ce36
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:672fdeafea25367d0f4094cac4a1a90b2e8c11958c214d9ef71aecbebf8fb53d
       command:
       - node 
       - /iceberg/frontend/build
@@ -9137,7 +9137,7 @@ airdcpp:
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 1
+      cpu: 100m
       memory: 1024Mi
   ingress:
     main:
@@ -9215,7 +9215,7 @@ jackett:
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 1
+      cpu: 100m
       memory: 1024Mi
   ingress:
     main:
@@ -9370,7 +9370,7 @@ zurg: &zurg
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 1
+      cpu: 100m
       memory: 1024Mi
   ingress:
     main:
@@ -9588,7 +9588,7 @@ kubernetesdashboard:
       memory: 10Mi
     limits:
       cpu: 100m
-      memory: 512Mi
+      memory: 256Mi
       
   extraArgs:
     - --enable-skip-login
