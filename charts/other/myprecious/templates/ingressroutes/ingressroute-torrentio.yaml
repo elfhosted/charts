@@ -12,7 +12,17 @@ spec:
           kind: Service
           port: 7001
       middlewares:  
-        - name: {{ .Release.Name }}-traefik-forward-auth       
+        - name: error-pages
+          namespace: traefik
+    # Only permit a new setup from behind SSO
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`/configure/`)
+      kind: Rule
+      services:
+        - name: torrentio
+          kind: Service
+          port: 7001
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
           namespace: traefik
 {{ end }}
