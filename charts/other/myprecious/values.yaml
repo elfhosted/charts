@@ -4062,7 +4062,15 @@ prowlarr:
       mountPath: /config/Definitions/Custom/torrentio.yml
       volumeSpec:
         configMap:
-          name: prowlarr-config          
+          name: prowlarr-config    
+    elfhosted-torrentio-yml:
+      enabled: "true"
+      subPath: "elfhosted-torrentio.yml"
+      type: "custom"
+      mountPath: /config/Definitions/Custom/elfhosted-torrentio.yml
+      volumeSpec:
+        configMap:
+          name: prowlarr-config                    
   ingress:
     main:
       enabled: false
