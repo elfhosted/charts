@@ -1,0 +1,17 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-prowlarr-egress-torrentio"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: prowlarr
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: torrentio-addon
+        k8s:io.kubernetes.pod.namespace: torrentio
+    toPorts:
+      - ports:
+        - port: '7001'
+          protocol: TCP
