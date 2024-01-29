@@ -2323,7 +2323,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.35.1@sha256:fcce1df29aacba2f1b62ea8685c36e1c1238e51b139d2fff34634aa2fb959064
+    tag: 1.36.0@sha256:5fd226843e94f99894498d623f23cf9e656de62a1b85b2809be73871d4dde761
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9038,7 +9038,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:20982cf4cf0078cd9d8e72a5095c572a385a2c166366a9f6c2a597c4b726ce36
+    tag: rolling@sha256:e106d7bc5faac0cf0e56ccec8678bd1638579f002c9d4ba4a49b461a16649e54
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9099,7 +9099,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:20982cf4cf0078cd9d8e72a5095c572a385a2c166366a9f6c2a597c4b726ce36
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:e106d7bc5faac0cf0e56ccec8678bd1638579f002c9d4ba4a49b461a16649e54
       command:
       - node 
       - /iceberg/frontend/build
@@ -9193,7 +9193,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1638@sha256:ee355e854ec2189f3ca4f3eb56901b6cf41a0f40d30b396614fbd606463b4714
+    tag: 0.21.1640@sha256:7d44bef868ed6d6801f7833184d1a46a2ec967030fd6042896cd85011506d414
   priorityClassName: tenant-normal
   controller:
     annotations:
