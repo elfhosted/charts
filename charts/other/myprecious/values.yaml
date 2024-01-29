@@ -5661,10 +5661,10 @@ gatus:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/storage
+          - key: node-role.elfhosted.com/lightweight
             operator: Exists      
   tolerations:
-  - key: node-role.elfhosted.com/storage
+  - key: node-role.elfhosted.com/lightweight
     operator: Exists              
   env:
     GATUS_CONFIG_PATH: /config/config.yaml
@@ -8288,10 +8288,10 @@ rdtclient:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    # runAsUser: 568
-    # runAsGroup: 568
+    runAsUser: 568
+    runAsGroup: 568
     fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
+    fsGroupChangePolicy: "Always" # Fix me later
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
