@@ -4055,22 +4055,6 @@ prowlarr:
         configMap:
           name: elfbot-prowlarr
           optional: true
-    torrentio-yml:
-      enabled: "true"
-      subPath: "torrentio.yml"
-      type: "custom"
-      mountPath: /config/Definitions/Custom/torrentio.yml
-      volumeSpec:
-        configMap:
-          name: prowlarr-config    
-    elfhosted-torrentio-yml:
-      enabled: "true"
-      subPath: "elfhosted-torrentio.yml"
-      type: "custom"
-      mountPath: /config/Definitions/Custom/elfhosted-torrentio.yml
-      volumeSpec:
-        configMap:
-          name: prowlarr-config                    
   ingress:
     main:
       enabled: false
@@ -4092,6 +4076,10 @@ prowlarr:
         sed -i  "s|<AuthenticationMethod>None</AuthenticationMethod>|<AuthenticationMethod>External</AuthenticationMethod>|" /config/config.xml
         mkdir -p /storage/elfstorage/backup/auto/prowlarr
 
+        # Get custom torrent.io definition
+        mkdir -p /config/Definitions/Custom
+        curl https://raw.githubusercontent.com/geek-cookbook/elfhosted-prowlarr-indexers/main/Custom/torrentio.yml > /config/Definitions/Custom/torrentio.yml
+        curl https://raw.githubusercontent.com/geek-cookbook/elfhosted-prowlarr-indexers/main/Custom/elfhosted-torrentio.yml > /config/Definitions/Custom/elfhosted-torrentio.yml
       volumeMounts:
       - mountPath: /config
         name: config
