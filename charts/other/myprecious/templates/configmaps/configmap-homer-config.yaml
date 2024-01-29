@@ -790,11 +790,21 @@ data:
           - name: "Stremio Jackett"
             logo: "assets/png/jackett.png"
             subtitle: "Access Jackett via Stremio"
-            tag: "public"
-            tagstyle: "is-danger"
+            tag: "protected"
+            tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-stremio-jackett.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}          
+          {{ end }} 
+
+          {{ if .Values.torrentio.enabled }}
+          - name: "Torrentio"
+            icon: "fas fa-tint"
+            subtitle: "Torrent indexer for Stremio"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-torrentio.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                    
 
           {{ if .Values.nzbhydra.enabled }}
           - name: "NZBHydra"

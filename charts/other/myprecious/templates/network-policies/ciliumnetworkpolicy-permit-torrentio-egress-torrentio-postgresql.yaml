@@ -1,0 +1,17 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-torrentio-egress-torrentio-postgresql"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: torrentio
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: postgresql
+        k8s:io.kubernetes.pod.namespace: torrentio
+    toPorts:
+      - ports:
+        - port: '5432'
+          protocol: TCP

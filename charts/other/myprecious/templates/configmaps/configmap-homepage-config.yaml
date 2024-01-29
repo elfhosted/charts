@@ -491,10 +491,18 @@ data:
         {{ if .Values.stremiojackett.enabled }}
         - Stremio-Jackett:
             icon: jackett.png
-            href: https://{{ .Release.Name }}-jackett.elfhosted.com
+            href: https://{{ .Release.Name }}-stremio-jackett.elfhosted.com
             description: Use Jackett in Stremio
             siteMonitor: http://stremio-jackett:3000
-        {{ end }}                  
+        {{ end }}   
+
+        {{ if .Values.torrentio.enabled }}
+        - Torrentio:
+            icon: mdi-water
+            href: https://{{ .Release.Name }}-torrentio.elfhosted.com
+            description: Torrent indexer for Stremio
+            siteMonitor: http://torrentio:7000
+        {{ end }}                          
 
         {{ if .Values.nzbhydra.enabled }}
         - NZBHydra:

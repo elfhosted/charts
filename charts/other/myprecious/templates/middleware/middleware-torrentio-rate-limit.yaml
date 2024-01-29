@@ -1,0 +1,10 @@
+{{ if .Values.torrentio.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-torrentio-rate-limit
+spec:
+  rateLimit:
+    average: 10  # request / sec
+    burst: 30
+{{ end }}

@@ -495,7 +495,18 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email               
-      {{ end }}              
+      {{ end }}    
+
+      {{ if .Values.torrentio.enabled }}
+      - name: torrentio
+        group: download-media
+        url: "http://torrentio:7001"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}                    
 
       {{ if .Values.nzbhydra.enabled }}
       - name: nzbhydra

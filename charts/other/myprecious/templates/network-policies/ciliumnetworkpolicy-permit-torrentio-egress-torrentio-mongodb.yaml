@@ -1,0 +1,17 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-torrentio-egress-torrentio-mongodb"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: torrentio
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: mongodb
+        k8s:io.kubernetes.pod.namespace: torrentio
+    toPorts:
+      - ports:
+        - port: '27017'
+          protocol: TCP

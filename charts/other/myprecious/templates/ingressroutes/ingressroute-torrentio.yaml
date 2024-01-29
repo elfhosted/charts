@@ -1,0 +1,18 @@
+{{ if .Values.torrentio.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-torrentio.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: torrentio
+          kind: Service
+          port: 7001
+      middlewares:  
+        - name: {{ .Release.Name }}-traefik-forward-auth       
+        - name: error-pages
+          namespace: traefik
+{{ end }}
