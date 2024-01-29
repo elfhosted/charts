@@ -9039,7 +9039,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:e106d7bc5faac0cf0e56ccec8678bd1638579f002c9d4ba4a49b461a16649e54
+    tag: rolling@sha256:786890e8bf0dcde508f0d8e9d464a77d9786d517677539107a72462e86cecae6
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9100,7 +9100,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:e106d7bc5faac0cf0e56ccec8678bd1638579f002c9d4ba4a49b461a16649e54
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:786890e8bf0dcde508f0d8e9d464a77d9786d517677539107a72462e86cecae6
       command:
       - node 
       - /iceberg/frontend/build
@@ -9253,7 +9253,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett-dev
-    tag: rolling@sha256:abf340afc79041fef2cf4e6faa232d71da6982b8a0bae2941236df137c0add24
+    tag: rolling@sha256:eeece3263df8029a15afa99c05066f5515e9b2a8f076f95019b9ab8ec9ae3384
   priorityClassName: tenant-normal
   controller:
     annotations:
