@@ -8241,13 +8241,8 @@ rdtclient:
   podLabels:
     app.elfhosted.com/class: debrid  
   image:
-    repository: laster13/rdtclient
-    tag: amd64
-    # repository: ghcr.io/geek-cookbook/rdtclient-laster13
-    # tag: rolling@sha256:f777bfef3658775a55d015652172b1b95b985d1f4fae967559df11d56531a681
-  env:
-    PUID: 568
-    PGID: 568
+    repository: ghcr.io/geek-cookbook/rdtclient-laster13
+    tag: rolling@sha256:f777bfef3658775a55d015652172b1b95b985d1f4fae967559df11d56531a681
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
@@ -8289,8 +8284,8 @@ rdtclient:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    # runAsUser: 568
-    # runAsGroup: 568
+    runAsUser: 568
+    runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
@@ -8335,8 +8330,8 @@ rdtclient:
       memory: 10Mi
       ephemeral-storage: 50Mi
     limits:
-      cpu: 100m
-      memory: 1Gi
+      cpu: 2
+      memory: 4Gi
       ephemeral-storage: 100Mi # a safety net against node ephemeral space exhaustion
   initContainers:
     bootstrap: *bootstrap
