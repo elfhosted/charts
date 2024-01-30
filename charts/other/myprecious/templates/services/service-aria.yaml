@@ -13,11 +13,9 @@ spec:
   - port: 8000
     targetPort: 8000
     protocol: TCP
-    name: http
   - port: 6800
     targetPort: 6800
     protocol: TCP
-    name: rpc    
   selector:
     app.kubernetes.io/name: aria
     app.kubernetes.io/instance: {{ .Release.Name }}
