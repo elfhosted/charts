@@ -4258,7 +4258,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.18.2410@sha256:83a1d5bd91a88a6804872bff8f4d72c0196e91222c1b1693178224aff8edcbe3
+    tag: 0.3.18.2411@sha256:b68d4164f4a939789dbc8bfdafcc0b6c22ba05c94e31e09137b03602472edcb4
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4339,7 +4339,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.18.2410@sha256:83a1d5bd91a88a6804872bff8f4d72c0196e91222c1b1693178224aff8edcbe3
+    tag: 0.3.18.2411@sha256:b68d4164f4a939789dbc8bfdafcc0b6c22ba05c94e31e09137b03602472edcb4
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6580,7 +6580,7 @@ vaultwarden:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/vaultwarden
-    tag: 1.30.1@sha256:41260dfcc2764421aabf70592a70430cfa6ae28799aaf2dd3f29cea3dceb1eee
+    tag: 1.30.2@sha256:bd2b3779511b5779deb74de6fb396f44c0ce45efbd9d6857b043c7ac78eef95d
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
