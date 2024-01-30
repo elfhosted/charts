@@ -9,8 +9,9 @@ spec:
   egress:
   - toEndpoints:
     - matchLabels:
-        app.kubernetes.io/name: postgresql
         k8s:io.kubernetes.pod.namespace: torrentio
+        cnpg.io/cluster: torrentio
+        role: replica
     toPorts:
       - ports:
         - port: '5432'
