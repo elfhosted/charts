@@ -626,7 +626,7 @@ data:
 
         {{ if .Values.aria.enabled }}
         - Aria:
-            icon: aria.png
+            icon: mdi-image-download
             href: https://{{ .Release.Name }}-aria.elfhosted.com
             description: Manage Downloads
             siteMonitor: http://aria:8000

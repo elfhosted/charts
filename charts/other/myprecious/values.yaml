@@ -8336,7 +8336,7 @@ rdtclient:
   initContainers:
     bootstrap: *bootstrap
 
-aria2:
+aria:
   enabled: false
   priorityClassName: tenant-normal
   image:

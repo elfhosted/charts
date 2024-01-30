@@ -952,7 +952,7 @@ data:
 
           {{ if .Values.aria.enabled }}
           - name: "Aria2"
-            logo: "assets/png/aria.png"
+            icon: "fas fa-download"
             subtitle: "Manage Downloads"
             tag: "protected"
             tagstyle: "is-success"
