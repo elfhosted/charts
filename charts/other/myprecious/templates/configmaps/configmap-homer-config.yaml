@@ -950,6 +950,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
+          {{ if .Values.aria.enabled }}
+          - name: "Aria2"
+            logo: "assets/png/aria.png"
+            subtitle: "Manage Downloads"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-aria.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
+
           {{ if .Values.airdcpp.enabled }}
           - name: "AirDC++"
             icon: "fas fa-wind"

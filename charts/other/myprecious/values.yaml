@@ -3041,10 +3041,8 @@ filebrowser:
       - /bin/bash
       - -c
       - |
-        set -e
-        set -x
-
-        inotifywait -m -e create --format "%f" /elfbot \
+        # respond to creation or modification, but not deletion
+        inotifywait -m -e create -e modify --format "%f" /elfbot \
           | while read APP
             do
               # put the contents of the file into the configmap which will trigger the restart
@@ -3068,10 +3066,6 @@ filebrowser:
               # patch the configmap with the latest key/value
               kubectl patch configmap -n {{ .Release.Namespace }} elfbot-${APP} -p "{\"data\":{\"${KEY}\":\"${VALUE}\"}}"
 
-              # kubectl create configmap -n {{ .Release.Namespace }} \
-              # elfbot-${APP} --from-literal=$(cat /elfbot/$APP)=$(date +%s) --from-literal=elfbot_last_action=$(date +%s) -o yaml --dry-run=client \
-              # | kubectl apply -f -
-              rm /elfbot/$APP
             done
       volumeMounts:
       - mountPath: /elfbot
@@ -8334,6 +8328,89 @@ rdtclient:
       ephemeral-storage: 100Mi # a safety net against node ephemeral space exhaustion
   initContainers:
     bootstrap: *bootstrap
+
+aria2:
+  enabled: false
+  priorityClassName: tenant-normal
+  image:
+    repository: ghcr.io/geek-cookbook/aria2
+    tag: 1.37.0@sha256:e41061373a300e2c03fc39ba9a44e77bce8c640f9a07761dab29a95325829e6e 
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-aria2"
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists
+    podAffinity: # snuggle if you're in the same namespace
+      requiredDuringSchedulingIgnoredDuringExecution: 
+        - labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - debrid
+          topologyKey: "kubernetes.io/hostname"
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists                
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "Always" # Fix me later
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /data/db
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rdtclient-ssd
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-aria2
+          optional: true
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 6800 # doesn't matter this doesn,t actually use ports      
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+      ephemeral-storage: 50Mi
+    limits:
+      cpu: 100m
+      memory: 1Gi
+      ephemeral-storage: 100Mi # a safety net against node ephemeral space exhaustion
+  initContainers:
+    bootstrap: *bootstrap    
+  additionalContainers:
+    ariang:
+      image: ghcr.io/geek-cookbook/ariang:1.3.7@sha256:99268e0a6cbeca62a80dfb8dfa69e09d060dd13fb2dd4a131406e2dd30d5ce81
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault           
+        allowPrivilegeEscalation: false 
+      resources: *default_resources
+      securityContext: *default_securitycontext
 
 jdownloader:
   enabled: false

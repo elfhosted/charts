@@ -624,6 +624,14 @@ data:
               client: {{ .Release.Name }}.elfhosted.com
         {{ end }}         
 
+        {{ if .Values.aria.enabled }}
+        - Aria:
+            icon: aria.png
+            href: https://{{ .Release.Name }}-aria.elfhosted.com
+            description: Manage Downloads
+            siteMonitor: http://aria:8000
+        {{ end }}             
+
         {{ if .Values.airdcpp.enabled }}
         - AirDC++:
             icon: mdi-image-chart-bubble
