@@ -9279,7 +9279,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1640@sha256:7d44bef868ed6d6801f7833184d1a46a2ec967030fd6042896cd85011506d414
+    tag: 0.21.1645@sha256:d8fa8dc1e3c7140410695e167fd866eedae4b556b8e1a4477390dbda8cf7d7cc
   priorityClassName: tenant-normal
   controller:
     annotations:
