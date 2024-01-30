@@ -1,5 +1,5 @@
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: true
+safeToRelease: false
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
@@ -8344,7 +8344,7 @@ aria:
     tag: 1.37.0@sha256:e41061373a300e2c03fc39ba9a44e77bce8c640f9a07761dab29a95325829e6e 
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-aria2"
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-aria"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -8390,7 +8390,7 @@ aria:
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-aria2
+          name: elfbot-aria
           optional: true
   service:
     main:
