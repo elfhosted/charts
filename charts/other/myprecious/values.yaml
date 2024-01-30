@@ -5765,8 +5765,17 @@ flaresolverr:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-flaresolverr"
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/lightweight
+            operator: Exists      
+  tolerations:
+  - key: node-role.elfhosted.com/lightweight
+    operator: Exists
   persistence:
-    <<: *appmounts
     elfbot:
       enabled: "true"
       type: "custom"
@@ -5774,19 +5783,11 @@ flaresolverr:
         configMap:
           name: elfbot-flaresolverr
           optional: true
-    # config:
-    #   enabled: true
-    #   type: custom
-    #   mountPath: /app/data
-    #   volumeSpec:
-    #     persistentVolumeClaim:
-    #       claimName: config
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
     runAsUser: 1000
     runAsGroup: 1000
-
   automountServiceAccountToken: false
   resources:
     requests:
@@ -5801,8 +5802,6 @@ flaresolverr:
   service:
     main:
       enabled: true # necessary for probes
-  # initContainers:
-  #   bootstrap: *bootstrap
 
 seafile:
   enabled: false
