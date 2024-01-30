@@ -9501,7 +9501,7 @@ zurg: &zurg
     kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    tag: v0.9.3-hotfix.4@sha256:4058cbf81c8bf84ea4aecf804ab4cc30901de224be405b11fb05c967c9d5f30c
+    tag: v0.9.3-hotfix.5@sha256:c02d3faef48f9658be5cfed9242a0488083087ce2455cd385d7961ae67de82a3
     # tag: v0.9.2-hotfix.4@sha256:5419110f609418052f4b716e7d8adc6a0e2e7c3869c332641fc060aa3b6374ad
   priorityClassName: tenant-normal
   controller:
@@ -9649,8 +9649,8 @@ zurg: &zurg
         # Ensure download cache is disabled (works better when IPs change)
         sed -i  "s/use_download_cache: true/use_download_cache: false/" /config/config.yml
 
-        # Ensure repair is disabled (unreliable on 0.9.3 still)
-        sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
+        # Enabling repair is safe again
+        sed -i  "s/enable_repair: false/enable_repair: true/" /config/config.yml
 
 
       volumeMounts:
