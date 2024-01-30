@@ -7,4 +7,7 @@ spec:
   rateLimit:
     average: 10  # request / sec
     burst: 30
+    # Traffic will come from Hetzner LB, so consider that as the source
+    sourceCriterion:
+      requestHost: true
 {{ end }}
