@@ -4934,6 +4934,16 @@ homer:
   service:
     main:
       enabled: true # necessary for probes
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/lightweight
+            operator: Exists      
+  tolerations:
+  - key: node-role.elfhosted.com/lightweight
+    operator: Exists      
   persistence:
     <<: *appmounts
     config-yml:
@@ -5560,8 +5570,16 @@ traefikforwardauth:
     seccompProfile:
       type: RuntimeDefault
   automountServiceAccountToken: false
-  # Default values for traefik-forward-auth.
-
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/lightweight
+            operator: Exists      
+  tolerations:
+  - key: node-role.elfhosted.com/lightweight
+    operator: Exists  
   controller:
     replicas: 1
     annotations:
@@ -5570,18 +5588,7 @@ traefikforwardauth:
   image:
     repository: ghcr.io/geek-cookbook/traefik-forward-auth
     pullPolicy: IfNotPresent
-    tag: 3.1.0@sha256:568cca312839667daaf58ae4b9fcee9efc7c9ea2d96dd8005fed57d446b5dfeb
-
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/storage
-            operator: Exists  
-  tolerations:
-  - key: node-role.elfhosted.com/storage
-    operator: Exists            
+    tag: 3.1.0@sha256:568cca312839667daaf58ae4b9fcee9efc7c9ea2d96dd8005fed57d446b5dfeb     
 
   middleware:
     # middleware.enabled -- Enable to deploy a preconfigured middleware
@@ -8405,10 +8412,6 @@ aria2:
   additionalContainers:
     ariang:
       image: ghcr.io/geek-cookbook/ariang:1.3.7@sha256:99268e0a6cbeca62a80dfb8dfa69e09d060dd13fb2dd4a131406e2dd30d5ce81
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault           
-        allowPrivilegeEscalation: false 
       resources: *default_resources
       securityContext: *default_securitycontext
 
@@ -8847,6 +8850,16 @@ homepage:
     create: true
     name: homepage
   automountServiceAccountToken: true
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/lightweight
+            operator: Exists      
+  tolerations:
+  - key: node-role.elfhosted.com/lightweight
+    operator: Exists    
   env:
     PUID: 568
     PGID: 568
@@ -9283,9 +9296,16 @@ jackett:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  # envFrom:
-  # - configMapRef:
-  #     name: airdcpp-config
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/lightweight
+            operator: Exists      
+  tolerations:
+  - key: node-role.elfhosted.com/lightweight
+    operator: Exists
   resources:
     requests:
       cpu: 10m
@@ -9342,6 +9362,16 @@ stremiojackett:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/lightweight
+            operator: Exists      
+  tolerations:
+  - key: node-role.elfhosted.com/lightweight
+    operator: Exists    
   # envFrom:
   # - configMapRef:
   #     name: airdcpp-config
@@ -9417,6 +9447,16 @@ torrentio:
       ports:
         http:
           port: 7001 
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/lightweight
+            operator: Exists      
+  tolerations:
+  - key: node-role.elfhosted.com/lightweight
+    operator: Exists            
   persistence:
     tmp: 
       enabled: true

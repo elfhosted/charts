@@ -10,10 +10,6 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 6800
-    targetPort: 6800
-    protocol: TCP
-    name: rpc
   - port: 8000
     targetPort: 8000
     protocol: TCP
