@@ -16,7 +16,7 @@ spec:
           namespace: traefik
         - name: rate-limit-torrentio
     # Only permit a new setup from behind SSO, but don't rate-limit it
-    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`/configure`) || PathPrefix(`/realdebrid`) || PathPrefix(`/premiumize`) || PathPrefix(`/alldebrid`) || PathPrefix(`/debridlink`) PathPrefix(`/offcloud`) || PathPrefix(`/putio`)
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && && (Path(`/`) || PathPrefix(`/configure`) || PathPrefix(`/realdebrid`) || PathPrefix(`/premiumize`) || PathPrefix(`/alldebrid`) || PathPrefix(`/debridlink`) PathPrefix(`/offcloud`) || PathPrefix(`/putio`))
       kind: Rule
       services:
         - name: torrentio
