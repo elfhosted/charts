@@ -2,11 +2,11 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ .Release.Name }}-torrentio-rate-limit
+  name: {{ .Release.Name }}-torrentio-rate-limit-static
 spec:
   rateLimit:
-    average: 10  # request / sec
-    burst: 20
+    average: 50  # request / sec for static pages
+    burst: 100
     # Traffic will come from Hetzner LB, so consider that as the source
     sourceCriterion:
       excludedIPs: 

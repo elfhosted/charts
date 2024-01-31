@@ -14,8 +14,9 @@ spec:
       middlewares:  
         - name: error-pages
           namespace: traefik
-    # Only permit a new setup from behind SSO
-    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`/configure/`)
+        - name: rate-limit-torrentio
+    # Only permit a new setup from behind SSO, but don't rate-limit it
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`/configure`) || PathPrefix(`/realdebrid`) || PathPrefix(`/premiumize`) || PathPrefix(`/alldebrid`) || PathPrefix(`/debridlink`) PathPrefix(`/offcloud`) || PathPrefix(`/putio`)
       kind: Rule
       services:
         - name: torrentio
@@ -25,4 +26,27 @@ spec:
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
           namespace: traefik
+        - name: rate-limit-torrentio-static
 {{ end }}
+
+
+    - match: Host(`torrentio.${dns_domain}`) && PathPrefix(`/configure`) || PathPrefix(`/realdebrid`) || PathPrefix(`/premiumize`) || PathPrefix(`/alldebrid`) || PathPrefix(`/debridlink`) PathPrefix(`/offcloud`) || PathPrefix(`/putio`)
+      kind: Rule
+      services:
+        - name: torrentio-addon
+          kind: Service
+          port: 7001
+      middlewares:  
+        - name: error-pages
+          namespace: traefik   
+        - name: rate-limit-torrentio-static
+    - match: Host(`torrentio.${dns_domain}`)
+      kind: Rule
+      services:
+        - name: torrentio-addon
+          kind: Service
+          port: 7001
+      middlewares:  
+        - name: error-pages
+          namespace: traefik
+        - name: rate-limit-torrentio
