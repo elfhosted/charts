@@ -4933,17 +4933,7 @@ homer:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/lightweight
-            operator: Exists      
-  tolerations:
-  - key: node-role.elfhosted.com/lightweight
-    operator: Exists      
+      enabled: true # necessary for probes     
   persistence:
     <<: *appmounts
     config-yml:
@@ -5570,16 +5560,6 @@ traefikforwardauth:
     seccompProfile:
       type: RuntimeDefault
   automountServiceAccountToken: false
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/lightweight
-            operator: Exists      
-  tolerations:
-  - key: node-role.elfhosted.com/lightweight
-    operator: Exists  
   controller:
     replicas: 1
     annotations:
@@ -5656,17 +5636,7 @@ gatus:
   controller:
     strategy: RollingUpdate
     annotations:
-      configmap.reloader.stakater.com/reload: "gatus-config"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/lightweight
-            operator: Exists      
-  tolerations:
-  - key: node-role.elfhosted.com/lightweight
-    operator: Exists              
+      configmap.reloader.stakater.com/reload: "gatus-config"        
   env:
     GATUS_CONFIG_PATH: /config/config.yaml
     SMTP_FROM: 'health@elfhosted.com'
@@ -5765,16 +5735,6 @@ flaresolverr:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-flaresolverr"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/lightweight
-            operator: Exists      
-  tolerations:
-  - key: node-role.elfhosted.com/lightweight
-    operator: Exists
   persistence:
     elfbot:
       enabled: "true"
@@ -8853,17 +8813,7 @@ homepage:
   serviceAccount:
     create: true
     name: homepage
-  automountServiceAccountToken: true
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/lightweight
-            operator: Exists      
-  tolerations:
-  - key: node-role.elfhosted.com/lightweight
-    operator: Exists    
+  automountServiceAccountToken: true  
   env:
     PUID: 568
     PGID: 568
@@ -9300,16 +9250,6 @@ jackett:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/lightweight
-            operator: Exists      
-  tolerations:
-  - key: node-role.elfhosted.com/lightweight
-    operator: Exists
   resources:
     requests:
       cpu: 10m
@@ -9366,19 +9306,6 @@ stremiojackett:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/lightweight
-            operator: Exists      
-  tolerations:
-  - key: node-role.elfhosted.com/lightweight
-    operator: Exists    
-  # envFrom:
-  # - configMapRef:
-  #     name: airdcpp-config
   resources:
     requests:
       cpu: 10m
@@ -9450,17 +9377,7 @@ torrentio:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 7001 
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/lightweight
-            operator: Exists      
-  tolerations:
-  - key: node-role.elfhosted.com/lightweight
-    operator: Exists            
+          port: 7001      
   persistence:
     tmp: 
       enabled: true
