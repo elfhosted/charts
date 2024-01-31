@@ -9422,7 +9422,7 @@ torrentio:
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-torrentio"
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-torrentio,torrentio-env"
   securityContext:
     seccompProfile:
       type: RuntimeDefault

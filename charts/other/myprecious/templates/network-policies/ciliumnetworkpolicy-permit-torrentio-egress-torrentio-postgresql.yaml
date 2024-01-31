@@ -10,8 +10,9 @@ spec:
   - toEndpoints:
     - matchLabels:
         k8s:io.kubernetes.pod.namespace: torrentio
-        cnpg.io/cluster: torrentio
-        role: replica
+        # Disabled until we update cilium's recognized labels during maintenance
+        # cnpg.io/cluster: torrentio
+        # cnpg.io/instanceRole: replica
     toPorts:
       - ports:
         - port: '5432'
