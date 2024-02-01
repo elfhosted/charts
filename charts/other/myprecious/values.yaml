@@ -9652,6 +9652,14 @@ zurg: &zurg
             - NET_ADMIN
             - SYS_MODULE
       config: # We have to set this to null so that we can override with our own config
+  probes:
+    startup:
+      spec:
+        initialDelaySeconds: 0
+        timeoutSeconds: 1
+        ## This means it has a maximum of 5*120=720 seconds to start up before it fails
+        periodSeconds: 5
+        failureThreshold: 120
 
 zurggluetun:
   <<: *zurg
