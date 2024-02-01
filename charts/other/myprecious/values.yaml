@@ -9449,7 +9449,7 @@ torrentio:
       memory: 16Mi
     limits:
       cpu: 100m
-      memory: 100Mi
+      memory: 256Mi
   ingress:
     main:
       enabled: false

@@ -6,7 +6,7 @@ metadata:
 spec:
   routes:
     # "stream" endpoint is the one which invokes database access, and thus needs tighter rate-limiting
-    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`{something:.+}/stream/{else:.+}`)
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`/{something:.+}/stream/{else:.+}`)
       kind: Rule
       services:
         - name: torrentio

@@ -5,10 +5,7 @@ metadata:
   name: {{ .Release.Name }}-torrentio-rate-limit-static
 spec:
   rateLimit:
-    average: 50  # request / sec for static pages
-    burst: 100
-    # Traffic will come from Hetzner LB, so consider that as the source
-    sourceCriterion:
-      excludedIPs: 
-      - 10.0.40.3 # Group together all traffic arriving from LB
+    average: 10 # 1 request every ..
+    period: 1s  # 
+    burst: 10   # allow burst up to 10 at once
 {{ end }}
