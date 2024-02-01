@@ -5,7 +5,8 @@ metadata:
   name: {{ .Release.Name }}-torrentio.elfhosted.com
 spec:
   routes:
-    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`)
+    # "stream" endpoint is the one which invokes database access, and thus needs tighter rate-limiting
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`{something:.+}/stream/{else:.+}`)
       kind: Rule
       services:
         - name: torrentio
@@ -15,22 +16,35 @@ spec:
         - name: error-pages
           namespace: traefik
         - name: rate-limit-torrentio
-    # Only permit a new setup from behind SSO, but don't rate-limit it
-    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && && (Path(`/`) || PathPrefix(`/configure`) || PathPrefix(`/realdebrid`) || PathPrefix(`/premiumize`) || PathPrefix(`/alldebrid`) || PathPrefix(`/debridlink`) PathPrefix(`/offcloud`) || PathPrefix(`/putio`))
+    # everything else is static and can be less rate-limited
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) 
       kind: Rule
       services:
         - name: torrentio
           kind: Service
           port: 7001
       middlewares:
-        - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
           namespace: traefik
         - name: rate-limit-torrentio-static
 {{ end }}
 
 
-    - match: Host(`torrentio.${dns_domain}`) && PathPrefix(`/configure`) || PathPrefix(`/realdebrid`) || PathPrefix(`/premiumize`) || PathPrefix(`/alldebrid`) || PathPrefix(`/debridlink`) PathPrefix(`/offcloud`) || PathPrefix(`/putio`)
+
+  routes:
+    # "stream" endpoint is the one which invokes database access, and thus needs tighter rate-limiting
+    - match: Host(`torrentio.${dns_domain}`) && PathPrefix(`{something:.+}/stream/{else:.+}`)
+      kind: Rule
+      services:
+        - name: torrentio-addon
+          kind: Service
+          port: 7001
+      middlewares:  
+        - name: error-pages
+          namespace: traefik
+        - name: rate-limit-torrentio
+    # everything else is static and can be less rate-limited
+    - match: Host(`torrentio.${dns_domain}`)
       kind: Rule
       services:
         - name: torrentio-addon
@@ -40,13 +54,4 @@ spec:
         - name: error-pages
           namespace: traefik   
         - name: rate-limit-torrentio-static
-    - match: Host(`torrentio.${dns_domain}`)
-      kind: Rule
-      services:
-        - name: torrentio-addon
-          kind: Service
-          port: 7001
-      middlewares:  
-        - name: error-pages
-          namespace: traefik
-        - name: rate-limit-torrentio
+
