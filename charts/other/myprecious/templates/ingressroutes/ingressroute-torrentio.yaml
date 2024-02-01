@@ -15,7 +15,7 @@ spec:
       middlewares:  
         - name: error-pages
           namespace: traefik
-        - name: rate-limit-torrentio
+        - name: {{ .Release.Name }}-rate-limit-torrentio
     # everything else is static and can be less rate-limited
     - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) 
       kind: Rule
@@ -26,5 +26,5 @@ spec:
       middlewares:
         - name: error-pages
           namespace: traefik
-        - name: rate-limit-torrentio-static
+        - name: {{ .Release.Name }}-rate-limit-torrentio-static
 {{ end }}

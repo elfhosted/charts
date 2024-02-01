@@ -9288,12 +9288,15 @@ jackett:
 stremiojackett:
   enabled: false
   image:
-    repository: ghcr.io/geek-cookbook/stremio-jackett-dev
-    tag: rolling@sha256:eeece3263df8029a15afa99c05066f5515e9b2a8f076f95019b9ab8ec9ae3384
+    repository: ghcr.io/geek-cookbook/stremio-jackett
+    tag: v1.3.5@sha256:c4c0e453ebfb70735570207ebec771c2df693d8e9ed66d5932022493cc8ec908
   priorityClassName: tenant-normal
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-stremio-jackett"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -9350,6 +9353,9 @@ torrentio:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-torrentio,torrentio-env"
+    strategy:
+    rollingUpdate:
+      unavailable: 1
   securityContext:
     seccompProfile:
       type: RuntimeDefault
