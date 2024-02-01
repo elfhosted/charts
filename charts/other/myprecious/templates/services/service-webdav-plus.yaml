@@ -17,3 +17,4 @@ spec:
   selector:
     app.kubernetes.io/name: webdavplus
     app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}
