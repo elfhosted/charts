@@ -785,12 +785,20 @@ data:
             siteMonitor: http://filebrowser:8080     
 
         {{ if .Values.webdav.enabled }}
-        - Rclone WebDAV:
+        - WebDAV:
             icon: rclone.png
             href: https://{{ .Release.Name }}-webdav.elfhosted.com
             description: Your WebDAV endpoint for migration
             siteMonitor: http://rclonebrowser:5574
         {{ end }}
+
+        {{ if .Values.webdavplus.enabled }}
+        - WebDAV Plus:
+            icon: rclone.png
+            href: https://{{ .Release.Name }}-webdav-plus.elfhosted.com
+            description: Your WebDAV Plus endpoint for migration at 150Mbps
+            siteMonitor: http://webdav-plus:5574
+        {{ end }}        
         
 
   widgets.yaml: |

@@ -696,7 +696,18 @@ data:
           - "[STATUS] == 401"      
         alerts:
           - type: email   
-      {{ end }}                                
+      {{ end }}     
+
+      {{ if .Values.webdavplus.enabled }}
+      - name: webdav-plus
+        group: tools
+        url: "http://webdav-plus:5574"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 401"      
+        alerts:
+          - type: email   
+      {{ end }}                                      
 
       {{ if .Values.privatebin.enabled }}
       - name: privatebin

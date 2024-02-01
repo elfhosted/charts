@@ -1175,3 +1175,13 @@ data:
             url: "https://{{ .Release.Name }}-webdav.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
+
+          {{ if .Values.webdavplus.enabled }}
+          - name: "WebDAV Plus"
+            logo: "assets/png/rclone.png"
+            subtitle: "WebDAV Plus"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-webdav-plus.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}

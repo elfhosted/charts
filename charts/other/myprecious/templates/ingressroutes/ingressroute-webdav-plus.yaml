@@ -1,0 +1,14 @@
+{{ if .Values.webdavplus.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-webdav-plus.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-webdav-plus.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: webdav-plus
+          kind: Service
+          port: 5574
+{{ end }}
