@@ -9403,7 +9403,7 @@ torrentio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/torrentio-addon
-    tag: rolling@sha256:5c7a294fd6389009509fef6d692250eadcbbad5af0ace954c21a8f5395d04380
+    tag: rolling@sha256:39d5760ee4ae2270416649d46ed630d1ac3b07400d05b6b1216b19e78a4cae01
   priorityClassName: tenant-normal
   controller:
     annotations:
