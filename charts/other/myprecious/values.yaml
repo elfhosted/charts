@@ -7035,7 +7035,7 @@ rclonebrowser:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.65.1@sha256:b6fa17dea5783536186264dc28d6b1539a33a7ce1e5737d04e31d2fd440c2852
+    tag: 1.65.2@sha256:26ce95f92ebe24d133dd5f7920b2e4026ba5c4df986cb783ad3cfc7735c540e7
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
@@ -7650,7 +7650,7 @@ webdavplus:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone-webdav
-    tag: 1.65.1@sha256:c6e9ed75718a624b58782d85a403652e854e0f9482c9e0e4fc544f7b68f44e0c
+    tag: 1.65.2@sha256:c6e9ed75718a624b58782d85a403652e854e0f9482c9e0e4fc544f7b68f44e0c
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
@@ -9403,7 +9403,7 @@ torrentio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/torrentio-addon
-    tag: rolling@sha256:5c7a294fd6389009509fef6d692250eadcbbad5af0ace954c21a8f5395d04380
+    tag: rolling@sha256:39d5760ee4ae2270416649d46ed630d1ac3b07400d05b6b1216b19e78a4cae01
   priorityClassName: tenant-normal
   controller:
     annotations:
