@@ -9326,14 +9326,11 @@ stremiojackett:
         http:
           port: 7001 
   persistence:
-    <<: *appmounts
-    config:
+    pm2:
       enabled: true
-      type: custom
-      mountPath: /home/elfie/.npm
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-stremio-jackett-ssd
+      type: emptyDir
+      mountPath: /pm2
+      sizeLimit: 1Gi
     elfbot:
       enabled: "true"
       type: "custom"
