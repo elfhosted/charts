@@ -9338,8 +9338,6 @@ stremiojackett:
         configMap:
           name: elfbot-stremio-jackett
           optional: true
-  initContainers:
-    bootstrap: *bootstrap
 
 torrentio:
   enabled: false
