@@ -7650,7 +7650,7 @@ webdavplus:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone-webdav
-    tag: 1.65.1@sha256:c6e9ed75718a624b58782d85a403652e854e0f9482c9e0e4fc544f7b68f44e0c
+    tag: 1.65.2@sha256:c6e9ed75718a624b58782d85a403652e854e0f9482c9e0e4fc544f7b68f44e0c
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
