@@ -9344,7 +9344,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v1.3.5@sha256:c4c0e453ebfb70735570207ebec771c2df693d8e9ed66d5932022493cc8ec908
+    tag: v1.3.6@sha256:3b4362eba240ca64d40d007ca670d70428b9bf313710d242c1b4f7a0c8e1e66c
   priorityClassName: tenant-normal
   controller:
     annotations:
