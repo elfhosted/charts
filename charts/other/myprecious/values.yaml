@@ -7649,8 +7649,8 @@ webdavplus:
     app.elfhosted.com/name: webdav-plus
   priorityClassName: tenant-normal
   image:
-    repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.65.1@sha256:b6fa17dea5783536186264dc28d6b1539a33a7ce1e5737d04e31d2fd440c2852
+    repository: ghcr.io/geek-cookbook/rclone-webdav
+    tag: 1.65.1@sha256:c6e9ed75718a624b58782d85a403652e854e0f9482c9e0e4fc544f7b68f44e0c
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
@@ -7698,24 +7698,6 @@ webdavplus:
     limits:
       cpu: 150m
       memory: 512Mi
-  command:
-  - /usr/bin/dumb-init
-  - /bin/bash
-  - -c  
-  - |  
-    /usr/bin/rclone serve webdav \
-    --addr :5574 \
-    --user ${WEBDAV_USERNAME} \
-    --pass ${WEBDAV_PASSWORD} \
-    --max-header-bytes=8192 \
-    --transfers=4 \
-    --multi-thread-streams=1 \
-    --no-modtime \
-    --vfs-read-chunk-size=10M \
-    --vfs-read-chunk-size-limit=10M \    
-    --stats 60s \
-    -v \
-    /storage  
 
 jfa:
   enabled: false
