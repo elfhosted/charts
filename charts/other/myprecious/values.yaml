@@ -7702,6 +7702,7 @@ webdavplus:
   - /usr/bin/dumb-init
   - /bin/bash
   - -c  
+  - |  
     /usr/bin/rclone serve webdav \
     --addr :5574 \
     --user ${WEBDAV_USERNAME} \
