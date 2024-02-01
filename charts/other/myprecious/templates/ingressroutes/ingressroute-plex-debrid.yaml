@@ -12,5 +12,5 @@ spec:
           kind: Service
           port: 3000
       middlewares:
-        - name: {{ .Release.Name }}-traefik-forward-auth          
+        - name: {{ .Release.Name }}-traefik-forward-auth
 {{ end }}

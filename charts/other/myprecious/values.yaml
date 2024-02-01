@@ -9315,7 +9315,7 @@ stremiojackett:
       memory: 16Mi
     limits:
       cpu: 1
-      memory: 100Mi
+      memory: 256Mi
   ingress:
     main:
       enabled: false
@@ -9324,13 +9324,18 @@ stremiojackett:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 7001 
+          port: 3000 
   persistence:
     pm2:
       enabled: true
       type: emptyDir
-      mountPath: /pm2
+      mountPath: /.pm2
       sizeLimit: 1Gi
+    npm:
+      enabled: true
+      type: emptyDir
+      mountPath: /.npm
+      sizeLimit: 1Gi      
     elfbot:
       enabled: "true"
       type: "custom"
