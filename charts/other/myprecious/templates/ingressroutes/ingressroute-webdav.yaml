@@ -8,7 +8,7 @@ spec:
     - match: Host(`{{ .Release.Name }}-webdav.elfhosted.com`)
       kind: Rule
       services:
-        - name: rclonebrowser
+        - name: webdav
           kind: Service
           port: 5574
 {{ end }}

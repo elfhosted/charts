@@ -1,0 +1,20 @@
+{{ if .Values.webdav.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: webdav-plus
+  labels:
+    app.kubernetes.io/name: webdav
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:    
+  - port: 5574
+    targetPort: 5574
+    protocol: TCP
+    name: webdav
+  selector:
+    app.kubernetes.io/name: webdav
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}
