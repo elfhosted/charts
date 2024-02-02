@@ -478,7 +478,7 @@ data:
       {{ if .Values.jackett.enabled }}
       - name: jackett
         group: download-media
-        url: "http://jackett:9117"
+        url: "http://jackett:9117/jacket_medium.png"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
@@ -489,7 +489,7 @@ data:
       {{ if .Values.stremiojackett.enabled }}
       - name: stremio-jackett
         group: download-media
-        url: "http://stremio-jackett:7001"
+        url: "http://stremio-jackett:3000"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
