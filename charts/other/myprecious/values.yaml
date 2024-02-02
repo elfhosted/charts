@@ -2890,7 +2890,14 @@ filebrowser:
       mountPath: /storage/config/sonarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k-ssd           
+          claimName: config-sonarr4k-ssd
+    stremiojackett:
+      enabled: false
+      type: custom
+      mountPath: /config/stremio-jackett/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-stremio-jackett-ssd              
     syncthing:
       enabled: false
       type: custom
@@ -4444,7 +4451,7 @@ plex: &plex
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
-    tag: 1.32.8.7639-fb6452ebf@sha256:1cc58f61b0ca319e33f33805734fae8971b629c5ccd9200a278305dd77badcb8
+    tag: 1.32.8.7639-fb6452ebf@sha256:d3fed5915c774151756de3b0a0fce71a78407b5697e41d9e6b3644de00eac455
   persistence:
     <<: *appmounts
     config:
@@ -5371,7 +5378,14 @@ homer:
       mountPath: /config/sonarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k-ssd     
+          claimName: config-sonarr4k-ssd
+    stremiojackett:
+      enabled: false
+      type: custom
+      mountPath: /config/stremio-jackett/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-stremio-jackett-ssd          
     syncthing:
       enabled: false
       type: custom
@@ -7495,7 +7509,14 @@ rclonebrowser:
       mountPath: /storage/config/sonarr4k/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k-ssd           
+          claimName: config-sonarr4k-ssd
+    stremiojackett:
+      enabled: false
+      type: custom
+      mountPath: /config/stremio-jackett/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-stremio-jackett-ssd              
     syncthing:
       enabled: false
       type: custom
@@ -7747,7 +7768,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 9.5.0@sha256:e15e4755c1cc444443ce47f05bc9e9c583ed44d9cf5e198a69c03fe224eb0e25
+    tag: 9.4.2@sha256:ef87b59c6e364db4e759e76b72c9ca9db1e3cb33fb13ed940a8b9f9c0cd79ed1
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
@@ -9114,7 +9135,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:2aa509ee7aee452b4b62c7670bb453021524f6d6a52afb8d24febcca6f823424
+    tag: rolling@sha256:bdb7917f31e30028a4476f05222af4b9c01cc96c70b4eb9dd01a1a7e106ff99e
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9175,7 +9196,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:2aa509ee7aee452b4b62c7670bb453021524f6d6a52afb8d24febcca6f823424
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:bdb7917f31e30028a4476f05222af4b9c01cc96c70b4eb9dd01a1a7e106ff99e
       command:
       - node 
       - /iceberg/frontend/build
