@@ -4491,7 +4491,15 @@ plex: &plex
       mountPath: /shared
       type: emptyDir
       volumeSpec:
-        medium: Memory      
+        medium: Memory  
+    iceberg:
+      enabled: false
+      type: custom
+      mountPath: /storage/library/
+      subPath: library
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-iceberg-ssd            
   ingress:
     main:
       enabled: false
@@ -7201,7 +7209,7 @@ rclonebrowser:
       mountPath: /storage/config/iceberg/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-iceberg-ssd             
+          claimName: config-iceberg-ssd                    
     jackett:
       enabled: false
       type: custom
@@ -7643,7 +7651,9 @@ webdav: &webdav
   enabled:
     false
   podLabels:
-    app.elfhosted.com/name: webdav-plus
+    app.elfhosted.com/name: webdav
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "150M"    
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
@@ -7651,8 +7661,6 @@ webdav: &webdav
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
-  podAnnotations:
-    kubernetes.io/egress-bandwidth: "150M"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -7699,9 +7707,12 @@ webdav: &webdav
       memory: 512Mi
 
 webdavplus: 
+  enabled: false
   <<: *webdav
+  podLabels:
+    app.elfhosted.com/name: webdav-plus
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "40M"
+    kubernetes.io/egress-bandwidth: "150M"
 
 jfa:
   enabled: false
@@ -9158,16 +9169,8 @@ iceberg:
   - configMapRef:
       name: iceberg-config
   command:
-  - /usr/bin/dumb-init
-  - /bin/bash
-  - -c
-  - |
-    set -e
-    set -x
-    
-    cd backend
-    source /venv/bin/activate
-    exec python /iceberg/backend/main.py
+  - node 
+  - /iceberg/frontend/build      
   resources: *default_resources
   ingress:
     main:
@@ -9179,11 +9182,9 @@ iceberg:
         http:
           port: 8080 
   persistence:
-    <<: *appmounts
     config:
       enabled: true
       type: custom
-      mountPath: /iceberg/data
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-iceberg-ssd
@@ -9197,19 +9198,30 @@ iceberg:
   initContainers:
     bootstrap: *bootstrap
   additionalContainers:
-    frontend:
+    backend:
       image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:5ef458516d3e2161fb4b50d40291334e2656c8a23ec158a990cb490d1c60b022
       command:
-      - node 
-      - /iceberg/frontend/build
+      - /usr/bin/dumb-init
+      - /bin/bash
+      - -c
+      - |
+        set -e
+        set -x
+        
+        cd backend
+        source /venv/bin/activate
+        exec python /iceberg/backend/main.py            
       volumeMounts:
       - mountPath: /iceberg/data
         name: config
+        subPath: config
+      - mountPath: /storage/library
+        name: config
+        subPath: library        
       envFrom:
       - configMapRef:
           name: iceberg-config        
       resources: *default_resources
-
 airdcpp:
   enabled: false
   image:
