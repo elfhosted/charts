@@ -7646,8 +7646,8 @@ webdav: &webdav
     app.elfhosted.com/name: webdav-plus
   priorityClassName: tenant-normal
   image:
-    repository: ghcr.io/geek-cookbook/rclone-webdav
-    tag: 1.65.2@sha256:770316c0090be9fe9f11e1457dbdc58563ac5084ee7f272e9eb15db06725b723
+    repository: ghcr.io/geek-cookbook/rclone
+    tag: 1.65.2@sha256:8693d7c2d16433e0e06d09445bf370cd9be2a9c9eddb1b09ba05fe764d19e271
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
@@ -7657,6 +7657,8 @@ webdav: &webdav
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: true
+  command:
+  - /webdav.sh
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
