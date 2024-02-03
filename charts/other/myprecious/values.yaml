@@ -9404,8 +9404,8 @@ stremiojackett:
 torrentio:
   enabled: false
   image:
-    repository: ghcr.io/geek-cookbook/torrentio-addon
-    tag: rolling@sha256:965842d6236e8a88e001cc40c274edcefb9424a6f3cdb6edeea57da158a496c2
+    repository: ghcr.io/geek-cookbook/selfhostio-addon
+    tag: rolling@sha256:4dc1c2b6f2ea7e8a727a1b1b957afdb1937182160ba9ac7f012403edcba19c05
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9442,19 +9442,16 @@ torrentio:
         http:
           port: 7001      
   persistence:
-    tmp: 
+    pm2:
       enabled: true
-      type: custom
-      mountPath: /tmp
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1Gi      
+      type: emptyDir
+      mountPath: /.pm2
+      sizeLimit: 1Gi       
+    npm:
+      enabled: true
+      type: emptyDir
+      mountPath: /.npm
+      sizeLimit: 1Gi                           
     elfbot:
       enabled: "true"
       type: "custom"
