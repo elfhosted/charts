@@ -4451,7 +4451,7 @@ plex: &plex
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
-    tag: 1.32.8.7639-fb6452ebf@sha256:1cc58f61b0ca319e33f33805734fae8971b629c5ccd9200a278305dd77badcb8
+    tag: 1.32.8.7639-fb6452ebf@sha256:d3fed5915c774151756de3b0a0fce71a78407b5697e41d9e6b3644de00eac455
   persistence:
     <<: *appmounts
     config:
@@ -9135,7 +9135,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:cce08a9cb28d11fd89316aa2aa6201553e86843d02c885c60f1e325d959d7d5a
+    tag: rolling@sha256:bdb7917f31e30028a4476f05222af4b9c01cc96c70b4eb9dd01a1a7e106ff99e
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9196,7 +9196,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:cce08a9cb28d11fd89316aa2aa6201553e86843d02c885c60f1e325d959d7d5a
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:bdb7917f31e30028a4476f05222af4b9c01cc96c70b4eb9dd01a1a7e106ff99e
       command:
       - node 
       - /iceberg/frontend/build
@@ -9442,16 +9442,32 @@ torrentio:
         http:
           port: 7001      
   persistence:
-    pm2:
+    npm: 
       enabled: true
-      type: emptyDir
-      mountPath: /.pm2
-      sizeLimit: 1Gi       
-    npm:
-      enabled: true
-      type: emptyDir
+      type: custom
       mountPath: /.npm
-      sizeLimit: 1Gi                           
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 1Gi   
+    pm2: 
+      enabled: true
+      type: custom
+      mountPath: /.pm2
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 1Gi                     
     elfbot:
       enabled: "true"
       type: "custom"
