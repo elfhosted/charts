@@ -11,5 +11,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: ceph-filesystem-ssd
+  storageClassName: ceph-filesystem # FIXME
 {{ end }}

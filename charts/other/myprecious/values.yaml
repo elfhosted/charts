@@ -2891,13 +2891,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-sonarr4k-ssd
-    stremiojackett:
-      enabled: false
-      type: custom
-      mountPath: /config/stremio-jackett/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-stremio-jackett-ssd              
+    # stremiojackett:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /config/stremio-jackett/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-stremio-jackett-ssd              
     syncthing:
       enabled: false
       type: custom
@@ -5379,13 +5379,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-sonarr4k-ssd
-    stremiojackett:
-      enabled: false
-      type: custom
-      mountPath: /config/stremio-jackett/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-stremio-jackett-ssd          
+    # stremiojackett:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /config/stremio-jackett/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-stremio-jackett-ssd          
     syncthing:
       enabled: false
       type: custom
@@ -7510,13 +7510,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-sonarr4k-ssd
-    stremiojackett:
-      enabled: false
-      type: custom
-      mountPath: /config/stremio-jackett/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-stremio-jackett-ssd              
+    # stremiojackett:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /config/stremio-jackett/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-stremio-jackett-ssd              
     syncthing:
       enabled: false
       type: custom
