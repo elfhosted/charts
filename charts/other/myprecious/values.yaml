@@ -9405,7 +9405,7 @@ torrentio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/selfhostio-addon
-    tag: rolling@sha256:4dc1c2b6f2ea7e8a727a1b1b957afdb1937182160ba9ac7f012403edcba19c05
+    tag: rolling@sha256:4ddd4d69d4e50e0086aa1879338bf72a4b86d0fcbb0de7001a85860cb6bf97f0
   priorityClassName: tenant-normal
   controller:
     annotations:
