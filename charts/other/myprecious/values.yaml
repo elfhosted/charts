@@ -9183,6 +9183,7 @@ iceberg:
           port: 8080 
   persistence:
     elfstorage: *elfstorage  # we need this for elfbot / bootstrap
+    rclonemountrealdebridzurg: *rclonemountrealdebridzurg
     config:
       enabled: true
       type: custom
@@ -9218,7 +9219,11 @@ iceberg:
         subPath: config
       - mountPath: /storage/library
         name: config
-        subPath: library        
+        subPath: library    
+      - mountPath: /storage/realdebrid-zurg
+        name: rclonemountrealdebridzurg
+      - mountPath: /storage/elfstorage
+        name: elfstorage    
       envFrom:
       - configMapRef:
           name: iceberg-config        
