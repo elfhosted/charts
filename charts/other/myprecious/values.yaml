@@ -7657,7 +7657,7 @@ webdav: &webdav
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.65.2@sha256:e863a74f133cf3d29fe2ea63b7b3e5d0a01370ea9254373ec0022cab6120474c
+    tag: 1.65.2@sha256:b4efe259e7ea7c497477292a1f1c171b4a4b0cc72cfeff7e66c65f5d38006dd5
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
@@ -9148,7 +9148,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:5176daad36714134eb942ad59bddf35c8b2d85e3aa5446a4b6a255f002fee2f5
+    tag: rolling@sha256:06fa720b18e2e0d002f615166f8bd09d533a2287a190f81c56344bcfdc4268b4
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9201,7 +9201,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:5176daad36714134eb942ad59bddf35c8b2d85e3aa5446a4b6a255f002fee2f5
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:06fa720b18e2e0d002f615166f8bd09d533a2287a190f81c56344bcfdc4268b4
       command:
       - /usr/bin/dumb-init
       - /bin/bash
@@ -9425,7 +9425,7 @@ torrentio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/selfhostio-addon
-    tag: rolling@sha256:4bd35e10f6b9e0b7b8e21c33d9ac116d4976885e147175c3e911a8a206a4a072
+    tag: rolling@sha256:8a3c58b554c57052c3e4bfa4ce0b4d2a9eff5d7109878b7c2b9e81308643ff8c
   priorityClassName: tenant-normal
   controller:
     annotations:
