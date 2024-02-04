@@ -1,5 +1,5 @@
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: false
+safeToRelease: true
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
@@ -4511,8 +4511,8 @@ plex: &plex
       name: plex-config
   resources:
     requests:
-      cpu: "10m"
-      memory: 512Mi
+      cpu: "100m"
+      memory: 1024Mi
     limits:
       cpu: "1500m"
       memory: 4096Mi
