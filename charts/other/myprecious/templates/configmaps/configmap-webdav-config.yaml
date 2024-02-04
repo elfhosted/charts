@@ -1,0 +1,10 @@
+{{ if .Values.webdav.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webdav-config
+data:
+  WEBDAV_USERNAME: {{ .Release.Name }}
+  # If we haven't got a webdav password, leave it blank, which will break login (intentionally)
+  WEBDAV_PASSWORD: {{ .Values.webdav.password | default }}
+{{ end }}

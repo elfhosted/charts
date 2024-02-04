@@ -7677,7 +7677,7 @@ webdav: &webdav
   automountServiceAccountToken: false
   envFrom:
   - configMapRef:
-      name: webdav-plus-config
+      name: webdav-config
   persistence:
     <<: *appmounts
     elfbot:
@@ -7713,6 +7713,9 @@ webdavplus:
     app.elfhosted.com/name: webdav-plus
   podAnnotations:
     kubernetes.io/egress-bandwidth: "150M"
+  envFrom:
+  - configMapRef:
+      name: webdav-config    
 
 jfa:
   enabled: false
