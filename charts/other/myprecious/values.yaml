@@ -4014,7 +4014,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.13.1.4243@sha256:5b0b367494f4a6e0adfb49c3e614d3e27432310f7571081b4cb5c31bab8f3835
+    tag: 1.13.2.4251@sha256:43c5466c0c390cbeacedc0a82d45f23bb71aa99ec89483fcfac13f52fd418dd7
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4098,7 +4098,7 @@ lidarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/lidarr-develop
-    tag: 2.1.5.3968@sha256:7832b417612bdc230c4e32400aa52972e704a6cea9b9f48e7baa0c5e6cf9067c
+    tag: 2.1.6.3993@sha256:4f875d0d1cac9769f5df9de9f84480c33428e875632cf99c619f527a19afe3bc
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -9151,7 +9151,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:06fa720b18e2e0d002f615166f8bd09d533a2287a190f81c56344bcfdc4268b4
+    tag: rolling@sha256:3bcd55bb558a3400e7452718639f7ae4989d76b32d0f857bf30ac665411a9757
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9204,7 +9204,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:06fa720b18e2e0d002f615166f8bd09d533a2287a190f81c56344bcfdc4268b4
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:3bcd55bb558a3400e7452718639f7ae4989d76b32d0f857bf30ac665411a9757
       command:
       - /usr/bin/dumb-init
       - /bin/bash
