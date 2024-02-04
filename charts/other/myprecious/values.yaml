@@ -9502,7 +9502,26 @@ torrentio:
     TENANT_NAME: "{{ .Release.Name }}"    
   envFrom:
   - secretRef:
-      name: torrentio-env   
+      name: torrentio-env
+  addons:
+    vpn:
+      enabled: true # in case we ever need it
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest
+      envFrom:
+      - configMapRef:
+          name: torrentio-pia-config #yes, it's a WIP
+      - secretRef:
+          name: torrentio-vpn
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE
+      config: # We have to set this to null so that we can override with our own config        
 
 zurg: &zurg
   enabled: false

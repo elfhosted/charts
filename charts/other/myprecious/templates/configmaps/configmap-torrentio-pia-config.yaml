@@ -1,0 +1,15 @@
+{{ if .Values.torrentio.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: torrentio-pia-config
+data:
+  # These are used by the PIA image
+  IPTABLES_BACKEND: nft
+  KILLSWITCH: "true"
+  LOCAL_NETWORK: 10.2.0.0/15,10.43.0.0/16
+  LOC: de-frankfurt
+  PORT_FORWARDING: "0"
+  PORT_PERSIST: "1"
+  NFTABLES: "1"
+{{ end }}
