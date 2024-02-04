@@ -9432,7 +9432,8 @@ torrentio:
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-torrentio,torrentio-env"
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-torrentio"
+      secret.reloader.stakater.com/reload: "torrentio-env"
     strategy:
     rollingUpdate:
       unavailable: 1
