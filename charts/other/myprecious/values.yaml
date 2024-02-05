@@ -9429,7 +9429,7 @@ torrentio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:5414fcfdfebe82c8da96eb087d6dbe74bfa1e2dafeba6a1719757263dd21a695
+    tag: rolling@sha256:39210805352229d3e4f7ab54c7d46eb352403d37eebebd5411e3b34f225b879a
   priorityClassName: tenant-normal
   controller:
     annotations:
