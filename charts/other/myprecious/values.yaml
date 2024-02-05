@@ -9537,7 +9537,7 @@ zurg: &zurg
     kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    tag: v0.9.3-hotfix.7@sha256:54b2fc3f2881ff8d755f139cfd7b247e22730b9a64bea670f23068ab92235a60
+    tag: v0.9.3-hotfix.8@sha256:c2b94191020d95a85a01e828eb5d525764136d0c21c08de850fcba8dd54ced48
   priorityClassName: tenant-normal
   controller:
     annotations:
