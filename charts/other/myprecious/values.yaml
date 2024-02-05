@@ -7785,7 +7785,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 9.4.2@sha256:ef87b59c6e364db4e759e76b72c9ca9db1e3cb33fb13ed940a8b9f9c0cd79ed1
+    tag: 9.5.0@sha256:e15e4755c1cc444443ce47f05bc9e9c583ed44d9cf5e198a69c03fe224eb0e25
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
@@ -9152,7 +9152,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:3bcd55bb558a3400e7452718639f7ae4989d76b32d0f857bf30ac665411a9757
+    tag: rolling@sha256:eea9e38698c98eaa265c7ec911b3e18edb3e7295743690aadb9144cf891074bd
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9205,7 +9205,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:3bcd55bb558a3400e7452718639f7ae4989d76b32d0f857bf30ac665411a9757
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:eea9e38698c98eaa265c7ec911b3e18edb3e7295743690aadb9144cf891074bd
       command:
       - /usr/bin/dumb-init
       - /bin/bash
