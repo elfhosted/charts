@@ -9429,7 +9429,7 @@ torrentio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:5414fcfdfebe82c8da96eb087d6dbe74bfa1e2dafeba6a1719757263dd21a695
+    tag: rolling@sha256:f95d0351b0d0452fb2dce6fcca105f899eec0ebcde4ede767248177c18cc6a01
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9516,8 +9516,8 @@ torrentio:
     MONGODB_HOST: 10.43.242.207 # mongodb svc
     MONGODB_PORT: 27017
     MONGODB_DB: torrentio
-    # MONGO_INITDB_ROOT_USERNAME: mongo
-    # MONGO_INITDB_ROOT_PASSWORD: mongo
+    MONGO_INITDB_ROOT_USERNAME: mongo
+    MONGO_INITDB_ROOT_PASSWORD: mongo
 
   envFrom:
   - secretRef:
