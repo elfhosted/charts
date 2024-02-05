@@ -9428,8 +9428,8 @@ stremiojackett:
 torrentio:
   enabled: false
   image:
-    repository: ghcr.io/geek-cookbook/selfhostio-addon
-    tag: 019c60a126ce27af07309042b07cba4a5df0137e@sha256:4bd35e10f6b9e0b7b8e21c33d9ac116d4976885e147175c3e911a8a206a4a072
+    repository: ghcr.io/geek-cookbook/knightcrawler-addon
+    tag: rolling@sha256:5414fcfdfebe82c8da96eb087d6dbe74bfa1e2dafeba6a1719757263dd21a695
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9466,33 +9466,7 @@ torrentio:
       ports:
         http:
           port: 7001      
-  persistence:
-    npm: 
-      enabled: true
-      type: custom
-      mountPath: /.npm
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1Gi   
-    pm2: 
-      enabled: true
-      type: custom
-      mountPath: /.pm2
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1Gi                     
+  persistence:                 
     elfbot:
       enabled: "true"
       type: "custom"
@@ -9505,6 +9479,20 @@ torrentio:
     PUID: 568
     PGID: 568
     TENANT_NAME: "{{ .Release.Name }}"    
+    # PostgreSQL
+    POSTGRES_HOST: 10.43.74.255 # pooler
+    POSTGRES_PORT: 5432
+    POSTGRES_USER: torrentio
+    # POSTGRES_PASSWORD goes in secret
+    POSTGRES_DB: torrentio
+
+    # MongoDB
+    MONGODB_HOST: 10.43.242.207 # mongodb svc
+    MONGODB_PORT: 27017
+    MONGODB_DB: torrentio
+    # MONGO_INITDB_ROOT_USERNAME: mongo
+    # MONGO_INITDB_ROOT_PASSWORD: mongo
+
   envFrom:
   - secretRef:
       name: torrentio-env
