@@ -9473,7 +9473,33 @@ torrentio:
       volumeSpec:
         configMap:
           name: elfbot-torrentio
-          optional: true                  
+          optional: true      
+    npm: 
+      enabled: true
+      type: custom
+      mountPath: /.npm
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 1Gi   
+    pm2: 
+      enabled: true
+      type: custom
+      mountPath: /.pm2
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 1Gi                           
   env:
     PORT: 7001
     PUID: 568
