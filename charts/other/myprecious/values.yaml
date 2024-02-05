@@ -4072,7 +4072,7 @@ prowlarr:
 
         # Get custom torrent.io definition
         mkdir -p /config/Definitions/Custom
-        if [ -f /config/Definitions/Custom/elfhosted-torrentio.yml ] then; rm /config/Definitions/Custom/elfhosted-torrentio.yml; fi
+        if [ -f /config/Definitions/Custom/elfhosted-torrentio.yml ]; then rm /config/Definitions/Custom/elfhosted-torrentio.yml; fi
         curl https://raw.githubusercontent.com/geek-cookbook/elfhosted-prowlarr-indexers/main/Custom/torrentio.yml > /config/Definitions/Custom/torrentio.yml
         curl https://raw.githubusercontent.com/geek-cookbook/elfhosted-prowlarr-indexers/main/Custom/elfhosted-internal.yml > /config/Definitions/Custom/elfhosted-internal.yml
       volumeMounts:
