@@ -7041,7 +7041,7 @@ rclonebrowser:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.65.1@sha256:b6fa17dea5783536186264dc28d6b1539a33a7ce1e5737d04e31d2fd440c2852
+    tag: 1.65.2@sha256:b4efe259e7ea7c497477292a1f1c171b4a4b0cc72cfeff7e66c65f5d38006dd5
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
@@ -9370,7 +9370,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v1.3.6@sha256:3b4362eba240ca64d40d007ca670d70428b9bf313710d242c1b4f7a0c8e1e66c
+    tag: v2.0.1@sha256:e89a4cd76bb93c99558a9b90dbc1af967da3afb58f83eb007e7a57de3f7fce20
   priorityClassName: tenant-normal
   controller:
     annotations:
