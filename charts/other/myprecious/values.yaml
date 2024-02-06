@@ -5531,6 +5531,16 @@ homer:
         mkdir -p /storage/elfstorage/downloads/qbittorrent
         mkdir -p /storage/elfstorage/downloads/completed/Comics
         mkdir -p /config/filebrowser # we need this to avoid double-mounting a config file in filebrowser
+
+        # Download a public domain sample movie for users to test / get Plex tokens with
+        if [ ! -f /storage/elfstorage/video/bbb_sunflower_1080p_30fps_normal.mp4 ]
+        then
+          cd /storage/elfstorage/video
+          wget https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4.zip
+          unzip bbb_sunflower_1080p_30fps_normal.mp4.zip
+        fi
+
+        
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
@@ -7039,7 +7049,7 @@ rclonebrowser:
   podLabels:
     app.elfhosted.com/name: webdav
   priorityClassName: tenant-normal
-  image:
+  image: &image_rclone
     repository: ghcr.io/geek-cookbook/rclone
     tag: 1.65.2@sha256:12fae0e63e154cb68d24e306bb4a3995571e004a39771cb5ed6bf0a5b11a5c61
   controller:
@@ -7050,22 +7060,20 @@ rclonebrowser:
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: false # s6 and the way this is built prevents this currently
+    readOnlyRootFilesystem: true # s6 and the way this is built prevents this currently
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    # runAsUser: 568 # runs s6 currently
-    # runAsGroup: 568
-    # fsGroup: 568
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  env:
-    S6_READ_ONLY_ROOT: 1
-    USER_ID: 568
-    GROUP_ID: 568
-  envFrom:
-  - configMapRef:
-      name: elfhosted-user-config
+  additionalContainers:
+    rclone-ui:
+      image: *image_rclone
+      command: [ "/rclone-ui.sh"]
+
   persistence:
     <<: *appmounts
     tmp: # we don't have topolvm on the storage nodes, but we want to use tmp to run rclonebrowser on them
@@ -7606,7 +7614,6 @@ rclonebrowser:
 
   initContainers:
     bootstrap: *bootstrap
-    update-dns: *update_dns
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -7632,7 +7639,7 @@ rclonebrowser:
       securityContext: *default_securitycontext
   service:
     main:
-      enabled: false # necessary for probes
+      enabled: true # necessary for probes
       ports:
         http:
           port: 5572
