@@ -9163,7 +9163,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:73fb1b34eadc86c181b367f3022f3e6551a5dedb582b0eb348d089f937bd7cae
+    tag: rolling@sha256:ed5fad7b4d39a80bf1d0d3f19d8cd5774ace28af774210b8b290a1b978f24be7
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9216,7 +9216,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:73fb1b34eadc86c181b367f3022f3e6551a5dedb582b0eb348d089f937bd7cae
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:ed5fad7b4d39a80bf1d0d3f19d8cd5774ace28af774210b8b290a1b978f24be7
       command:
       - /usr/bin/dumb-init
       - /bin/bash
