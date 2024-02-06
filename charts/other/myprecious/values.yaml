@@ -7051,9 +7051,9 @@ rclonebrowser:
   podLabels:
     app.elfhosted.com/name: webdav
   priorityClassName: tenant-normal
-  image: 
+  image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.65.2@sha256:12fae0e63e154cb68d24e306bb4a3995571e004a39771cb5ed6bf0a5b11a5c61
+    tag: 1.65.1@sha256:b6fa17dea5783536186264dc28d6b1539a33a7ce1e5737d04e31d2fd440c2852
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
@@ -7062,20 +7062,22 @@ rclonebrowser:
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: true # s6 and the way this is built prevents this currently
+    readOnlyRootFilesystem: false # s6 and the way this is built prevents this currently
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
+    # runAsUser: 568 # runs s6 currently
+    # runAsGroup: 568
+    # fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  additionalContainers:
-    rclone-ui:
-      image: ghcr.io/geek-cookbook/rclone:1.65.2@sha256:12fae0e63e154cb68d24e306bb4a3995571e004a39771cb5ed6bf0a5b11a5c61
-      command: [ "/rclone-ui.sh" ]
-
+  env:
+    S6_READ_ONLY_ROOT: 1
+    USER_ID: 568
+    GROUP_ID: 568
+  envFrom:
+  - configMapRef:
+      name: elfhosted-user-config
   persistence:
     <<: *appmounts
     tmp: # we don't have topolvm on the storage nodes, but we want to use tmp to run rclonebrowser on them
