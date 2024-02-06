@@ -7074,7 +7074,7 @@ rclonebrowser:
   additionalContainers:
     rclone-ui:
       image: ghcr.io/geek-cookbook/rclone:1.65.2@sha256:12fae0e63e154cb68d24e306bb4a3995571e004a39771cb5ed6bf0a5b11a5c61
-      command: [ "/rclone-ui.sh"]
+      command: [ "/rclone-ui.sh" ]
 
   persistence:
     <<: *appmounts
