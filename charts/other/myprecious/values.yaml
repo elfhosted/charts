@@ -9710,7 +9710,8 @@ zurg: &zurg
         sed -i  "s/use_download_cache: true/use_download_cache: false/" /config/config.yml
 
         # Enabling repair is not safe per @yowmamasita - 5/2/2024, creates duplicates
-        sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
+        # may be working, no longer enforced - 7/2/2024
+        # sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
 
 
       volumeMounts:
