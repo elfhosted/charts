@@ -2170,7 +2170,7 @@ bazarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
-    tag: 1.4.0@sha256:2d3894f0e6c0c778f90c4fdc8950e85dc27bc81d445d86f935221b98c94c5212
+    tag: 1.4.1@sha256:2fac782110e37db70d0bd85474ed326e4a8642782c0189beb57c6ad105ea8d8a
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -2246,7 +2246,7 @@ bazarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/bazarr
-    tag: 1.4.0@sha256:2d3894f0e6c0c778f90c4fdc8950e85dc27bc81d445d86f935221b98c94c5212
+    tag: 1.4.1@sha256:2fac782110e37db70d0bd85474ed326e4a8642782c0189beb57c6ad105ea8d8a
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9440,7 +9440,7 @@ torrentio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:f95d0351b0d0452fb2dce6fcca105f899eec0ebcde4ede767248177c18cc6a01
+    tag: rolling@sha256:83daedd6f686699b78e64273d7126f4b7168de3debfb64b684b8098b19ab4a3a
   priorityClassName: tenant-normal
   controller:
     annotations:
