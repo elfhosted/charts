@@ -9543,14 +9543,14 @@ torrentio: &app_torrentio
     PGID: 568
     TENANT_NAME: "{{ .Release.Name }}"    
     # PostgreSQL
-    POSTGRES_HOST: 10.43.74.255 # pooler
+    POSTGRES_HOST: pooler-torrentio # pooler
     POSTGRES_PORT: 5432
     POSTGRES_USER: torrentio
     # POSTGRES_PASSWORD goes in secret
     POSTGRES_DB: torrentio
 
     # MongoDB
-    MONGODB_HOST: 10.43.242.207 # mongodb svc
+    MONGODB_HOST: mongodb.torrentio # mongodb svc
     MONGODB_PORT: 27017
     MONGODB_DB: torrentio
     MONGO_INITDB_ROOT_USERNAME: mongo
