@@ -3777,7 +3777,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.1.1047@sha256:a5335bcda6ae784efa6326267cc4f920ffe971d187c67db4d5c1575ed2d7b106
+    tag: 4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3855,7 +3855,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.1.1047@sha256:a5335bcda6ae784efa6326267cc4f920ffe971d187c67db4d5c1575ed2d7b106
+    tag: 4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -9462,7 +9462,7 @@ stremiojackett:
           name: elfbot-stremio-jackett
           optional: true
 
-torrentio: &app_torrentio
+knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
@@ -9470,7 +9470,7 @@ torrentio: &app_torrentio
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-torrentio"
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio"
       secret.reloader.stakater.com/reload: "torrentio-env"
     strategy:
     rollingUpdate:
@@ -9509,7 +9509,7 @@ torrentio: &app_torrentio
       type: "custom"
       volumeSpec:
         configMap:
-          name: elfbot-torrentio
+          name: elfbot-knightcrawler
           optional: true      
     npm: 
       enabled: true
@@ -9560,8 +9560,13 @@ torrentio: &app_torrentio
   - secretRef:
       name: torrentio-env     
 
-torrentiovpn:
-  <<: *app_rdtclient
+# Old naming convention
+torrentio: 
+  <<: *app_knightcrawler
+  enabled: false
+
+knightcrawlervpn:
+  <<: *app_knightcrawler
   enabled: false
   addons:
     vpn:
@@ -9582,7 +9587,6 @@ torrentiovpn:
             - NET_ADMIN
             - SYS_MODULE
       config: # We have to set this to null so that we can override with our own config        
-
 
 zurg: &zurg
   enabled: false

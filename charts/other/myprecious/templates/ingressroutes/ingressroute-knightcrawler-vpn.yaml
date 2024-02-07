@@ -1,26 +1,26 @@
-{{ if .Values.torrentio.enabled }}
+{{ if .Values.knightcrawlervpn.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Release.Name }}-torrentio.elfhosted.com
+  name: {{ .Release.Name }}-knightcrawler-vpn.elfhosted.com
 spec:
   routes:
     # "stream" endpoint is the one which invokes database access, and thus needs tighter rate-limiting
-    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`/{something:.+}/stream/{else:.+}`)
+    - match: Host(`{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com`) && PathPrefix(`/{something:.+}/stream/{else:.+}`)
       kind: Rule
       services:
-        - name: torrentio
+        - name: knightcrawlervpn
           kind: Service
           port: 7001
       middlewares:  
         - name: error-pages
           namespace: traefik
-        - name: {{ .Release.Name }}-torrentio-rate-limit
+        - name: {{ .Release.Name }}-knightcrawler-rate-limit
     # everything else is static and can be less rate-limited
-    - match: Host(`{{ .Release.Name }}-knightcrawler.elfhosted.com`) 
+    - match: Host(`{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com`) 
       kind: Rule
       services:
-        - name: torrentio
+        - name: knightcrawlervpn
           kind: Service
           port: 7001
       middlewares:

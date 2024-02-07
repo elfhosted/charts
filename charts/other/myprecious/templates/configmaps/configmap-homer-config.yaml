@@ -800,11 +800,31 @@ data:
           - name: "Torrentio"
             icon: "fas fa-tint"
             subtitle: "Torrent indexer for Stremio"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-torrentio.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}                    
+          {{ end }}    
+
+          {{ if .Values.knightcrawler.enabled }}
+          - name: "Knightcrawler"
+            icon: "fas fa-chess-knight"
+            subtitle: "Torrent indexer for Stremio"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-knightcrawler.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}     
+
+          {{ if .Values.knightcrawlervpn.enabled }}
+          - name: "Knightcrawler (VPN)"
+            icon: "fas fa-chess-knight"
+            subtitle: "Torrent indexer for Stremio (VPN)"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                                        
 
           {{ if .Values.nzbhydra.enabled }}
           - name: "NZBHydra"

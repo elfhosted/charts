@@ -502,7 +502,23 @@ data:
             href: https://{{ .Release.Name }}-torrentio.elfhosted.com
             description: Torrent indexer for Stremio
             siteMonitor: http://torrentio:7000
-        {{ end }}                          
+        {{ end }}    
+
+        {{ if .Values.knightcrawler.enabled }}
+        - Knightcrawler:
+            icon: mdi-chess-knight
+            href: https://{{ .Release.Name }}-knightcrawler.elfhosted.com
+            description: Torrent indexer for Stremio
+            siteMonitor: http://knightcrawler:7000
+        {{ end }}      
+
+        {{ if .Values.knightcrawlervpn.enabled }}
+        - Knightcrawler (VPN):
+            icon: mdi-chess-knight
+            href: https://{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com
+            description: Torrent indexer for Stremio (VPN)
+            siteMonitor: http://knightcrawler-vpn:7000
+        {{ end }}                                      
 
         {{ if .Values.nzbhydra.enabled }}
         - NZBHydra:

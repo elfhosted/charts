@@ -506,7 +506,29 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email               
-      {{ end }}                    
+      {{ end }}    
+
+      {{ if .Values.knightcrawler.enabled }}
+      - name: knightcrawler
+        group: download-media
+        url: "http://knightcrawler:7001"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}     
+
+      {{ if .Values.knightcrawlervpn.enabled }}
+      - name: knightcrawler-vpn
+        group: download-media
+        url: "http://knightcrawler-vpn:7001"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}                            
 
       {{ if .Values.nzbhydra.enabled }}
       - name: nzbhydra
