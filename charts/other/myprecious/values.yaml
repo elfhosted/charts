@@ -9466,7 +9466,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:83daedd6f686699b78e64273d7126f4b7168de3debfb64b684b8098b19ab4a3a
+    tag: rolling@sha256:dd88c790a7fcbd4faec0abfa25f6604827fcfe9ec60edd89eb24cd0f78717d43
   priorityClassName: tenant-normal
   controller:
     annotations:
