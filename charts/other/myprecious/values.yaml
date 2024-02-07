@@ -9407,7 +9407,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v2.1.6@sha256:5424837e248bab0f212ac80c09ad274b11553f9b1be45b347bab48956f2b1058
+    tag: v2.1.2 # in timeout until stabilized
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9466,7 +9466,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:1a10e9565bdf4bc5cf1100c3986d9e816428f53df271f1982707d65b704753a8
+    tag: rolling@sha256:83daedd6f686699b78e64273d7126f4b7168de3debfb64b684b8098b19ab4a3a
   priorityClassName: tenant-normal
   controller:
     annotations:
