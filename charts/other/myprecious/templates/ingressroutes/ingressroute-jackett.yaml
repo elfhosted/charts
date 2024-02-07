@@ -15,10 +15,10 @@ spec:
         - name: {{ .Release.Name }}-traefik-forward-auth            
         - name: error-pages
           namespace: traefik
-    # - match: Host(`{{ .Release.Name }}-jackett.elfhosted.com`) && PathPrefix(`/api/`)
-    #   kind: Rule
-    #   services:
-    #     - name: jackett
-    #       kind: Service
-    #       port: 9117
+    - match: Host(`{{ .Release.Name }}-jackett.elfhosted.com`) && PathPrefix(`/api/`)
+      kind: Rule
+      services:
+        - name: jackett
+          kind: Service
+          port: 9117
 {{ end }}
