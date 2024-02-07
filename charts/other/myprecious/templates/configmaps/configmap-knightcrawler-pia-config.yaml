@@ -1,8 +1,8 @@
-{{ if .Values.torrentio.enabled }}
+{{ if .Values.knightcrawlervpn.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: torrentio-pia-config
+  name: knightcrawler-pia-config
 data:
   # These are used by the PIA image
   IPTABLES_BACKEND: nft

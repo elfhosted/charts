@@ -1,8 +1,8 @@
-{{ if .Values.torrentio.enabled }}
+{{ if or .Values.torrentio.enabled .Values.knightcrawler.enabled .Values.knightcrawlervpn.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ .Release.Name }}-torrentio-rate-limit-static
+  name: {{ .Release.Name }}-knightcrawler-rate-limit-static
 spec:
   rateLimit:
     average: 10 # 1 request every ..

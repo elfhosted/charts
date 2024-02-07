@@ -9577,9 +9577,9 @@ knightcrawlervpn:
           tag: latest
       envFrom:
       - configMapRef:
-          name: torrentio-pia-config #yes, it's a WIP
+          name: knightcrawler-pia-config #yes, it's a WIP
       - secretRef:
-          name: torrentio-vpn
+          name: knightcrawler-vpn
       securityContext:
         runAsUser: 0
         capabilities:
