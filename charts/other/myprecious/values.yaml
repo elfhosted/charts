@@ -9543,7 +9543,7 @@ torrentio: &app_torrentio
     PGID: 568
     TENANT_NAME: "{{ .Release.Name }}"    
     # PostgreSQL
-    POSTGRES_HOST: pooler-torrentio # pooler
+    POSTGRES_HOST: pooler-torrentio.torrentio # pooler
     POSTGRES_PORT: 5432
     POSTGRES_USER: torrentio
     # POSTGRES_PASSWORD goes in secret
