@@ -3143,10 +3143,10 @@ uptimekuma:
   resources:
     requests:
       cpu: 10m
-      memory: 96Mi
+      memory: 128Mi
     limits:
       cpu: 100m
-      memory: 200Mi
+      memory: 256Mi
 
 privatebin:
   enabled: false
@@ -3669,7 +3669,7 @@ kavita:
   resources:
     requests:
       cpu: 10m
-      memory: 96Mi
+      memory: 256Mi
     limits:
       cpu: 2
       memory: 1Gi
@@ -4246,7 +4246,7 @@ navidrome:
   resources:
     requests:
       cpu: 10m
-      memory: 16Mi
+      memory: 32Mi
     limits:
       cpu: 2
       memory: 1Gi
@@ -4327,7 +4327,7 @@ readarr:
   resources:
     requests:
       cpu: 20m
-      memory: 128Mi
+      memory: 256Mi
     limits:
       cpu: 2
       memory: 1Gi
@@ -6759,7 +6759,7 @@ shoko:
   resources:
     requests:
       cpu: 10m
-      memory: 256Mi
+      memory: 64Mi
     limits:
       cpu: 1
       memory: 1Gi
@@ -6886,7 +6886,7 @@ nextpvr:
   resources:
     requests:
       cpu: 10m
-      memory: 16Mi
+      memory: 64Mi
     limits:
       cpu: 2
       memory: 1Gi
@@ -7032,7 +7032,7 @@ plexmetamanager:
   resources:
     requests:
       cpu: 10m
-      memory: 150Mi
+      memory: 64Mi
     limits:
       cpu: 1
       memory: 1Gi
@@ -7915,7 +7915,7 @@ mattermost:
       resources:
         requests:
           cpu: 5m
-          memory: 1Gi
+          memory: 512Mi
         limits:
           cpu: 2
           memory: 1024Mi
@@ -8231,7 +8231,7 @@ syncthing:
   resources:
     requests:
       cpu: 10m
-      memory: 10Mi
+      memory: 70Mi
     limits:
       cpu: 1
       memory: 1Gi
@@ -8376,7 +8376,7 @@ rdtclient: &app_rdtclient
   resources:
     requests:
       cpu: 10m
-      memory: 10Mi
+      memory: 128Mi
       ephemeral-storage: 50Mi
     limits:
       cpu: 100m
@@ -8627,7 +8627,7 @@ miniflux:
       resources:
         requests:
           cpu: 5m
-          memory: 1Gi
+          memory: 128Mi
         limits:
           cpu: 2
           memory: 1024Mi
@@ -8747,7 +8747,7 @@ joplinserver:
       resources:
         requests:
           cpu: 5m
-          memory: 1Gi
+          memory: 128Mi
         limits:
           cpu: 2
           memory: 1024Mi
@@ -8969,7 +8969,7 @@ homepage:
   resources:
     requests:
       cpu: 10m
-      memory: 32Mi
+      memory: 128Mi
     limits:
       cpu: 250m # deliberately hobble the CPU in favor of GPU transcoding
       memory: 1Gi
@@ -9371,7 +9371,7 @@ jackett:
   resources:
     requests:
       cpu: 10m
-      memory: 16Mi
+      memory: 128Mi
     limits:
       cpu: 1
       memory: 1024Mi
@@ -9430,7 +9430,7 @@ stremiojackett:
   resources:
     requests:
       cpu: 10m
-      memory: 16Mi
+      memory: 128Mi
     limits:
       cpu: 1
       memory: 256Mi
@@ -9490,9 +9490,9 @@ knightcrawler: &app_knightcrawler
   resources:
     requests:
       cpu: 10m
-      memory: 16Mi
+      memory: 128Mi
     limits:
-      cpu: 100m
+      cpu: 1
       memory: 256Mi
   ingress:
     main:
@@ -9615,7 +9615,7 @@ zurg: &zurg
     kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux
   image:
     repository: ghcr.io/geek-cookbook/zurg
-    tag: v0.9.3-hotfix.8@sha256:c2b94191020d95a85a01e828eb5d525764136d0c21c08de850fcba8dd54ced48
+    tag: v0.9.3-hotfix.9@sha256:235d1c82a42275dd2b6cb0cf8757a5ff99b244f932890b594862cc779ea73e20
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9669,7 +9669,7 @@ zurg: &zurg
   resources:
     requests:
       cpu: 10m
-      memory: 16Mi
+      memory: 32Mi
     limits:
       cpu: 100m
       memory: 1024Mi
@@ -9895,9 +9895,9 @@ kubernetesdashboard:
   resources:
     requests:
       cpu: 1m
-      memory: 10Mi
+      memory: 64Mi
     limits:
-      cpu: 100m
+      cpu: 1
       memory: 256Mi
       
   extraArgs:
