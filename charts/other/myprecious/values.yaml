@@ -9468,6 +9468,8 @@ knightcrawler: &app_knightcrawler
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
     tag: rolling@sha256:dd88c790a7fcbd4faec0abfa25f6604827fcfe9ec60edd89eb24cd0f78717d43
   priorityClassName: tenant-normal
+  podLabels: 
+    app.elfhosted.com/name: knightcrawler  
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio"

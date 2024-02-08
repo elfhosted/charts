@@ -1,11 +1,11 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "permit-torrentio-egress-torrentio-postgresql"
+  name: "permit-knightcrawler-egress-torrentio-postgresql"
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/name: torrentio
+      app.elfhosted.com/name: knightcrawler
   egress:
   - toEndpoints:
     - matchLabels:
