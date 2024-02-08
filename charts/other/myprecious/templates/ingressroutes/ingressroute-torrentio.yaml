@@ -17,7 +17,7 @@ spec:
           namespace: traefik
         - name: {{ .Release.Name }}-torrentio-rate-limit
     # everything else is static and can be less rate-limited
-    - match: Host(`{{ .Release.Name }}-knightcrawler.elfhosted.com`) 
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) 
       kind: Rule
       services:
         - name: torrentio
