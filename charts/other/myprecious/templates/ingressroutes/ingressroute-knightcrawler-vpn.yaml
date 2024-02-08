@@ -9,22 +9,24 @@ spec:
     - match: Host(`{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com`) && PathPrefix(`/{something:.+}/stream/{else:.+}`)
       kind: Rule
       services:
-        - name: knightcrawlervpn
+        - name: knightcrawler-vpn
           kind: Service
           port: 7001
       middlewares:  
         - name: error-pages
           namespace: traefik
-        - name: {{ .Release.Name }}-knightcrawler-rate-limit
+        - name: rate-limit-knightcrawler-hosted
+          namespace: traefik
     # everything else is static and can be less rate-limited
     - match: Host(`{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com`) 
       kind: Rule
       services:
-        - name: knightcrawlervpn
+        - name: knightcrawler-vpn
           kind: Service
           port: 7001
       middlewares:
         - name: error-pages
           namespace: traefik
-        - name: {{ .Release.Name }}-knightcrawler-rate-limit-static
+        - name: rate-limit-knightcrawler-hosted-static
+          namespace: traefik
 {{ end }}
