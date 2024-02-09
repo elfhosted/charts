@@ -9267,8 +9267,16 @@ iceberg:
   - configMapRef:
       name: iceberg-config
   command:
-  - node 
-  - /iceberg/frontend/build      
+  - /usr/bin/dumb-init
+  - /bin/bash
+  - -c
+  - |
+    set -e
+    set -x
+    
+    cd backend
+    source /venv/bin/activate
+    exec python /iceberg/backend/main.py   
   resources: *default_resources
   ingress:
     main:
@@ -9285,6 +9293,7 @@ iceberg:
     config:
       enabled: true
       type: custom
+      mountPath: /iceberg/data
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-iceberg-ssd
@@ -9301,27 +9310,16 @@ iceberg:
     frontend:
       image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:500e50e7b6dd89a5a12ea9d213526d2e1b7eedde6aec470009048ff62ccb9ddd
       command:
-      - /usr/bin/dumb-init
-      - /bin/bash
-      - -c
-      - |
-        set -e
-        set -x
-        
-        cd backend
-        source /venv/bin/activate
-        exec python /iceberg/backend/main.py            
+      - node 
+      - /iceberg/frontend/build               
       volumeMounts:
       - mountPath: /iceberg/data
         name: config
         subPath: config
-      - mountPath: /storage/library
-        name: config
-        subPath: library    
       - mountPath: /storage/realdebrid-zurg
         name: rclonemountrealdebridzurg
       - mountPath: /storage/elfstorage
-        name: elfstorage    
+        name: elfstorage
       envFrom:
       - configMapRef:
           name: iceberg-config        

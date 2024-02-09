@@ -4,28 +4,30 @@ kind: ConfigMap
 metadata:
   name: storage-changed
 data:
-  b2: {{ tpl (toYaml .Values.b2) . | sha256sum }}    
-  gdrivea: {{ tpl (toYaml .Values.gdrivea) . | sha256sum }}
-  gdriveb: {{ tpl (toYaml .Values.gdriveb) . | sha256sum }}
-  gdrivec: {{ tpl (toYaml .Values.gdrivec) . | sha256sum }}
-  gdrived: {{ tpl (toYaml .Values.gdrived) . | sha256sum }}
-  premiumize: {{ tpl (toYaml .Values.premiumize) . | sha256sum }}    
-  rclonegdonedriveariveencryptedc: {{ tpl (toYaml .Values.onedrivea) . | sha256sum }}
-  rclonegdriveencrypteda: {{ tpl (toYaml .Values.rclonegdriveencrypteda) . | sha256sum }}
-  rclonegdriveencryptedb: {{ tpl (toYaml .Values.rclonegdriveencryptedb) . | sha256sum }}
-  rclonegdriveencryptedc: {{ tpl (toYaml .Values.rclonegdriveencryptedc) . | sha256sum }}
-  rclonemountputio: {{ tpl (toYaml .Values.rclonemountputio) . | sha256sum }}
-  rclonemountalldebrid: {{ tpl (toYaml .Values.rclonemountalldebrid) . | sha256sum }}
-  rclonemountrealdebridzurg: {{ tpl (toYaml .Values.rclonemountrealdebridzurg) . | sha256sum }}
-  rclonemountssha: {{ tpl (toYaml .Values.rclonemountssha) . | sha256sum }}
-  rclonemountwebdava: {{ tpl (toYaml .Values.rclonemountwebdava) . | sha256sum }}
-  rclonesmbencrypteda: {{ tpl (toYaml .Values.rclonesmbencrypteda) . | sha256sum }}
-  rclonestorageboxencrypteda: {{ tpl (toYaml .Values.rclonestorageboxencrypteda) . | sha256sum }}
-  rclonestorageboxencryptedb: {{ tpl (toYaml .Values.rclonestorageboxencryptedb) . | sha256sum }}
-  rclonestorageboxencryptedc: {{ tpl (toYaml .Values.rclonestorageboxencryptedc) . | sha256sum }}
-  smbmounta: {{ tpl (toYaml .Values.smbmounta) . | sha256sum }}
-  smbmountb: {{ tpl (toYaml .Values.smbmountb) . | sha256sum }}
-  smbmountc: {{ tpl (toYaml .Values.smbmountc) . | sha256sum }}
-  storageboxa: {{ tpl (toYaml .Values.storageboxa) . | sha256sum }}
-  storageboxb: {{ tpl (toYaml .Values.storageboxb) . | sha256sum }}
-  storageboxc: {{ tpl (toYaml .Values.storageboxc) . | sha256sum }}
+  SHAs: |
+     {{- tpl (toYaml .Values.b2) . | sha256sum -}}    
+     {{- tpl (toYaml .Values.gdrivea) . | sha256sum -}}
+     {{- tpl (toYaml .Values.gdriveb) . | sha256sum -}}
+     {{- tpl (toYaml .Values.gdrivec) . | sha256sum -}}
+     {{- tpl (toYaml .Values.gdrived) . | sha256sum -}}
+     {{- tpl (toYaml .Values.premiumize) . | sha256sum -}}    
+     {{- tpl (toYaml .Values.onedrivea) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonegdriveencrypteda) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonegdriveencryptedb) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonegdriveencryptedc) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonemountputio) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonemountpikpak) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonemountalldebrid) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonemountrealdebridzurg) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonemountssha) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonemountwebdava) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonesmbencrypteda) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonestorageboxencrypteda) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonestorageboxencryptedb) . | sha256sum -}}
+     {{- tpl (toYaml .Values.rclonestorageboxencryptedc) . | sha256sum -}}
+     {{- tpl (toYaml .Values.smbmounta) . | sha256sum -}}
+     {{- tpl (toYaml .Values.smbmountb) . | sha256sum -}}
+     {{- tpl (toYaml .Values.smbmountc) . | sha256sum -}}
+     {{- tpl (toYaml .Values.storageboxa) . | sha256sum -}}
+     {{- tpl (toYaml .Values.storageboxb) . | sha256sum -}}
+     {{- tpl (toYaml .Values.storageboxc) . | sha256sum -}}
