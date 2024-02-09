@@ -6977,7 +6977,7 @@ plexmetamanager:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/plex-meta-manager
-    tag: v1.19.0@sha256:5847501532029eafe42a4d275c9e57999903bf6f2f41c1afa62cba9a4973f4cf
+    tag: v1.20.0@sha256:f688a36a4d8159ce549d504276e84f640a7d28b827e766548e5cb9a34b3fc485
   securityContext:
     seccompProfile:
       type: RuntimeDefault

@@ -24,7 +24,7 @@ data:
     on_library_update: sh plex_update.sh "$@"
         
     # advanced alternative for Jellyfin/Emby support
-    # on_library_update: |
+    # on_library_update: |-
     #   # Log the updated directories and send refresh request to autoscan
     #   for arg in "$@"
     #   do
