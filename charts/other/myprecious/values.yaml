@@ -3833,7 +3833,12 @@ sonarr:
         configMap:
           name: elfbot-sonarr
           optional: true
-
+    scannarr-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: radarr-config          
   ingress:
     main:
       enabled: false
@@ -3858,6 +3863,15 @@ sonarr:
         name: elfstorage
       resources: *default_resources
       securityContext: *default_securitycontext
+  additionalContainers:
+    scannarr:
+      image: ghcr.io/geek-cookbook/sonarr-develop:4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49      
+      volumeMounts:
+      - mouthpath: /app/settings_radarr.json
+        name: scannarr-config
+        subPath: scannarr-settings_radarr.json
+      resources: *default_resources
+      securityContext: *default_securitycontext        
   resources:
     requests:
       cpu: 10m

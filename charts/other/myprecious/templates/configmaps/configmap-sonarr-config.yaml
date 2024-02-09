@@ -6,4 +6,16 @@ metadata:
 data:
   # Overwrite API key with default
   SONARR__API_KEY: "{{ .Values.sonarrexposed.apikey }}"
+  scannarr-settings_sonarr.json: |
+    {
+      "URL": "http://localhost:8989",
+      "Interval": 120,
+      "ScanOnWake": true,
+      "ScanOnInterval": false,
+      "ScanOnStart": true,  
+      "ForceImport": false,
+      "ForceImportInterval": 1,
+      "ForceImportMode": "Copy",
+      "APIKey": "{{ .Values.sonarrexposed.apikey }}"
+    }
 {{ end }}
