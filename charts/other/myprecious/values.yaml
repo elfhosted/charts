@@ -1999,6 +1999,12 @@ radarr:
         configMap:
           name: elfbot-radarr
           optional: true
+    scannarr-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: radarr-config             
   ingress:
     main:
       enabled: false
@@ -2031,6 +2037,15 @@ radarr:
         name: config
       resources: *default_resources
       securityContext: *default_securitycontext
+  additionalContainers:
+    scannarr:
+      image: ghcr.io/geek-cookbook/sonarr-develop:4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49      
+      volumeMounts:
+      - mouthPath: /app/settings_radarr.json
+        name: scannarr-config
+        subPath: scannarr-settings_radarr.json
+      resources: *default_resources
+      securityContext: *default_securitycontext           
   resources:
     requests:
       cpu: 10m
@@ -2082,7 +2097,12 @@ radarr4k:
         configMap:
           name: elfbot-radarr4k
           optional: true
-
+    scannarr-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: radarr-config
   ingress:
     main:
       enabled: false
@@ -2115,6 +2135,15 @@ radarr4k:
         name: config
       resources: *default_resources
       securityContext: *default_securitycontext
+  additionalContainers:
+    scannarr:
+      image: ghcr.io/geek-cookbook/sonarr-develop:4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49      
+      volumeMounts:
+      - mouthPath: /app/settings_radarr.json
+        name: scannarr-config
+        subPath: scannarr-settings_radarr.json
+      resources: *default_resources
+      securityContext: *default_securitycontext       
   resources:
     requests:
       cpu: 20m
@@ -3838,7 +3867,7 @@ sonarr:
       type: "custom"
       volumeSpec:
         configMap:
-          name: radarr-config          
+          name: sonarr-config          
   ingress:
     main:
       enabled: false
@@ -3867,9 +3896,9 @@ sonarr:
     scannarr:
       image: ghcr.io/geek-cookbook/sonarr-develop:4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49      
       volumeMounts:
-      - mouthpath: /app/settings_radarr.json
+      - mouthPath: /app/settings_sonarr.json
         name: scannarr-config
-        subPath: scannarr-settings_radarr.json
+        subPath: scannarr-settings_sonarr.json
       resources: *default_resources
       securityContext: *default_securitycontext        
   resources:
@@ -3925,6 +3954,12 @@ sonarr4k:
         configMap:
           name: elfbot-sonarr4k
           optional: true
+    scannarr-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: sonarr4k-config             
   ingress:
     main:
       enabled: false
@@ -3949,6 +3984,15 @@ sonarr4k:
         name: elfstorage
       resources: *default_resources
       securityContext: *default_securitycontext
+  additionalContainers:
+    scannarr:
+      image: ghcr.io/geek-cookbook/sonarr-develop:4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49      
+      volumeMounts:
+      - mouthPath: /app/settings_sonarr.json
+        name: scannarr-config
+        subPath: scannarr-settings_sonarr.json
+      resources: *default_resources
+      securityContext: *default_securitycontext          
   resources:
     requests:
       cpu: 10m
