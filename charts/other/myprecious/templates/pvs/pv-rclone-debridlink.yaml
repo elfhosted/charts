@@ -1,0 +1,20 @@
+{{ if .Values.rclonemountdebridlink.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rclone-{{ .Release.Name }}-debridlink
+  labels:
+    name: rclone-{{ .Release.Name }}-debridlink
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: rclone
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: csi-rclone
+    volumeHandle: rclone-{{ .Release.Name }}-debridlink
+    volumeAttributes:
+      secretName: "{{ .Release.Name }}-debridlink"
+{{ end }}

@@ -249,6 +249,13 @@ rclonesmbencrypteda: &rclonesmbencrypteda
     persistentVolumeClaim:
       claimName: smb-encrypted-a
   mountPath: /storage/smb-encrypted-a  
+rclonemountdebridlink: &rclonemountdebridlink
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: debridlink
+  mountPath: /storage/debridlink    
 elfstorage: &elfstorage
   enabled: true # always enabled
   type: custom
@@ -293,6 +300,7 @@ appmounts: &appmounts
   rclonemountputio: *rclonemountputio
   rclonemountpikpak: *rclonemountpikpak
   rclonemountssha: *rclonemountssha
+  rclonemountdebridlink: *rclonemountdebridlink
   storageboxa: *storageboxa
   storageboxb: *storageboxb
   storageboxc: *storageboxc
