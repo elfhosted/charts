@@ -9307,7 +9307,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:652b6bb36ea780f73e41ac18cefd774b1f02d0c835051c07b392c33fcbabbeae
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:35a4c8dacf53ee4111abede350636be3a988b597eb557378e785d03d16e0d816
       command:
       - node 
       - /iceberg/frontend/build               
