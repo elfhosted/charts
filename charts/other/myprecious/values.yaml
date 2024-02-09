@@ -9246,7 +9246,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:500e50e7b6dd89a5a12ea9d213526d2e1b7eedde6aec470009048ff62ccb9ddd
+    tag: rolling@sha256:35a4c8dacf53ee4111abede350636be3a988b597eb557378e785d03d16e0d816
   priorityClassName: tenant-normal
   controller:
     annotations:
