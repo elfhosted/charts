@@ -3696,7 +3696,7 @@ calibre:
   runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.5.0@sha256:bc23ad8fac85b306a66eb4298bb16c01f9afd49e5b82f03226e6274647276ab6
+    tag: 7.5.1@sha256:82371e272540f1215eb3a943610fece061c585ffa44f9e8bdaa074338c8a42be
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -9409,7 +9409,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1701@sha256:774949a34c2ef1729668483b8d77c7d71c0321a99f76d91f8ebe543bf5802e91
+    tag: 0.21.1712@sha256:3a2d0f130e87314744ad99d7ee268b750e595d2097f280573b44e2bd7c9ac652
   priorityClassName: tenant-normal
   controller:
     annotations:
