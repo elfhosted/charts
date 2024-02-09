@@ -9288,8 +9288,7 @@ iceberg:
         http:
           port: 8080 
   persistence:
-    elfstorage: *elfstorage  # we need this for elfbot / bootstrap
-    rclonemountrealdebridzurg: *rclonemountrealdebridzurg
+    <<: *appmounts  
     config:
       enabled: true
       type: custom
