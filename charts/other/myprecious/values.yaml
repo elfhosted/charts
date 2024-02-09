@@ -6999,6 +6999,10 @@ plexmetamanager:
       ports:
         http:
           port: 9898 # doesn't matter this doesn,t actually use ports
+  envFrom:
+  - configMapRef:
+      name: elfbot-plexmetamanager
+      optional: true          
   persistence:
     <<: *appmounts
     config:
