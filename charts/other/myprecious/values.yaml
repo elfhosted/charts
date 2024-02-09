@@ -8418,7 +8418,36 @@ rdtclient: &app_rdtclient
 rdtclientalldebrid:
   <<: *app_rdtclient
   podLabels:
-    app.elfhosted.com/name: rdtclient-alldebrid    
+    app.elfhosted.com/name: rdtclient-alldebrid   
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /data/db
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rdtclient-alldebrid-ssd
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-rdtclient-alldebrid
+          optional: true
+    download: # in case users use /tmp
+      enabled: true
+      type: custom
+      mountPath: /data/downloads
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 1Gi            
   addons:
     vpn:
       enabled: true # in case we ever need it

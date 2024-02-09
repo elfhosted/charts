@@ -609,7 +609,15 @@ data:
             href: https://{{ .Release.Name }}-rdtclient.elfhosted.com
             description: Manage real debrid(-like) services
             siteMonitor: http://rdtclient:6500
-        {{ end }}    
+        {{ end }}   
+
+        {{ if .Values.rdtclientalldebrid.enabled }}
+        - RDT Client (AllDebrid):
+            icon: rdt-client.png
+            href: https://{{ .Release.Name }}-rdtclient-alldebrid.elfhosted.com
+            description: Manage AllDebrid Downloads
+            siteMonitor: http://rdtclient-alldebrid:6500
+        {{ end }}            
 
         {{ if or .Values.zurg.enabled .Values.zurggluetun.enabled }}
         - Zurg:

@@ -618,6 +618,17 @@ data:
           - type: email           
       {{ end }}    
 
+      {{ if .Values.rdtclientalldebrid.enabled }}
+      - name: rdtclient-alldebrid
+        group: download-media
+        url: "http://rdtclient-alldebrid:6500"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email           
+      {{ end }}          
+
       {{ if or .Values.zurg.enabled .Values.zurggluetun.enabled }}
       - name: zurg
         group: download-media

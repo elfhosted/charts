@@ -1,0 +1,18 @@
+{{ if .Values.rdtclientalldebrid.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-rdtclient-alldebrid.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-rdtclient-alldebrid.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: rdtclient-alldebrid
+          kind: Service
+          port: 6500
+      middlewares:  
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}
