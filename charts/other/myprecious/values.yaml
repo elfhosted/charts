@@ -117,6 +117,13 @@ rclonemountputio: &rclonemountputio
     persistentVolumeClaim:
       claimName: putio
   mountPath: /storage/putio  
+rclonemountpikpak: &rclonemountpikpak
+  enabled: false
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: pikpak
+  mountPath: /storage/pikpak    
 rclonemountssha: &rclonemountssha
   enabled: false
   type: custom
@@ -284,6 +291,7 @@ appmounts: &appmounts
   rclonemountrealdebridzurg: *rclonemountrealdebridzurg
   rclonemountalldebrid: *rclonemountalldebrid
   rclonemountputio: *rclonemountputio
+  rclonemountpikpak: *rclonemountpikpak
   rclonemountssha: *rclonemountssha
   storageboxa: *storageboxa
   storageboxb: *storageboxb
@@ -2975,6 +2983,13 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rdtclient-ssd
+    rdtclientalldebrid:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/rdtclient-alldebrid/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rdtclient-alldebrid-ssd          
   service:
     main:
       enabled: true # necessary for probes
@@ -5472,6 +5487,13 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rdtclient-ssd
+    rdtclientalldebrid:
+      enabled: false
+      type: custom
+      mountPath: /config/rdtclient-alldebrid/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rdtclient-alldebrid-ssd            
     message:
       enabled: true
       type: emptyDir
@@ -7615,6 +7637,13 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rdtclient-ssd
+    rdtclientalldebrid:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/rdtclient-alldebrid/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rdtclient-alldebrid-ssd            
 
   initContainers:
     bootstrap: *bootstrap
@@ -8386,11 +8415,10 @@ rdtclient: &app_rdtclient
     bootstrap: *bootstrap
 
 # Add a VPN option for rdtclient
-rdtclientvpn:
+rdtclientalldebrid:
   <<: *app_rdtclient
   podLabels:
-    app.elfhosted.com/name: rdtclient
-    app.elfhosted.com/class: debrid     
+    app.elfhosted.com/name: rdtclient-alldebrid    
   addons:
     vpn:
       enabled: true # in case we ever need it
