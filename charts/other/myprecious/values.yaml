@@ -2044,6 +2044,8 @@ radarr:
       - mountPath: /app/settings_radarr.json
         name: scannarr-config
         subPath: scannarr-settings_radarr.json
+      - mountPath: /tmp
+        name: tmp
       resources: *default_resources
       securityContext: *default_securitycontext           
   resources:
@@ -2142,6 +2144,8 @@ radarr4k:
       - mountPath: /app/settings_radarr.json
         name: scannarr-config
         subPath: scannarr-settings_radarr.json
+      - mountPath: /tmp
+        name: tmp        
       resources: *default_resources
       securityContext: *default_securitycontext       
   resources:
@@ -3899,6 +3903,8 @@ sonarr:
       - mountPath: /app/settings_sonarr.json
         name: scannarr-config
         subPath: scannarr-settings_sonarr.json
+      - mountPath: /tmp
+        name: tmp        
       resources: *default_resources
       securityContext: *default_securitycontext        
   resources:
@@ -3991,6 +3997,8 @@ sonarr4k:
       - mountPath: /app/settings_sonarr.json
         name: scannarr-config
         subPath: scannarr-settings_sonarr.json
+      - mountPath: /tmp
+        name: tmp        
       resources: *default_resources
       securityContext: *default_securitycontext          
   resources:
