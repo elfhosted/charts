@@ -2039,7 +2039,7 @@ radarr:
       securityContext: *default_securitycontext
   additionalContainers:
     scannarr:
-      image: ghcr.io/geek-cookbook/sonarr-develop:4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49      
+      image: ghcr.io/geek-cookbook/scannarr:rolling@sha256:47a9d79bcd56806efb0e79aa99f08c848067d1086f44bbdb77908358c30e03db   
       volumeMounts:
       - mountPath: /app/settings_radarr.json
         name: scannarr-config
@@ -2137,7 +2137,7 @@ radarr4k:
       securityContext: *default_securitycontext
   additionalContainers:
     scannarr:
-      image: ghcr.io/geek-cookbook/sonarr-develop:4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49      
+      image: ghcr.io/geek-cookbook/scannarr:rolling@sha256:47a9d79bcd56806efb0e79aa99f08c848067d1086f44bbdb77908358c30e03db   
       volumeMounts:
       - mountPath: /app/settings_radarr.json
         name: scannarr-config
@@ -3894,7 +3894,7 @@ sonarr:
       securityContext: *default_securitycontext
   additionalContainers:
     scannarr:
-      image: ghcr.io/geek-cookbook/sonarr-develop:4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49      
+      image: ghcr.io/geek-cookbook/scannarr:rolling@sha256:47a9d79bcd56806efb0e79aa99f08c848067d1086f44bbdb77908358c30e03db   
       volumeMounts:
       - mountPath: /app/settings_sonarr.json
         name: scannarr-config
@@ -3986,7 +3986,7 @@ sonarr4k:
       securityContext: *default_securitycontext
   additionalContainers:
     scannarr:
-      image: ghcr.io/geek-cookbook/sonarr-develop:4.0.1.1096@sha256:89d7bf292b8fb8d0fee4eb70d02b715fdd35d8895dd2fadce79159054125db49      
+      image: ghcr.io/geek-cookbook/scannarr:rolling@sha256:47a9d79bcd56806efb0e79aa99f08c848067d1086f44bbdb77908358c30e03db   
       volumeMounts:
       - mountPath: /app/settings_sonarr.json
         name: scannarr-config
