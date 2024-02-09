@@ -3696,7 +3696,7 @@ calibre:
   runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.4.0@sha256:fe57cc3a6d3ec8937c07d3230497577782c549f80f490897649f9b9650426fb3
+    tag: 7.5.0@sha256:bc23ad8fac85b306a66eb4298bb16c01f9afd49e5b82f03226e6274647276ab6
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -9308,7 +9308,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:500e50e7b6dd89a5a12ea9d213526d2e1b7eedde6aec470009048ff62ccb9ddd
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:652b6bb36ea780f73e41ac18cefd774b1f02d0c835051c07b392c33fcbabbeae
       command:
       - node 
       - /iceberg/frontend/build               
