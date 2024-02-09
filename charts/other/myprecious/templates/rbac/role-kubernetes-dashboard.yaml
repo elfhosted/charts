@@ -44,3 +44,14 @@ rules:
   - pods
   verbs:
   - delete
+# let tenants edit their own configmaps
+- apiGroups:
+  - "*"
+  resources:
+  - configmaps
+  verbs:
+  - update
+  resource_names:
+{{ if .Values.plexmetamanager.enabled }}
+  - elfbot-plexmetamanager
+{{ end }}
