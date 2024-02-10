@@ -2104,7 +2104,7 @@ radarr4k:
       type: "custom"
       volumeSpec:
         configMap:
-          name: radarr-config
+          name: radarr4k-config
   ingress:
     main:
       enabled: false
