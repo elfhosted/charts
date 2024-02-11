@@ -3210,7 +3210,7 @@ privatebin:
     enabled: false
   image:
     repository: privatebin/fs
-    tag: 1.6.2
+    tag: 1.7.0
   priorityClassName: 
   controller:
     annotations:
