@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.2980-pre-03
+version: 1.0.2980-pre-04
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -333,7 +333,7 @@ dependencies:
   #   alias: tdarr    
   - name: rdtclient
     condition: rdtclientalldebrid.enabled
-    version: ~0.2.1
+    version: ~0.0.1
     repository: http://chartmuseum.chartmuseum:8080        
     alias: rdtclientalldebrid
   - name: app-template

@@ -5656,7 +5656,7 @@ homer:
     # rollingUpdate:
     #   unavailable: 1
     annotations:
-      configmap.reloader.stakater.com/reload: "homer-config" # Reload the deployment every time the yaml config changes
+      configmap.reloader.stakater.com/reload: "homer-config, elfbot-homer" # Reload the deployment every time the yaml config changes
   resources:
     requests:
       cpu: 10m
