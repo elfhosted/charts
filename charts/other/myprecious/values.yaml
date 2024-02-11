@@ -3210,7 +3210,7 @@ privatebin:
     enabled: false
   image:
     repository: privatebin/fs
-    tag: 1.6.2
+    tag: 1.7.1
   priorityClassName: 
   controller:
     annotations:
@@ -4103,7 +4103,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.13.2.4251@sha256:43c5466c0c390cbeacedc0a82d45f23bb71aa99ec89483fcfac13f52fd418dd7
+    tag: 1.13.3.4273@sha256:88ef77db4d65cdb5a3c623fe4740cf8fb59cf54fcf9cd06dd06d12490ed9206b
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -9609,7 +9609,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:815b6ce41747d727045c3aa63780708de9a60493ad3ef6a36dc800936ecbc438
+    tag: rolling@sha256:367d56ea92757caff2f4bdef40080ca5393601ce48d4f7ca83107dfaee2e773e
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
