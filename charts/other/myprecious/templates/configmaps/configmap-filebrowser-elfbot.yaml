@@ -19,7 +19,7 @@ data:
         echo "elfbot backup <app>               : creates a dated backup folder in under /config/<app>"
         echo "elfbot claim plex <token>         : claims a plex server"
         echo "elfbot env <app> <key>=<value>    : set an env var inside an app (advanced beta feature)"
-        echo "elfbot symlinkify                 : do an immediate run of the symlinkify script
+        echo "elfbot symlinkify                 : import remotely-mounted, read-only media as symlinks"
         
     fi
 
