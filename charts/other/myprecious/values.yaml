@@ -2501,7 +2501,7 @@ filebrowser:
       volumeSpec:
         configMap:
           name: filebrowser-elfbot-script
-          defaultMode: 0755
+          defaultMode: 0755    
     elfbot-script-ucfirst:
       enabled: "true"
       mountPath: "/usr/local/bin/Elfbot" # make it easier for mobile users

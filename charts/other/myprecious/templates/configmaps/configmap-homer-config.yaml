@@ -577,8 +577,8 @@ data:
             # Alternatively a fa icon can be provided:
             # icon: "fab fa-photo-video"
             subtitle: "Plex Statistics"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-tautulli.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}

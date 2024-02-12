@@ -19,6 +19,8 @@ data:
         echo "elfbot backup <app>               : creates a dated backup folder in under /config/<app>"
         echo "elfbot claim plex <token>         : claims a plex server"
         echo "elfbot env <app> <key>=<value>    : set an env var inside an app (advanced beta feature)"
+        echo "elfbot symlinkify                 : do an immediate run of the symlinkify script
+        
     fi
 
     if [[ ! -d "/storage/config/$2" && $2 -ne "all" ]]; then
@@ -105,8 +107,46 @@ data:
             else
                 echo "this command is only for claiming plex"
             fi
-            ;;         
+            ;;      
+
+        "symlinkify")
+
+            # Get ready to create symlinks
+            mkdir -p /storage/elfstorage/downloads/symlinked
+            mkdir -p /storage/elfstorage/downloads/.symlinked_cache
+
+            TARGET=/storage/elfstorage/downloads/symlinked
+            CACHE=/storage/elfstorage/downloads/.symlinked_cache
+
+            DEBRID_PATHS=(
+                /storage/realdebrid-zurg/movies/
+                /storage/realdebrid-zurg/series/
+                /storage/realdebrid-zurg/shows/
+                /storage/realdebrid-zurg/torrents/
+                /storage/alldebrid/magnets/
+            )
+
+            # Handle zurg
+            for ITEMPATH in $DEBRID_PATHS
+            do
+
+                # Get the last bit of the source path
+                DIR=$(awk -F'/' '{ a = length($NF) ? $NF : $(NF-1); print a }' <<< $ITEMPATH)
+                echo "Setting target path to $TARGET/$DIR"
+                mkdir -p $TARGET/$DIR
+                mkdir -p $CACHE/$DIR
+
+                for ITEM in $ITEMPATH/*
+                do
+                    # symlink to target only if cache doesn't already exist
+                    # so that if a user moves a file out of the TARGET folder while importing, we don't recreate it
+                    ln -s "$ITEM" "$CACHE/$DIR/" 2> /dev/null
+                    if [[ $? -eq 0 ]]; then
+                        cp -rs "$ITEM" "$TARGET/$DIR/"
+                    fi
+                done
+            done
+
+            ;;                   
 
     esac
-
-
