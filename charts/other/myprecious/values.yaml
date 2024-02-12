@@ -9355,7 +9355,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:1838c2b66bbf2be78536e588c49a328d05878011b9463a55861f993c86cf3a35
+    tag: rolling@sha256:a5f9514c4353fcf4b1a845e5dedb901435e37b653e071b158254b0baa2b131c3
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9416,7 +9416,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:1838c2b66bbf2be78536e588c49a328d05878011b9463a55861f993c86cf3a35
+      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:a5f9514c4353fcf4b1a845e5dedb901435e37b653e071b158254b0baa2b131c3
       command:
       - node 
       - /iceberg/frontend/build               
