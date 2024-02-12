@@ -20,7 +20,7 @@ data:
         echo "elfbot claim plex <token>         : claims a plex server"
         echo "elfbot env <app> <key>=<value>    : set an env var inside an app (advanced beta feature)"
         echo "elfbot symlinkify                 : import remotely-mounted, read-only media as symlinks"
-        
+        echo
     fi
 
     if [[ ! -d "/storage/config/$2" && $2 -ne "all" ]]; then
@@ -111,6 +111,13 @@ data:
 
         "symlinkify")
 
+            if [[ "$#" -lt 2 ]]; then  
+                echo path missing - specify one like "/storage/realdebrid-zurg/movies"
+                exit 1
+            else
+                ITEMPATH=$2
+            fi            
+
             # Get ready to create symlinks
             mkdir -p /storage/elfstorage/downloads/symlinked
             mkdir -p /storage/elfstorage/downloads/.symlinked_cache
@@ -118,34 +125,23 @@ data:
             TARGET=/storage/elfstorage/downloads/symlinked
             CACHE=/storage/elfstorage/downloads/.symlinked_cache
 
-            DEBRID_PATHS=(
-                /storage/realdebrid-zurg/movies/
-                /storage/realdebrid-zurg/series/
-                /storage/realdebrid-zurg/shows/
-                /storage/realdebrid-zurg/torrents/
-                /storage/alldebrid/magnets/
-            )
+            # Get the last bit of the source path
+            DIR=$(awk -F'/' '{ a = length($NF) ? $NF : $(NF-1); print a }' <<< $ITEMPATH)
+            echo "Symlinking new items in $ITEMPATH to $TARGET/$DIR... "
+            mkdir -p $TARGET/$DIR
+            mkdir -p $CACHE/$DIR
 
-            # Handle zurg
-            for ITEMPATH in $DEBRID_PATHS
+            for ITEM in $ITEMPATH/*
             do
-
-                # Get the last bit of the source path
-                DIR=$(awk -F'/' '{ a = length($NF) ? $NF : $(NF-1); print a }' <<< $ITEMPATH)
-                echo "Setting target path to $TARGET/$DIR"
-                mkdir -p $TARGET/$DIR
-                mkdir -p $CACHE/$DIR
-
-                for ITEM in $ITEMPATH/*
-                do
-                    # symlink to target only if cache doesn't already exist
-                    # so that if a user moves a file out of the TARGET folder while importing, we don't recreate it
-                    ln -s "$ITEM" "$CACHE/$DIR/" 2> /dev/null
-                    if [[ $? -eq 0 ]]; then
-                        cp -rs "$ITEM" "$TARGET/$DIR/"
-                    fi
-                done
+                # symlink to target only if cache doesn't already exist
+                # so that if a user moves a file out of the TARGET folder while importing, we don't recreate it
+                ln -s "$ITEM" "$CACHE/$DIR/" 2> /dev/null
+                if [[ $? -eq 0 ]]; then
+                    cp -rs "$ITEM" "$TARGET/$DIR/"
+                fi
             done
+
+            echo "Done! 🎉"
 
             ;;                   
 
