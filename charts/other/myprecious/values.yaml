@@ -1643,7 +1643,7 @@ nzbget:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/nzbget
-    tag: 22.0@sha256:96afa2f82e9847392e3f155e822385c4ac4ecf361fb12c56d3a217900299f020
+    tag: 23.0@sha256:863f49bfc6e1b61aff82375e22ab4f196b280faaffd8a69813e0b063376e0ed1
   priorityClassName: tenant-bulk
   podLabels:
     app.elfhosted.com/class: nzb
@@ -2409,7 +2409,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.36.0@sha256:5fd226843e94f99894498d623f23cf9e656de62a1b85b2809be73871d4dde761
+    tag: 1.37.0@sha256:24fdfa864eadd58695e0ee870e2d38963de80adc13cb713ab3d0068b08d77373
   priorityClassName: tenant-normal
   controller:
     annotations:
