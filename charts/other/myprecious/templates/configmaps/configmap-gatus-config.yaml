@@ -178,6 +178,28 @@ data:
           - type: email             
       {{ end }}          
 
+      {{ if .Values.scannarr.enabled }}
+      - name: scannarr
+        group: download-media
+        url: "http://scannarr:9898"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}    
+
+      {{ if .Values.scannarr4k.enabled }}
+      - name: scannarr
+        group: download-media
+        url: "http://scannarr4k:9898"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}          
+
       {{ if .Values.lidarr.enabled }}
       - name: lidarr
         group: manage-media

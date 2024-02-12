@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.2984-pre-03
+version: 1.0.2984-pre-04
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -414,7 +414,17 @@ dependencies:
     condition: webdav.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: webdav                                    
+    alias: webdav    
+  - name: app-template
+    condition: scannarr.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: scannarr     
+  - name: app-template
+    condition: scannarr4k.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: scannarr4k                                           
   - name: kubernetes-dashboard
     repository: http://chartmuseum.chartmuseum:8080
     alias: kubernetesdashboard

@@ -1,0 +1,40 @@
+{{ if .Values.scannarr.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scannarr-config
+data:
+  # Overwrite API key with default
+  {{ if .Values.radarr.enabled }}  
+  RADARR__API_KEY: "{{ .Values.radarrexposed.apikey }}"
+  scannarr-settings_radarr.json: |
+    {
+      "URL": "http://radarr:7878",
+      "Interval": 120,
+      "ScanOnWake": true,
+      "ScanOnInterval": true,
+      "ScanOnStart": true,  
+      "ForceImport": false,
+      "ForceImportInterval": 1,
+      "ForceImportMode": "Copy",
+      "APIKey": "{{ .Values.radarrexposed.apikey }}"
+    }
+  {{ end }}
+  {{ if .Values.sonarr.enabled }} 
+  SONARR__API_KEY: "{{ .Values.sonarrexposed.apikey }}"
+  scannarr-settings_sonarr.json: |
+    {
+      "URL": "http://sonarr:8989",
+      "Interval": 120,
+      "ScanOnWake": true,
+      "ScanOnInterval": false,
+      "ScanOnStart": true,  
+      "ForceImport": false,
+      "ForceImportInterval": 1,
+      "ForceImportMode": "Copy",
+      "APIKey": "{{ .Values.sonarrexposed.apikey }}"
+    }
+  {{ end }}
+{{ end }}
+
+
