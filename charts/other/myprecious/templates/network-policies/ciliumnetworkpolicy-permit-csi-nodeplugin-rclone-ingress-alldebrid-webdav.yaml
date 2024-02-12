@@ -1,0 +1,17 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-csi-nodeplugin-rclone-ingress-alldebrid-webdav"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: alldebrid-webdav
+  ingress:
+  # - fromEndpoints:
+  #   - matchLabels:
+  #       k8s:io.kubernetes.pod.namespace: csi-rclone
+  #       app: csi-nodeplugin-rclone
+  - toPorts:
+      - ports:
+        - port: '9999'
+          protocol: TCP
