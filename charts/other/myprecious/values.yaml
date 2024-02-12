@@ -2203,6 +2203,7 @@ scannarr: &app_scannarr
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-scannarr"
   automountServiceAccountToken: false
   persistence:
+    tmp: *tmp  
     sonarr-settings:
       enabled: "true"
       mountPath: "/scannarr-settings_sonarr.json"
@@ -2240,6 +2241,7 @@ scannarr4k:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-scannarr4k"
   persistence:
+    tmp: *tmp  
     scannarr-config:
       enabled: "true"
       type: "custom"
