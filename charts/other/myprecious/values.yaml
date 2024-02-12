@@ -7870,7 +7870,7 @@ alldebridwebdav:
       type: "custom"
       volumeSpec:
         secret:
-          name: alldebrid-rclone-config
+          secretName: alldebrid-rclone-config
   addons:
     vpn:
       enabled: true # in case we ever need it
