@@ -2186,7 +2186,7 @@ scannarr: &app_scannarr
   image:
     registry: ghcr.io
     repository: geek-cookbook/scannarr
-    tag: :rolling@sha256:47a9d79bcd56806efb0e79aa99f08c848067d1086f44bbdb77908358c30e03db   
+    tag: rolling@sha256:47a9d79bcd56806efb0e79aa99f08c848067d1086f44bbdb77908358c30e03db   
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2232,7 +2232,6 @@ scannarr: &app_scannarr
     podinfo:
       image: stefanprodan/podinfo # used to run probes from gatus
   resources: *default_resources
-  securityContext: *default_securitycontext
   
 scannarr4k: 
   <<: *app_scannarr
