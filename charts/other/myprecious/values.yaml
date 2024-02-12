@@ -8507,7 +8507,27 @@ rdtclient: &app_rdtclient
 rdtclientalldebrid:
   <<: *app_rdtclient
   podLabels:
-    app.elfhosted.com/name: rdtclient-alldebrid   
+    app.elfhosted.com/name: rdtclient-alldebrid  
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - rdtclient-alldebrid
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}
+    podAffinity: {} # we don't care about affinity for IP sharing sake, since we're on a VPN anyway  
   persistence:
     <<: *appmounts
     config:
@@ -8536,7 +8556,7 @@ rdtclientalldebrid:
               storageClassName: "topolvm-provisioner-thin"
               resources:
                 requests:
-                  storage: 1Gi            
+                  storage: 1Gi                              
   addons:
     vpn:
       enabled: true # in case we ever need it
