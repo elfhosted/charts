@@ -6,7 +6,6 @@ metadata:
 data:
   # Overwrite API key with default
   {{ if .Values.radarr4k.enabled }}  
-  RADARR__API_KEY: "{{ .Values.radarr4kexposed.apikey }}"
   scannarr-settings_radarr.json: |
     {
       "URL": "http://radarr4k:7878",
@@ -21,7 +20,6 @@ data:
     }
   {{ end }}
   {{ if .Values.sonarr4k.enabled }} 
-  SONARR__API_KEY: "{{ .Values.sonarr4kexposed.apikey }}"
   scannarr-settings_sonarr.json: |
     {
       "URL": "http://sonarr4k:8989",

@@ -2202,24 +2202,11 @@ scannarr: &app_scannarr
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-scannarr"
   automountServiceAccountToken: false
-  extraEnvVars:
-  - name: RADARR__API_KEY
-    valueFrom:
-      configMapKeyRef:
-        name: scannarr-config
-        key: RADARR__API_KEY  
-        optional: true
-  - name: SONARR__API_KEY
-    valueFrom:
-      configMapKeyRef:
-        name: scannarr-config
-        key: SONARR__API_KEY  
-        optional: true        
   persistence:
     tmp: *tmp  
     sonarr-settings:
       enabled: "true"
-      mountPath: "/scannarr-settings_sonarr.json"
+      mountPath: "/app/scannarr-settings_sonarr.json"
       subPath: "scannarr-settings_sonarr.json"
       type: "custom"
       volumeSpec:
@@ -2227,7 +2214,7 @@ scannarr: &app_scannarr
           name: scannarr-config   
     radarr-settings:
       enabled: "true"
-      mountPath: "/scannarr-settings_radarr.json"
+      mountPath: "/app/scannarr-settings_radarr.json"
       subPath: "scannarr-settings_radarr.json"
       type: "custom"
       volumeSpec:
@@ -2252,20 +2239,7 @@ scannarr4k:
   enabled: false
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-scannarr4k"
-  extraEnvVars:
-  - name: RADARR__API_KEY
-    valueFrom:
-      configMapKeyRef:
-        name: scannarr4k-config
-        key: RADARR__API_KEY  
-        optional: true
-  - name: SONARR__API_KEY
-    valueFrom:
-      configMapKeyRef:
-        name: scannarr4k-config
-        key: SONARR__API_KEY  
-        optional: true           
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-scannarr4k"     
   persistence:
     tmp: *tmp  
     scannarr-config:
@@ -7875,6 +7849,17 @@ webdavplus:
   envFrom:
   - configMapRef:
       name: webdav-config    
+
+# This is basically a proxy webdav for alldebrid, so that we can use it over a VPN
+alldebridwebdav:
+  <<: *webdav
+  podLabels:
+    app.elfhosted.com/name: webdav-alldebrid
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "150M"
+  envFrom:
+  - configMapRef:
+      name: alldebrid-webdav-config
 
 jfa:
   enabled: false
