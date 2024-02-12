@@ -1,5 +1,5 @@
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: true
+safeToRelease: false
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
@@ -9515,7 +9515,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1730@sha256:226cab99fe9d070745240bad25f6de978189191b1231ac9c172dd8116249796d
+    tag: 0.21.1735@sha256:0f31fe72e52f1a66abac00541fd2acd72d8a7670e5148e970445a911c2759683
   priorityClassName: tenant-normal
   controller:
     annotations:
