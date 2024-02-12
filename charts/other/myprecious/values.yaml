@@ -1,5 +1,5 @@
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: false
+safeToRelease: true
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
@@ -2202,6 +2202,19 @@ scannarr: &app_scannarr
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-scannarr"
   automountServiceAccountToken: false
+  extraEnvVars:
+  - name: RADARR__API_KEY
+    valueFrom:
+      configMapKeyRef:
+        name: scannarr-config
+        key: RADARR__API_KEY  
+        optional: true
+  - name: SONARR__API_KEY
+    valueFrom:
+      configMapKeyRef:
+        name: scannarr-config
+        key: SONARR__API_KEY  
+        optional: true        
   persistence:
     tmp: *tmp  
     sonarr-settings:
@@ -2240,6 +2253,19 @@ scannarr4k:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-scannarr4k"
+  extraEnvVars:
+  - name: RADARR__API_KEY
+    valueFrom:
+      configMapKeyRef:
+        name: scannarr4k-config
+        key: RADARR__API_KEY  
+        optional: true
+  - name: SONARR__API_KEY
+    valueFrom:
+      configMapKeyRef:
+        name: scannarr4k-config
+        key: SONARR__API_KEY  
+        optional: true           
   persistence:
     tmp: *tmp  
     scannarr-config:
