@@ -7851,15 +7851,15 @@ webdavplus:
       name: webdav-config    
 
 # This is basically a proxy webdav for alldebrid, so that we can use it over a VPN
-alldebridwebdav:
-  <<: *webdav
-  podLabels:
-    app.elfhosted.com/name: webdav-alldebrid
-  podAnnotations:
-    kubernetes.io/egress-bandwidth: "150M"
-  envFrom:
-  - configMapRef:
-      name: alldebrid-webdav-config
+# alldebridwebdav:
+#   <<: *webdav
+#   podLabels:
+#     app.elfhosted.com/name: webdav-alldebrid
+#   podAnnotations:
+#     kubernetes.io/egress-bandwidth: "150M"
+#   envFrom:
+#   - configMapRef:
+#       name: alldebrid-webdav-config
 
 jfa:
   enabled: false
