@@ -7858,7 +7858,19 @@ alldebridwebdav:
   podAnnotations:
     kubernetes.io/egress-bandwidth: "150M"
   command:
-  - /alldebrid.sh
+  - /usr/bin/dumb-init
+  - /bin/bash
+  - -c
+  - |    
+    /usr/bin/rclone serve webdav \
+    --config/config/rclone.conf \
+    --addr :9999 \
+    --max-header-bytes=8192 \
+    --no-modtime \
+    --vfs-read-chunk-size=10M \
+    --vfs-read-chunk-size-limit=10M \
+    -v \
+    alldebrid:
   persistence:
     rclone-conf:
       enabled: "true"
@@ -9970,6 +9982,13 @@ zurg: &zurg
 
         # Enabling repair seems to be safe again
         sed -i  "s/enable_repair: false/enable_repair: true/" /config/config.yml
+
+        # Set to 32 workers
+        sed -i  "s/concurrent_workers:.*/concurrent_workers: 32/" /config/config.yml
+
+        # Check for changes every 10 sec
+        sed -i  "s/check_for_changes_every_secs:.*/check_for_changes_every_secs: 10/" /config/config.yml
+
 
 
       volumeMounts:

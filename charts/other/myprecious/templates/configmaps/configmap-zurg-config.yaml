@@ -12,8 +12,8 @@ data:
     # basic functionality
     host: "[::]" # do not change this if you are running it inside a docker container
     port: 9999 # do not change this if you are running it inside a docker container
-    concurrent_workers: 200
-    check_for_changes_every_secs: 15
+    concurrent_workers: 32
+    check_for_changes_every_secs: 10
 
     # misc configs
     retain_folder_name_extension: false # if true, zurg won't modify the filenames from real-debrid
@@ -22,7 +22,8 @@ data:
     use_download_cache: false # if true, during zurg initialization, it will fetch all downloads to unrestrict links faster
     enable_repair: true # BEWARE! THERE CAN ONLY BE 1 INSTANCE OF ZURG THAT SHOULD REPAIR YOUR TORRENTS
     on_library_update: sh plex_update.sh "$@"
-        
+    ignore_renames: true
+    
     # advanced alternative for Jellyfin/Emby support
     # on_library_update: |-
     #   # Log the updated directories and send refresh request to autoscan
