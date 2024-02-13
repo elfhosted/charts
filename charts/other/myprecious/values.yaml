@@ -3207,7 +3207,16 @@ uptimekuma:
       type: RuntimeDefault
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
-
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/lightweight
+            operator: Exists    
+  tolerations:
+  - key: node-role.elfhosted.com/lightweight
+    operator: Exists
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
@@ -7863,15 +7872,32 @@ alldebridwebdav:
   - -c
   - |    
     /usr/bin/rclone serve webdav \
-    --config/config/rclone.conf \
+    --config /config/rclone.conf \
     --addr :9999 \
     --max-header-bytes=8192 \
     --no-modtime \
     --vfs-read-chunk-size=10M \
     --vfs-read-chunk-size-limit=10M \
+    --vfs-cache-mode=full \
+    --stats 60s \
+    --cache-dir /tmp \
+    --vfs-cache-max-size 10G \
     -v \
     alldebrid:
   persistence:
+    tmp: # in case users use /tmp
+      enabled: true
+      type: custom
+      mountPath: /tmp
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 10Gi  
     rclone-conf:
       enabled: "true"
       subPath: "rclone.conf"

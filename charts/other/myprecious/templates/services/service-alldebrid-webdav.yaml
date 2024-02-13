@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: alldebrid-webdav
   labels:
-    app.kubernetes.io/name: alldebrid-webdav
+    app.kubernetes.io/name: alldebridwebdav
     app.kubernetes.io/instance: {{ .Release.Name }}
   annotations:
 spec:
@@ -15,6 +15,6 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.kubernetes.io/name: alldebrid-webdav
+    app.kubernetes.io/name: alldebridwebdav 
     app.kubernetes.io/instance: {{ .Release.Name }}
 {{ end }}
