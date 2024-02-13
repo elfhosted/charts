@@ -7,7 +7,7 @@ data:
   # These are used by the PIA image
   IPTABLES_BACKEND: nft
   KILLSWITCH: "true"
-  LOCAL_NETWORK: 10.2.0.0/15,10.43.0.0/16
+  LOCAL_NETWORK: 10.2.0.0/15,10.43.0.0/16,10.0.42.0/24 # 10.0.42.0/24 is the CIDR of the nodes, which is where csi-rclone runs
   LOC: de-frankfurt
   PORT_FORWARDING: "0"
   PORT_PERSIST: "1"

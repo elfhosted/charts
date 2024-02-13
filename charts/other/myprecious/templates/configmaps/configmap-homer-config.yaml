@@ -966,7 +966,7 @@ data:
             subtitle: "Manage AllDebrid via WebDAV"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-alldebrid.elfhosted.com/http/"
+            url: "https://{{ .Release.Name }}-alldebrid.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}                    
 
