@@ -7866,6 +7866,15 @@ alldebridwebdavpia:
     app.elfhosted.com/name: alldebrid-webdav
   podAnnotations:
     kubernetes.io/egress-bandwidth: "150M"
+  tolerations:
+  - key: node-role.elfhosted.com/download-only    
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists  
   command:
   - /usr/bin/dumb-init
   - /bin/bash
