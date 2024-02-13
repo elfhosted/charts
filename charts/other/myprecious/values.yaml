@@ -7868,6 +7868,7 @@ alldebridwebdavpia:
     kubernetes.io/egress-bandwidth: "150M"
   tolerations:
   - key: node-role.elfhosted.com/download-only    
+    operator: Exists     
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
