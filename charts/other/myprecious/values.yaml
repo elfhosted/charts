@@ -7901,7 +7901,7 @@ alldebridwebdav:
     rclone-conf:
       enabled: "true"
       subPath: "rclone.conf"
-      mouthPath: /config/rclone.conf
+      mountPath: /config/rclone.conf
       type: "custom"
       volumeSpec:
         secret:
