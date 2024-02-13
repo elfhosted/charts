@@ -1,0 +1,16 @@
+{{ if .Values.rclonemountalldebrid.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-alldebrid.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-alldebrid.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: alldebrid-webdav
+          kind: Service
+          port: 9999
+      middlewares:  
+        - name: {{ .Release.Name }}-traefik-forward-auth
+{{ end }}

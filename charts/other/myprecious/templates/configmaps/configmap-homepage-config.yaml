@@ -625,7 +625,15 @@ data:
             href: https://{{ .Release.Name }}-zurg.elfhosted.com/http/
             description: Manage real debrid(-like) services
             siteMonitor: http://zurg:9999
-        {{ end }}             
+        {{ end }} 
+
+        {{ if .Values.rclonemountalldebrid.enabled }}
+        - AllDebrid:
+            icon: real-debrid.png
+            href: https://{{ .Release.Name }}-alldebrid.elfhosted.com/
+            description: Manage AllDebrid files
+            siteMonitor: http://alldebrid-webdav:9999
+        {{ end }}                     
 
         {{ if .Values.openbooks.enabled }}
         - OpenBooks:

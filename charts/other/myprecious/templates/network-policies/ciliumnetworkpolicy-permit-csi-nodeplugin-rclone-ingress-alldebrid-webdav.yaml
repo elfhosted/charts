@@ -1,11 +1,11 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "permit-csi-nodeplugin-rclone-ingress-alldebrid-webdav"
+  name: "permit-csi-nodeplugin-rclone-ingress-alldebridwebdav"
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/name: alldebrid-webdav
+      app.kubernetes.io/name: alldebridwebdav
   ingress:
   # - fromEndpoints:
   #   - matchLabels:

@@ -958,7 +958,17 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-zurg.elfhosted.com/http/"
             target: "_blank" # optional html tag target attribute
-          {{ end }}          
+          {{ end }}       
+
+          {{ if .Values.rclonemountalldebrid.enabled }}
+          - name: "Zurg"
+            logo: "assets/png/real-debrid.png"
+            subtitle: "Manage AllDebrid via WebDAV"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-alldebrid.elfhosted.com/http/"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                    
 
           {{ if .Values.openbooks.enabled }}
           - name: "Openbooks"
