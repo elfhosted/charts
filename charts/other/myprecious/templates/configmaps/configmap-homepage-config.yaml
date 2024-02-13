@@ -613,7 +613,7 @@ data:
 
         {{ if .Values.rdtclientalldebrid.enabled }}
         - RDT Client (AllDebrid):
-            icon: rdt-client.png
+            icon: mdi-home-floor-a
             href: https://{{ .Release.Name }}-rdtclient-alldebrid.elfhosted.com
             description: Manage AllDebrid Downloads
             siteMonitor: http://rdtclient-alldebrid:6500

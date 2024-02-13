@@ -961,8 +961,8 @@ data:
           {{ end }}       
 
           {{ if .Values.rclonemountalldebrid.enabled }}
-          - name: "Zurg"
-            logo: "assets/png/real-debrid.png"
+          - name: "AllDebrid"
+            icon: "fas fa-audio-description"
             subtitle: "Manage AllDebrid via WebDAV"
             tag: "protected"
             tagstyle: "is-success"
