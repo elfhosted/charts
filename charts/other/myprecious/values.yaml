@@ -7884,6 +7884,7 @@ alldebridwebdavpia:
     --vfs-cache-max-size 10G \
     -v \
     alldebrid:
+  envFrom: [] # nullify the inherited values    
   persistence:
     tmp: # in case users use /tmp
       enabled: true
