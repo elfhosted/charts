@@ -8582,6 +8582,7 @@ rdtclient: &app_rdtclient
 
 # Add a VPN option for rdtclient
 rdtclientvpnpia:
+  enabled: false
   <<: *app_rdtclient
   podLabels:
     app.elfhosted.com/name: rdtclient-alldebrid  
