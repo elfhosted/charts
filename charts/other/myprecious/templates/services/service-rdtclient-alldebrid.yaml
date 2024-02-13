@@ -1,10 +1,10 @@
-{{ if .Values.rdtclientalldebrid.enabled }}
+{{ if .Values.rdtclientvpnpia.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
   name: rdtclient-alldebrid
   labels:
-    app.kubernetes.io/name: rdtclientalldebrid
+    app.kubernetes.io/name: rdtclientvpnpia
     app.kubernetes.io/instance: {{ .Release.Name }}
   annotations:
 spec:
@@ -15,6 +15,6 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.kubernetes.io/name: rdtclientalldebrid
+    app.kubernetes.io/name: rdtclientvpnpia
     app.kubernetes.io/instance: {{ .Release.Name }}
 {{ end }}

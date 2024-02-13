@@ -18,7 +18,7 @@ data:
     rclonemountputio: {{ tpl (toYaml .Values.rclonemountputio) . | sha256sum }}
     rclonemountpikpak: {{ tpl (toYaml .Values.rclonemountpikpak) . | sha256sum }}
     rclonemountdebridlink: {{ tpl (toYaml .Values.rclonemountdebridlink) . | sha256sum }}
-    rclonemountalldebrid: {{ tpl (toYaml .Values.rclonemountalldebrid) . | sha256sum }}
+    rclonemountalldebridpia: {{ tpl (toYaml .Values.rclonemountalldebridpia) . | sha256sum }}
     rclonemountrealdebridzurg: {{ tpl (toYaml .Values.rclonemountrealdebridzurg) . | sha256sum }}
     rclonemountssha: {{ tpl (toYaml .Values.rclonemountssha) . | sha256sum }}
     rclonemountwebdava: {{ tpl (toYaml .Values.rclonemountwebdava) . | sha256sum }}

@@ -640,7 +640,7 @@ data:
           - type: email           
       {{ end }}    
 
-      {{ if .Values.rdtclientalldebrid.enabled }}
+      {{ if .Values.rdtclientvpnpia.enabled }}
       - name: rdtclient-alldebrid
         group: download-media
         url: "http://rdtclient-alldebrid:6500"
@@ -662,7 +662,7 @@ data:
           - type: email           
       {{ end }}  
 
-      {{ if .Values.rclonemountalldebrid.enabled }}
+      {{ if .Values.rclonemountalldebridpia.enabled }}
       - name: alldebrid
         group: download-media
         url: "http://alldebrid-webdav:9999"

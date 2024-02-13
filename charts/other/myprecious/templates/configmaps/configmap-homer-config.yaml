@@ -940,7 +940,7 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
-          {{ if .Values.rdtclientalldebrid.enabled }}
+          {{ if .Values.rdtclientvpnpia.enabled }}
           - name: "RDT Client (AllDebrid)"
             logo: "assets/png/real-debrid.png"
             subtitle: "Download from AllDebrid"
@@ -960,7 +960,7 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}       
 
-          {{ if .Values.rclonemountalldebrid.enabled }}
+          {{ if .Values.rclonemountalldebridpia.enabled }}
           - name: "AllDebrid"
             icon: "fas fa-audio-description"
             subtitle: "Manage AllDebrid via WebDAV"

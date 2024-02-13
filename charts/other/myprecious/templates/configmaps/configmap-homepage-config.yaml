@@ -611,7 +611,7 @@ data:
             siteMonitor: http://rdtclient:6500
         {{ end }}   
 
-        {{ if .Values.rdtclientalldebrid.enabled }}
+        {{ if .Values.rdtclientvpnpia.enabled }}
         - RDT Client (AllDebrid):
             icon: mdi-home-floor-a
             href: https://{{ .Release.Name }}-rdtclient-alldebrid.elfhosted.com
@@ -627,7 +627,7 @@ data:
             siteMonitor: http://zurg:9999
         {{ end }} 
 
-        {{ if .Values.rclonemountalldebrid.enabled }}
+        {{ if .Values.rclonemountalldebridpia.enabled }}
         - AllDebrid:
             icon: real-debrid.png
             href: https://{{ .Release.Name }}-alldebrid.elfhosted.com/

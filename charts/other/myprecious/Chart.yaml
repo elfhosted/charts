@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.2989-pre-16
+version: 1.0.2989-pre-17
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -332,15 +332,15 @@ dependencies:
   #   repository: http://chartmuseum.chartmuseum:8080        
   #   alias: tdarr    
   - name: rdtclient
-    condition: rdtclientalldebrid.enabled
+    condition: rdtclientvpnpia.enabled
     version: ~0.0.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: rdtclientalldebrid
+    alias: rdtclientvpnpia
   - name: app-template
-    condition: rclonemountalldebrid.enabled
+    condition: rclonemountalldebridpia.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: alldebridwebdav
+    alias: alldebridwebdavpia
   - name: app-template
     condition: homepage.enabled
     version: ~0.2.1

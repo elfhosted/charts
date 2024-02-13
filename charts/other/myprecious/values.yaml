@@ -103,7 +103,7 @@ rclonemountrealdebridzurg: &rclonemountrealdebridzurg
     persistentVolumeClaim:
       claimName: realdebrid-zurg
   mountPath: /storage/realdebrid-zurg
-rclonemountalldebrid: &rclonemountalldebrid
+rclonemountalldebridpia: &rclonemountalldebridpia
   enabled: false
   type: custom
   volumeSpec:
@@ -296,7 +296,7 @@ appmounts: &appmounts
   onedrivea: *onedrivea
   rclonemountwebdava: *rclonemountwebdava
   rclonemountrealdebridzurg: *rclonemountrealdebridzurg
-  rclonemountalldebrid: *rclonemountalldebrid
+  rclonemountalldebridpia: *rclonemountalldebridpia
   rclonemountputio: *rclonemountputio
   rclonemountpikpak: *rclonemountpikpak
   rclonemountssha: *rclonemountssha
@@ -3061,7 +3061,7 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rdtclient-ssd
-    rdtclientalldebrid:
+    rdtclientvpnpia:
       enabled: false
       type: custom
       mountPath: /storage/config/rdtclient-alldebrid/
@@ -5573,7 +5573,7 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rdtclient-ssd
-    rdtclientalldebrid:
+    rdtclientvpnpia:
       enabled: false
       type: custom
       mountPath: /config/rdtclient-alldebrid/
@@ -7738,7 +7738,7 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-rdtclient-ssd
-    rdtclientalldebrid:
+    rdtclientvpnpia:
       enabled: false
       type: custom
       mountPath: /storage/config/rdtclient-alldebrid/
@@ -7860,7 +7860,7 @@ webdavplus:
       name: webdav-config    
 
 # This is basically a proxy webdav for alldebrid, so that we can use it over a VPN
-alldebridwebdav:
+alldebridwebdavpia:
   <<: *webdav
   podLabels:
     app.elfhosted.com/name: alldebrid-webdav
@@ -7914,10 +7914,8 @@ alldebridwebdav:
           repository: thrnz/docker-wireguard-pia
           tag: latest
       envFrom:
-      - configMapRef:
-          name: alldebrid-webdav-pia-config
       - secretRef:
-          name: alldebrid-webdav-vpn
+          name: alldebrid-webdav-pia-config
       securityContext:
         runAsUser: 0
         capabilities:
@@ -8583,7 +8581,7 @@ rdtclient: &app_rdtclient
     bootstrap: *bootstrap
 
 # Add a VPN option for rdtclient
-rdtclientalldebrid:
+rdtclientvpnpia:
   <<: *app_rdtclient
   podLabels:
     app.elfhosted.com/name: rdtclient-alldebrid  
@@ -8644,10 +8642,8 @@ rdtclientalldebrid:
           repository: thrnz/docker-wireguard-pia
           tag: latest
       envFrom:
-      - configMapRef:
-          name: rdtclient-pia-config #yes, it's a WIP
       - secretRef:
-          name: rdtclient-vpn
+          name: rdtclient-pia-config
       securityContext:
         runAsUser: 0
         capabilities:
