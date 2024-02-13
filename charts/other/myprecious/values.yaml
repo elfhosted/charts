@@ -7858,10 +7858,7 @@ alldebridwebdav:
   podAnnotations:
     kubernetes.io/egress-bandwidth: "150M"
   command:
-  - /alldebrid.sh    
-  envFrom:
-  - configMapRef:
-      name: alldebrid-webdav-config
+  - /alldebrid.sh
   persistence:
     rclone-conf:
       enabled: "true"
@@ -7870,7 +7867,7 @@ alldebridwebdav:
       type: "custom"
       volumeSpec:
         secret:
-          secretName: alldebrid-rclone-config
+          secretName: alldebrid-webdav-rclone-config
   addons:
     vpn:
       enabled: true # in case we ever need it
