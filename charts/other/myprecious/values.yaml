@@ -733,28 +733,6 @@ rutorrentgluetun: &rutorrent
   - configMapRef:
       name: elfbot-rutorrent
       optional: true 
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download
-            operator: Exists  
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 100  
-        podAffinityTerm:    
-          labelSelector:
-            matchExpressions:
-            - key: app.elfhosted.com/name
-              operator: In
-              values:
-              - rutorrent
-          topologyKey: "kubernetes.io/hostname"
-          namespaceSelector: {}            
-  tolerations:
-  - key: node-role.elfhosted.com/download
-    operator: Exists
 
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
@@ -1028,28 +1006,6 @@ delugegluetun: &deluge
     repository: ghcr.io/geek-cookbook/deluge
     tag: 2.1.1@sha256:448324e342c47020e4e9fbc236282ceb80ebebd7934a486a6f1e487a7e4034bf
   priorityClassName: tenant-bulk
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download
-            operator: Exists  
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 100  
-        podAffinityTerm:    
-          labelSelector:
-            matchExpressions:
-            - key: app.elfhosted.com/name
-              operator: In
-              values:
-              - deluge
-          topologyKey: "kubernetes.io/hostname"
-          namespaceSelector: {}            
-  tolerations:
-  - key: node-role.elfhosted.com/download
-    operator: Exists
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -1348,28 +1304,6 @@ qbittorrentgluetun: &qbittorrent
     repository: geek-cookbook/qbittorrent
     tag: 4.6.3@sha256:b474ed66256fafd5451315d6a87b682cb97108a4827821290810fa3612ee5ac1
   priorityClassName: tenant-bulk
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download
-            operator: Exists  
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 100  
-        podAffinityTerm:    
-          labelSelector:
-            matchExpressions:
-            - key: app.elfhosted.com/name
-              operator: In
-              values:
-              - qbittorrent
-          topologyKey: "kubernetes.io/hostname"
-          namespaceSelector: {}            
-  tolerations:
-  - key: node-role.elfhosted.com/download
-    operator: Exists
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -2242,12 +2176,22 @@ scannarr4k:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-scannarr4k"     
   persistence:
     tmp: *tmp  
-    scannarr-config:
+    sonarr-settings:
       enabled: "true"
+      mountPath: "/app/settings_sonarr.json"
+      subPath: "settings_sonarr.json"
       type: "custom"
       volumeSpec:
         configMap:
-          name: scannarr4k-config
+          name: scannarr4k-config   
+    radarr-settings:
+      enabled: "true"
+      mountPath: "/app/settings_radarr.json"
+      subPath: "settings_radarr.json"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: scannarr4k-config    
 
 bazarr:
   enabled: false
@@ -3486,17 +3430,6 @@ pyload:
       type: RuntimeDefault
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download
-            operator: Exists
-  tolerations:
-  - key: node-role.elfhosted.com/download
-    operator: Exists
-
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
@@ -4048,16 +3981,6 @@ resiliosync:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-resiliosync"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download
-            operator: Exists
-  tolerations:
-  - key: node-role.elfhosted.com/download
-    operator: Exists      
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5866,15 +5789,18 @@ flaresolverr:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-flaresolverr"
   affinity:
     podAffinity: 
-      # require to be located with jackett
-      requiredDuringSchedulingIgnoredDuringExecution: 
-        - labelSelector:
+      # prefer to be located with jackett
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
             matchExpressions:
             - key: app.kubernetes.io/name
               operator: In
               values:
               - jackett
-          topologyKey: "kubernetes.io/hostname"  
+              - prowlarr
+          topologyKey: "kubernetes.io/hostname"
   persistence:
     elfbot:
       enabled: "true"
@@ -8389,16 +8315,6 @@ syncthing:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-syncthing"
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download
-            operator: Exists
-  tolerations:
-  - key: node-role.elfhosted.com/download
-    operator: Exists      
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -8758,16 +8674,6 @@ jdownloader:
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download
-            operator: Exists
-  tolerations:
-  - key: node-role.elfhosted.com/download
-    operator: Exists    
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
