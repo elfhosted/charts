@@ -798,7 +798,7 @@ data:
 
           {{ if .Values.annatar.enabled }}
           - name: "Annatar"
-            logo: "assets/png/jackett.png"
+            logo: "assets/png/annatar.png"
             subtitle: "Access Jackett via Stremio"
             tag: "protected"
             tagstyle: "is-success"

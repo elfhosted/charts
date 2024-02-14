@@ -5521,7 +5521,7 @@ homer:
   - /usr/local/bin/disk_usage.sh
   additionalContainers:
     ui:
-      image: ghcr.io/geek-cookbook/homer:23.10.1@sha256:0c2ffd190acc5570ef6347e4a920cd7b834e8618813f313d90bdaeddb2cec37f
+      image: ghcr.io/geek-cookbook/homer:23.10.1@sha256:9412fa6a3b3cac24814a74e213b9abba0923afdc4c7aa90e711cb2b7308a40a2
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /www/assets/config.yml
@@ -9621,8 +9621,8 @@ stremiojackett:
 annatar:
   enabled: false
   image:
-      repository: ghcr.io/geek-cookbook/annatar
-      tag: rolling@sha256:bba2ce676ae5e2697257e6d466ad52e442412e1a914b24204c42e080572053e8
+    repository: ghcr.io/geek-cookbook/annatar
+    tag: rolling@sha256:bba2ce676ae5e2697257e6d466ad52e442412e1a914b24204c42e080572053e8
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9657,10 +9657,10 @@ annatar:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 8000 
-    envFrom:
-    - configMapRef:
-        name: annatar-env 
+          port: 8000
+  envFrom:
+  - configMapRef:
+      name: annatar-env 
 
 knightcrawler: &app_knightcrawler
   enabled: false
