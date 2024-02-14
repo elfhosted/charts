@@ -1,0 +1,17 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-annatar-egress-annatar-redis"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: annatar
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: annatar
+        app.kubernetes.io: redis
+    toPorts:
+      - ports:
+        - port: '6379'
+          protocol: TCP
