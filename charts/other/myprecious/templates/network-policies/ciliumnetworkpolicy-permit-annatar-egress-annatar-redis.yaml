@@ -10,7 +10,7 @@ spec:
   - toEndpoints:
     - matchLabels:
         k8s:io.kubernetes.pod.namespace: annatar
-        app.kubernetes.io: redis
+        app.kubernetes.io/name: redis
     toPorts:
       - ports:
         - port: '6379'
