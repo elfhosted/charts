@@ -9618,7 +9618,7 @@ stremiojackett:
           name: elfbot-stremio-jackett
           optional: true
 
-annator:
+annatar:
   enabled: false
   image:
       repository: ghcr.io/geek-cookbook/annatar
