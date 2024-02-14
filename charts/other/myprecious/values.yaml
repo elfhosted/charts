@@ -4553,7 +4553,7 @@ plex: &plex
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
-    tag: 1.32.8.7639-fb6452ebf@sha256:51d5467d8260446dbcc855cf8a1888c5d99dc5a71da4e1f445f23a49b5351e8d
+    tag: rolling@sha256:51d5467d8260446dbcc855cf8a1888c5d99dc5a71da4e1f445f23a49b5351e8d
   persistence:
     <<: *appmounts
     config:
