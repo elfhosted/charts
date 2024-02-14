@@ -2206,16 +2206,16 @@ scannarr: &app_scannarr
     tmp: *tmp  
     sonarr-settings:
       enabled: "true"
-      mountPath: "/app/scannarr-settings_sonarr.json"
-      subPath: "scannarr-settings_sonarr.json"
+      mountPath: "/app/settings_sonarr.json"
+      subPath: "settings_sonarr.json"
       type: "custom"
       volumeSpec:
         configMap:
           name: scannarr-config   
     radarr-settings:
       enabled: "true"
-      mountPath: "/app/scannarr-settings_radarr.json"
-      subPath: "scannarr-settings_radarr.json"
+      mountPath: "/app/settings_radarr.json"
+      subPath: "settings_radarr.json"
       type: "custom"
       volumeSpec:
         configMap:
