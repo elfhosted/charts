@@ -1,0 +1,18 @@
+{{ if .Values.annatar.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: annatar-env
+data:
+  ENV: "prod"
+  WORKERS: "8"
+  LOG_LEVEL: info
+  LISTEN_PORT: "8000"
+  LISTEN_HOST: "0.0.0.0"
+  REDIS_URL: "redis-master.annatar" # don't change this, it's the shared cache
+  JACKETT_TIMEOUT: "5"
+  JACKETT_MAX_RESULTS: "10" 
+  JACKETT_URL: http://jackett:9117
+  JACKETT_API_KEY: changeme
+  JACKETT_INDEXERS: eztv,kickasstorrents-ws,thepiratebay,therarbg,torrentgalaxy,yts
+{{ end }}

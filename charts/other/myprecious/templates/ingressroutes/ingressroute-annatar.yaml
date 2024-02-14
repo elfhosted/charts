@@ -1,0 +1,27 @@
+{{ if .Values.annatar.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-annatar.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-annatar.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: annatar
+          kind: Service
+          port: 8000
+      middlewares:
+        - name: error-pages
+          namespace: traefik
+    - match: Host(`{{ .Release.Name }}-annatar.elfhosted.com`) && PathPrefix(`/configure/`)
+      kind: Rule
+      services:
+        - name: annatar
+          kind: Service
+          port: 8000
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}

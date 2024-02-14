@@ -496,6 +496,14 @@ data:
             siteMonitor: http://stremio-jackett:3000
         {{ end }}   
 
+        {{ if .Values.annatar.enabled }}
+        - Annatar:
+            icon: jackett.png
+            href: https://{{ .Release.Name }}-annatar.elfhosted.com
+            description: Use Jackett in Stremio
+            siteMonitor: http://annatar:8000
+        {{ end }}           
+
         {{ if .Values.torrentio.enabled }}
         - Torrentio:
             icon: mdi-water

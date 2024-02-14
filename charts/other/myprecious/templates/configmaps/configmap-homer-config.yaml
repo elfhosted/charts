@@ -796,6 +796,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }} 
 
+          {{ if .Values.annatar.enabled }}
+          - name: "Annatar"
+            logo: "assets/png/jackett.png"
+            subtitle: "Access Jackett via Stremio"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-annatar.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}           
+
           {{ if .Values.torrentio.enabled }}
           - name: "Torrentio"
             icon: "fas fa-tint"
