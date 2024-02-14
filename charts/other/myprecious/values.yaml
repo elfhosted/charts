@@ -9620,47 +9620,51 @@ stremiojackett:
 
 annatar:
   enabled: false
-  # image:
-  #   repository: ghcr.io/geek-cookbook/annatar
-  #   tag: rolling@sha256:b87a1dda99726f2a3ab6112705ac5102addd1b382dd19d63dec2fb1e71e6af90
-  # priorityClassName: tenant-normal
-  # controller:
-  #   annotations:
-  #     configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-annatar"
-  #   strategy:
-  #   rollingUpdate:
-  #     unavailable: 1      
-  # securityContext:
-  #   seccompProfile:
-  #     type: RuntimeDefault
-  #   readOnlyRootFilesystem: true
-  # podSecurityContext:
-  #   seccompProfile:
-  #     type: RuntimeDefault
-  #   runAsUser: 568
-  #   runAsGroup: 568
-  #   fsGroup: 568
-  #   fsGroupChangePolicy: "OnRootMismatch"
-  # automountServiceAccountToken: false
-  # resources:
-  #   requests:
-  #     cpu: 10m
-  #     memory: 128Mi
-  #   limits:
-  #     cpu: 1
-  #     memory: 256Mi
-  # ingress:
-  #   main:
-  #     enabled: false
-  # service:
-  #   main:
-  #     enabled: true # necessary for probes
-  #     ports:
-  #       http:
-  #         port: 8000
-  # envFrom:
-  # - configMapRef:
-  #     name: annatar-env 
+  image:
+    repository: ghcr.io/geek-cookbook/annatar
+    tag: rolling@sha256:b87a1dda99726f2a3ab6112705ac5102addd1b382dd19d63dec2fb1e71e6af90
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-annatar"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 256Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000    
+  envFrom:
+  - configMapRef:
+      name: annatar-env 
+  - configMapRef:      
+      name: elfbot-annatar
+      optional: true 
+
 
 knightcrawler: &app_knightcrawler
   enabled: false

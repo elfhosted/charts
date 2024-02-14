@@ -13,6 +13,4 @@ data:
   JACKETT_TIMEOUT: "5"
   JACKETT_MAX_RESULTS: "10" 
   JACKETT_URL: http://jackett:9117
-  JACKETT_API_KEY: changeme
-  JACKETT_INDEXERS: eztv,kickasstorrents-ws,thepiratebay,therarbg,torrentgalaxy,yts
 {{ end }}
