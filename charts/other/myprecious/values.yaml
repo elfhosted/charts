@@ -2353,7 +2353,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.37.0@sha256:24fdfa864eadd58695e0ee870e2d38963de80adc13cb713ab3d0068b08d77373
+    tag: 1.38.0@sha256:a2d861219ea269446006c79f0d58bdd0fa98ca0c3731b3b665206293c5c947bf
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -7928,7 +7928,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 9.5.0@sha256:e15e4755c1cc444443ce47f05bc9e9c583ed44d9cf5e198a69c03fe224eb0e25
+    tag: 9.5.1@sha256:96b7bb9da5e659a9482825338c720102ea2a45f6bcb43ecf30994ca12b70d036
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
