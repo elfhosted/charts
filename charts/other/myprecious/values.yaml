@@ -3783,7 +3783,7 @@ calibre:
   runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.5.1@sha256:718460fe530c709f773a1b2632e8d688b62d1e746ab4d91ede764529ac42b49a
+    tag: 7.5.1@sha256:96966f0dfdf5cc38ff80b0a145a3d1629f93bf0a52370ed10b0f248a1df7eed7
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -3879,7 +3879,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.1.1114@sha256:67241b222ac736ddb9dd8057bfd9436d0f7901fe21473d0c65f4898bb7668be8
+    tag: 4.0.1.1131@sha256:116fafd9f0b1c6686b647608ee6a0b0dce869feeae14cd76320b1dafbfb62115
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3956,7 +3956,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.1.1114@sha256:67241b222ac736ddb9dd8057bfd9436d0f7901fe21473d0c65f4898bb7668be8
+    tag: 4.0.1.1131@sha256:116fafd9f0b1c6686b647608ee6a0b0dce869feeae14cd76320b1dafbfb62115
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -9601,7 +9601,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1738@sha256:cf7be9ad3f92cd5332729216c0b4a9a2ddf02d1e2797057c43ff95b2689d0898
+    tag: 0.21.1750@sha256:1ef564927c0acb5d1142c5e6d1ab959c4d71dcc1c9e8419e9c6854fefe5c85a0
   priorityClassName: tenant-normal
   controller:
     annotations:
