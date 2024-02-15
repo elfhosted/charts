@@ -6,7 +6,8 @@ metadata:
 data:
   ENV: "prod"
   WORKERS: "8"
-  LOG_LEVEL: info
+  LOG_LEVEL: error
+  DISABLE_OTEL: "true"
   LISTEN_PORT: "8000"
   LISTEN_HOST: "0.0.0.0"
   REDIS_URL: "redis-master.annatar" # don't change this, it's the shared cache
