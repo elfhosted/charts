@@ -1,3 +1,4 @@
+{{ if .Values.notifiarr.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
@@ -6,3 +7,4 @@ spec:
   headers:
     customRequestHeaders:
       X-WebAuth-User: "{{ .Release.Name }}"
+{{ end }}
