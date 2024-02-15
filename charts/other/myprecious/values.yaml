@@ -9642,6 +9642,8 @@ annatar:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
+  persistence:
+    tmp: *tmp
   resources:
     requests:
       cpu: 10m
