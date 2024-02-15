@@ -28,5 +28,5 @@ spec:
         - name: error-pages
           namespace: traefik
         - name: rate-limit-knightcrawler-hosted-static
-          namespaces: traefik
+          namespace: traefik
 {{ end }}
