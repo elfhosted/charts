@@ -12,6 +12,5 @@ spec:
           port: 5572
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
-        - name: {{ .Release.Name }}-add-cors-for-homer
         - name: error-pages
           namespace: traefik        

@@ -11,10 +11,4 @@ spec:
         - name: plex
           kind: Service
           port: 32400        
-      middlewares:
-        - name: {{ .Release.Name }}-add-cors-for-homer
-        {{ if ne "default" .Values.themepark.theme }}
-        - name: theme-park-plex-{{ .Values.themepark.theme }}
-          namespace: theme-park
-        {{ end }}
 {{ end }}

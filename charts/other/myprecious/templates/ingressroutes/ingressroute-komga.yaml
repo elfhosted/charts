@@ -11,6 +11,4 @@ spec:
         - name: komga
           kind: Service
           port: 25600
-      middlewares:
-        - name: {{ .Release.Name }}-add-cors-for-homer  
 {{ end }}

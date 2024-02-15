@@ -12,7 +12,6 @@ spec:
           kind: Service
           port: 5000
       middlewares:
-        - name: {{ .Release.Name }}-add-cors-for-homer  
         - name: error-pages
           namespace: traefik
 {{ end }}

@@ -14,22 +14,12 @@ spec:
       middlewares:
         - name: error-pages
           namespace: traefik
-        {{ if ne "default" .Values.themepark.theme }}
-        - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
-          namespace: theme-park
-        {{ end }}
     - match: Host(`{{ .Values.jellyseerrcustomdomain.cname }}`) && PathPrefix(`/logo_`)
       kind: Rule
       services:
         - name: jellyseerr
           kind: Service
           port: 8080
-      middlewares:
-        - name: {{ .Release.Name }}-add-cors-for-homer
-        {{ if ne "default" .Values.themepark.theme }}
-        - name: theme-park-overseerr-{{ .Values.themepark.theme }}
-          namespace: theme-park
-        {{ end }}        
   tls:
     secretName: cert-{{ .Values.jellyseerrcustomdomain.cname }}
 {{ end }}
