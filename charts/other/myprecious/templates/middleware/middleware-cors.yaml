@@ -1,4 +1,4 @@
-{{ if or .Values.sonarr.enabled .Values.radarr.enabled .Values.qbittorrentpia.enabled .Values.qbittorrentgluetun.enabled .Values.prowlarr.enabled .Values.sonarr4k.enabled .Values.radarr4k.enabled .Values.delugepia.enabled .Values.delugegluetun.enabled }}
+{{ if or .Values.sonarr.enabled .Values.radarr.enabled .Values.qbittorrentpia.enabled .Values.qbittorrentgluetun.enabled .Values.prowlarr.enabled .Values.sonarr4k.enabled .Values.radarr4k.enabled .Values.delugepia.enabled .Values.delugegluetun.enabled  .Values.rutorrentpia.enabled .Values.rutorrentgluetun.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
