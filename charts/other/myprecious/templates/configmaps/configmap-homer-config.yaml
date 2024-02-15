@@ -799,7 +799,7 @@ data:
           {{ if .Values.annatar.enabled }}
           - name: "Annatar"
             logo: "assets/png/annatar.png"
-            subtitle: "Access Jackett via Stremio"
+            subtitle: "Fast Jackett searches via Stremio"
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-annatar.elfhosted.com"
