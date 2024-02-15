@@ -1,10 +1,10 @@
-{{ if .Values.airdcpp.enabled }}
+{{ if .Values.airdcpppia.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
   name: airdcpp
   labels:
-    app.kubernetes.io/name: airdcpp
+    app.kubernetes.io/name: airdcpppia
     app.kubernetes.io/instance: {{ .Release.Name }}
   annotations:
 spec:
@@ -15,6 +15,6 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.kubernetes.io/name: airdcpp
+    app.elfhosted.com/name: airdcpp
     app.kubernetes.io/instance: {{ .Release.Name }}
 {{ end }}

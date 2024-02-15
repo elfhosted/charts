@@ -9435,12 +9435,15 @@ iceberg:
       - configMapRef:
           name: iceberg-config        
       resources: *default_resources
-airdcpp:
+
+airdcpppia:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/airdcpp
     tag: 2.9.0@sha256:1a893547575da0199c9d00e8a66416561e488aa4f6c5a85aa292151634c3f3a2
   priorityClassName: tenant-normal
+  podLabels: 
+    app.elfhosted.com/name: airdcpp    
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-airdcpp"
@@ -9484,6 +9487,12 @@ airdcpp:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-airdcpp-ssd
+    shared:
+      enabled: true
+      mountPath: /shared
+      type: emptyDir
+      volumeSpec:
+        medium: Memory          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -9502,9 +9511,7 @@ airdcpp:
           tag: latest
       envFrom:
       - configMapRef:
-          name: zurg-pia-config #yes, it's a WIP
-      - secretRef:
-          name: zurg-vpn
+          name: airdcpp-pia-config
       securityContext:
         runAsUser: 0
         capabilities:
