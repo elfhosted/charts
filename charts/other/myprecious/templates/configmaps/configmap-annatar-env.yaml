@@ -14,5 +14,4 @@ data:
   JACKETT_TIMEOUT: "5"
   JACKETT_MAX_RESULTS: "10" 
   JACKETT_URL: http://jackett:9117
-  PROMETHEUS_MULTIPROC_DIR: /tmp/elfhostedannatar
 {{ end }}
