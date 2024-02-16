@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.3010
+version: 1.0.3011
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -376,10 +376,10 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080        
     alias: iceberg       
   - name: app-template
-    condition: airdcpp.enabled
+    condition: airdcpppia.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: airdcpp     
+    alias: airdcpppia
   - name: app-template
     condition: jackett.enabled
     version: ~0.2.1
