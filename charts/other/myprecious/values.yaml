@@ -4205,7 +4205,7 @@ navidrome:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/navidrome
-    tag: 0.51.0@sha256:669c02b39662a91456dc3c9bc11a5f5c29847eb1a9d208795c86670ef2e28572
+    tag: 0.51.1@sha256:38f6d1937f973ad5e9f7ff4c138c9f5d8a302b810ece05c1ed58ebbf0ad4c091
   sso:
     enabled: true
   priorityClassName: tenant-streaming
@@ -9524,7 +9524,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1757@sha256:0f70111851dd49af8ba8fdcca17079f897e2f5fd5ce706357cfa6b17f86952f3
+    tag: 0.21.1764@sha256:a2fcb9a7a7fc0baa8b444698c8dbe412d89324b99c485277408d632d0f385073
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9639,7 +9639,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:bab4be74fedec1b61fe792105926fdca7510bfa5a9e0bacaa6f3ebf6c914c6fe
+    tag: rolling@sha256:08ac7d8d2d23d45677746195ee881d06f4152009d3d67b3cc3b7ac67317b6e4b
   priorityClassName: tenant-normal
   controller:
     annotations:
