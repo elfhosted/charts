@@ -3189,10 +3189,10 @@ uptimekuma:
   resources:
     requests:
       cpu: 10m
-      memory: 128Mi
+      memory: 512Mi
     limits:
       cpu: 100m
-      memory: 256Mi
+      memory: 1Gi
 
 privatebin:
   enabled: false
