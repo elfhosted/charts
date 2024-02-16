@@ -1,4 +1,4 @@
-{{ if .Values.airdcpp.enabled }}
+{{ if .Values.airdcpppia.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
