@@ -4205,7 +4205,7 @@ navidrome:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/navidrome
-    tag: 0.51.0@sha256:669c02b39662a91456dc3c9bc11a5f5c29847eb1a9d208795c86670ef2e28572
+    tag: 0.51.1@sha256:38f6d1937f973ad5e9f7ff4c138c9f5d8a302b810ece05c1ed58ebbf0ad4c091
   sso:
     enabled: true
   priorityClassName: tenant-streaming
