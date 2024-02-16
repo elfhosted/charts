@@ -1,4 +1,4 @@
-{{ if .Values.airdcpp.enabled }}
+{{ if .Values.airdcpppia.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:

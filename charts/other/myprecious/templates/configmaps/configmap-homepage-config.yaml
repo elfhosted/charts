@@ -672,7 +672,7 @@ data:
             siteMonitor: http://aria:8000
         {{ end }}             
 
-        {{ if .Values.airdcpp.enabled }}
+        {{ if .Values.airdcpppia.enabled }}
         - AirDC++:
             icon: mdi-image-chart-bubble
             href: https://{{ .Release.Name }}-airdcpp.elfhosted.com

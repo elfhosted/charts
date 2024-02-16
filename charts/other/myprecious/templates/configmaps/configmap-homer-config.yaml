@@ -1010,7 +1010,7 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}          
 
-          {{ if .Values.airdcpp.enabled }}
+          {{ if .Values.airdcpppia.enabled }}
           - name: "AirDC++"
             icon: "fas fa-wind"
             subtitle: "Manage DC++ Sharing"

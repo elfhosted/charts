@@ -717,7 +717,7 @@ data:
           - type: email               
       {{ end }}    
 
-      {{ if .Values.airdcpp.enabled }}
+      {{ if .Values.airdcpppia.enabled }}
       - name: airdcpp
         group: manage-media
         url: "http://airdcpp:5600/login"
