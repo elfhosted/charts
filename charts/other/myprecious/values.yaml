@@ -9664,10 +9664,10 @@ annatar:
   resources:
     requests:
       cpu: 10m
-      memory: 128Mi
+      memory: 512Mi
     limits:
       cpu: 1
-      memory: 256Mi
+      memory: 1Gi
   ingress:
     main:
       enabled: false
