@@ -5567,13 +5567,12 @@ homer:
         # Download a public domain sample movie for users to test / get Plex tokens with
         if [ ! -f /storage/elfstorage/video/bbb_sunflower_1080p_30fps_normal.mp4 ]
         then
-          cd /storage/elfstorage/video
-          wget https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4.zip
-          unzip bbb_sunflower_1080p_30fps_normal.mp4.zip
-          rm bbb_sunflower_1080p_30fps_normal.mp4.zip
-          cd -
+          wget https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4.zip -P /tmp
+          unzip /tmp/bbb_sunflower_1080p_30fps_normal.mp4.zip -d /storage/elfstorage/video
         fi
-
+        
+        # And for any mess left lying around from the previous implementation:
+        rm -rf /storage/elfstorage/video/bbb_sunflower_1080p_30fps_normal.mp4.zip*
 
       volumeMounts:
       - mountPath: /storage/elfstorage

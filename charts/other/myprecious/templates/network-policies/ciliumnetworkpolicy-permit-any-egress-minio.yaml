@@ -8,7 +8,7 @@ spec:
   - toEndpoints:
     - matchLabels:
         k8s:io.kubernetes.pod.namespace: minio
-        app.kubernetes.io/name: minio
+        app: minio
     toPorts:
       - ports:
         - port: '9000'
