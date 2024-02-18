@@ -9734,8 +9734,6 @@ xtremio:
         http:
           port: 3649    
   envFrom:
-  - configMapRef:
-      name: xtremio-env 
   - configMapRef:      
       name: elfbot-xtremio
       optional: true       

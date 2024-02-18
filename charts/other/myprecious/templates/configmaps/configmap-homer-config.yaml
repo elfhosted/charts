@@ -338,8 +338,8 @@ data:
           {{ end }}
 
           {{ if .Values.xtremio.enabled }}
-          - name: "Annatar"
-            icon: "fab fa-tv"
+          - name: "Xtremio"
+            icon: "fas fa-tv"
             subtitle: "Watch IPTV in Stremio"
             tag: "protected"
             tagstyle: "is-success"

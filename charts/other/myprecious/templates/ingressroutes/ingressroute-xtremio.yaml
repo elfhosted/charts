@@ -14,6 +14,8 @@ spec:
       middlewares:
         - name: error-pages
           namespace: traefik
+        - name: rate-limit-xtremio-hosted
+          namespace: traefik                    
     - match: Host(`{{ .Release.Name }}-xtremio.elfhosted.com`) && PathPrefix(`/configure/`)
       kind: Rule
       services:
@@ -24,4 +26,6 @@ spec:
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
           namespace: traefik
+        - name: rate-limit-xtremio-hosted
+          namespace: traefik          
 {{ end }}
