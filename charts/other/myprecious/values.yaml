@@ -3083,27 +3083,34 @@ filebrowser:
         inotifywait -m -e create -e modify --format "%f" /elfbot \
           | while read APP
             do
-              # put the contents of the file into the configmap which will trigger the restart
-              echo command received for ${APP} : [$(cat /elfbot/$APP)]
-              # create the configmap if it doesn't exist, since reloader only looks at _changes_ to configmaps
-              if ! $(kubectl get configmap -n {{ .Release.Namespace }} elfbot-${APP} 2>&1 >/dev/null); then
-                  kubectl create configmap -n {{ .Release.Namespace }} elfbot-${APP} --from-literal=elfbot_last_action=$(date +%s)
-                  sleep 10s
-              fi
-
-              # If we were passed a key=value string in /etc/elfbot, then split it
-              if (cat /elfbot/$APP | grep -q =); then
-                KEY=$(cat /elfbot/$APP | cut -f1 -d=)
-                VALUE=$(cat /elfbot/$APP | cut -f2 -d=)
-              # If not, then it was just a simple command, like "backup"
+              # if we are force-killing the pod, then don't bother with the configmap
+              if (cat /elfbot/$APP | grep -q forcerestart); then
+                echo "forcerestart requested, deleting $APP pod with --force.."
+                kubectl delete pod -l app.kubernetes.io/name=$APP --force
+                kubectl delete pod -l app.elfhosted.com/name=$APP --force
               else
-                KEY=$(cat /elfbot/$APP)
-                VALUE=$(date +%s)
+
+                # put the contents of the file into the configmap which will trigger the restart
+                echo command received for ${APP} : [$(cat /elfbot/$APP)]
+                # create the configmap if it doesn't exist, since reloader only looks at _changes_ to configmaps
+                if ! $(kubectl get configmap -n {{ .Release.Namespace }} elfbot-${APP} 2>&1 >/dev/null); then
+                    kubectl create configmap -n {{ .Release.Namespace }} elfbot-${APP} --from-literal=elfbot_last_action=$(date +%s)
+                    sleep 10s
+                fi
+
+                # If we were passed a key=value string in /etc/elfbot, then split it
+                if (cat /elfbot/$APP | grep -q =); then
+                  KEY=$(cat /elfbot/$APP | cut -f1 -d=)
+                  VALUE=$(cat /elfbot/$APP | cut -f2 -d=)
+                # If not, then it was just a simple command, like "backup"
+                else
+                  KEY=$(cat /elfbot/$APP)
+                  VALUE=$(date +%s)
+                fi
+
+                # patch the configmap with the latest key/value
+                kubectl patch configmap -n {{ .Release.Namespace }} elfbot-${APP} -p "{\"data\":{\"${KEY}\":\"${VALUE}\"}}"
               fi
-
-              # patch the configmap with the latest key/value
-              kubectl patch configmap -n {{ .Release.Namespace }} elfbot-${APP} -p "{\"data\":{\"${KEY}\":\"${VALUE}\"}}"
-
             done
       volumeMounts:
       - mountPath: /elfbot

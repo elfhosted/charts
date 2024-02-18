@@ -13,13 +13,13 @@ data:
         echo
         echo "valid commands are:"
         echo
-        echo "elfbot restart <app>              : restarts an app"
-        echo "elfbot pause <app>                : stop an app, wait 5 min, and restart it"
-        echo "elfbot reset <app> [--yesiamsure] : resets an app to defaults"
-        echo "elfbot backup <app>               : creates a dated backup folder in under /config/<app>"
-        echo "elfbot claim plex <token>         : claims a plex server"
-        echo "elfbot env <app> <key>=<value>    : set an env var inside an app (advanced beta feature)"
-        echo "elfbot symlink <storage-mount>    : import remotely-mounted, read-only media as symlinks"
+        echo "elfbot restart <app> [--force] [--yesiamsure] : restarts an app"
+        echo "elfbot pause <app>                            : stop an app, wait 5 min, and restart it"
+        echo "elfbot reset <app> [--yesiamsure]             : resets an app to defaults"
+        echo "elfbot backup <app>                           : creates a dated backup folder in under /config/<app>"
+        echo "elfbot claim plex <token>                     : claims a plex server"
+        echo "elfbot env <app> <key>=<value>                : set an env var inside an app (advanced beta feature)"
+        echo "elfbot symlink <storage-mount>                : import remotely-mounted, read-only media as symlinks"
         echo
     fi
 
@@ -31,9 +31,17 @@ data:
                 echo "WARNING: /config/$2 does not exist"
                 exit 1
             fi
-                    
-            echo "restarting $2..."
-            echo restart > /elfbot/$2
+
+            if [[ "$3" == "--force" && "$4" != "--yesiamsure" ]]; then
+                echo force-killing a healthy pod can result in data loss! add \'--yesiamsure\' after your restart --force command to force-kill
+                exit 1
+            elif [[ "$3" == "--force" ]]; then
+                echo "force-restarting $2, data loss may occur (but sometimes there's no other way)..."
+                echo forcerestart > /elfbot/$2
+            else             
+                echo "restarting $2..."
+                echo restart > /elfbot/$2
+            fi
             ;;
 
         "pause")

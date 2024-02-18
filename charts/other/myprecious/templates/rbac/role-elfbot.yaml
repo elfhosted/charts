@@ -6,3 +6,7 @@ rules:
 - apiGroups: [""]
   resources: ["configmaps"]
   verbs: ["*"]
+# Used for force-deletion
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["delete"]
