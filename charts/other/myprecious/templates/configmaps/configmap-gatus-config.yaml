@@ -134,6 +134,17 @@ data:
           - type: email          
       {{ end }}         
 
+      {{ if .Values.xtremio.enabled }}
+      - name: xtremio
+        group: consume-media
+        url: "http://xtremio:3649"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}       
+
       {{ if .Values.radarr.enabled }}
       - name: radarr
         group: manage-media
@@ -528,7 +539,7 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email               
-      {{ end }}          
+      {{ end }}             
 
       {{ if .Values.torrentio.enabled }}
       - name: torrentio

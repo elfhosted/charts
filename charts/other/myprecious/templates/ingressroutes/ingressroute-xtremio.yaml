@@ -1,0 +1,27 @@
+{{ if .Values.xtremio.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-xtremio.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-xtremio.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: xtremio
+          kind: Service
+          port: 3649
+      middlewares:
+        - name: error-pages
+          namespace: traefik
+    - match: Host(`{{ .Release.Name }}-xtremio.elfhosted.com`) && PathPrefix(`/configure/`)
+      kind: Rule
+      services:
+        - name: xtremio
+          kind: Service
+          port: 3649
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}

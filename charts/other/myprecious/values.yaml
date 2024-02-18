@@ -9691,6 +9691,55 @@ annatar:
       name: elfbot-annatar
       optional: true 
 
+xtremio:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/xtremio
+    tag: rolling@sha256:da97ee423b4812aae9fb3e3c1197b08f4556e17109cdf3b8c77cb7aabb77e57f
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-xtremio"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    tmp: *tmp
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 3649    
+  envFrom:
+  - configMapRef:
+      name: xtremio-env 
+  - configMapRef:      
+      name: elfbot-xtremio
+      optional: true       
+
 
 knightcrawler: &app_knightcrawler
   enabled: false

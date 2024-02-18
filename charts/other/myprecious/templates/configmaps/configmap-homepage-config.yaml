@@ -502,7 +502,15 @@ data:
             href: https://{{ .Release.Name }}-annatar.elfhosted.com
             description: Use Jackett in Stremio
             siteMonitor: http://annatar:8000
-        {{ end }}           
+        {{ end }}  
+
+        {{ if .Values.xtremio.enabled }}
+        - Annatar:
+            icon: mdi-tv
+            href: https://{{ .Release.Name }}-xtremio.elfhosted.com
+            description: Watch IPTV in Stremio
+            siteMonitor: http://xtremio:3649
+        {{ end }}                   
 
         {{ if .Values.torrentio.enabled }}
         - Torrentio:

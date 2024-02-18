@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.3047-pre-03
+version: 1.0.3047-pre-04
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -434,7 +434,12 @@ dependencies:
     condition: annatar.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: annatar                                               
+    alias: annatar  
+  - name: app-template
+    condition: xtremio.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: xtremio                                                   
   - name: kubernetes-dashboard
     repository: http://chartmuseum.chartmuseum:8080
     alias: kubernetesdashboard

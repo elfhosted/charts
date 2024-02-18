@@ -337,6 +337,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
+          {{ if .Values.xtremio.enabled }}
+          - name: "Annatar"
+            icon: "fab fa-tv"
+            subtitle: "Watch IPTV in Stremio"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-xtremio.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}           
+
       - name: "Manage Media"
         icon: "fas fa-photo-video"
         items:
