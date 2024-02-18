@@ -102,6 +102,7 @@ rclonemountrealdebridzurg: &rclonemountrealdebridzurg
   volumeSpec:
     persistentVolumeClaim:
       claimName: realdebrid-zurg
+  readOnly: true
   mountPath: /storage/realdebrid-zurg
 rclonemountalldebridpia: &rclonemountalldebridpia
   enabled: false
