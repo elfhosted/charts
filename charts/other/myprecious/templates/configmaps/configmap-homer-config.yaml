@@ -45,7 +45,8 @@ data:
             CONFIG_DISK_FREE=$DISK_FREE
             CONFIG_PERCENTAGE_USED=$PERCENTAGE_USED
             CONFIG_DISK_TOTAL=$DISK_TOTAL
-            echo -n "<A HREF='/assets/message/disk-usage-config.html' TARGET='_blank'>/config</A>: Largest volume-per-app consumer is <A HREF='/assets/message/disk-usage-config-${CONFIG_BIGGEST_CONSUMER}.html' TARGET='_blank'>${CONFIG_BIGGEST_CONSUMER}</A> with ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" > /www/assets/message/message_details_config.html
+            # echo -n "<A HREF='/assets/message/disk-usage-config.html' TARGET='_blank'>/config</A>: Largest volume-per-app consumer is <A HREF='/assets/message/disk-usage-config-${CONFIG_BIGGEST_CONSUMER}.html' TARGET='_blank'>${CONFIG_BIGGEST_CONSUMER}</A> with ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" > /www/assets/message/message_details_config.html
+            echo -n "<A HREF='https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/' TARGET='_blank'>/config</A>: Largest volume-per-app consumer is <A HREF='https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/{CONFIG_BIGGEST_CONSUMER}/' TARGET='_blank'>${CONFIG_BIGGEST_CONSUMER}</A> with ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" > /www/assets/message/message_details_config.html
           fi
         else
           EXISTING_USAGE=$PERCENTAGE_USED
@@ -53,7 +54,7 @@ data:
           CONFIG_DISK_FREE=$DISK_FREE
           CONFIG_PERCENTAGE_USED=$PERCENTAGE_USED
           CONFIG_DISK_TOTAL=$DISK_TOTAL
-          echo -n "<A HREF='/assets/message/disk-usage-config.html' TARGET='_blank'>/config</A>: Largest volume-per-app consumer is <A HREF='/assets/message/disk-usage-config-${CONFIG_BIGGEST_CONSUMER}.html' TARGET='_blank'>${CONFIG_BIGGEST_CONSUMER}</A> with ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" > /www/assets/message/message_details_config.html
+          echo -n "<A HREF='https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/' TARGET='_blank'>/config</A>: Largest volume-per-app consumer is <A HREF='https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/${CONFIG_BIGGEST_CONSUMER}/' TARGET='_blank'>${CONFIG_BIGGEST_CONSUMER}</A> with ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" > /www/assets/message/message_details_config.html
         fi
       done
 
@@ -82,7 +83,7 @@ data:
           echo $PERCENTAGE_USED > /www/assets/message/disk_space_percent_used
         fi
 
-        echo -n "<A HREF='/assets/message/disk-usage-${STORAGE_PATH}.html' TARGET='_blank'>/storage/${STORAGE_PATH}</A>: ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" >> /www/assets/message/message_details.html
+        echo -n "<A HREF='https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/${STORAGE_PATH}/' TARGET='_blank'>/storage/${STORAGE_PATH}</A>: ${PERCENTAGE_FREE}% (${DISK_FREE}) of ${DISK_TOTAL} remaining<BR/>" >> /www/assets/message/message_details.html
       done
 
       PERCENTAGE_USED=$(cat /www/assets/message/disk_space_percent_used)
