@@ -5584,6 +5584,8 @@ homer:
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
+      - mountPath: /tmp
+        name: tmp
       resources: *default_resources
       securityContext: *default_securitycontext
 
