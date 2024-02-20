@@ -1,0 +1,27 @@
+{{ if .Values.mediafusion.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-mediafusion.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-mediafusion.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: mediafusion
+          kind: Service
+          port: 8000
+      middlewares:
+        - name: error-pages
+          namespace: traefik
+    - match: Host(`{{ .Release.Name }}-mediafusion.elfhosted.com`) && PathPrefix(`/configure/`)
+      kind: Rule
+      services:
+        - name: mediafusion
+          kind: Service
+          port: 8000
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}

@@ -9693,6 +9693,127 @@ annatar:
       name: elfbot-annatar
       optional: true 
 
+mediafusion:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/mediafusion
+    tag: 3.7.1@sha256:e714ab4f99519237cd10e9bb0b610d179edc87b4b0339f1bb0fd38769204e29a
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-mediafusion"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    tmp: *tmp
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000    
+  envFrom:
+  - configMapRef:
+      name: mediafusion-env 
+  - secretRef:
+      name: mediafusion-env  
+
+stremiojackettcommunity:
+  enabled: false
+  podLabels: 
+      app.elfhosted.com/name: stremio-jackett-community    
+  image:
+    repository: ghcr.io/geek-cookbook/stremio-jackett-community
+    tag: v3.0.2@sha256:b811d27a60f582f7075d7a52a9e2597a2619edd7d61121abcd3e46fd545498cf
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio-jackett-community"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    tmp: *tmp
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000    
+  env:
+    CACHE_URL: http://10.43.0.4:8080 # the internal IP of the cacher, since this pod is VPN'd
+  addons:
+    vpn:
+      enabled: true # in case we ever need it
+      gluetun:
+        image:
+          repository: thrnz/docker-wireguard-pia
+          tag: latest
+      env:
+        IPTABLES_BACKEND: nft
+        KILLSWITCH: "true"
+        LOCAL_NETWORK: 10.2.0.0/15,10.43.0.0/16
+        LOC: de-frankfurt
+        PORT_FORWARDING: "0"
+        PORT_PERSIST: "1"
+        NFTABLES: "1"               
+      envFrom:
+      - secretRef:
+          name: stremio-jackett-community-vpn
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE
+      config: # We have to set this to null so that we can override with our own config    
+
+
 xtremio:
   enabled: false
   image:

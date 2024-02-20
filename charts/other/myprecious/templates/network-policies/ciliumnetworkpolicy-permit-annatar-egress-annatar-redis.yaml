@@ -1,3 +1,4 @@
+{{ if .Values.annatar.enabled }}
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
@@ -15,3 +16,4 @@ spec:
       - ports:
         - port: '6379'
           protocol: TCP
+{{ end }}

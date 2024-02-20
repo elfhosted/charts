@@ -1,0 +1,19 @@
+{{ if .Values.stremiojackettcommunity.enabled }}
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-stremio-jackett-community-egress-stremio-jackett-cacher"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: stremiojackettcommunity
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: stremio-jackett-cacher
+        app.kubernetes.io/name: stremio-jackett-cacher
+    toPorts:
+      - ports:
+        - port: '8080'
+          protocol: TCP
+{{ end }}
