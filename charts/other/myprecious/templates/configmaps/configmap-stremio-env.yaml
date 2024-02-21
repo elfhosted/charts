@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: stremio-env
 data:
-  WEBUI_LOCATION: https://{{ .Release.Name }}-stremio.elfhosted.com
+  WEBUI_LOCATION: https://app.strem.io
   NO_CORS: "1"
   APP_PATH: /config
 {{ end }}
