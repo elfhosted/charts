@@ -5,6 +5,6 @@ metadata:
   name: stremio-env
 data:
   WEBUI_LOCATION: https://{{ .Release.Name }}-stremio.elfhosted.com
-  NO_CORS: 1
+  NO_CORS: "1"
   APP_PATH: /config
 {{ end }}

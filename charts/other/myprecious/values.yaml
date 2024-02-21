@@ -9800,6 +9800,7 @@ stremiojackettcommunity:
     repository: ghcr.io/geek-cookbook/stremio-jackett-community
     tag: v3.0.2@sha256:b811d27a60f582f7075d7a52a9e2597a2619edd7d61121abcd3e46fd545498cf
   priorityClassName: tenant-normal
+  # command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"] # allow logs on private instances
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio-jackett-community"
