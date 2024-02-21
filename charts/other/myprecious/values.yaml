@@ -9625,6 +9625,16 @@ stremio:
       ports:
         http:
           port: 8080 
+  envFrom:
+  - configMapRef:
+      name: stremio-env 
+  persistence:
+    render-device:
+      enabled: "true"
+      type: hostPath
+      hostPath: "/dev/dri/renderD128"
+      mountPath: "/dev/dri/renderD128"  
+
 
 stremiojackett:
   enabled: false
