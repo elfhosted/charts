@@ -148,7 +148,7 @@ data:
 
       {{ if .Values.stremiojackett.enabled }}
       - name: stremio-jackett
-        group: download-media
+        group: consume-media
         url: "http://stremio-jackett:3000"
         interval: 5m
         conditions:
@@ -159,7 +159,7 @@ data:
 
       {{ if .Values.stremiojackettcommunity.enabled }}
       - name: stremio-jackett-community
-        group: download-media
+        group: consume-media
         url: "http://stremio-jackett-community:3000"
         interval: 5m
         conditions:
@@ -170,7 +170,7 @@ data:
 
       {{ if .Values.annatar.enabled }}
       - name: annatar
-        group: download-media
+        group: consume-media
         url: "http://annatar:8000"
         interval: 5m
         conditions:
@@ -181,7 +181,7 @@ data:
 
       {{ if .Values.torrentio.enabled }}
       - name: torrentio
-        group: download-media
+        group: consume-media
         url: "http://torrentio:7001"
         interval: 5m
         conditions:
@@ -192,7 +192,7 @@ data:
 
       {{ if .Values.knightcrawler.enabled }}
       - name: knightcrawler
-        group: download-media
+        group: consume-media
         url: "http://knightcrawler:7001"
         interval: 5m
         conditions:
@@ -203,7 +203,7 @@ data:
 
       {{ if .Values.knightcrawlervpn.enabled }}
       - name: knightcrawler-vpn
-        group: download-media
+        group: consume-media
         url: "http://knightcrawler-vpn:7001"
         interval: 5m
         conditions:
@@ -214,14 +214,25 @@ data:
 
       {{ if .Values.mediafusion.enabled }}
       - name: mediafusion
-        group: download-media
+        group: consume-media
         url: "http://mediafusion:8000"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
         alerts:
           - type: email               
-      {{ end }}      
+      {{ end }}  
+
+      {{ if .Values.stremio.enabled }}
+      - name: stremio
+        group: consume-media
+        url: "http://stremio:8080"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}            
 
       {{ if .Values.radarr.enabled }}
       - name: radarr

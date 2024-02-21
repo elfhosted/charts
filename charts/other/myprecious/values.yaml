@@ -9585,6 +9585,47 @@ jackett:
   initContainers:
     bootstrap: *bootstrap
 
+stremio:
+  enabled: false
+  image:
+    repository: tsaridas/stremio-docker
+    tag: latest
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 256Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8080 
+
 stremiojackett:
   enabled: false
   image:
@@ -9593,7 +9634,7 @@ stremiojackett:
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-stremio-jackett"
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio-jackett"
     strategy:
     rollingUpdate:
       unavailable: 1      

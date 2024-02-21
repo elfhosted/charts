@@ -418,6 +418,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}  
 
+          {{ if .Values.stremio.enabled }}
+          - name: "Stremio"
+            icon: "fas fa-tv"
+            subtitle: "Stremio Frontend"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-stremio.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}            
+
       - name: "Manage Media"
         icon: "fas fa-photo-video"
         items:

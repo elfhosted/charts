@@ -1,0 +1,17 @@
+{{ if .Values.stremio.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-stremio.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-stremio.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: stremio
+          kind: Service
+          port: 8080
+      middlewares:
+        - name: error-pages
+          namespace: traefik
+{{ end }}

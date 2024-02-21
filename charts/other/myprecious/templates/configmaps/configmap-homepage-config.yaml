@@ -208,6 +208,14 @@ data:
             siteMonitor: http://mediafusion:8000
         {{ end }}        
 
+        {{ if .Values.stremio.enabled }}
+        - Stremio:
+            icon: mdi-tv
+            href: https://{{ .Release.Name }}-stremio.elfhosted.com
+            description: Stremio Frontend
+            siteMonitor: http://stremio:8080
+        {{ end }}          
+
     - Manage Media:
         {{ if .Values.radarr.enabled }}
         - Radarr:
