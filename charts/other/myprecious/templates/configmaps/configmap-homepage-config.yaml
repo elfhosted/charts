@@ -144,6 +144,70 @@ data:
               key: {{`{{HOMEPAGE_FILE_AUDIOBOOKSHELF_KEY}}`}}            
         {{ end }}                          
 
+        {{ if .Values.stremiojackett.enabled }}
+        - Stremio-Jackett:
+            icon: jackett.png
+            href: https://{{ .Release.Name }}-stremio-jackett.elfhosted.com
+            description: Use Jackett in Stremio
+            siteMonitor: http://stremio-jackett:3000
+        {{ end }}  
+
+        {{ if .Values.stremiojackettcommunity.enabled }}
+        - Stremio-Jackett-Community:
+            icon: jackett.png
+            href: https://{{ .Release.Name }}-stremio-jackett-community.elfhosted.com
+            description: Stremio-Jackett AddOn with community cache
+            siteMonitor: http://stremio-jackett-community:3000
+        {{ end }}           
+
+        {{ if .Values.annatar.enabled }}
+        - Annatar:
+            icon: jackett.png
+            href: https://{{ .Release.Name }}-annatar.elfhosted.com
+            description: Use Jackett in Stremio
+            siteMonitor: http://annatar:8000
+        {{ end }}  
+
+        {{ if .Values.xtremio.enabled }}
+        - Annatar:
+            icon: mdi-tv
+            href: https://{{ .Release.Name }}-xtremio.elfhosted.com
+            description: Watch IPTV in Stremio
+            siteMonitor: http://xtremio:3649
+        {{ end }}                   
+
+        {{ if .Values.torrentio.enabled }}
+        - Torrentio:
+            icon: mdi-water
+            href: https://{{ .Release.Name }}-torrentio.elfhosted.com
+            description: Torrent indexer for Stremio
+            siteMonitor: http://torrentio:7000
+        {{ end }}    
+
+        {{ if .Values.knightcrawler.enabled }}
+        - Knightcrawler:
+            icon: mdi-chess-knight
+            href: https://{{ .Release.Name }}-knightcrawler.elfhosted.com
+            description: Torrent indexer for Stremio
+            siteMonitor: http://knightcrawler:7000
+        {{ end }}      
+
+        {{ if .Values.knightcrawlervpn.enabled }}
+        - Knightcrawler (VPN):
+            icon: mdi-chess-knight
+            href: https://{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com
+            description: Torrent indexer for Stremio (VPN)
+            siteMonitor: http://knightcrawler-vpn:7000
+        {{ end }}
+
+        {{ if .Values.mediafusion.enabled }}
+        - MediaFusion:
+            icon: mdi-atom
+            href: https://{{ .Release.Name }}-mediafusion.elfhosted.com
+            description: Multi-source AddOn for Stremio
+            siteMonitor: http://mediafusion:8000
+        {{ end }}        
+
     - Manage Media:
         {{ if .Values.radarr.enabled }}
         - Radarr:
@@ -486,55 +550,7 @@ data:
             widget:
               type: jackett
               url: http://jackett:9117          
-        {{ end }}   
-
-        {{ if .Values.stremiojackett.enabled }}
-        - Stremio-Jackett:
-            icon: jackett.png
-            href: https://{{ .Release.Name }}-stremio-jackett.elfhosted.com
-            description: Use Jackett in Stremio
-            siteMonitor: http://stremio-jackett:3000
-        {{ end }}   
-
-        {{ if .Values.annatar.enabled }}
-        - Annatar:
-            icon: jackett.png
-            href: https://{{ .Release.Name }}-annatar.elfhosted.com
-            description: Use Jackett in Stremio
-            siteMonitor: http://annatar:8000
-        {{ end }}  
-
-        {{ if .Values.xtremio.enabled }}
-        - Annatar:
-            icon: mdi-tv
-            href: https://{{ .Release.Name }}-xtremio.elfhosted.com
-            description: Watch IPTV in Stremio
-            siteMonitor: http://xtremio:3649
-        {{ end }}                   
-
-        {{ if .Values.torrentio.enabled }}
-        - Torrentio:
-            icon: mdi-water
-            href: https://{{ .Release.Name }}-torrentio.elfhosted.com
-            description: Torrent indexer for Stremio
-            siteMonitor: http://torrentio:7000
-        {{ end }}    
-
-        {{ if .Values.knightcrawler.enabled }}
-        - Knightcrawler:
-            icon: mdi-chess-knight
-            href: https://{{ .Release.Name }}-knightcrawler.elfhosted.com
-            description: Torrent indexer for Stremio
-            siteMonitor: http://knightcrawler:7000
-        {{ end }}      
-
-        {{ if .Values.knightcrawlervpn.enabled }}
-        - Knightcrawler (VPN):
-            icon: mdi-chess-knight
-            href: https://{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com
-            description: Torrent indexer for Stremio (VPN)
-            siteMonitor: http://knightcrawler-vpn:7000
-        {{ end }}                                      
+        {{ end }}                                    
 
         {{ if .Values.nzbhydra.enabled }}
         - NZBHydra:

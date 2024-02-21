@@ -145,6 +145,84 @@ data:
           - type: email               
       {{ end }}       
 
+
+      {{ if .Values.stremiojackett.enabled }}
+      - name: stremio-jackett
+        group: download-media
+        url: "http://stremio-jackett:3000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}   
+
+      {{ if .Values.stremiojackettcommunity.enabled }}
+      - name: stremio-jackett-community
+        group: download-media
+        url: "http://stremio-jackett-community:3000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}          
+
+      {{ if .Values.annatar.enabled }}
+      - name: annatar
+        group: download-media
+        url: "http://annatar:8000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}             
+
+      {{ if .Values.torrentio.enabled }}
+      - name: torrentio
+        group: download-media
+        url: "http://torrentio:7001"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}    
+
+      {{ if .Values.knightcrawler.enabled }}
+      - name: knightcrawler
+        group: download-media
+        url: "http://knightcrawler:7001"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}     
+
+      {{ if .Values.knightcrawlervpn.enabled }}
+      - name: knightcrawler-vpn
+        group: download-media
+        url: "http://knightcrawler-vpn:7001"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}
+
+      {{ if .Values.mediafusion.enabled }}
+      - name: mediafusion
+        group: download-media
+        url: "http://mediafusion:8000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}      
+
       {{ if .Values.radarr.enabled }}
       - name: radarr
         group: manage-media
@@ -517,62 +595,7 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email               
-      {{ end }}        
-
-      {{ if .Values.stremiojackett.enabled }}
-      - name: stremio-jackett
-        group: download-media
-        url: "http://stremio-jackett:3000"
-        interval: 5m
-        conditions:
-          - "[STATUS] == 200"
-        alerts:
-          - type: email               
-      {{ end }}    
-
-      {{ if .Values.annatar.enabled }}
-      - name: annatar
-        group: download-media
-        url: "http://annatar:8000"
-        interval: 5m
-        conditions:
-          - "[STATUS] == 200"
-        alerts:
-          - type: email               
-      {{ end }}             
-
-      {{ if .Values.torrentio.enabled }}
-      - name: torrentio
-        group: download-media
-        url: "http://torrentio:7001"
-        interval: 5m
-        conditions:
-          - "[STATUS] == 200"
-        alerts:
-          - type: email               
-      {{ end }}    
-
-      {{ if .Values.knightcrawler.enabled }}
-      - name: knightcrawler
-        group: download-media
-        url: "http://knightcrawler:7001"
-        interval: 5m
-        conditions:
-          - "[STATUS] == 200"
-        alerts:
-          - type: email               
-      {{ end }}     
-
-      {{ if .Values.knightcrawlervpn.enabled }}
-      - name: knightcrawler-vpn
-        group: download-media
-        url: "http://knightcrawler-vpn:7001"
-        interval: 5m
-        conditions:
-          - "[STATUS] == 200"
-        alerts:
-          - type: email               
-      {{ end }}                            
+      {{ end }}                              
 
       {{ if .Values.nzbhydra.enabled }}
       - name: nzbhydra

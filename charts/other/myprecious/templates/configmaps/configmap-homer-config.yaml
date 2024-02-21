@@ -346,7 +346,77 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-xtremio.elfhosted.com"
             target: "_blank" # optional html tag target attribute
+          {{ end }}     
+
+          {{ if .Values.stremiojackett.enabled }}
+          - name: "Stremio Jackett"
+            logo: "assets/png/jackett.png"
+            subtitle: "Access Jackett via Stremio"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-stremio-jackett.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }} 
+
+          {{ if .Values.stremiojackettcommunity.enabled }}
+          - name: "Stremio Jackett (Community)"
+            logo: "assets/png/jackett.png"
+            subtitle: "Addon with community cache"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-stremio-jackett-community.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
           {{ end }}           
+
+          {{ if .Values.annatar.enabled }}
+          - name: "Annatar"
+            logo: "assets/png/annatar.png"
+            subtitle: "Fast Jackett searches via Stremio"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-annatar.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}           
+
+          {{ if .Values.torrentio.enabled }}
+          - name: "Torrentio"
+            icon: "fas fa-tint"
+            subtitle: "Torrent indexer for Stremio"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-torrentio.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}    
+
+          {{ if .Values.knightcrawler.enabled }}
+          - name: "Knightcrawler"
+            icon: "fas fa-chess-knight"
+            subtitle: "Torrent indexer for Stremio"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-knightcrawler.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}     
+
+          {{ if .Values.knightcrawlervpn.enabled }}
+          - name: "Knightcrawler (VPN)"
+            icon: "fas fa-chess-knight"
+            subtitle: "Torrent indexer for Stremio (VPN)"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}
+
+          {{ if .Values.mediafusion.enabled }}
+          - name: "MediaFusion"
+            icon: "fas fa-atom"
+            subtitle: "Multi-source AddOn for Stremio"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-mediafusion.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}  
 
       - name: "Manage Media"
         icon: "fas fa-photo-video"
@@ -798,57 +868,7 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-jackett.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}
-
-          {{ if .Values.stremiojackett.enabled }}
-          - name: "Stremio Jackett"
-            logo: "assets/png/jackett.png"
-            subtitle: "Access Jackett via Stremio"
-            tag: "protected"
-            tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-stremio-jackett.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-          {{ end }} 
-
-          {{ if .Values.annatar.enabled }}
-          - name: "Annatar"
-            logo: "assets/png/annatar.png"
-            subtitle: "Fast Jackett searches via Stremio"
-            tag: "protected"
-            tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-annatar.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-          {{ end }}           
-
-          {{ if .Values.torrentio.enabled }}
-          - name: "Torrentio"
-            icon: "fas fa-tint"
-            subtitle: "Torrent indexer for Stremio"
-            tag: "public"
-            tagstyle: "is-danger"
-            url: "https://{{ .Release.Name }}-torrentio.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-          {{ end }}    
-
-          {{ if .Values.knightcrawler.enabled }}
-          - name: "Knightcrawler"
-            icon: "fas fa-chess-knight"
-            subtitle: "Torrent indexer for Stremio"
-            tag: "public"
-            tagstyle: "is-danger"
-            url: "https://{{ .Release.Name }}-knightcrawler.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-          {{ end }}     
-
-          {{ if .Values.knightcrawlervpn.enabled }}
-          - name: "Knightcrawler (VPN)"
-            icon: "fas fa-chess-knight"
-            subtitle: "Torrent indexer for Stremio (VPN)"
-            tag: "public"
-            tagstyle: "is-danger"
-            url: "https://{{ .Release.Name }}-knightcrawler-vpn.elfhosted.com"
-            target: "_blank" # optional html tag target attribute
-          {{ end }}                                        
+          {{ end }}                             
 
           {{ if .Values.nzbhydra.enabled }}
           - name: "NZBHydra"
