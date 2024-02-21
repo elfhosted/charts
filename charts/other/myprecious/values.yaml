@@ -9657,7 +9657,7 @@ stremio:
               storageClassName: "topolvm-provisioner-thin"
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 2Gi
 
 stremiojackett:
   enabled: false
