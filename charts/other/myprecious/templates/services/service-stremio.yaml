@@ -10,10 +10,6 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 8080
-    targetPort: 8080
-    protocol: TCP
-    name: http
   - port: 11470
     targetPort: 11470
     protocol: TCP

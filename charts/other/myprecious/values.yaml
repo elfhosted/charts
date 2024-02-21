@@ -9593,7 +9593,7 @@ stremio:
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio"
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio,stremio-env"
     strategy:
     rollingUpdate:
       unavailable: 1      
@@ -9627,7 +9627,7 @@ stremio:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 8080 
+          port: 11470 
   envFrom:
   - configMapRef:
       name: stremio-env 
@@ -9637,10 +9637,18 @@ stremio:
       type: hostPath
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"  
-    tmp: # in case users use /tmp
+    config-yml:
+      enabled: "true"
+      subPath: "server-settings.json"
+      mountPath: /config/server-settings.json
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: stremio-config      
+    transcode: # in case users use /tmp
       enabled: true
       type: custom
-      mountPath: /tmp
+      mountPath: /transcode
       volumeSpec:
         ephemeral:
           volumeClaimTemplate:

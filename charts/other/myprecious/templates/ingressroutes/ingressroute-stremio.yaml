@@ -10,8 +10,9 @@ spec:
       services:
         - name: stremio
           kind: Service
-          port: 8080
+          port: 11470
       middlewares:
         - name: error-pages
           namespace: traefik
+        - name: {{ .Release.Name }}-stremio-basic-auth
 {{ end }}

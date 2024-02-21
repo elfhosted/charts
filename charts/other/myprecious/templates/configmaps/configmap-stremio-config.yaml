@@ -1,0 +1,29 @@
+{{ if .Values.stremio.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stremio-config
+data:
+  server-settings.json: |
+{
+    "serverVersion": "4.20.5",
+    "appPath": "/config",
+    "cacheRoot": "/config",
+    "cacheSize": 2147483648,
+    "btMaxConnections": 1,
+    "btHandshakeTimeout": 1,
+    "btRequestTimeout": 1,
+    "btDownloadSpeedSoftLimit": 1,
+    "btDownloadSpeedHardLimit": 1,
+    "btMinPeersForStable": 9999,
+    "remoteHttps": "",
+    "localAddonEnabled": false,
+    "transcodeHorsepower": 0.75,
+    "transcodeMaxBitRate": 0,
+    "transcodeConcurrency": 1,
+    "transcodeTrackConcurrency": 1,
+    "transcodeHardwareAccel": true,
+    "transcodeProfile": "qsv-linux",
+    "transcodeMaxWidth": 1920
+}
+{{ end }}
