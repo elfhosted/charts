@@ -9601,13 +9601,16 @@ stremio:
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: true
+    privileged: true
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    runAsUser: 568
-    runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
+    runAsUser: 568
+    runAsGroup: 568
+    supplementalGroups:
+    - 109
   automountServiceAccountToken: false
   resources:
     requests:
