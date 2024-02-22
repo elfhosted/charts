@@ -9776,10 +9776,11 @@ pgadmin:
     config:
       enabled: true
       type: custom
-      mountPath: /pgadmin4
+      mountPath: /data
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-pgadmin-ssd
+    tmp: *tmp
 
 redisinsight:
   enabled: false
@@ -9835,7 +9836,7 @@ redisinsight:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-redisinsight-ssd     
-    transcode: # in case users use /tmp
+    logs: # in case users use /tmp
       enabled: true
       type: custom
       mountPath: /data/logs
