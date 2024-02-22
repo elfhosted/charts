@@ -9,4 +9,4 @@ rules:
 # Used for force-deletion
 - apiGroups: [""]
   resources: ["pods"]
-  verbs: ["delete"]
+  verbs: ["delete","list"]
