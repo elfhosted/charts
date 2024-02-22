@@ -14,5 +14,4 @@ spec:
       middlewares:
         - name: error-pages
           namespace: traefik
-        - name: {{ .Release.Name }}-stremio-basic-auth
 {{ end }}

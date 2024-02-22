@@ -424,7 +424,7 @@ data:
             subtitle: "Stremio Frontend"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}:password@{{ .Release.Name }}-stremio.elfhosted.com"
+            url: "https://{{ .Release.Name }}-stremio.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}            
 

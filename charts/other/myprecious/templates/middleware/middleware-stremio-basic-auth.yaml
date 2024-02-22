@@ -1,9 +1,0 @@
-{{ if .Values.stremio.enabled }}
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: {{ .Release.Name }}-stremio-basic-auth
-spec:
-  basicAuth:
-    secret: stremio-basic-auth
-{{ end }}
