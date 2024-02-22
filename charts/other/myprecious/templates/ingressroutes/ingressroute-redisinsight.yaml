@@ -1,0 +1,17 @@
+{{ if .Values.redisinsight.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-redisinsight.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-redisinsight.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: redisinsight
+          kind: Service
+          port: 5000
+      middlewares:  
+        - name: error-pages
+          namespace: traefik
+{{ end }}

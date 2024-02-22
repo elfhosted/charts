@@ -1240,7 +1240,17 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-pgadmin.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}          
+          {{ end }}   
+
+          {{ if .Values.redisinsight.enabled }}
+          - name: "RedisInsight"
+            logo: "assets/png/redisinsight.png"
+            subtitle: "Redis UI"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-redisinsight.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                    
 
       - name: "Rclone"
         icon: "fas fa-truck"

@@ -1003,4 +1003,15 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email                      
-      {{ end }}                        
+      {{ end }}       
+
+      {{ if .Values.redisinsight.enabled }}
+      - name: redisinsight
+        group: tools
+        url: "http://redisinsight:5000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email                      
+      {{ end }}                              

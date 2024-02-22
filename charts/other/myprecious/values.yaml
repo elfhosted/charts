@@ -9727,7 +9727,7 @@ pgadmin:
   enabled: false
   image:
     repository: dpage/pgadmin4
-    tag: 8.3
+    tag: "8.3"
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9768,12 +9768,65 @@ pgadmin:
       ports:
         http:
           port: 80 
+  persistence:
+    elfstorage: *elfstorage
+    config:
+      enabled: true
+      type: custom
+      mountPath: /pgadmin4
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-pgadmin-ssd
+
+redisinsight:
+  enabled: false
+  image:
+    repository: redislabs/redisinsight
+    tag: v2@sha256:7fef8b7ecf2e8597037f906fc69863345dd846d36577210569396f7917333355
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-redisinsight"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+    capabilities:
+      drop:
+      - ALL    
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 256Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5000    
 
 annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:b738f9bf4c0f2ad344cf641a68a5b4f8be13c19cf2b03ff34d64d181f0800cf7
+    tag: rolling@sha256:25cdb4d0f8a4085b636284085bf84504bec8a234d770dd30b636e9d89d55c73d
   priorityClassName: tenant-normal
   controller:
     annotations:

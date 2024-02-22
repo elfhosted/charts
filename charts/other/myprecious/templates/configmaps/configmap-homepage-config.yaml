@@ -843,7 +843,15 @@ data:
             href: https://{{ .Release.Name }}-pgadmin.elfhosted.com
             description: PostgreSQL Admin
             siteMonitor: http://pgadmin:80
-        {{ end }}               
+        {{ end }}    
+
+        {{ if .Values.redisinsight.enabled }}
+        - PGAdmin:
+            icon: redis.png
+            href: https://{{ .Release.Name }}-redisinsight.elfhosted.com
+            description: PostgreSQL Admin
+            siteMonitor: http://redisinsight:5000
+        {{ end }}                       
 
     - Migration Tools:
         - Rclone UI:
