@@ -12,7 +12,6 @@ spec:
           kind: Service
           port: 8088 # jellyfixer
       middlewares:
-        - name: {{ .Release.Name }}-add-cors-for-homer
         - name: error-pages
           namespace: traefik  
     - match: Host(`{{ .Release.Name }}-jellyfin.elfhosted.com`)
@@ -22,7 +21,6 @@ spec:
           kind: Service
           port: 8096
       middlewares:
-        - name: {{ .Release.Name }}-add-cors-for-homer
         - name: error-pages
           namespace: traefik
         {{ if ne "default" .Values.themepark.theme }}
