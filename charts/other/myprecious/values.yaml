@@ -9752,6 +9752,9 @@ pgadmin:
       drop:
       - ALL    
   automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: pgadmin-env   
   resources:
     requests:
       cpu: 10m
@@ -9822,7 +9825,7 @@ redisinsight:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 5000
+          port: 5540
   persistence:
     elfstorage: *elfstorage
     config:
@@ -9831,7 +9834,20 @@ redisinsight:
       mountPath: /redisinsight
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-redisinsight-ssd          
+          claimName: config-redisinsight-ssd     
+    transcode: # in case users use /tmp
+      enabled: true
+      type: custom
+      mountPath: /data/logs
+      volumeSpec:
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "topolvm-provisioner-thin"
+              resources:
+                requests:
+                  storage: 50Gi               
 
 annatar:
   enabled: false

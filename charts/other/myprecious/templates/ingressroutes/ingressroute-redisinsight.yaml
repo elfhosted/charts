@@ -10,8 +10,9 @@ spec:
       services:
         - name: redisinsight
           kind: Service
-          port: 5000
+          port: 5540
       middlewares:  
+        - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
           namespace: traefik
 {{ end }}
