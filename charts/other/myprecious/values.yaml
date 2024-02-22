@@ -9591,6 +9591,8 @@ stremio:
     repository: tsaridas/stremio-docker
     tag: latest
   priorityClassName: tenant-normal
+  podLabels:
+    app.elfhosted.com/name: stremio  
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio,stremio-env"
@@ -9658,6 +9660,9 @@ stremio:
               resources:
                 requests:
                   storage: 2Gi
+  initContainers:
+    update-dns: *update_dns
+
 
 stremiojackett:
   enabled: false
@@ -9722,7 +9727,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:e74573ee3c590629675b13bd51b1b37d18c3a0f1530023940c5862e974877fee
+    tag: v0.5.11@sha256:e74573ee3c590629675b13bd51b1b37d18c3a0f1530023940c5862e974877fee
   priorityClassName: tenant-normal
   controller:
     annotations:
