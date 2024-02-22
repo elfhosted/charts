@@ -9533,7 +9533,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1802@sha256:710b4d6c50541ad59b1db81a0687c0e599a3c739ae71dfec813ad91008b8f2b9
+    tag: 0.21.1819@sha256:2620c1499e183f8821cf0d0ce7803ad0bf8d0aa4f5cf97089b7d0015a78b3bc7
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9727,7 +9727,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: v0.5.11@sha256:e74573ee3c590629675b13bd51b1b37d18c3a0f1530023940c5862e974877fee
+    tag: rolling@sha256:25cdb4d0f8a4085b636284085bf84504bec8a234d770dd30b636e9d89d55c73d
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9948,7 +9948,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:724b4a410e6fb17b5aefcb003a78a647a124091df7e724ad44d20c1b91152dfe
+    tag: rolling@sha256:e9924e39a5095a21bf9bddead582733bb0a3e5c4f16f28a5f97d26a63261c2ab
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
