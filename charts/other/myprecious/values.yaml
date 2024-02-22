@@ -9617,8 +9617,8 @@ stremio:
       cpu: 10m
       memory: 128Mi
     limits:
-      cpu: 1
-      memory: 256Mi
+      cpu: 2
+      memory: 2Gi
   ingress:
     main:
       enabled: false

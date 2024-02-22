@@ -420,11 +420,11 @@ data:
 
           {{ if .Values.stremio.enabled }}
           - name: "Stremio"
-            icon: "fas fa-tv"
-            subtitle: "Stremio Frontend"
+            logo: "assets/png/stremio.png"
+            subtitle: "Stremio"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://{{ .Release.Name }}-stremio.elfhosted.com"
+            url: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio.elfhosted.com#/"
             target: "_blank" # optional html tag target attribute
           {{ end }}            
 
