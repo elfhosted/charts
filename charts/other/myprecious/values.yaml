@@ -9802,6 +9802,8 @@ redisinsight:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
     capabilities:
+      add:
+      - IPC_LOCK    
       drop:
       - ALL    
   automountServiceAccountToken: false
@@ -9820,7 +9822,16 @@ redisinsight:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 5000    
+          port: 5000
+  persistence:
+    elfstorage: *elfstorage
+    config:
+      enabled: true
+      type: custom
+      mountPath: /redisinsight
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-redisinsight-ssd          
 
 annatar:
   enabled: false
