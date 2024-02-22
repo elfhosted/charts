@@ -28,8 +28,7 @@ data:
         "restart")
 
             if [[ ! -d "/storage/config/$2" && $2 -ne "all" ]]; then
-                echo "WARNING: /config/$2 does not exist"
-                exit 1
+                echo "WARNING: /config/$2 does not exist - continuing, but this may not work"
             fi
 
             if [[ "$3" == "--force" && "$4" != "--yesiamsure" ]]; then
@@ -47,8 +46,7 @@ data:
         "pause")
 
             if [[ ! -d "/storage/config/$2" && $2 -ne "all" ]]; then
-                echo "WARNING: /config/$2 does not exist"
-                exit 1
+                echo "WARNING: /config/$2 does not exist - continuing, but this may not work"
             fi
 
             echo "pausing $2 for 5 min..."
@@ -58,8 +56,7 @@ data:
         "env")
 
             if [[ ! -d "/storage/config/$2" ]]; then
-                echo "WARNING: /config/$2 does not exist"
-                exit 1
+                echo "WARNING: /config/$2 does not exist - continuing, but this may not work"
             fi
 
             if [[ "$#" -lt 3 ]]; then  
@@ -73,7 +70,7 @@ data:
         "reset")
 
             if [[ ! -d "/storage/config/$2" && $2 -ne "all" ]]; then
-                echo "WARNING: /config/$2 does not exist"
+                echo "ERROR: /config/$2 does not exist"
                 exit 1
             fi
 
@@ -88,7 +85,7 @@ data:
         "backup")   
 
             if [[ ! -d "/storage/config/$2" && $2 -ne "all" ]]; then
-                echo "WARNING: /config/$2 does not exist"
+                echo "ERROR: /config/$2 does not exist"
                 exit 1
             fi
 
