@@ -9588,8 +9588,8 @@ jackett:
 stremio:
   enabled: false
   image:
-    repository: tsaridas/stremio-docker
-    tag: latest
+    repository: stremio/server
+    tag: v4.20.5
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: stremio  
