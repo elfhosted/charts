@@ -6,5 +6,5 @@ metadata:
 data:
   PGADMIN_DEFAULT_EMAIL: {{ .Values.traefikforwardauth.whitelist }}
   PGADMIN_DEFAULT_PASSWORD: changeme
-  PGADMIN_DISABLE_POSTFIX: true
+  PGADMIN_DISABLE_POSTFIX: "true"
 {{ end }}
