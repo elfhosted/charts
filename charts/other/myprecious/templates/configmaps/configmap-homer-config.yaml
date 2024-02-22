@@ -1232,6 +1232,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}
 
+          {{ if .Values.pgadmin.enabled }}
+          - name: "PGAdmin"
+            logo: "assets/png/pgadmin.png"
+            subtitle: "PostgreSQL Admin"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-pgadmin.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}          
+
       - name: "Rclone"
         icon: "fas fa-truck"
         items:

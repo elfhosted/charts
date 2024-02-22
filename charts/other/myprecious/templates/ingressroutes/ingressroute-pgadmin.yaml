@@ -1,0 +1,18 @@
+{{ if .Values.pgadmin.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-pgadmin.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-pgadmin.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: pgadmin
+          kind: Service
+          port: 80
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}

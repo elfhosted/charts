@@ -992,4 +992,15 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email                      
-      {{ end }}                  
+      {{ end }}    
+
+      {{ if .Values.pgadmin.enabled }}
+      - name: pgadmin
+        group: tools
+        url: "http://pgadmin:80"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email                      
+      {{ end }}                        

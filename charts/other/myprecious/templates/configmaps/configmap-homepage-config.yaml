@@ -835,7 +835,15 @@ data:
             href: https://{{ .Release.Name }}-wallabag.elfhosted.com
             description: Read it Later
             siteMonitor: http://wallabag:8000
-        {{ end }}       
+        {{ end }}   
+
+        {{ if .Values.pgadmin.enabled }}
+        - PGAdmin:
+            icon: pgadmin.png
+            href: https://{{ .Release.Name }}-pgadmin.elfhosted.com
+            description: PostgreSQL Admin
+            siteMonitor: http://pgadmin:80
+        {{ end }}               
 
     - Migration Tools:
         - Rclone UI:
