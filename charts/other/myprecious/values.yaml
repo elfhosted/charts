@@ -9595,7 +9595,7 @@ stremio:
     app.elfhosted.com/name: stremio  
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio,stremio-env"
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio,stremio-env,stremio-config"
     strategy:
     rollingUpdate:
       unavailable: 1      
