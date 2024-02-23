@@ -17,7 +17,7 @@ spec:
         - name: error-pages
           namespace: traefik
     {{ if .Values.prowlarrexposed.enabled }}
-    - match: Host(`{{ .Release.Name }}-prowlarr.elfhosted.com`) && PathPrefix(`/{something:.+}/api/{else:.+}`)
+    - match: Host(`{{ .Release.Name }}-prowlarr.elfhosted.com`) && PathPrefix(`/{something:.+}/api{else:.+}`)
       kind: Rule
       services:
         - name: prowlarr
