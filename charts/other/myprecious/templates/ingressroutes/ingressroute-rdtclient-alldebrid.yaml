@@ -15,4 +15,12 @@ spec:
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
           namespace: traefik
+    {{ if .Values.rdtclientalldebridexposed.enabled }}
+    - match: Host(`{{ .Release.Name }}-rdtclient-alldebrid.elfhosted.com`) && PathPrefix(`/api/`)
+      kind: Rule
+      services:
+        - name: rdtclient-alldebrid
+          kind: Service
+          port: 6500
+    {{ end }}          
 {{ end }}

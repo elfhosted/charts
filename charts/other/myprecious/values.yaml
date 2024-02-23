@@ -678,6 +678,10 @@ bazarr4kexposed:
   apikey: 393bda5f898886a2b87413e6452313af
 qbittorrentexposed:
   enabled: false
+rdtclientexposed:
+  enabled: false  
+rdtclientalldebridexposed:
+  enabled: false    
 delugeexposed:
   enabled: false
 rutorrentexposed:
