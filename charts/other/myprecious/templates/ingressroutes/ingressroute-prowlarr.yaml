@@ -16,6 +16,7 @@ spec:
         - name: {{ .Release.Name }}-add-cors-for-homer
         - name: error-pages
           namespace: traefik
+    {{ if .Values.prowlarrexposed.enabled }}
     - match: Host(`{{ .Release.Name }}-prowlarr.elfhosted.com`) && PathPrefix(`/{something:.+}/api/{else:.+}`)
       kind: Rule
       services:
@@ -23,8 +24,8 @@ spec:
           kind: Service
           port: 9696
       middlewares:
-        - name: {{ .Release.Name }}-traefik-forward-auth
         - name: {{ .Release.Name }}-add-cors-for-homer
         - name: error-pages
           namespace: traefik
+      {{ end }}
 {{ end }}
