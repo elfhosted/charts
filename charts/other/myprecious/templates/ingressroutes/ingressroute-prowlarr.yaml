@@ -16,7 +16,7 @@ spec:
         - name: {{ .Release.Name }}-add-cors-for-homer
         - name: error-pages
           namespace: traefik
-    - match: Host(`{{ .Release.Name }}-prowlarr.elfhosted.com`) && PathPrefix(`/api/`)
+    - match: Host(`{{ .Release.Name }}-prowlarr.elfhosted.com`) && PathPrefix(`/{something:.+}/api/{else:.+}`)
       kind: Rule
       services:
         - name: prowlarr
