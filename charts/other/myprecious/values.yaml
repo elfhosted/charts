@@ -8485,10 +8485,10 @@ rdtclient: &app_rdtclient
   podLabels:
     app.elfhosted.com/class: debrid  
   image:
-    # repository: laster13/rdtclient
-    # tag: amd64@sha256:a8a134d90f0600a87b733dc38c3d5ccbb6fa650adbcbd7aff8962780679d8606
-    repository: ghcr.io/geek-cookbook/rdtclient
-    tag: rolling@sha256:08b743f593b7cf84371593f7d3ab8922dc3a21c39e5b01172a54dd7c7d41b220
+    repository: laster13/rdtclient
+    tag: amd64@sha256:a8a134d90f0600a87b733dc38c3d5ccbb6fa650adbcbd7aff8962780679d8606
+    # repository: ghcr.io/geek-cookbook/rdtclient
+    # tag: rolling@sha256:08b743f593b7cf84371593f7d3ab8922dc3a21c39e5b01172a54dd7c7d41b220
   env:
     PUID: 568
     PGID: 568
@@ -8584,6 +8584,20 @@ rdtclient: &app_rdtclient
       ephemeral-storage: 100Mi # a safety net against node ephemeral space exhaustion
   initContainers:
     bootstrap: *bootstrap
+    fixperms:
+      image: *tooling_image
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # permissions fix
+        chown elfie:elfie /storage/elfstorage/downnloads/complete -R
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
 
 # Add a VPN option for rdtclient
 rdtclientvpnpia:
