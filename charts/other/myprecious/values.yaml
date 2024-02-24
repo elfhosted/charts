@@ -1449,7 +1449,62 @@ qbittorrentgluetun: &qbittorrent
       resources: *default_resources
       envFrom:
       - configMapRef:
-          name: qbittorrent-gluetun-config      
+          name: qbittorrent-gluetun-config    
+  additionalContainers:
+    # Use this to provied proxied access to arrs
+    dante:
+      image: ghcr.io/geek-cookbook/dante:v1.4.3
+      env: *bootstrap_env
+      securityContext: *default_securitycontext      
+      volumeMounts:
+      - mountPath: /tmp
+        name: tmp
+      - mountPath: /etc/sockd.conf
+        name: dante-config
+        subPath: sockd.conf
+    mam-helper:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /usr/bin/dumb-init
+      - /bin/bash
+      - -c
+      - |
+        set -e
+        set -x
+
+        echo "Waiting for VPN to be connected..."
+        while ! grep -s -q "connected" /shared/vpnstatus; do
+            # Also account for gluetun-style http controller
+            if (curl -s http://localhost:8042/v1/openvpn/status | grep -q running); then
+                break
+            fi
+            echo "VPN not connected"
+            sleep 2
+        done
+        echo "VPN Connected, processing cookies..."
+        
+        # If we have a cookie already, try to use it
+        if [[ -f /config/mam/saved.cookies ]]; then
+          curl -c /config/mam/saved.cookies -b /config/mam/saved.cookies https://t.myanonamouse.net/json/dynamicSeedbox.php  -o /config/mam/mam_id-curl-output.log
+        fi
+
+        # Now whether that worked or not, look for /config/mam/mam_id
+        mkdir -p /config/mam
+        while [ 1 ]; do
+          if [[ -f /config/mam/mam_id ]]; then
+            curl -c /config/mam/saved.cookies -b "mam_id=$(cat /config/mam/mam_id)" https://t.myanonamouse.net/json/dynamicSeedbox.php -o /config/mam/mam_id-curl-output.log
+            mv /config/mam/mam_id /config/mam/mam_id_processed
+          fi
+          sleep 1m
+        done
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /shared
+        name: shared        
+      resources: *default_resources
+      securityContext: *default_securitycontext             
   resources:
     requests:
       cpu: 100m
