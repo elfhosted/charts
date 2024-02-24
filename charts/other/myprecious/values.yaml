@@ -8598,6 +8598,8 @@ rdtclient: &app_rdtclient
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
+      securityContext:
+        runAsUser: 0        
 
 # Add a VPN option for rdtclient
 rdtclientvpnpia:
