@@ -12,7 +12,7 @@ spec:
           kind: Service
           port: 11470
       middlewares:
-        - name: add-cors-for-stremio
+        - name: headers-add-cors-for-stremio
           namespace: traefik
         - name: error-pages
           namespace: traefik
