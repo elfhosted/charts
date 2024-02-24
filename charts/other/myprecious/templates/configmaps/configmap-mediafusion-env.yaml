@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: mediafusion-env
 data:
-  HOST_URL: https://{{ .Release.name }}-mediafusion.elfhosted.com
+  HOST_URL: https://{{ .Release.Name }}-mediafusion.elfhosted.com
   ENABLE_TAMILMV_SEARCH_SCRAPER: "false"
   PROWLARR_IMMEDIATE_MAX_PROCESS: "3"
   PROWLARR_SEARCH_INTERVAL_HOUR: "24"
