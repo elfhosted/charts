@@ -8594,7 +8594,7 @@ rdtclient: &app_rdtclient
         set -e
 
         # permissions fix
-        chown elfie:elfie /storage/elfstorage/downnloads/complete -R
+        chown elfie:elfie /storage/elfstorage/downloads/completed -R
       volumeMounts:
       - mountPath: /storage/elfstorage
         name: elfstorage
