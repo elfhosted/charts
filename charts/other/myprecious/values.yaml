@@ -10149,7 +10149,7 @@ shluflix:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/shluflix
-    tag: rolling@sha256:2903316a203bd808dc3b1ffce7d717d6f134bb6fcd213c018d098263c7901cc7
+    tag: rolling@sha256:c0c5748d7648bc6e6af0e770af85796bf39f0cf287b2de6e2d2353d9d9a3efa7
   priorityClassName: tenant-normal
   controller:
     annotations:
