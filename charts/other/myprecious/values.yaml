@@ -9929,7 +9929,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:78084fc6c429ec4d80d9a618f65ed643471aaf75c389609946cae2c103c0970b
+    tag: rolling@sha256:b4a3cfff1cbcde3bf4dc222983c635b3443943b8802ebc3a9198d49fd8051096
   priorityClassName: tenant-normal
   controller:
     annotations:
