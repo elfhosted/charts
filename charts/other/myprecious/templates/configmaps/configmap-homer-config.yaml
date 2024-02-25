@@ -418,6 +418,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}  
 
+          {{ if .Values.shluflix.enabled }}
+          - name: "Shluflix"
+            icon: "fas fa-tv"
+            subtitle: "Watch HTTP streams with Stremio"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-shluflix.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}  
+
           {{ if .Values.stremio.enabled }}
           - name: "Stremio"
             logo: "assets/png/stremio.png"

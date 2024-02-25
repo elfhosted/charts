@@ -206,7 +206,15 @@ data:
             href: https://{{ .Release.Name }}-mediafusion.elfhosted.com
             description: Multi-source AddOn for Stremio
             siteMonitor: http://mediafusion:8000
-        {{ end }}        
+        {{ end }}    
+
+        {{ if .Values.shluflix.enabled }}
+        - Shluflix:
+            icon: mdi-tv
+            href: https://{{ .Release.Name }}-shluflix.elfhosted.com
+            description: Watch HTTP streams in Stremio
+            siteMonitor: http://shluflix:3649
+        {{ end }}                
 
         {{ if .Values.stremio.enabled }}
         - Stremio:
