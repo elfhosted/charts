@@ -5,28 +5,23 @@ metadata:
   name: {{ .Release.Name }}-torrentio.elfhosted.com
 spec:
   routes:
-    # "stream" endpoint is the one which invokes database access, and thus needs tighter rate-limiting
-    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`/{something:.+}/stream/{else:.+}`)
-      kind: Rule
-      services:
-        - name: torrentio
-          kind: Service
-          port: 7001
-      middlewares:  
-        - name: error-pages
-          namespace: traefik
-        - name: rate-limit-knightcrawler-hosted
-          namespace: traefik
-    # everything else is static and can be less rate-limited
-    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) 
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`)
       kind: Rule
       services:
         - name: torrentio
           kind: Service
           port: 7001
       middlewares:
-        - name: error-pages
+        - name: chain-hosted-stremio-addon
           namespace: traefik
-        - name: rate-limit-knightcrawler-hosted-static
+    - match: Host(`{{ .Release.Name }}-torrentio.elfhosted.com`) && PathPrefix(`/configure/`)
+      kind: Rule
+      services:
+        - name: torrentio
+          kind: Service
+          port: 7001
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: chain-hosted-stremio-addon
           namespace: traefik
 {{ end }}

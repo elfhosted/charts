@@ -1,25 +1,25 @@
-{{ if .Values.knightcrawler.enabled }}
+{{ if .Values.shluflix.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Release.Name }}-knightcrawler.elfhosted.com
+  name: {{ .Release.Name }}-shluflix.elfhosted.com
 spec:
   routes:
-    - match: Host(`{{ .Release.Name }}-knightcrawler.elfhosted.com`)
+    - match: Host(`{{ .Release.Name }}-shluflix.elfhosted.com`)
       kind: Rule
       services:
-        - name: knightcrawler
+        - name: shluflix
           kind: Service
-          port: 7001
+          port: 3649
       middlewares:
         - name: chain-hosted-stremio-addon
           namespace: traefik
-    - match: Host(`{{ .Release.Name }}-knightcrawler.elfhosted.com`) && PathPrefix(`/configure/`)
+    - match: Host(`{{ .Release.Name }}-shluflix.elfhosted.com`) && PathPrefix(`/configure/`)
       kind: Rule
       services:
-        - name: knightcrawler
+        - name: shluflix
           kind: Service
-          port: 7001
+          port: 3649
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: chain-hosted-stremio-addon

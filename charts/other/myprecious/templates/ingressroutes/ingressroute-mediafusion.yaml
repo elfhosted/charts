@@ -12,7 +12,7 @@ spec:
           kind: Service
           port: 8000
       middlewares:
-        - name: error-pages
+        - name: chain-hosted-stremio-addon
           namespace: traefik
     - match: Host(`{{ .Release.Name }}-mediafusion.elfhosted.com`) && PathPrefix(`/configure/`)
       kind: Rule
@@ -22,6 +22,6 @@ spec:
           port: 8000
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
-        - name: error-pages
+        - name: chain-hosted-stremio-addon
           namespace: traefik
 {{ end }}

@@ -12,10 +12,8 @@ spec:
           kind: Service
           port: 3649
       middlewares:
-        - name: error-pages
-          namespace: traefik
-        - name: rate-limit-xtremio-hosted
-          namespace: traefik                    
+        - name: chain-hosted-stremio-addon
+          namespace: traefik                 
     - match: Host(`{{ .Release.Name }}-xtremio.elfhosted.com`) && PathPrefix(`/configure/`)
       kind: Rule
       services:
@@ -24,8 +22,6 @@ spec:
           port: 3649
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
-        - name: error-pages
+        - name: chain-hosted-stremio-addon
           namespace: traefik
-        - name: rate-limit-xtremio-hosted
-          namespace: traefik          
 {{ end }}
