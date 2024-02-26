@@ -10,7 +10,7 @@ spec:
       services:
         - name: shluflix
           kind: Service
-          port: 3649
+          port: 8001
       middlewares:
         - name: chain-hosted-stremio-addon
           namespace: traefik
@@ -19,7 +19,7 @@ spec:
       services:
         - name: shluflix
           kind: Service
-          port: 3649
+          port: 8001
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: chain-hosted-stremio-addon

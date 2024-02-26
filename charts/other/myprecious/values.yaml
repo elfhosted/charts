@@ -10170,7 +10170,7 @@ shluflix:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   env:
-    PORT: 3649  
+    PORT: 8001  
   persistence:
     tmp: *tmp
   resources:
@@ -10188,7 +10188,7 @@ shluflix:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 3649    
+          port: 8001    
   envFrom:
   - configMapRef:      
       name: shluflix-env

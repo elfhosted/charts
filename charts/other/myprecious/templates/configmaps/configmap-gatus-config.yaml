@@ -227,14 +227,14 @@ data:
       {{ if .Values.shluflix.enabled }}
       - name: shluflix
         group: consume-media
-        url: "http://shluflix:3649"
+        url: "http://shluflix:8001"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
         alerts:
           - type: email               
       {{ end }}  
-      
+
       {{ if .Values.stremio.enabled }}
       - name: stremio
         group: consume-media

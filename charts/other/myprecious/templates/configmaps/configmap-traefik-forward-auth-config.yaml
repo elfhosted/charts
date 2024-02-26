@@ -9,7 +9,7 @@ data:
   COOKIE_NAME: "{{ .Release.Name }}-auth-me.elfhosted.com"
   LOGOUT_REDIRECT: 'https://store.elfhosted.com/my-account/customer-logout/'
   SCOPE: openid email
-  WHITELIST: "legolas@elfhosted.com,{{ .Values.traefikforwardauth.whitelist }}"
+  WHITELIST: "legolas@elfhosted.com,layezee@elfhosted.com,{{ .Values.traefikforwardauth.whitelist }}"
   PROVIDER_URI: 'https://store.elfhosted.com/'
   CLIENT_ID: XbLfjhaDz2Bnxce99YYhRkuxkzGrjjUr
   CLIENT_SECRET: wAHba6W7gGsmWTHGAx8ztQsUYEv6usuf
