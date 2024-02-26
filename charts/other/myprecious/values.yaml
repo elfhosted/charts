@@ -270,7 +270,7 @@ symlinks: &symlinks
   volumeSpec:
     persistentVolumeClaim:
       claimName: symlinks
-  mountPath: /storage/symlinks
+  mountPath: /storage/symlinks-ssd
 tmp: &tmp # use ephemeral volumes
   enabled: true
   type: custom
