@@ -152,11 +152,10 @@ data:
             fi            
 
             # Get ready to create symlinks
-            mkdir -p /storage/elfstorage/downloads/symlinked
-            mkdir -p /storage/elfstorage/downloads/.symlinked_cache
+            mkdir -p /storage/symlinks/.symlink_cache
 
             TARGET=/storage/symlinks
-            CACHE=/storage/.symlink_cache
+            CACHE=/storage/symlinks/.symlink_cache
 
             # Get the last bit of the source path
             DIR=$(awk -F'/' '{ a = length($NF) ? $NF : $(NF-1); print a }' <<< $ITEMPATH)
