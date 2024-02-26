@@ -264,6 +264,13 @@ elfstorage: &elfstorage
     persistentVolumeClaim:
       claimName: elfstorage
   mountPath: /storage/elfstorage
+symlinks: &symlinks
+  enabled: true
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: symlinks
+  mountPath: /storage/symlinks
 tmp: &tmp # use ephemeral volumes
   enabled: true
   type: custom
@@ -314,6 +321,7 @@ appmounts: &appmounts
   smbmountb: *smbmountb
   smbmountc: *smbmountc
   rclonesmbencrypteda: *rclonesmbencrypteda
+  symlinks: *symlinks
 
 # The entire bootstrap sidecar/additionalcontainer
 default_resources: &default_resources

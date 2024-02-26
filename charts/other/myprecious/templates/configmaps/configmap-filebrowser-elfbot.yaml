@@ -155,8 +155,8 @@ data:
             mkdir -p /storage/elfstorage/downloads/symlinked
             mkdir -p /storage/elfstorage/downloads/.symlinked_cache
 
-            TARGET=/storage/elfstorage/downloads/symlinked
-            CACHE=/storage/elfstorage/downloads/.symlinked_cache
+            TARGET=/storage/symlinks
+            CACHE=/storage/.symlink_cache
 
             # Get the last bit of the source path
             DIR=$(awk -F'/' '{ a = length($NF) ? $NF : $(NF-1); print a }' <<< $ITEMPATH)
