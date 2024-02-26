@@ -9929,7 +9929,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:78084fc6c429ec4d80d9a618f65ed643471aaf75c389609946cae2c103c0970b
+    tag: rolling@sha256:67c36b4a6f7c6d04f72cb1aa521f084991fc75ce2175bdeac4f2f0228735d6a4
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10149,7 +10149,7 @@ shluflix:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/shluflix
-    tag: rolling@sha256:2903316a203bd808dc3b1ffce7d717d6f134bb6fcd213c018d098263c7901cc7
+    tag: rolling@sha256:620a21d3a516ed659e4a75b785e3c1471dc2bee55232c65187ef35b1ad51176b
   priorityClassName: tenant-normal
   controller:
     annotations:
