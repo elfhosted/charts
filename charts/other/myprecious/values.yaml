@@ -3177,7 +3177,8 @@ filebrowser:
                 case $COMMAND in
                     "report")
                        echo "Generating symlink report.."
-                       find /storage/elfstorage -xtype l >  /storage/symlinks/report.txt
+                       echo "Listing broken symlinks as identified at $(date)..\n\n" > /storage/symlinks/report.txt
+                       find /storage/elfstorage -xtype l >> /storage/symlinks/report.txt
                        find /storage/symlinks   -xtype l >> /storage/symlinks/report.txt
                         ;;
                 esac
