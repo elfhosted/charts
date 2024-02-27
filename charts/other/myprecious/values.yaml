@@ -2037,8 +2037,11 @@ radarr:
 
         mkdir -p /storage/elfstorage/movies
         mkdir -p /storage/elfstorage/downloads/completed/radarr
-        mkdir -p /storage/symlinks/radarr
         mkdir -p /storage/elfstorage/backup/auto/radarr
+
+        # for symlink downloads and imports
+        mkdir -p /storage/symlinks/downloads/radarr
+        mkdir -p /storage/symlinks/movies        
 
         # Set auth to external
         sed -i  "s|<AuthenticationMethod>None</AuthenticationMethod>|<AuthenticationMethod>External</AuthenticationMethod>|" /config/config.xml
@@ -2122,7 +2125,10 @@ radarr4k:
         mkdir -p /storage/elfstorage/movies-4k
         mkdir -p /storage/elfstorage/backup/auto/radarr4k
         mkdir -p /storage/elfstorage/downloads/completed/radarr4k
-        mkdir -p /storage/symlinks/radarr4k
+
+        # for symlink downloads and imports
+        mkdir -p /storage/symlinks/downloads/radarr4k
+        mkdir -p /storage/symlinks/movies-4k    
 
         # Set auth to external
         sed -i  "s|<AuthenticationMethod>None</AuthenticationMethod>|<AuthenticationMethod>External</AuthenticationMethod>|" /config/config.xml
@@ -3960,7 +3966,10 @@ sonarr:
         mkdir -p /storage/elfstorage/series
         mkdir -p /storage/elfstorage/backup/auto/sonarr
         mkdir -p /storage/elfstorage/downloads/completed/sonarr
-        mkdir -p /storage/symlinks/sonarr
+
+        # for symlink downloads and imports
+        mkdir -p /storage/symlinks/downloads/sonarr
+        mkdir -p /storage/symlinks/series
 
       volumeMounts:
       - mountPath: /storage/elfstorage
@@ -4038,7 +4047,10 @@ sonarr4k:
         mkdir -p /storage/elfstorage/series-4k
         mkdir -p /storage/elfstorage/backup/auto/sonarr4k
         mkdir -p /storage/elfstorage/downloads/completed/sonarr4k
-        mkdir -p /storage/symlinks/sonarr4k
+
+        # for symlink downloads and imports
+        mkdir -p /storage/symlinks/downloads/sonarr4k
+        mkdir -p /storage/symlinks/series-4k
 
       volumeMounts:
       - mountPath: /storage/elfstorage
