@@ -19,7 +19,7 @@ data:
         echo "elfbot backup <app>                           : creates a dated backup folder in under /config/<app>"
         echo "elfbot claim plex <token>                     : claims a plex server"
         echo "elfbot env <app> <key>=<value>                : set an env var inside an app (advanced beta feature)"
-        echo "elfbot symlink <storage-mount>                : import remotely-mounted, read-only media as symlinks"
+        echo "elfbot symlink <storage-mount>|<report>       : import remotely-mounted, read-only media as symlinks, or generate a report"
         echo
     fi
 
@@ -147,6 +147,10 @@ data:
             elif [[ ! -d "$2" ]]; then
                 echo "ERROR: $2 does not exist"
                 exit 1   
+            elif [[ "$2" == "report" ]]; then
+                echo "Generating symlink report, see /symlinks/report.txt for details"
+                echo report > /elfbot/symlink
+                exit 0          
             else
                 ITEMPATH=$2
             fi            

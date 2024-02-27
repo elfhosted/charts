@@ -269,8 +269,8 @@ symlinks: &symlinks
   type: custom
   volumeSpec:
     persistentVolumeClaim:
-      claimName: symlinks
-  mountPath: /storage/symlinks-ssd
+      claimName: symlinks-ssd
+  mountPath: /storage/symlinks
 tmp: &tmp # use ephemeral volumes
   enabled: true
   type: custom
@@ -3171,7 +3171,16 @@ filebrowser:
                 echo "forcerestart requested, deleting $APP pod with --force.."
                 kubectl delete pod -l app.kubernetes.io/name=$APP --force
                 kubectl delete pod -l app.elfhosted.com/name=$APP --force
-              else
+              elif ("$APP" == "symlink"); then
+                # Generate a report on symlinks
+                COMMAND=$(cat /elfbot/$APP)
+                case $COMMAND in
+                    "report")
+                       find /storage/elfstorage -xtype l >  /storage/symlinks/report.txt
+                       find /storage/symlinks   -xtype l >> /storage/symlinks/report.txt
+                        ;;
+                esac
+              else              
 
                 # put the contents of the file into the configmap which will trigger the restart
                 echo command received for ${APP} : [$(cat /elfbot/$APP)]
@@ -3198,6 +3207,10 @@ filebrowser:
       volumeMounts:
       - mountPath: /elfbot
         name: elfbot
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      - mountPath: /storage/symlinks
+        name: symlinks        
       resources: *default_resources
       securityContext: *default_securitycontext
   resources:
