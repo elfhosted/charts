@@ -2449,7 +2449,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.38.1@sha256:0add612bebe13579da44634461cfa7545d5ff3e09bc8badc10b831e63ee36d35
+    tag: 1.39.0@sha256:297fe04583f40bf7a6bfb1b4cbe6d71ee7414a5f173aee69358e7861ad42eb29
   priorityClassName: tenant-normal
   controller:
     annotations:
