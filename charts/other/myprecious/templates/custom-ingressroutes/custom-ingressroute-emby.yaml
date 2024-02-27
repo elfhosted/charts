@@ -1,0 +1,16 @@
+{{- if .Values.embycustomdomain.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Values.embycustomdomain.cname }}
+spec:
+  routes:
+    - match: Host(`{{ .Values.embycustomdomain.cname }}`)
+      kind: Rule
+      services:
+        - name: emby
+          kind: Service
+          port: 8096
+  tls:
+    secretName: cert-{{ .Values.embycustomdomain.cname }}
+{{ end }}

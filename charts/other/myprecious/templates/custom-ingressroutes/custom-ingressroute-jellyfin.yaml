@@ -1,0 +1,16 @@
+{{- if .Values.jellyfincustomdomain.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Values.jellyfincustomdomain.cname }}
+spec:
+  routes:
+    - match: Host(`{{ .Values.jellyfincustomdomain.cname }}`)
+      kind: Rule
+      services:
+        - name: jellyfin
+          kind: Service
+          port: 8096
+  tls:
+    secretName: cert-{{ .Values.jellyfincustomdomain.cname }}
+{{ end }}

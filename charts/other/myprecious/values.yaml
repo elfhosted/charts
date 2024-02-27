@@ -718,6 +718,10 @@ jellyseerrcustomdomain:
 overseerrcustomdomain:
   enabled: false  
 plexcustomdomain:
+  enabled: false   
+jellyfincustomdomain:
+  enabled: false   
+embycustomdomain:
   enabled: false    
 
 rutorrentgluetun: &rutorrent
