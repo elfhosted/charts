@@ -3171,11 +3171,12 @@ filebrowser:
                 echo "forcerestart requested, deleting $APP pod with --force.."
                 kubectl delete pod -l app.kubernetes.io/name=$APP --force
                 kubectl delete pod -l app.elfhosted.com/name=$APP --force
-              elif ("$APP" == "symlink"); then
+              elif [[ "$APP" == "symlink" ]]; then
                 # Generate a report on symlinks
                 COMMAND=$(cat /elfbot/$APP)
                 case $COMMAND in
                     "report")
+                       echo "Generating symlink report.."
                        find /storage/elfstorage -xtype l >  /storage/symlinks/report.txt
                        find /storage/symlinks   -xtype l >> /storage/symlinks/report.txt
                         ;;
