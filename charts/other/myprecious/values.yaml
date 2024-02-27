@@ -1078,6 +1078,12 @@ delugegluetun: &deluge
         configMap:
           name: deluge-elfscripts
           defaultMode: 0755
+    dante-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: dante-config             
   ingress:
     main:
       enabled: false
@@ -1379,6 +1385,12 @@ qbittorrentgluetun: &qbittorrent
         configMap:
           name: qbittorrent-elfscripts
           defaultMode: 0755
+    dante-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: dante-config          
   ingress:
     main:
       enabled: false
