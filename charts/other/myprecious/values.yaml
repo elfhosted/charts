@@ -9763,7 +9763,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v3.0.9@sha256:225eb0f0cdb28ae5f1f8ae8f7398105bf93ad395587b3b96229160fd854253a9
+    tag: v3.0.10@sha256:502ad50578bdb271c0f4685ade830db2fa129542b414c039da5db954241fd3cf
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9949,7 +9949,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:67c36b4a6f7c6d04f72cb1aa521f084991fc75ce2175bdeac4f2f0228735d6a4
+    tag: rolling@sha256:6cac33f540f6fbe05ebb724545a360f80b48557e5ff7d11e080aa90b5d9c0078
   priorityClassName: tenant-normal
   controller:
     annotations:
