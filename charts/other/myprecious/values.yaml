@@ -2517,7 +2517,7 @@ filebrowser:
     app.elfhosted.com/name: filebrowser
   image:
     repository: ghcr.io/geek-cookbook/filebrowser
-    tag: 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
+    tag: 2.23.0@sha256:d847fa2c4f698e909528541dcfc599e13429b3a4fb14fb5223cb3d4dbe8c4fb2
     # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last version which works with uploads
   env:
     FB_DATABASE: /tmp/filebrowser.db
@@ -3171,17 +3171,6 @@ filebrowser:
                 echo "forcerestart requested, deleting $APP pod with --force.."
                 kubectl delete pod -l app.kubernetes.io/name=$APP --force
                 kubectl delete pod -l app.elfhosted.com/name=$APP --force
-              elif [[ "$APP" == "symlink" ]]; then
-                # Generate a report on symlinks
-                COMMAND=$(cat /elfbot/$APP)
-                case $COMMAND in
-                    "report")
-                       echo "Generating symlink report.."
-                       echo "Listing broken symlinks as identified at $(date)..\n\n" > /storage/symlinks/report.txt
-                       find /storage/elfstorage -xtype l >> /storage/symlinks/report.txt
-                       find /storage/symlinks   -xtype l >> /storage/symlinks/report.txt
-                        ;;
-                esac
               else              
 
                 # put the contents of the file into the configmap which will trigger the restart
