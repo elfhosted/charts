@@ -366,7 +366,17 @@ data:
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-stremio-jackett-community.elfhosted.com"
             target: "_blank" # optional html tag target attribute
-          {{ end }}           
+          {{ end }} 
+
+          {{ if .Values.jackettio.enabled }}
+          - name: "Jackettio"
+            logo: "assets/png/jackett.png"
+            subtitle: "Stremio Addon supporting private trackers"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-jackettio.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                     
 
           {{ if .Values.annatar.enabled }}
           - name: "Annatar"

@@ -166,7 +166,18 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email               
-      {{ end }}          
+      {{ end }}  
+
+      {{ if .Values.jackettio.enabled }}
+      - name: jackettio
+        group: consume-media
+        url: "http://jackettio:4000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}                
 
       {{ if .Values.annatar.enabled }}
       - name: annatar
@@ -222,7 +233,6 @@ data:
         alerts:
           - type: email               
       {{ end }}  
-
 
       {{ if .Values.shluflix.enabled }}
       - name: shluflix

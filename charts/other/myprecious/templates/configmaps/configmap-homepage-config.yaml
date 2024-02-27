@@ -158,7 +158,15 @@ data:
             href: https://{{ .Release.Name }}-stremio-jackett-community.elfhosted.com
             description: Stremio-Jackett AddOn with community cache
             siteMonitor: http://stremio-jackett-community:3000
-        {{ end }}           
+        {{ end }}  
+
+        {{ if .Values.jackettio.enabled }}
+        - Jackettio:
+            icon: jackett.png
+            href: https://{{ .Release.Name }}-jackettio.elfhosted.com
+            description: Stremio Addon supporting private trackers
+            siteMonitor: http://jackettio:4000
+        {{ end }}                   
 
         {{ if .Values.annatar.enabled }}
         - Annatar:

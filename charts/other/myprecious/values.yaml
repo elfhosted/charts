@@ -10013,6 +10013,62 @@ annatar:
       name: elfbot-annatar
       optional: true 
 
+annatar:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/jackettio
+    tag: v1.1.2@sha256:1a2cfdb098a797b403f81fc3c8715864bb9acb7ec91e01ba934a2c3767c3e2e6
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-jackettio"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    tmp: *tmp
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-jackettio-ssd    
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 4000    
+  envFrom:
+  - configMapRef:
+      name: jackettio-env 
+  - configMapRef:      
+      name: elfbot-jackettio
+      optional: true 
+
 mediafusion:
   enabled: false
   image:

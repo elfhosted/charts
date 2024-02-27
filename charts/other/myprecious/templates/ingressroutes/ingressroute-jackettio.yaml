@@ -1,0 +1,27 @@
+{{ if .Values.jackettio.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-jackettio.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-jackettio.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: jackettio
+          kind: Service
+          port: 4000
+      middlewares:
+        - name: chain-hosted-stremio-addon
+          namespace: traefik
+    - match: Host(`{{ .Release.Name }}-jackettio.elfhosted.com`) && PathPrefix(`/configure/`)
+      kind: Rule
+      services:
+        - name: jackettio
+          kind: Service
+          port: 4000
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: chain-hosted-stremio-addon
+          namespace: traefik
+{{ end }}
