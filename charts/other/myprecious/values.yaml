@@ -10197,6 +10197,11 @@ shluflix:
     PORT: 8001  
   persistence:
     tmp: *tmp
+    npm:
+      enabled: true
+      type: emptyDir
+      mountPath: /.npm
+      sizeLimit: 1Gi    
   resources:
     requests:
       cpu: 10m
