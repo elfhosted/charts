@@ -10013,7 +10013,7 @@ annatar:
       name: elfbot-annatar
       optional: true 
 
-annatar:
+jackettio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackettio
