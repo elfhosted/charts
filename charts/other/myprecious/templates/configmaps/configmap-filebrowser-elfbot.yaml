@@ -144,12 +144,12 @@ data:
             if [[ "$#" -lt 2 ]]; then  
                 echo "ERROR: path missing - example : 'elfbot symlink /storage/realdebrid-zurg/movies'"
                 exit 1 
-            elif [[ "$2" == "report" ]]; then
+            elif [[ "$2" == "report-broken" ]]; then
                 echo "Generating symlink report, see /symlinks/report.txt for details..."
                 echo -e "Listing broken symlinks as identified at $(date)..\n\n" > /storage/symlinks/report.txt
-                find /storage/elfstorage -xtype l >> /storage/symlinks/report.txt
-                find /storage/symlinks   -xtype l >> /storage/symlinks/report.txt            
-                exit 0      
+                find /storage/elfstorage -xtype l | grep -v .symlinked_cache >> /storage/symlinks/report.txt
+                find /storage/symlinks   -xtype l | grep -v .symlinked_cache >> /storage/symlinks/report.txt            
+                exit 0                   
             elif [[ ! -d "$2" ]]; then
                 echo "ERROR: $2 does not exist"
                 exit 1                      
