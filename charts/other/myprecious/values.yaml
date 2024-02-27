@@ -10200,7 +10200,7 @@ shluflix:
     npm:
       enabled: true
       type: emptyDir
-      mountPath: /.npm
+      mountPath: /home/elfie/.npm
       sizeLimit: 1Gi    
   resources:
     requests:
