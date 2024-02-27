@@ -2517,7 +2517,7 @@ filebrowser:
     app.elfhosted.com/name: filebrowser
   image:
     repository: ghcr.io/geek-cookbook/filebrowser
-    tag: 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
+    tag: 2.23.0@sha256:d847fa2c4f698e909528541dcfc599e13429b3a4fb14fb5223cb3d4dbe8c4fb2
     # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last version which works with uploads
   env:
     FB_DATABASE: /tmp/filebrowser.db
@@ -3108,7 +3108,7 @@ filebrowser:
       enabled: false
   initContainers:
     setup:
-      image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4
+      image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:d847fa2c4f698e909528541dcfc599e13429b3a4fb14fb5223cb3d4dbe8c4fb2
       # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last good version for TFA
       imagePullPolicy: IfNotPresent
       command:
