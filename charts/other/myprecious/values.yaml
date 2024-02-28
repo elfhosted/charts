@@ -10433,8 +10433,10 @@ knightcrawlervpn:
     MONGODB_HOST: 10.43.0.3 # (can't use DNS resolution on VPN)
     MONGODB_PORT: 27017
     MONGODB_DB: torrentio
-    MONGO_INITDB_ROOT_USERNAME: mongo
-    MONGO_INITDB_ROOT_PASSWORD: mongo  
+    MONGO_INITDB_ROOT_USERNAME: mongo # mongo needs this
+    MONGO_INITDB_ROOT_PASSWORD: mongo # mongo needs this
+    MONGODB_USER: mongo               # nodejs apps need this
+    MONGODB_PASSWORD: mongo           # nodejs apps need this
   addons:
     vpn:
       enabled: true # in case we ever need it
