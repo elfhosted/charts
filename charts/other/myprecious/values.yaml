@@ -930,11 +930,11 @@ rutorrentgluetun: &rutorrent
       # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
       scripts:
         up: |-
-          #!/bin/bash
+          #!/bin/ash
           echo "connected" > /shared/vpnstatus
 
         down: |-
-          #!/bin/bash
+          #!/bin/ash
           echo "disconnected" > /shared/vpnstatus
   additionalContainers:
     # Use this to provied proxied access to arrs
@@ -1199,11 +1199,11 @@ delugegluetun: &deluge
       # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
       scripts:
         up: |-
-          #!/bin/bash
+          #!/bin/ash
           echo "connected" > /shared/vpnstatus
 
         down: |-
-          #!/bin/bash
+          #!/bin/ash
           echo "disconnected" > /shared/vpnstatus
   additionalContainers:
     deluge-web:
@@ -1567,11 +1567,11 @@ qbittorrentgluetun: &qbittorrent
       # Our qBittorrent image has a feature that can wait for this file to contain the word 'connected' before actually starting the application.
       scripts:
         up: |-
-          #!/bin/bash
+          #!/bin/ash
           echo "connected" > /shared/vpnstatus
 
         down: |-
-          #!/bin/bash
+          #!/bin/ash
           echo "disconnected" > /shared/vpnstatus
 
 
@@ -4691,11 +4691,11 @@ plex: &plex
       config: # We have to set this to null so that we can override with our own config
       scripts:
         up: |-
-          #!/bin/bash
+          #!/bin/ash
           echo "connected" > /shared/vpnstatus
 
         down: |-
-          #!/bin/bash
+          #!/bin/ash
           echo "disconnected" > /shared/vpnstatus
 
   # probes:
