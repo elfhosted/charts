@@ -9795,7 +9795,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v3.0.10@sha256:502ad50578bdb271c0f4685ade830db2fa129542b414c039da5db954241fd3cf
+    tag: v3.0.10@sha256:91c23dae62a1dd8d8ad57033a63bbad021cefa8e9c6d0b3cbed48a7db24b033e
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10313,7 +10313,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:8d4c288e56e6efb71c6966b926940dd786d1b63638184896e390a8997cca389e
+    tag: rolling@sha256:917602043e74751adb88d2d153979757024f0a909cbb8e72c249f054ffcbff53
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
