@@ -11,4 +11,12 @@ spec:
   - toEndpoints:
     - matchLabels:
         k8s:io.kubernetes.pod.namespace: mediafusion
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: torrentio-addon
+        k8s:io.kubernetes.pod.namespace: torrentio
+    toPorts:
+      - ports:
+        - port: '7001'
+          protocol: TCP        
 {{ end }}
