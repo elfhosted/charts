@@ -2449,7 +2449,7 @@ autobrr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/autobrr
-    tag: 1.38.1@sha256:0add612bebe13579da44634461cfa7545d5ff3e09bc8badc10b831e63ee36d35
+    tag: 1.39.0@sha256:297fe04583f40bf7a6bfb1b4cbe6d71ee7414a5f173aee69358e7861ad42eb29
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9660,7 +9660,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1861@sha256:7daa40f03491d9c2739792c98c5aacbdc8c3c052d900b52eff3ef38e82bd1f68
+    tag: 0.21.1873@sha256:711110d55c58901616a5e37f944f8841a910ace07b8fb451134f092d4ff97638
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9981,7 +9981,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:e5685156661de46134b242cb2b04d3a9a4797f27da8f0fb52b8c7ba223af22bb
+    tag: rolling@sha256:d6cb7f67f57c48a5faabf6387f8b97e5427153c72b7bebf1d33e336ef9c09bb8
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10030,7 +10030,7 @@ jackettio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackettio
-    tag: v1.1.2@sha256:1a2cfdb098a797b403f81fc3c8715864bb9acb7ec91e01ba934a2c3767c3e2e6
+    tag: v1.1.4@sha256:bd4ffea7d68e46354cd50a806b5049179d72f7b1d92d7ea03a3efac479ba514d
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10313,7 +10313,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:e9924e39a5095a21bf9bddead582733bb0a3e5c4f16f28a5f97d26a63261c2ab
+    tag: rolling@sha256:8d4c288e56e6efb71c6966b926940dd786d1b63638184896e390a8997cca389e
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
