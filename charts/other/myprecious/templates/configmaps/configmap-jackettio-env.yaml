@@ -1,0 +1,13 @@
+{{ if .Values.jackettio.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jackettio-env
+data:
+  TRUST_PROXY: "true"
+  JACKETT_URL: http://jackett:9117
+  DATA_FOLDER: /config
+  WELCOME_MESSAGE: |
+    This is a private, hosted instance of Jackettio for {{ .Release.Name}}
+  ADDON_ID: {{ .Release.Name}}-jackettio.elfhosted.com
+{{ end }}
