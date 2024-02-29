@@ -2,7 +2,7 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "permit-cnpg-instance-egress-elfbot-kube-apiserver"
+  name: "permit-cnpg-instance-egress-kube-apiserver"
 spec:
   endpointSelector:
     matchLabels:
