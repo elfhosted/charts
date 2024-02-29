@@ -27,7 +27,6 @@ spec:
       secret:
         name: cnpg-radarr
       postInitSQL:
-        - CREATE USER radarr
         - CREATE DATABASE radarr-main OWNER radarr
         - CREATE DATABASE radarr-log OWNER radarr
 
