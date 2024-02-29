@@ -175,7 +175,7 @@ data:
                 # so that if a user moves a file out of the TARGET folder while importing, we don't recreate it
                 ln -s "$ITEM" "$CACHE/$DIR/" 2> /dev/null
                 if [[ $? -eq 0 ]]; then
-                    cp -rs "$ITEM" "$TARGET/$DIR/"
+                    cp -rs "$ITEM" "$TARGET/$DIR/" 2> /dev/null
                 fi
             done
 
