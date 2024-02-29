@@ -2,7 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: {{ .Release.Name }}-radarr
+  name: {{ .Release.Name }}-radarr-database # "-database" is redundant, but we want the pods to have a specific name so a user doesn't kill them in error
   annotations:
     helm.sh/resource-policy: keep
 spec:

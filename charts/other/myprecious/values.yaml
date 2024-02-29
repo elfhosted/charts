@@ -2000,7 +2000,9 @@ radarr:
   automountServiceAccountToken: false
   envFrom:
   - configMapRef:
-      name: radarr-config
+      name: radarr-env
+  - secretRef:
+      name: radarr-env      
   persistence:
     <<: *appmounts
     config:
@@ -2037,14 +2039,10 @@ radarr:
 
         mkdir -p /storage/elfstorage/movies
         mkdir -p /storage/elfstorage/downloads/completed/radarr
-        mkdir -p /storage/elfstorage/backup/auto/radarr
 
         # for symlink downloads and imports
         mkdir -p /storage/symlinks/downloads/radarr
         mkdir -p /storage/symlinks/movies        
-
-        # Set auth to external
-        sed -i  "s|<AuthenticationMethod>None</AuthenticationMethod>|<AuthenticationMethod>External</AuthenticationMethod>|" /config/config.xml
 
       volumeMounts:
       - mountPath: /storage/elfstorage

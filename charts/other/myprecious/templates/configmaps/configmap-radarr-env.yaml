@@ -2,10 +2,19 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: radarr-config
+  name: radarr-env
 data:
   # Overwrite API key with default
   RADARR__API_KEY: "{{ .Values.radarrexposed.apikey }}"
+  RADARR_AUTHENTICATIONMETHOD: "External"
+  RADARR_POSTGRESHOST: radarr-rw
+  RADARR_POSTGRESUSER: radarr
+  RADARR_POSTGRESLOGDB: radarr-log
+  RADARR_POSTGRESMAINDB: radarr-main
+  RADARR_POSTGRESPORT: '5432'
+  # RADARR_POSTGRESPASSWORD: Set in sealed-secrert
+
+
   scannarr-settings_radarr.json: |
     {
       "URL": "http://localhost:7878",

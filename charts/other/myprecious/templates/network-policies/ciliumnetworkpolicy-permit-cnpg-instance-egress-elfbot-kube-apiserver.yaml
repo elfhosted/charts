@@ -1,0 +1,13 @@
+{{ if .Values.radarr.enabled }}
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-cnpg-instance-egress-elfbot-kube-apiserver"
+spec:
+  endpointSelector:
+    matchLabels:
+      cnpg.io/podRole: instance
+  egress:
+    - toEntities:
+        - kube-apiserver
+{{ end }}
