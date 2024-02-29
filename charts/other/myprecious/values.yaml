@@ -5898,7 +5898,7 @@ flaresolverr:
   image:
     registry: ghcr.io
     repository: flaresolverr/flaresolverr
-    tag: v3.3.15
+    tag: v3.3.16
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -10315,7 +10315,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:87005fde83d299603c822c3eea669528f6fb16c556da80bf2e46a83417a8cf08
+    tag: rolling@sha256:108b7aad6dd06f16de112941d1e069354e1bddb22c4bae2d6d56aaa31affd492
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
