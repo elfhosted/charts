@@ -1,0 +1,38 @@
+{{ if .Values.radarr.enabled }}
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Release.Name }}-radarr
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  instances: 1
+  primaryUpdateStrategy: unsupervised
+
+  # Persistent storage configuration
+  storage:
+    storageClass: ceph-block-ssd
+    size: 1Gi
+
+  monitoring:
+    enablePodMonitor: false
+                
+  superuserSecret:
+      name: cnpg-radarr-superuser
+
+  bootstrap:
+    initdb:
+      database: radarr # not used, but it has to exist
+      owner: radarr
+      secret:
+        name: cnpg-radarr
+      postInitSQL:
+        - CREATE USER radarr
+        - CREATE DATABASE radarr-main OWNER radarr
+        - CREATE DATABASE radarr-log OWNER radarr
+
+  backup:
+      # Volume snapshot backups
+      volumeSnapshot:
+        className: ceph-block
+{{ end }}
