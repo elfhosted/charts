@@ -156,6 +156,9 @@ data:
                 find /storage/elfstorage -xtype l -exec rm {} \;
                 echo ".. Done!"
                 exit 0
+            elif [[ "$2" == "here" ]]; then
+                echo "Symlinking the contents of current directory..."
+                ITEMPATH=$(PWD)             
             elif [[ ! -d "$2" ]]; then
                 echo "ERROR: $2 does not exist"
                 exit 1                      

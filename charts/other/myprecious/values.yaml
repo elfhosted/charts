@@ -9981,7 +9981,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:6411c5cdaddf1078d0a9bc140c08104d2fde7250541b508c41a405bdea542aa8
+    tag: rolling@sha256:f1642651f0d64a2b2d699aecdd491690ee7fdc3a8c4e16f343a5a26d76ed3f6f
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10030,7 +10030,7 @@ jackettio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackettio
-    tag: v1.1.4@sha256:bd4ffea7d68e46354cd50a806b5049179d72f7b1d92d7ea03a3efac479ba514d
+    tag: v1.1.5@sha256:56ac2de5e9f169dca53ee64c95ff89c05786907f1ce55be0f78cd723eacf92cc
   priorityClassName: tenant-normal
   controller:
     annotations:
