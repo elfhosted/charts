@@ -149,7 +149,13 @@ data:
                 echo -e "Listing broken symlinks as identified at $(date)..\n\n" > /storage/symlinks/report.txt
                 find /storage/elfstorage -xtype l | grep -v .symlinked_cache >> /storage/symlinks/report.txt
                 find /storage/symlinks   -xtype l | grep -v .symlinked_cache >> /storage/symlinks/report.txt            
-                exit 0                   
+                exit 0
+            elif [[ "$2" == "delete-broken" ]]; then
+                echo "Deleting all broken symlinks..."
+                find /storage/symlinks -xtype l -exec rm {} \;
+                find /storage/elfstorage -xtype l -exec rm {} \;
+                echo ".. Done!"
+                exit 0
             elif [[ ! -d "$2" ]]; then
                 echo "ERROR: $2 does not exist"
                 exit 1                      
@@ -160,7 +166,7 @@ data:
             # Get ready to create symlinks
             mkdir -p /storage/symlinks/.symlink_cache
 
-            TARGET=/storage/symlinks
+            TARGET=/storage/symlinks/import
             CACHE=/storage/symlinks/.symlink_cache
 
             # Get the last bit of the source path
