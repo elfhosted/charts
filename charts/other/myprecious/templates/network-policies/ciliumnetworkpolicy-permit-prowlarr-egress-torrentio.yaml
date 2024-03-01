@@ -23,5 +23,5 @@ spec:
     toPorts:
       - ports:
         - port: '7001'
-          protocol: TCP          
+          protocol: TCP
 {{ end }}
