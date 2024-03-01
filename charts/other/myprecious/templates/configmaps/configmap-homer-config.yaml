@@ -112,6 +112,9 @@ data:
       MESSAGE_DETAILS=$(cat /www/assets/message/message_details.html /www/assets/message/message_details_config.html )
       echo "{ \"title\":\"Storage usage: ${MESSAGE}\", \"content\":\"${MESSAGE_DETAILS}(<I>Updated roughly hourly</I>)\",\"style\":\"${STYLE}\",\"icon\":\"${ICON}\" }" > /www/assets/message/message.json
 
+      # Remove any non-symlinks in /storage/symlinks
+      find /storage/symlinks/ -type f -delete
+            
       sleep $(shuf -i 1800-5400 -n 1)
     done
 
