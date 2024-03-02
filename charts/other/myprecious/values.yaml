@@ -378,35 +378,31 @@ bootstrap_env: &bootstrap_env
     fieldRef:
       fieldPath: metadata.labels['app.elfhosted.com/name']
 
-bootstrap-migrate-db: &bootstrap_migrate_db
-  - name: migrate-database
-    image: *tooling_image
-    imagePullPolicy: IfNotPresent
-    command:
-    - /bin/bash
-    - -c
-    - |
-      set -e
+bootstrap_migrate_symlinks: &bootstrap_migrate_symlinks
+  image: *tooling_image
+  imagePullPolicy: IfNotPresent
+  command:
+  - /bin/bash
+  - -c
+  - |
+    set -e
 
-      if [[ ! -f /config/i-am-migrated ]]
-      then
-        if [[ ! -z "$(ls -A /config-hdd)" ]]
-        then
-          echo "Migrating from /config-hdd/..."
-          time cp /config-hdd/* /config/ -rfpv
-          touch /config/i-am-migrated
-        fi
-      fi
-    volumeMounts:
-    - mountPath: /config
-      name: data
-      subPath: database
-    - mountPath: /config-hdd
-      name: confighdd
-      subPath: database
-    env: *bootstrap_env
-    resources: *default_resources
-    securityContext: *default_securitycontext
+    if [[ ! -f /storage/symlinks/i-am-migrated ]]
+    then
+      echo "Migrating symlinks from /migration/symlinks-ssd..."
+      cp -rf --preserve=links /migration/symlinks-ssd/* /storage/symlinks/
+      touch /storage/symlinks/i-am-migrated
+    fi    
+    
+  volumeMounts:
+  - mountPath: /storage/symlinks
+    name: symlinks
+  - mountPath: /migration/symlinks-ssd
+    name: symlinksssd
+
+  env: *bootstrap_env
+  resources: *default_resources
+  securityContext: *default_securitycontext
 
 update_dns: &update_dns
   image: dpig/cloudflare-cli
@@ -538,13 +534,6 @@ bootstrap: &bootstrap
       s5cmd sync s3://elfhosted-config/goldilocks/$ELF_APP_NAME/* /config/
       touch /config/i-am-bootstrapped
     fi
-
-    if [[ ! -f /storage/symlinks/i-am-migrated ]]
-    then
-      echo "Migrating symlinks from /migration/symlinks-ssd..."
-      cp -rfp --preserve=links /migration/symlinks-ssd/* /storage/symlinks/
-      touch /config/i-am-migrated
-    fi    
 
   volumeMounts:
   - mountPath: /etc/elfbot
@@ -3137,6 +3126,7 @@ filebrowser:
     main:
       enabled: false
   initContainers:
+    bootstrap-symlinks: *bootstrap_migrate_symlinks
     setup:
       image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:d847fa2c4f698e909528541dcfc599e13429b3a4fb14fb5223cb3d4dbe8c4fb2
       # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last good version for TFA
@@ -8942,7 +8932,6 @@ miniflux:
       database: miniflux
       postgresPassword: miniflux
     primary:
-      initContainers: *bootstrap_migrate_db
       persistence:
         enabled: true
         existingClaim: config-miniflux-ssd
