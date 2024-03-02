@@ -542,10 +542,6 @@ bootstrap: &bootstrap
     name: config
   - mountPath: /storage/elfstorage
     name: elfstorage
-  - mountPath: /storage/symlinks
-    name: symlinks    
-  - mountPath: /migration/symlinks-ssd
-    name: symlinksssd
   env: *bootstrap_env
   resources: *default_resources
   securityContext: *default_securitycontext
