@@ -10619,7 +10619,7 @@ zurg: &zurg
         sed -i  "s/use_download_cache: true/use_download_cache: false/" /config/config.yml
 
         # Enabling repair seems to be safe again
-        sed -i  "s/enable_repair: false/enable_repair: true/" /config/config.yml
+        # sed -i  "s/enable_repair: false/enable_repair: true/" /config/config.yml
 
         # Set to 32 workers
         sed -i  "s/concurrent_workers:.*/concurrent_workers: 32/" /config/config.yml
