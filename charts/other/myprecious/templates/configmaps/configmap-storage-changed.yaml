@@ -10,7 +10,7 @@ data:
     gdriveb: {{ tpl (toYaml .Values.gdriveb) . | sha256sum }}
     gdrivec: {{ tpl (toYaml .Values.gdrivec) . | sha256sum }}
     gdrived: {{ tpl (toYaml .Values.gdrived) . | sha256sum }}
-    premiumize: {{ tpl (toYaml .Values.premiumize) . | sha256sum }}    
+    rclonemountpremuiumize: {{ tpl (toYaml .Values.rclonemountpremuiumize) . | sha256sum }}    
     rclonegdonedriveariveencryptedc: {{ tpl (toYaml .Values.onedrivea) . | sha256sum }}
     rclonegdriveencrypteda: {{ tpl (toYaml .Values.rclonegdriveencrypteda) . | sha256sum }}
     rclonegdriveencryptedb: {{ tpl (toYaml .Values.rclonegdriveencryptedb) . | sha256sum }}

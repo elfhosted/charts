@@ -1,4 +1,4 @@
-{{ if .Values.premiumize.enabled }}
+{{ if .Values.rclonemountpremuiumize.enabled }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
