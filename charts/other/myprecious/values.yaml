@@ -3598,7 +3598,7 @@ lazylibrarian:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
-    tag: rolling@sha256:2bbbee2906c366621a40855a4f35438838135465abd6139c3c8bc93f6f7fba75
+    tag: rolling@sha256:1a53f469e6d0634d52e878750c8fe050aefc5f612108e1cc31adb56da9e5d0d5
   enabled: false
   controller:
     annotations:
@@ -4970,7 +4970,7 @@ emby:
   image:
     registry: ghcr.io
     repository: geek-cookbook/emby
-    tag: 4.8.1.0@sha256:dad91c621b6fb9f3f4425c3356d41bb060b19bd4caba7d5763917f997124d336
+    tag: 4.8.3.0@sha256:3e01274e7dffbc55e96f431d334ea80cf8fae686daa0e626f4f2fe8a2124c218
   enabled: false
   priorityClassName: tenant-streaming
   podLabels:
@@ -9677,7 +9677,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1897@sha256:308ea44550cd28c25eaeeefe46d00a74c1d507470f85a99edd179d1bf66dbde8
+    tag: 0.21.1915@sha256:2762fb4fa3f1e6b5de92ae896d738aca37c388dc2ca2a3fb0e342e4894ec873a
   priorityClassName: tenant-normal
   controller:
     annotations:
