@@ -208,7 +208,7 @@ rclonestorageboxencryptedc: &rclonestorageboxencryptedc
       claimName: storagebox-encrypted-c
   mountPath: /storage/storagebox-encrypted-c
   subaccount: false  
-rclonemountpremuiumize: &rclonemountpremuiumize
+rclonemountpremiumize: &rclonemountpremiumize
   enabled: false
   type: custom
   volumeSpec:
@@ -323,7 +323,7 @@ appmounts: &appmounts
   rclonestorageboxencrypteda: *rclonestorageboxencrypteda
   rclonestorageboxencryptedb: *rclonestorageboxencryptedb
   rclonestorageboxencryptedc: *rclonestorageboxencryptedc    
-  rclonemountpremuiumize: *rclonemountpremuiumize
+  rclonemountpremiumize: *rclonemountpremiumize
   b2: *b2
   smbmounta: *smbmounta
   smbmountb: *smbmountb
