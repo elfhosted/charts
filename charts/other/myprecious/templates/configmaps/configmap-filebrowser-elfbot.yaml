@@ -157,7 +157,7 @@ data:
                 echo ".. Done!"
                 exit 0
             elif [[ "$2" == "here" ]]; then
-                ITEMPATH=$(pwd)             
+                ITEMPATH="$(pwd)"             
             elif [[ ! -d "$2" ]]; then
                 echo "ERROR: $2 does not exist"
                 exit 1                      
