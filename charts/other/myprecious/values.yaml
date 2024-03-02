@@ -329,6 +329,7 @@ appmounts: &appmounts
   smbmountb: *smbmountb
   smbmountc: *smbmountc
   rclonesmbencrypteda: *rclonesmbencrypteda
+  symlinksssd: *symlinksssd
   symlinks: *symlinks
 
 # The entire bootstrap sidecar/additionalcontainer
