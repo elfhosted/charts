@@ -264,12 +264,20 @@ elfstorage: &elfstorage
     persistentVolumeClaim:
       claimName: elfstorage
   mountPath: /storage/elfstorage
-symlinks: &symlinks
+symlinksssd: &symlinksssd
   enabled: true
   type: custom
   volumeSpec:
     persistentVolumeClaim:
       claimName: symlinks-ssd
+  mountPath: /migration/symlinks-ssd
+  readOnly: true
+symlinks: &symlinks
+  enabled: true
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: symlinks
   mountPath: /storage/symlinks
 tmp: &tmp # use ephemeral volumes
   enabled: true
@@ -530,6 +538,13 @@ bootstrap: &bootstrap
       touch /config/i-am-bootstrapped
     fi
 
+    if [[ ! -f /storage/symlinks/i-am-migrated ]]
+    then
+      echo "Migrating symlinks from /migration/symlinks-ssd..."
+      cp -rfp --preserve=links /migration/symlinks-ssd/* /storage/symlinks/
+      touch /config/i-am-migrated
+    fi    
+
   volumeMounts:
   - mountPath: /etc/elfbot
     name: elfbot
@@ -537,6 +552,10 @@ bootstrap: &bootstrap
     name: config
   - mountPath: /storage/elfstorage
     name: elfstorage
+  - mountPath: /storage/symlinks
+    name: symlinks    
+  - mountPath: /migration/symlinks-ssd
+    name: symlinksssd
   env: *bootstrap_env
   resources: *default_resources
   securityContext: *default_securitycontext

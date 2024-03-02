@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: symlinks-ssd
+  name: symlinks
   annotations:
-    helm.sh/resource-policy: delete
+    helm.sh/resource-policy: keep
 spec:
   accessModes:
   - ReadWriteMany
   resources:
     requests:
       storage: 100Gi
-  storageClassName: ceph-filesystem-ssd
+  storageClassName: ceph-filesystem # deliberately not using SSD here
