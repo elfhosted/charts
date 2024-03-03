@@ -1,0 +1,20 @@
+{{ if or .Values.zurg.enabled .Values.zurggluetun.enabled .Values.zurggluetun.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: zurg-repair
+  labels:
+    app.kubernetes.io/name: zurg
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9998
+    targetPort: 9998
+    protocol: TCP
+    name: http
+  selector:
+    app.kubernetes.io/name: zurg
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

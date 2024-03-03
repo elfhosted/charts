@@ -1,0 +1,16 @@
+{{ if or .Values.zurg.enabled .Values.zurggluetun.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-zurg-repair.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-zurg-repair.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: zurg
+          kind: Service
+          port: 9998
+      middlewares:  
+        - name: {{ .Release.Name }}-traefik-forward-auth
+{{ end }}

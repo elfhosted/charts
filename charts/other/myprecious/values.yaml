@@ -10670,7 +10670,7 @@ zurg: &zurg
         # Copy zurg config to repairman for repairing
         cp /config/config.yml /repairman/
         sed -i  "s/enable_repair: false/enable_repair: true/" /repairman/config.yml
-        sed -i  "s/check_for_changes_every_secs:.*/check_for_changes_every_secs: 300/" /repairman/config.yml
+        # sed -i  "s/check_for_changes_every_secs:.*/check_for_changes_every_secs: 300/" /repairman/config.yml
         sed -i  "s/port:.*/port: 9998/" /repairman/config.yml # don't conflict
 
       volumeMounts:
