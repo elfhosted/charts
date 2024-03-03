@@ -4691,6 +4691,9 @@ plex: &plex
   envFrom:
   - configMapRef:
       name: plex-config
+  - configMapRef:
+      name: elfbot-plex
+      optional: true          
   resources:
     requests:
       cpu: "100m"
@@ -4719,10 +4722,7 @@ plex: &plex
             - SYS_MODULE
       envFrom:
       - configMapRef:
-          name: plex-pia-config
-      - configMapRef:
-          name: elfbot-plex
-          optional: true          
+          name: plex-pia-config      
       - secretRef:
           name: plex-vpn          
       additionalVolumeMounts:
