@@ -404,6 +404,33 @@ bootstrap_migrate_symlinks: &bootstrap_migrate_symlinks
   resources: *default_resources
   securityContext: *default_securitycontext
 
+bootstrap_migrate_plex: &bootstrap_migrate_plex
+  image: *tooling_image
+  imagePullPolicy: IfNotPresent
+  command:
+  - /bin/bash
+  - -c
+  - |
+    set -e
+
+    if [[ ! -f /config/i-am-migrated ]]
+    then
+      echo "Migrating plex from /migration/..."
+      cp -rfp /migration/* /config/
+      touch /config/i-am-migrated
+    fi    
+    
+  volumeMounts:
+  - mountPath: /config
+    name: config
+  - mountPath: /migration
+    name: configcephfs
+
+  env: *bootstrap_env
+  resources: *default_resources
+  securityContext: *default_securitycontext
+
+
 update_dns: &update_dns
   image: dpig/cloudflare-cli
   imagePullPolicy: IfNotPresent
@@ -4602,13 +4629,20 @@ plex: &plex
     tag: rolling@sha256:d6dcb7557d3d8f22068f98cae57b43ac9780081429cabf2ed1d93e94ae14b7b2
   persistence:
     <<: *appmounts
-    config:
+    configcephfs:
       enabled: true
       type: custom
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-ssd
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex-block          
     transcode: # in case users use /tmp
       enabled: true
       type: custom
@@ -4667,6 +4701,7 @@ plex: &plex
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns
+    bootstrap_migrate_plex: *bootstrap_migrate_plex
 
   addons:
     vpn: &plex_addons_vpn
