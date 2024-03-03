@@ -21,7 +21,7 @@ data:
     auto_delete_rar_torrents: true # if true, zurg will delete unstreamable rar files (these torrents will always be compressed in a rar archive no matter what files you select)
     use_download_cache: false # if true, during zurg initialization, it will fetch all downloads to unrestrict links faster
     # Disabled by default, causes Plex scanning to get stuck on in-progress files
-    enable_repair: false # BEWARE! THERE CAN ONLY BE 1 INSTANCE OF ZURG THAT SHOULD REPAIR YOUR TORRENTS
+    enable_repair: false # Don't change this, we run a separate zurg for doing repairs without blocking i/o
     on_library_update: sh plex_update.sh "$@"
     ignore_renames: true
     
