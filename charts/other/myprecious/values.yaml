@@ -3950,7 +3950,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.2.1223@sha256:bfb09df927349ae59aa89aaeadac0dccfc9b7335af08901b3b762735679907a8
+    tag: 4.0.2.1262@sha256:aabdaf85e533e6aa7ca1271d9dad7ac78c1a6b251cbcf8806430e533dd86dbc4
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4033,7 +4033,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.2.1223@sha256:bfb09df927349ae59aa89aaeadac0dccfc9b7335af08901b3b762735679907a8
+    tag: 4.0.2.1262@sha256:aabdaf85e533e6aa7ca1271d9dad7ac78c1a6b251cbcf8806430e533dd86dbc4
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4273,7 +4273,7 @@ lidarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/lidarr-develop
-    tag: 2.2.0.4045@sha256:fc632144428ad9cbb521a8bf3bdfb4ad7e5535231511f421e0a167fbb3a0655c
+    tag: 2.2.0.4053@sha256:b3b453e65947802f88f31f8c33c231ea7b4618dc7fc739aeb5c027d7c2fdd712
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -9701,7 +9701,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.1915@sha256:2762fb4fa3f1e6b5de92ae896d738aca37c388dc2ca2a3fb0e342e4894ec873a
+    tag: 0.21.1932@sha256:3f9587027911759e3cfa499df6c5c22446282bd84d28b3a22ca97d86ad4bbbd0
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10024,7 +10024,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:95485b2634e21a62dd26582360aa4dfd724e3aa6b5029450cd3dfe900ec4b5c8
+    tag: rolling@sha256:c1e2106513579af25633773a892d0f272b532684df1b35dc9107232c57b79409
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10073,7 +10073,7 @@ jackettio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackettio
-    tag: v1.1.5@sha256:56ac2de5e9f169dca53ee64c95ff89c05786907f1ce55be0f78cd723eacf92cc
+    tag: v1.1.6@sha256:26cc24a0d0b8f167b8bdc5fa1cdc8c640962209f1e9abb55d0ba547c5ab1f5d9
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10356,7 +10356,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:cfd627fc92d05322605281488fb381abcde8cfc2a98fea73174118d52a6dc6a3
+    tag: rolling@sha256:d995190b7fbabe9811f5aef9720ab700fa6cf03d5f7725f5f6cb36eb0b8243d0
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
