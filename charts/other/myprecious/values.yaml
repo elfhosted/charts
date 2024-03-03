@@ -2781,27 +2781,27 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
-    plex:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
-    plexpia:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
-    plexgluetun:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
+    # plex:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /storage/config/plex/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-plex-ssd
+    # plexpia:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /storage/config/plex/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-plex-ssd
+    # plexgluetun:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /storage/config/plex/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-plex-ssd
     joplinserver:
       enabled: false
       type: custom
@@ -4720,8 +4720,11 @@ plex: &plex
       envFrom:
       - configMapRef:
           name: plex-pia-config
+      - configMapRef:
+          name: elfbot-plex
+          optional: true          
       - secretRef:
-          name: plex-vpn
+          name: plex-vpn          
       additionalVolumeMounts:
       - mountPath: /config
         name: config
@@ -7490,27 +7493,27 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
-    plex:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
-    plexpia:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
-    plexgluetun:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
+    # plex:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /storage/config/plex/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-plex-ssd
+    # plexpia:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /storage/config/plex/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-plex-ssd
+    # plexgluetun:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /storage/config/plex/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-plex-ssd
     joplinserver:
       enabled: false
       type: custom

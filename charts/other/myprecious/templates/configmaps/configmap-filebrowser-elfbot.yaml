@@ -130,10 +130,9 @@ data:
                 exit 1
             fi   
             if [[ "$2" = "plex" ]]; then
-                echo "attempting plex claim with token [$3]..."
-                /usr/local/bin/claim-plex-server.sh $3
-                echo "restarting plex..."
-                echo restart > /elfbot/$2
+
+                echo "Attempting to claim Plex with claim [$3], and triggering a restart..."
+                echo PLEX_CLAIM=$3 > /elfbot/plex
             else
                 echo "this command is only for claiming plex"
             fi
