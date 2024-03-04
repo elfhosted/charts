@@ -10147,7 +10147,7 @@ stremiojackettcommunity: &stremiojackettcommunity
 
 stremiojackettcommunityalldebrid: 
   enabled: false
-  <<: *stremiojackettcommunityvpn
+  <<: *stremiojackettcommunity
   podLabels: 
       app.elfhosted.com/name: stremio-jackett-community     
   addons:
