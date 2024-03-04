@@ -134,7 +134,7 @@ data:
     # icon: "fas fa-wand-magic-sparkles"
     logo: https://elfhosted.com/images/logo.png
     header: true # Set to false to hide the header
-    footer: false
+    footer: Version {{ .Release.Version }}
 
     columns: "3" # "auto" or number (must be a factor of 12: 1, 2, 3, 4, 6, 12)
     connectivityCheck: false # whether you want to display a message when the apps are not accessible anymore (VPN disconnected for example)
