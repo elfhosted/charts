@@ -10073,7 +10073,7 @@ jackettio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackettio
-    tag: v1.1.6@sha256:26cc24a0d0b8f167b8bdc5fa1cdc8c640962209f1e9abb55d0ba547c5ab1f5d9
+    tag: v1.1.7@sha256:4144c1e94723d038a7e7ebb0eaddb8187f8817d2b1827da795c79ead684dabb6
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10129,7 +10129,7 @@ mediafusion:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/mediafusion
-    tag: 3.7.1@sha256:d454ee0d05cd3064c39661c35a18dc38db546b0d2f37702c0402130963104421
+    tag: 3.7.2@sha256:f3e92d265730ca8ef53b4e388852523bdf454a5313cc4636d341956c7905b929
   priorityClassName: tenant-normal
   controller:
     annotations:
