@@ -7977,7 +7977,7 @@ alldebridwebdavpia:
     --no-modtime \
     --vfs-read-chunk-size=10M \
     --vfs-read-chunk-size-limit=10M \
-    --vfs-cache-mode=full \
+    --vfs-cache-mode=minimal \
     --stats 60s \
     --cache-dir /tmp \
     --vfs-cache-max-size 10G \
