@@ -10097,7 +10097,7 @@ mediafusion:
   - secretRef:
       name: mediafusion-env  
 
-stremiojackettcommunity:
+stremiojackettcommunity: &stremiojackettcommunity
   enabled: false
   podLabels: 
       app.elfhosted.com/name: stremio-jackett-community    
@@ -10144,6 +10144,12 @@ stremiojackettcommunity:
           port: 3000    
   env:
     CACHE_URL: http://10.43.0.4:8080 # the internal IP of the cacher, since this pod is VPN'd
+
+stremiojackettcommunityalldebrid: 
+  enabled: false
+  <<: *stremiojackettcommunityvpn
+  podLabels: 
+      app.elfhosted.com/name: stremio-jackett-community     
   addons:
     vpn:
       enabled: true # in case we ever need it

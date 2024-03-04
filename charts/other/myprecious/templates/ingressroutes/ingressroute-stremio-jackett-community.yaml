@@ -1,4 +1,4 @@
-{{ if .Values.stremiojackettcommunity.enabled }}
+{{ if or .Values.stremiojackettcommunity.enabled .Values.stremiojackettcommunityalldebrid.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:

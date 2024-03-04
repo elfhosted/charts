@@ -157,7 +157,7 @@ data:
           - type: email               
       {{ end }}   
 
-      {{ if .Values.stremiojackettcommunity.enabled }}
+      {{ if or .Values.stremiojackettcommunity.enabled .Values.stremiojackettcommunityalldebrid.enabled }}
       - name: stremio-jackett-community
         group: consume-media
         url: "http://stremio-jackett-community:3000"

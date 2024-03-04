@@ -152,7 +152,7 @@ data:
             siteMonitor: http://stremio-jackett:3000
         {{ end }}  
 
-        {{ if .Values.stremiojackettcommunity.enabled }}
+        {{ if or .Values.stremiojackettcommunity.enabled .Values.stremiojackettcommunityalldebrid.enabled }}
         - Stremio-Jackett-Community:
             icon: jackett.png
             href: https://{{ .Release.Name }}-stremio-jackett-community.elfhosted.com

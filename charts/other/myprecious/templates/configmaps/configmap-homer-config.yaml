@@ -361,7 +361,7 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }} 
 
-          {{ if .Values.stremiojackettcommunity.enabled }}
+          {{ if or .Values.stremiojackettcommunity.enabled .Values.stremiojackettcommunityalldebrid.enabled }}
           - name: "Stremio Jackett (Community)"
             logo: "assets/png/jackett.png"
             subtitle: "Addon with community cache"
