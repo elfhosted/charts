@@ -10129,7 +10129,7 @@ mediafusion:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/mediafusion
-    tag: 3.7.2@sha256:f3e92d265730ca8ef53b4e388852523bdf454a5313cc4636d341956c7905b929
+    tag: 3.7.2@sha256:5e669190c4b5a5daad288c9509d4d9cae6f8061ca418716e531e240a1a565384
   priorityClassName: tenant-normal
   controller:
     annotations:
