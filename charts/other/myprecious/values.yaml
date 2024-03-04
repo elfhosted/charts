@@ -4632,7 +4632,6 @@ plex: &plex
     configcephfs:
       enabled: true
       type: custom
-      mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-ssd
@@ -4673,15 +4672,7 @@ plex: &plex
       mountPath: /shared
       type: emptyDir
       volumeSpec:
-        medium: Memory  
-    iceberg:
-      enabled: false
-      type: custom
-      mountPath: /storage/library/
-      subPath: library
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-iceberg-ssd            
+        medium: Memory           
   ingress:
     main:
       enabled: false
@@ -4775,7 +4766,7 @@ plexgluetun:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex-ssd
+          claimName: config-plex-block
     shared:
       enabled: true
       mountPath: /shared
