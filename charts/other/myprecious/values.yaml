@@ -415,9 +415,12 @@ bootstrap_migrate_plex: &bootstrap_migrate_plex
 
     if [[ ! -f /config/i-am-migrated ]]
     then
-      echo "Migrating plex from /migration/..."
-      cp -rfp /migration/* /config/
-      touch /config/i-am-migrated
+      if [[ ! -z "$(ls -A /migration)" ]]    
+      then
+        echo "Migrating plex from /migration/..."
+        cp -rfp /migration/* /config/
+        touch /config/i-am-migrated
+      fi
     fi    
     
   volumeMounts:
@@ -4758,41 +4761,6 @@ plexgluetun:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-plex,plex-gluetun-config"
-  persistence:
-    <<: *appmounts
-    config:
-      enabled: true
-      type: custom
-      mountPath: /config/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-block
-    shared:
-      enabled: true
-      mountPath: /shared
-      type: emptyDir
-      volumeSpec:
-        medium: Memory
-    elfbot:
-      enabled: "true"
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: elfbot-plex
-          optional: true
-    transcode: # in case users use /tmp
-      enabled: true
-      type: custom
-      mountPath: /transcode
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 50Gi
   service:
     main:
       nameOverride: plex
@@ -4815,41 +4783,6 @@ plexpia:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-plex,plex-pia-config"
-  persistence:
-    <<: *appmounts
-    config:
-      enabled: true
-      type: custom
-      mountPath: /config/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
-    shared:
-      enabled: true
-      mountPath: /shared
-      type: emptyDir
-      volumeSpec:
-        medium: Memory
-    elfbot:
-      enabled: "true"
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: elfbot-plex
-          optional: true
-    transcode: # in case users use /tmp
-      enabled: true
-      type: custom
-      mountPath: /transcode
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 50Gi
   addons:
     vpn:
       <<: *plex_addons_vpn
