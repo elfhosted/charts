@@ -10143,7 +10143,7 @@ stremiojackettcommunity: &stremiojackettcommunity
         http:
           port: 3000    
   env:
-    CACHE_URL: http://10.43.0.4:8080 # the internal IP of the cacher, since this pod is VPN'd
+    CACHE_URL: http://stremio-jackett-cacher.stremio-jackett-cacher:8080 # the internal IP of the cacher, since this pod is VPN'd
 
 stremiojackettcommunityalldebrid: 
   enabled: false
@@ -10175,6 +10175,8 @@ stremiojackettcommunityalldebrid:
             - NET_ADMIN
             - SYS_MODULE
       config: # We have to set this to null so that we can override with our own config    
+  env:
+    CACHE_URL: http://10.43.0.4:8080 # the internal IP of the cacher, since this pod is VPN'd
 
 
 xtremio:
