@@ -329,7 +329,7 @@ appmounts: &appmounts
   smbmountb: *smbmountb
   smbmountc: *smbmountc
   rclonesmbencrypteda: *rclonesmbencrypteda
-  symlinksssd: *symlinksssd
+  # symlinksssd: *symlinksssd
   symlinks: *symlinks
 
 # The entire bootstrap sidecar/additionalcontainer
@@ -378,31 +378,31 @@ bootstrap_env: &bootstrap_env
     fieldRef:
       fieldPath: metadata.labels['app.elfhosted.com/name']
 
-bootstrap_migrate_symlinks: &bootstrap_migrate_symlinks
-  image: *tooling_image
-  imagePullPolicy: IfNotPresent
-  command:
-  - /bin/bash
-  - -c
-  - |
-    # set -e
+# bootstrap_migrate_symlinks: &bootstrap_migrate_symlinks
+#   image: *tooling_image
+#   imagePullPolicy: IfNotPresent
+#   command:
+#   - /bin/bash
+#   - -c
+#   - |
+#     # set -e
 
-    if [[ ! -f /storage/symlinks/i-am-migrated ]]
-    then
-      echo "Migrating symlinks from /migration/symlinks-ssd..."
-      cp -rf --preserve=links /migration/symlinks-ssd/* /storage/symlinks/
-      touch /storage/symlinks/i-am-migrated
-    fi    
+#     if [[ ! -f /storage/symlinks/i-am-migrated ]]
+#     then
+#       echo "Migrating symlinks from /migration/symlinks-ssd..."
+#       cp -rf --preserve=links /migration/symlinks-ssd/* /storage/symlinks/
+#       touch /storage/symlinks/i-am-migrated
+#     fi    
     
-  volumeMounts:
-  - mountPath: /storage/symlinks
-    name: symlinks
-  - mountPath: /migration/symlinks-ssd
-    name: symlinksssd
+#   volumeMounts:
+#   - mountPath: /storage/symlinks
+#     name: symlinks
+#   - mountPath: /migration/symlinks-ssd
+#     name: symlinksssd
 
-  env: *bootstrap_env
-  resources: *default_resources
-  securityContext: *default_securitycontext
+#   env: *bootstrap_env
+#   resources: *default_resources
+#   securityContext: *default_securitycontext
 
 bootstrap_migrate_plex: &bootstrap_migrate_plex
   image: *tooling_image
