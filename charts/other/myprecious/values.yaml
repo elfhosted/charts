@@ -264,14 +264,14 @@ elfstorage: &elfstorage
     persistentVolumeClaim:
       claimName: elfstorage
   mountPath: /storage/elfstorage
-symlinksssd: &symlinksssd
-  enabled: true
-  type: custom
-  volumeSpec:
-    persistentVolumeClaim:
-      claimName: symlinks-ssd
-  mountPath: /migration/symlinks-ssd
-  readOnly: true
+# symlinksssd: &symlinksssd
+#   enabled: true
+#   type: custom
+#   volumeSpec:
+#     persistentVolumeClaim:
+#       claimName: symlinks-ssd
+#   mountPath: /migration/symlinks-ssd
+#   readOnly: true
 symlinks: &symlinks
   enabled: true
   type: custom
@@ -3152,7 +3152,6 @@ filebrowser:
     main:
       enabled: false
   initContainers:
-    bootstrap-symlinks: *bootstrap_migrate_symlinks
     setup:
       image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:d847fa2c4f698e909528541dcfc599e13429b3a4fb14fb5223cb3d4dbe8c4fb2
       # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last good version for TFA
