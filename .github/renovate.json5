@@ -40,7 +40,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true,
-      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","knightcrawler-addon","rclone"]
+      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","rclone","iceberg"]
     } 
   ],
   // since we version by bumping, each PR needs to be rebased every time we merge
