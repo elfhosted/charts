@@ -264,14 +264,6 @@ elfstorage: &elfstorage
     persistentVolumeClaim:
       claimName: elfstorage
   mountPath: /storage/elfstorage
-# symlinksssd: &symlinksssd
-#   enabled: true
-#   type: custom
-#   volumeSpec:
-#     persistentVolumeClaim:
-#       claimName: symlinks-ssd
-#   mountPath: /migration/symlinks-ssd
-#   readOnly: true
 symlinks: &symlinks
   enabled: true
   type: custom
@@ -329,7 +321,6 @@ appmounts: &appmounts
   smbmountb: *smbmountb
   smbmountc: *smbmountc
   rclonesmbencrypteda: *rclonesmbencrypteda
-  # symlinksssd: *symlinksssd
   symlinks: *symlinks
 
 # The entire bootstrap sidecar/additionalcontainer
