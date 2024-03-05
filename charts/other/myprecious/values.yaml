@@ -1204,7 +1204,7 @@ delugegluetun: &deluge
       memory: 512Mi
     limits:
       cpu: 500m
-      memory: 1200Mi
+      memory: 1500Mi
   addons:
     vpn: &deluge_addons_vpn
       enabled: true
