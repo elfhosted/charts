@@ -140,14 +140,14 @@ data:
 
         "symlink")
 
-            if [[ "$#" -lt 2 ]]; then  
+            if [[ "$#" -lt 2 ]]; then
                 echo "ERROR: path missing - example : 'elfbot symlink /storage/realdebrid-zurg/movies'"
-                exit 1 
+                exit 1
             elif [[ "$2" == "report-broken" ]]; then
                 echo "Generating symlink report, see /symlinks/report.txt for details..."
                 echo -e "Listing broken symlinks as identified at $(date)..\n\n" > /storage/symlinks/report.txt
                 find /storage/elfstorage -xtype l | grep -v .symlinked_cache >> /storage/symlinks/report.txt
-                find /storage/symlinks   -xtype l | grep -v .symlinked_cache >> /storage/symlinks/report.txt            
+                find /storage/symlinks   -xtype l | grep -v .symlinked_cache >> /storage/symlinks/report.txt
                 exit 0
             elif [[ "$2" == "delete-broken" ]]; then
                 echo "Deleting all broken symlinks..."
@@ -156,38 +156,40 @@ data:
                 echo ".. Done!"
                 exit 0
             elif [[ "$2" == "here" ]]; then
-                ITEMPATH="$(pwd)"             
+                ITEMPATH="$(pwd)"
             elif [[ ! -d "$2" ]]; then
                 echo "ERROR: $2 does not exist"
-                exit 1                      
+                exit 1
             else
                 ITEMPATH=$2
-            fi            
+            fi
 
             # Get ready to create symlinks
             mkdir -p /storage/symlinks/.symlink_cache
 
+
+            set -x
             TARGET=/storage/symlinks/import
             CACHE=/storage/symlinks/.symlink_cache
 
             # Get the last bit of the source path
             DIR=$(awk -F'/' '{ a = length($NF) ? $NF : $(NF-1); print a }' <<< $ITEMPATH)
-            echo "Symlinking new items in $ITEMPATH to $TARGET/$DIR... "
-            mkdir -p $TARGET/$DIR
-            mkdir -p $CACHE/$DIR
+            echo "Symlinking new items in $ITEMPATH to $TARGET/${DIR}... "
+            mkdir -p "$TARGET/${DIR}"
+            mkdir -p "$CACHE/${DIR}"
 
-            for ITEM in $ITEMPATH/*
+            ls "${ITEMPATH}/" | while read -r ITEM
             do
                 # symlink to target only if cache doesn't already exist
                 # so that if a user moves a file out of the TARGET folder while importing, we don't recreate it
-                ln -s "$ITEM" "$CACHE/$DIR/" 2> /dev/null
+                ln -s "${ITEM}" "$CACHE/${DIR}/" 2> /dev/null
                 if [[ $? -eq 0 ]]; then
-                    cp -rs "$ITEM" "$TARGET/$DIR/" 2> /dev/null
+                    cp -rs "${ITEM}" "$TARGET/${DIR}/" 2> /dev/null
                 fi
             done
 
             echo "Done! 🎉"
 
-            ;;                   
+            ;;        
 
     esac

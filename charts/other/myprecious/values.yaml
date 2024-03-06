@@ -395,7 +395,7 @@ bootstrap_env: &bootstrap_env
 #   resources: *default_resources
 #   securityContext: *default_securitycontext
 
-bootstrap_migrate_plex: &bootstrap_migrate_plex
+migrate_from_cephfs: &migrate_from_cephfs
   image: *tooling_image
   imagePullPolicy: IfNotPresent
   command:
@@ -408,7 +408,7 @@ bootstrap_migrate_plex: &bootstrap_migrate_plex
     then
       if [[ ! -z "$(ls -A /migration)" ]]    
       then
-        echo "Migrating plex from /migration/..."
+        echo "Migrating from /migration/..."
         cp -rfp /migration/* /config/
         touch /config/i-am-migrated
       fi
@@ -417,6 +417,8 @@ bootstrap_migrate_plex: &bootstrap_migrate_plex
   volumeMounts:
   - mountPath: /config
     name: config
+  - mountPath: /migration
+    name: migration
 
   env: *bootstrap_env
   resources: *default_resources
@@ -4626,7 +4628,13 @@ plex: &plex
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex-block          
+          claimName: config-plex-block     
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-plex-ssd                    
     transcode: # in case users use /tmp
       enabled: true
       type: custom
@@ -4680,7 +4688,7 @@ plex: &plex
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns
-    # bootstrap-migrate-plex: *bootstrap_migrate_plex
+    migrate-from-cephfs: *migrate_from_cephfs
 
   addons:
     vpn: &plex_addons_vpn
