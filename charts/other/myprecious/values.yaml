@@ -5213,27 +5213,27 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
-    plex:
-      enabled: false
-      type: custom
-      mountPath: /config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
-    plexpia:
-      enabled: false
-      type: custom
-      mountPath: /config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
-    plexgluetun:
-      enabled: false
-      type: custom
-      mountPath: /config/plex/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
+    # plex:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /config/plex/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-plex-ssd
+    # plexpia:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /config/plex/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-plex-ssd
+    # plexgluetun:
+    #   enabled: false
+    #   type: custom
+    #   mountPath: /config/plex/
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: config-plex-ssd
     jfa:
       enabled: false
       type: custom
