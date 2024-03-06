@@ -4680,7 +4680,7 @@ plex: &plex
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns
-    bootstrap-migrate-plex: *bootstrap_migrate_plex
+    # bootstrap-migrate-plex: *bootstrap_migrate_plex
 
   addons:
     vpn: &plex_addons_vpn
