@@ -417,8 +417,6 @@ bootstrap_migrate_plex: &bootstrap_migrate_plex
   volumeMounts:
   - mountPath: /config
     name: config
-  - mountPath: /migration
-    name: configcephfs
 
   env: *bootstrap_env
   resources: *default_resources
@@ -4622,12 +4620,6 @@ plex: &plex
     tag: rolling@sha256:d6dcb7557d3d8f22068f98cae57b43ac9780081429cabf2ed1d93e94ae14b7b2
   persistence:
     <<: *appmounts
-    configcephfs:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd
     config:
       enabled: true
       type: custom
