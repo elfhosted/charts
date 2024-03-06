@@ -1,4 +1,3 @@
-{{ if .Values.iceberg.enabled }}
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
@@ -24,4 +23,3 @@ spec:
       - ports:
         - port: '7001'
           protocol: TCP          
-{{ end }}
