@@ -5761,6 +5761,9 @@ gatus:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8080
   controller:
     strategy: RollingUpdate
     annotations:
@@ -5777,7 +5780,7 @@ gatus:
       volumeSpec:
         configMap:
           name: gatus-config
-    data: # have to stick with this becauese of how it's named in the chart
+    config:
       enabled: true
       type: custom
       mountPath: /data/
