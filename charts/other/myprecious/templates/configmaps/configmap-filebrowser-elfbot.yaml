@@ -167,8 +167,6 @@ data:
             # Get ready to create symlinks
             mkdir -p /storage/symlinks/.symlink_cache
 
-
-            set -x
             TARGET=/storage/symlinks/import
             CACHE=/storage/symlinks/.symlink_cache
 

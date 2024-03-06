@@ -5783,7 +5783,13 @@ gatus:
       mountPath: /data/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-gatus-ssd      
+          claimName: config-gatus-block  
+    migration: # migrating from cephfs
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-gatus-ssd                
   envFrom:
   - secretRef:
       name: gatus-smtp-config
@@ -10219,6 +10225,62 @@ xtremio:
       optional: true       
 
 shluflix:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/shluflix
+    tag: rolling@sha256:6e4fafbe7e3888ff3212dfa771855272600b32d8dd50f9417202e892db424442
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-shluflix"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  env:
+    PORT: 8001  
+  persistence:
+    tmp: *tmp
+    npm:
+      enabled: true
+      type: emptyDir
+      mountPath: /home/elfie/.npm
+      sizeLimit: 1Gi    
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8001    
+  envFrom:
+  - configMapRef:      
+      name: shluflix-env
+  - configMapRef:      
+      name: elfbot-xtremio
+      optional: true
+
+samba:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/shluflix
