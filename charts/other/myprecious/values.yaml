@@ -5798,6 +5798,7 @@ gatus:
       # -- Store homer configuration as a ConfigMap, but don't specify any config, since we'll supply our own
       enabled: false
   initContainers:
+    migrate-from-cephfs: *migrate_from_cephfs
 
 gotify:
   sso:
