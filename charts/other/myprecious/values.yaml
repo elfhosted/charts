@@ -2058,8 +2058,8 @@ radarr:
     main:
       enabled: true # necessary for probes
   initContainers:
+    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
-    migrate-from-cephfs: *migrate_from_cephfs
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -2150,8 +2150,8 @@ radarr4k:
     main:
       enabled: true # necessary for probes
   initContainers:
+    a-migrate-from-cephfs: *migrate_from_cephfs  
     bootstrap: *bootstrap
-    migrate-from-cephfs: *migrate_from_cephfs 
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4000,8 +4000,8 @@ sonarr:
     main:
       enabled: false
   initContainers:
+    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
-    migrate-from-cephfs: *migrate_from_cephfs 
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4090,8 +4090,8 @@ sonarr4k:
     main:
       enabled: false
   initContainers:
+    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
-    migrate-from-cephfs: *migrate_from_cephfs
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4507,8 +4507,8 @@ readarr:
     main:
       enabled: true # necessary for probes
   initContainers:
+    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
-    migrate-from-cephfs: *migrate_from_cephfs 
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4595,8 +4595,8 @@ readarraudio:
     main:
       enabled: true # necessary for probes
   initContainers:
+    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
-    migrate-from-cephfs: *migrate_from_cephfs 
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
