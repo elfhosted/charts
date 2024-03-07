@@ -4426,7 +4426,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.20.2450@sha256:52d0120b0c967b74bf1d349ea6ba5c955194bcd23506fc82d98ab3c4252b8e37
+    tag: 0.3.20.2451@sha256:aaa8178bb10ea5e55cce474fa6a3ef111d7286d88f4f7ed0073705e6c6dfcad2
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4507,7 +4507,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.20.2450@sha256:52d0120b0c967b74bf1d349ea6ba5c955194bcd23506fc82d98ab3c4252b8e37
+    tag: 0.3.20.2451@sha256:aaa8178bb10ea5e55cce474fa6a3ef111d7286d88f4f7ed0073705e6c6dfcad2
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -9941,7 +9941,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: rolling@sha256:f3a9a49989a2bed41d56d39e5997d551f78f087627d2d13eec85359a9dcbdf25
+    tag: rolling@sha256:5d8788418040699d3096d6e980080ec2ea3fbee62e3823a1db756a0fc08a2925
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9990,7 +9990,7 @@ jackettio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackettio
-    tag: v1.1.7@sha256:4144c1e94723d038a7e7ebb0eaddb8187f8817d2b1827da795c79ead684dabb6
+    tag: v1.1.9@sha256:1a6ce90645b1a0a9ca63318c6b35b728f614f00bdd4bb216018badafc7328a07
   priorityClassName: tenant-normal
   controller:
     annotations:
