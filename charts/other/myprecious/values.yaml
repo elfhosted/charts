@@ -2771,7 +2771,7 @@ filebrowser:
     jellyfin:
       enabled: "true"
       subPath: "where-is-my-jellyfin.txt"
-      mountPath: /config/jellyfin/where-is-my-jellyfin.txt
+      mountPath: /storage/config/jellyfin/where-is-my-jellyfin.txt
       type: "custom"
       volumeSpec:
         configMap:
@@ -2926,7 +2926,7 @@ filebrowser:
     plex:
       enabled: "true"
       subPath: "where-is-my-plex.txt"
-      mountPath: /config/plex/where-is-my-plex.txt
+      mountPath: /storage/config/plex/where-is-my-plex.txt
       type: "custom"
       volumeSpec:
         configMap:
@@ -2962,7 +2962,7 @@ filebrowser:
     radarr:
       enabled: "true"
       subPath: "where-is-my-radarr.txt"
-      mountPath: /config/radarr/where-is-my-radarr.txt
+      mountPath: /storage/config/radarr/where-is-my-radarr.txt
       type: "custom"
       volumeSpec:
         configMap:
@@ -2970,7 +2970,7 @@ filebrowser:
     radarr4k:
       enabled: "true"
       subPath: "where-is-my-radarr4k.txt"
-      mountPath: /config/radarr4k/where-is-my-radarr4k.txt
+      mountPath: /storage/config/radarr4k/where-is-my-radarr4k.txt
       type: "custom"
       volumeSpec:
         configMap:
@@ -2992,7 +2992,7 @@ filebrowser:
     readarr:
       enabled: "true"
       subPath: "where-is-my-readarr.txt"
-      mountPath: /config/readarr/where-is-my-readarr.txt
+      mountPath: /storage/config/readarr/where-is-my-readarr.txt
       type: "custom"
       volumeSpec:
         configMap:
@@ -3000,7 +3000,7 @@ filebrowser:
     readarraudio:
       enabled: "true"
       subPath: "where-is-my-readarraudio.txt"
-      mountPath: /config/readarraudio/where-is-my-readarraudio.txt
+      mountPath: /storage/config/readarraudio/where-is-my-readarraudio.txt
       type: "custom"
       volumeSpec:
         configMap:
@@ -3057,7 +3057,7 @@ filebrowser:
     sonarr:
       enabled: "true"
       subPath: "where-is-my-sonarr.txt"
-      mountPath: /config/sonarr/where-is-my-sonarr.txt
+      mountPath: /storage/config/sonarr/where-is-my-sonarr.txt
       type: "custom"
       volumeSpec:
         configMap:
@@ -3065,7 +3065,7 @@ filebrowser:
     sonarr4k:
       enabled: "true"
       subPath: "where-is-my-sonarr4k.txt"
-      mountPath: /config/sonarr4k/where-is-my-sonarr4k.txt
+      mountPath: /storage/config/sonarr4k/where-is-my-sonarr4k.txt
       type: "custom"
       volumeSpec:
         configMap:
