@@ -2037,7 +2037,13 @@ radarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr-ssd
+          claimName: config-radarr-block
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr-ssd              
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2053,6 +2059,7 @@ radarr:
       enabled: true # necessary for probes
   initContainers:
     bootstrap: *bootstrap
+    migrate-from-cephfs: *migrate_from_cephfs
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -2122,7 +2129,13 @@ radarr4k:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr4k-ssd
+          claimName: config-radarr4k-block
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-radarr4k-ssd              
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2138,6 +2151,7 @@ radarr4k:
       enabled: true # necessary for probes
   initContainers:
     bootstrap: *bootstrap
+    migrate-from-cephfs: *migrate_from_cephfs 
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -3968,7 +3982,13 @@ sonarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr-ssd
+          claimName: config-sonarr-block
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr-ssd              
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3981,6 +4001,7 @@ sonarr:
       enabled: false
   initContainers:
     bootstrap: *bootstrap
+    migrate-from-cephfs: *migrate_from_cephfs 
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4051,7 +4072,13 @@ sonarr4k:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr4k-ssd
+          claimName: config-sonarr4k-block
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-sonarr4k-ssd              
     elfbot:
       enabled: "true"
       type: "custom"
@@ -4064,6 +4091,7 @@ sonarr4k:
       enabled: false
   initContainers:
     bootstrap: *bootstrap
+    migrate-from-cephfs: *migrate_from_cephfs
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4453,7 +4481,13 @@ readarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarr-ssd
+          claimName: config-readarr-block
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarr-ssd              
     tmp-readarr-backup:
       enabled: true
       type: emptyDir
@@ -4474,6 +4508,7 @@ readarr:
       enabled: true # necessary for probes
   initContainers:
     bootstrap: *bootstrap
+    migrate-from-cephfs: *migrate_from_cephfs 
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
@@ -4534,7 +4569,13 @@ readarraudio:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-readarraudio-ssd
+          claimName: config-readarraudio-block
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-readarraudio-ssd              
     tmp-readarr-backup:
       enabled: true
       type: emptyDir
@@ -4555,6 +4596,7 @@ readarraudio:
       enabled: true # necessary for probes
   initContainers:
     bootstrap: *bootstrap
+    migrate-from-cephfs: *migrate_from_cephfs 
     setup:
       image: *tooling_image
       imagePullPolicy: IfNotPresent
