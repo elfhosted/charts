@@ -9856,7 +9856,7 @@ pgadmin:
   enabled: false
   image:
     repository: dpage/pgadmin4
-    tag: "8.3"
+    tag: "8.4"
   priorityClassName: tenant-normal
   controller:
     annotations:
