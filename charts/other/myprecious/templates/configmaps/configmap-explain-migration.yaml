@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: explain-migration
+data:
+  where-is-my-readarr.txt: |
+    Looking for Readarr config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
+  where-is-my-readarraudio.txt: |
+    Looking for ReadarrAudio config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
+  where-is-my-radarr.txt: |
+    Looking for Radarr config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
+  where-is-my-radarr4k.txt: |
+    Looking for Radarr 4k config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
+  where-is-my-sonarr.txt: |
+    Looking for Sonarr config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
+  where-is-my-sonarr4k.txt: |
+    Looking for Sonarr 4k config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
+  where-is-my-plex.txt: |
+    Looking for Plex config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
+  where-is-my-jellyfin.txt: |
+    Looking for Jellyfin config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David

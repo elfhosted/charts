@@ -2769,12 +2769,13 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-jdownloader-ssd
     jellyfin:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/jellyfin/
+      enabled: "true"
+      subPath: "where-is-my-jellyfin.txt"
+      mountPath: /config/jellyfin/where-is-my-jellyfin.txt
+      type: "custom"
       volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-jellyfin-ssd
+        configMap:
+          name: explain-migration  
     plexdebrid:
       enabled: false
       type: custom
@@ -2922,6 +2923,14 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-overseerr-ssd
+    plex:
+      enabled: "true"
+      subPath: "where-is-my-plex.txt"
+      mountPath: /config/plex/where-is-my-plex.txt
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: explain-migration            
     privatebin:
       enabled: false
       type: custom
@@ -2951,19 +2960,21 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-qbittorrent-ssd
     radarr:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/radarr/
+      enabled: "true"
+      subPath: "where-is-my-radarr.txt"
+      mountPath: /config/radarr/where-is-my-radarr.txt
+      type: "custom"
       volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-radarr-ssd
+        configMap:
+          name: explain-migration   
     radarr4k:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/radarr4k/
+      enabled: "true"
+      subPath: "where-is-my-radarr4k.txt"
+      mountPath: /config/radarr4k/where-is-my-radarr4k.txt
+      type: "custom"
       volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-radarr4k-ssd
+        configMap:
+          name: explain-migration  
     rapidleech:
       enabled: false
       type: custom
@@ -2979,19 +2990,21 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-rclonebrowser-ssd
     readarr:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/readarr/
+      enabled: "true"
+      subPath: "where-is-my-readarr.txt"
+      mountPath: /config/readarr/where-is-my-readarr.txt
+      type: "custom"
       volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-readarr-ssd
+        configMap:
+          name: explain-migration  
     readarraudio:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/readarraudio/
+      enabled: "true"
+      subPath: "where-is-my-readarraudio.txt"
+      mountPath: /config/readarraudio/where-is-my-readarraudio.txt
+      type: "custom"
       volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-readarraudio-ssd
+        configMap:
+          name: explain-migration  
     resiliosync:
       enabled: false
       type: custom
@@ -3042,26 +3055,21 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-shoko-ssd
     sonarr:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/sonarr/
+      enabled: "true"
+      subPath: "where-is-my-sonarr.txt"
+      mountPath: /config/sonarr/where-is-my-sonarr.txt
+      type: "custom"
       volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-sonarr-ssd
+        configMap:
+          name: explain-migration  
     sonarr4k:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/sonarr4k/
+      enabled: "true"
+      subPath: "where-is-my-sonarr4k.txt"
+      mountPath: /config/sonarr4k/where-is-my-sonarr4k.txt
+      type: "custom"
       volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-sonarr4k-ssd
-    # stremiojackett:
-    #   enabled: false
-    #   type: custom
-    #   mountPath: /config/stremio-jackett/
-    #   volumeSpec:
-    #     persistentVolumeClaim:
-    #       claimName: config-stremio-jackett-ssd              
+        configMap:
+          name: explain-migration           
     syncthing:
       enabled: false
       type: custom
@@ -9494,7 +9502,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:8ca4bcc2bcbf01e93e9975f779c027f1a25d42c9bdb4fe3b4891fa9cbcff06ed
+    tag: rolling@sha256:d601b50b2b5f8fa6639fe015b78ab800d7e215dd817ee18b7ae47bcc8b13763e
   priorityClassName: tenant-normal
   controller:
     annotations:
