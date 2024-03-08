@@ -10137,6 +10137,7 @@ mediafusion:
       name: mediafusion-env 
   - configMapRef:
       name: elfbot-mediafusion
+      optional: true
   - secretRef:
       name: mediafusion-env  
 
