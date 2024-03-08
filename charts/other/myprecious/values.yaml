@@ -916,7 +916,7 @@ rutorrentgluetun: &rutorrent
               echo "No changes, VPN_ENDPOINT_IP is an IP"
           else
               # only create the file if DNS lookup succeeds
-              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP | tail -n1 > /shared/VPN_ENDPOINT_IP
           fi
         fi
       volumeMounts:
@@ -1175,7 +1175,7 @@ delugegluetun: &deluge
               echo "No changes, VPN_ENDPOINT_IP is an IP"
           else
               # only create the file if DNS lookup succeeds
-              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP | tail -n1 > /shared/VPN_ENDPOINT_IP
           fi
         fi
 
@@ -1302,7 +1302,7 @@ delugepia:
               echo "No changes, VPN_ENDPOINT_IP is an IP"
           else
               # only create the file if DNS lookup succeeds
-              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP | tail -n1 > /shared/VPN_ENDPOINT_IP
           fi
         fi
 
@@ -1486,7 +1486,7 @@ qbittorrentgluetun: &qbittorrent
               echo "No changes, VPN_ENDPOINT_IP is an IP"
           else
               # only create the file if DNS lookup succeeds
-              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP | tail -n1 > /shared/VPN_ENDPOINT_IP
           fi
         fi
 
@@ -1669,7 +1669,7 @@ qbittorrentpia:
               echo "No changes, VPN_ENDPOINT_IP is an IP"
           else
               # only create the file if DNS lookup succeeds
-              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP > /shared/VPN_ENDPOINT_IP
+              dig +short $VPN_ENDPOINT_IP && dig +short $VPN_ENDPOINT_IP | tail -n1 > /shared/VPN_ENDPOINT_IP
           fi
         fi
 
