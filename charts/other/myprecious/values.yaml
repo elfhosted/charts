@@ -5947,8 +5947,8 @@ flaresolverr:
       cpu: 10m
       memory: 128Mi
     limits:
-      cpu: 1
-      memory: 512Mi
+      cpu: 200m
+      memory: 256Mi
   ingress:
     main:
       enabled: false
