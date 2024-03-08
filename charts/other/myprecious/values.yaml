@@ -10388,7 +10388,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:b612bf36b83af912ed964ff67a5ad921fb359e71830c9ad524ffe9b028e3e2b3
+    tag: rolling@sha256:1bd23e4e2e774c209425fc27bdd665db1ada19768e1a401c6b8a746bb3527270
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
