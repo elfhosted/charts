@@ -3811,12 +3811,10 @@ komga:
 
 kavita:
   enabled: false
-  sso:
-    enabled: true
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/kavita
-    tag: 0.7.14@sha256:782ca005ca2464147b44225631fc4d10a725a5e40f7d7313bda976a1bc996c2e
+    tag: 0.7.14@sha256:57739dc21f24d50000c48670d63dc01295abfa6eccadb836d542a0d634d98754
   securityContext:
     seccompProfile:
       type: RuntimeDefault
