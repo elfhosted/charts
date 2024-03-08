@@ -5806,7 +5806,7 @@ gatus:
         http:
           port: 8080
   controller:
-    strategy: RollingUpdate
+    # strategy: RollingUpdate
     annotations:
       configmap.reloader.stakater.com/reload: "gatus-config"        
   env:
@@ -10336,10 +10336,7 @@ samba:
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-shluflix"
-    strategy:
-    rollingUpdate:
-      unavailable: 1      
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-shluflix"     
   securityContext:
     seccompProfile:
       type: RuntimeDefault
