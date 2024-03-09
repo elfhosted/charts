@@ -4733,8 +4733,8 @@ plex: &plex
       optional: true          
   resources:
     requests:
-      cpu: "100m"
-      memory: 1024Mi
+      cpu: "200m"
+      memory: 2048Mi
     limits:
       cpu: "1500m"
       memory: 4096Mi
