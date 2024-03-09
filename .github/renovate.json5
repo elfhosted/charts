@@ -26,6 +26,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true
+      "excludePackagePatterns": ["iceberg"]
     },
     {
       "matchPackagePatterns": ["nightly"],
@@ -40,7 +41,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true,
-      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","rclone","iceberg"]
+      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","rclone"]
     } 
   ],
   // since we version by bumping, each PR needs to be rebased every time we merge
