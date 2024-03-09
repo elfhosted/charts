@@ -2589,7 +2589,7 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: samba-symlinks
-      mountPath: /storage/symlinks    
+      mountPath: /storage/samba-symlinks  
     dummy-storage: # so auto-provisioning doesn't break
       enabled: true
       type: emptyDir
@@ -10304,6 +10304,16 @@ samba:
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
+  tolerations:
+  - key: node-role.elfhosted.com/download-only # run on 10Gbps nodes, but with egress capped to 40Mbit 
+    operator: Exists     
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists      
   automountServiceAccountToken: false
   persistence:
     config-yml:
