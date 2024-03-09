@@ -271,20 +271,11 @@ symlinks: &symlinks
     persistentVolumeClaim:
       claimName: symlinks
   mountPath: /storage/symlinks
-tmp: &tmp # use ephemeral volumes
+tmp: &tmp # not using ephemeral volumes anymore, too much overhead, pluse we have ephemeral limits now
   enabled: true
-  type: custom
   mountPath: /tmp
-  volumeSpec:
-    ephemeral:
-      volumeClaimTemplate:
-        spec:
-          accessModes: [ "ReadWriteOnce" ]
-          storageClassName: "topolvm-provisioner-thin"
-          resources:
-            requests:
-              storage: 1Gi  
-
+  type: emptyDir
+  sizeLimit: 1Gi
               
 # This simplfies the process of adding all the optional mounts to every app
 appmounts: &appmounts
