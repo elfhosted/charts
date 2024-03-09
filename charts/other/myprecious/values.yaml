@@ -3309,10 +3309,10 @@ uptimekuma:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-          - key: node-role.elfhosted.com/lightweight
+          - key: node-role.elfhosted.com/observability
             operator: Exists    
   tolerations:
-  - key: node-role.elfhosted.com/lightweight
+  - key: node-role.elfhosted.com/observability
     operator: Exists
   automountServiceAccountToken: false
   persistence:
@@ -4237,7 +4237,13 @@ prowlarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-prowlarr-ssd
+          claimName: config-prowlarr-block
+    migration: # migrating from cephfs
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-prowlarr-ssd            
     run: # used for s6-init with non-root
       enabled: true
       type: emptyDir
@@ -4257,6 +4263,7 @@ prowlarr:
     main:
       enabled: true # necessary for probes
   initContainers:
+    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -4995,7 +5002,13 @@ emby:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-emby-ssd
+          claimName: config-emby-block
+    migration: # migrating from cephfs
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-emby-ssd            
     # transcode-temp:
     #   enabled: true
     #   type: emptyDir
@@ -5026,8 +5039,8 @@ emby:
       type: hostPath
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"
-
   initContainers:
+    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     update-dns: *update_dns
   ingress:
@@ -5788,6 +5801,16 @@ gatus:
     seccompProfile:
       type: RuntimeDefault
     fsGroup: 568
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/observability
+            operator: Exists    
+  tolerations:
+  - key: node-role.elfhosted.com/observability
+    operator: Exists    
   automountServiceAccountToken: false
   resources:
     requests:
@@ -10855,6 +10878,16 @@ kubernetesdashboard:
   ## Note: If set to true, you may want to add --enable-insecure-login to extraArgs
   protocolHttp: true
 
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/observability
+            operator: Exists    
+  tolerations:
+  - key: node-role.elfhosted.com/observability
+    operator: Exists
 
   # Global dashboard settings
   settings:
