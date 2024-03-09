@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: smbmount-symlinks
+  labels:
+    velero.io/exclude-from-backup: "true"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: smbmount-symlinks
+  storageClassName: smb

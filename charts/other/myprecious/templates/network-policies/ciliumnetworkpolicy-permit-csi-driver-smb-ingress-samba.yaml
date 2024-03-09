@@ -1,0 +1,17 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-csi-driver-smb-ingress-samba"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: samba
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: csi-smb
+        app.kubernetes.io/name: csi-driver-smb
+    toPorts:
+      - ports:
+        - port: '445'
+          protocol: TCP

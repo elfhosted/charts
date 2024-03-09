@@ -6,7 +6,7 @@ metadata:
     helm.sh/resource-policy: keep
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 100Gi
