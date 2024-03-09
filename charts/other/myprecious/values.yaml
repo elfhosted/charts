@@ -2028,13 +2028,7 @@ radarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-radarr-block
-    migration:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-radarr-ssd              
+          claimName: config-radarr-block            
     elfbot:
       enabled: "true"
       type: "custom"
@@ -2049,7 +2043,6 @@ radarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -3979,13 +3972,7 @@ sonarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-sonarr-block
-    migration:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-sonarr-ssd              
+          claimName: config-sonarr-block          
     elfbot:
       enabled: "true"
       type: "custom"
@@ -3997,7 +3984,6 @@ sonarr:
     main:
       enabled: false
   initContainers:
-    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -4681,13 +4667,7 @@ plex: &plex
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plex-block     
-    migration:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-plex-ssd                    
+          claimName: config-plex-block                    
     transcode: # in case users use /tmp
       enabled: true
       type: custom
@@ -4741,8 +4721,6 @@ plex: &plex
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns
-    migrate-from-cephfs: *migrate_from_cephfs
-
   addons:
     vpn: &plex_addons_vpn
       enabled: true
@@ -4892,13 +4870,7 @@ jellyfin:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-jellyfin-block
-    migration: # migrating from cephfs
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-jellyfin-ssd             
+          claimName: config-jellyfin-block            
     transcode: # in case users use /tmp
       enabled: true
       type: custom
@@ -4926,8 +4898,7 @@ jellyfin:
       mountPath: "/dev/dri/renderD128"
   initContainers:
     bootstrap: *bootstrap
-    update-dns: *update_dns
-    migrate-from-cephfs: *migrate_from_cephfs      
+    update-dns: *update_dns  
   ingress:
     main:
       enabled: false
@@ -5252,13 +5223,6 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jdownloader-ssd
-    jellyfin:
-      enabled: false
-      type: custom
-      mountPath: /config/jellyfin/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-jellyfin-ssd
     plexdebrid:
       enabled: false
       type: custom
@@ -5434,13 +5398,6 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-qbittorrent-ssd
-    radarr:
-      enabled: false
-      type: custom
-      mountPath: /config/radarr/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-radarr-ssd
     radarr4k:
       enabled: false
       type: custom
@@ -5525,13 +5482,6 @@ homer:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-shoko-ssd
-    sonarr:
-      enabled: false
-      type: custom
-      mountPath: /config/sonarr/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-sonarr-ssd
     sonarr4k:
       enabled: false
       type: custom
@@ -7458,13 +7408,6 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-jdownloader-ssd          
-    jellyfin:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/jellyfin/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-jellyfin-ssd
     plexdebrid:
       enabled: false
       type: custom
@@ -7640,13 +7583,6 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-qbittorrent-ssd
-    radarr:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/radarr/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-radarr-ssd
     radarr4k:
       enabled: false
       type: custom
@@ -7724,13 +7660,6 @@ rclonebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-shoko-ssd
-    sonarr:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/sonarr/
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-sonarr-ssd
     sonarr4k:
       enabled: false
       type: custom
@@ -10397,10 +10326,10 @@ samba:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
-      ports:
-        http:
-          port:     
+      enabled: false # necessary for probes
+      # ports:
+      #   http:
+      #     port:     
 
 knightcrawler: &app_knightcrawler
   enabled: false
