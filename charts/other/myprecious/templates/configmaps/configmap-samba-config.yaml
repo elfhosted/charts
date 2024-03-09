@@ -1,66 +1,26 @@
-{{ if .Values.samba.enabled }}
-apiVersion: v1
 kind: ConfigMap
 metadata:
   name: samba-config
 data:
-  # PLEX_PREFERENCE_1: "FriendlyName=ElfHosted | {{ .Release.Name }}"
-  samba.cfg: |
-    {
-      "samba-container-config": "v0",
-      "configs": {
-        "example1": {
-          "shares": [
-            "demonstration",
-            "examples"
-          ],
-          "globals": [
-            "global0"
-          ],
-          "instance_name": "{{ .Release.Name }}"
-        }
-      },
-      "shares": {
-        "demonstration": {
-          "options": {
-            "path": "/mnt/demo"
-          }
-        },
-        "examples": {
-          "options": {
-            "path": "/mnt/examples"
-          }
-        }
-      },
-      "globals": {
-        "global0": {
-          "options": {
-            "security": "user",
-            "server min protocol": "SMB2",
-            "load printers": "no",
-            "printing": "bsd",
-            "printcap name": "/dev/null",
-            "disable spoolss": "yes",
-            "guest ok": "no"
-          }
-        }
-      },
-      "users": {
-        "all_entries": [
-          {
-            "name": "{{ .Release.Name }}",
-            "password": "needtothinkaboutthis"
-          },
-          {
-            "name": "alice",
-            "password": "123fakeStreet"
-          },
-          {
-            "name": "carol",
-            "nt_hash": "B784E584D34839235F6D88A5382C3821"
-          }
-        ]
-      },
-      "_footer": 1
-    }  
-{{ end }}
+  config.yml: |
+    auth:
+      - user: {{ .Release.Name }}
+        group: {{ .Release.Name }}
+        uid: 568
+        gid: 568
+        password: {{ .Release.Name }}
+
+
+    global:
+      - "force user = {{ .Release.Name }}"
+      - "force group = {{ .Release.Name }}"
+
+    share:
+      - name: symlinks
+        comment: symlinks
+        path: /samba/symlinks-block
+        browsable: yes
+        readonly: no
+        guestok: no
+        veto: no
+        recycle: no

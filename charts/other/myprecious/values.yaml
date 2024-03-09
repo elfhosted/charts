@@ -10350,14 +10350,13 @@ shluflix:
       optional: true
 
 samba:
-  enabled: false
   image:
-    repository: ghcr.io/geek-cookbook/shluflix
-    tag: rolling@sha256:6e4fafbe7e3888ff3212dfa771855272600b32d8dd50f9417202e892db424442
-  priorityClassName: tenant-normal
+    repository: ghcr.io/crazy-max/samba
+    tag: 4.18.9-r0
+  priorityClassName: tenant-critical
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-shluflix"     
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-samba"     
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -10370,15 +10369,22 @@ samba:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  env:
-    PORT: 8001  
   persistence:
-    tmp: *tmp
-    npm:
+    config-yml:
+      enabled: "true"
+      subPath: "config.yml"
+      mountPath: /data/config.yml
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: samba-config 
+    symlinks-block:
       enabled: true
-      type: emptyDir
-      mountPath: /home/elfie/.npm
-      sizeLimit: 1Gi    
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: symlinks-block
+      mountPath: /samba/symlinks-block
   resources:
     requests:
       cpu: 10m
@@ -10394,13 +10400,10 @@ samba:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 8001    
+          port:     
   envFrom:
   - configMapRef:      
-      name: shluflix-env
-  - configMapRef:      
-      name: elfbot-xtremio
-      optional: true
+      name: samba-env
 
 knightcrawler: &app_knightcrawler
   enabled: false
