@@ -23,9 +23,9 @@ spec:
   csi:
     driver: smb.csi.k8s.io
     readOnly: false
-    volumeHandle: {{ .Release.Name }}-samba.{{ .Release.Name }}.svc.cluster.local/symlinks##
+    volumeHandle: {{ .Release.Name }}-samba.aa-{{ .Release.Name }}.svc.cluster.local/symlinks##
     volumeAttributes:
-      source: "//{{ .Release.Name }}-samba.{{ .Release.Name }}.svc.cluster.local/symlinks"
+      source: "//{{ .Release.Name }}-samba.aa-{{ .Release.Name }}.svc.cluster.local/symlinks"
     nodeStageSecretRef:
       name: smbcreds-smbmount-symlinks
       namespace: {{ .Release.Namespace }}

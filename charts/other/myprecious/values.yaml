@@ -264,13 +264,13 @@ elfstorage: &elfstorage
     persistentVolumeClaim:
       claimName: elfstorage
   mountPath: /storage/elfstorage
-symlinks: &symlinks
+symlinks: 
   enabled: true
   type: custom
   volumeSpec:
     persistentVolumeClaim:
-      claimName: symlinks
-  mountPath: /storage/symlinks
+      claimName: smbmount-symlinks
+  mountPath: /storage/symlinks    
 tmp: &tmp # not using ephemeral volumes anymore, too much overhead, pluse we have ephemeral limits now
   enabled: true
   mountPath: /tmp
@@ -2583,13 +2583,14 @@ filebrowser:
   automountServiceAccountToken: true
   persistence:
     <<: *appmounts
-    symlinks-samba: 
+    migrate-symlinks:
       enabled: true
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: smbmount-symlinks
-      mountPath: /storage/samba-symlinks  
+          claimName: symlinks
+      mountPath: /migrate/symlinks
+      readOnly: true
     dummy-storage: # so auto-provisioning doesn't break
       enabled: true
       type: emptyDir
