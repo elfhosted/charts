@@ -10278,58 +10278,58 @@ shluflix:
       name: elfbot-xtremio
       optional: true
 
-# samba:
-#   image:
-#     repository: ghcr.io/crazy-max/samba
-#     tag: 4.18.9-r0
-#   priorityClassName: tenant-critical
-#   controller:
-#     annotations:
-#       configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-samba"     
-#   securityContext:
-#     seccompProfile:
-#       type: RuntimeDefault
-#     readOnlyRootFilesystem: true
-#   podSecurityContext:
-#     seccompProfile:
-#       type: RuntimeDefault
-#     runAsUser: 568
-#     runAsGroup: 568
-#     fsGroup: 568
-#     fsGroupChangePolicy: "OnRootMismatch"
-#   automountServiceAccountToken: false
-#   persistence:
-#     config-yml:
-#       enabled: "true"
-#       subPath: "config.yml"
-#       mountPath: /data/config.yml
-#       type: "custom"
-#       volumeSpec:
-#         configMap:
-#           name: samba-config 
-#     symlinks-block:
-#       enabled: true
-#       type: custom
-#       volumeSpec:
-#         persistentVolumeClaim:
-#           claimName: symlinks-block
-#       mountPath: /samba/symlinks-block
-#   resources:
-#     requests:
-#       cpu: 10m
-#       memory: 512Mi
-#     limits:
-#       cpu: 1
-#       memory: 1Gi
-#   ingress:
-#     main:
-#       enabled: false
-#   service:
-#     main:
-#       enabled: true # necessary for probes
-#       ports:
-#         http:
-#           port:     
+samba:
+  image:
+    repository: ghcr.io/crazy-max/samba
+    tag: 4.18.9-r0
+  priorityClassName: tenant-critical
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-samba"     
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    config-yml:
+      enabled: "true"
+      subPath: "config.yml"
+      mountPath: /data/config.yml
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: samba-config 
+    symlinks-block:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: symlinks-block
+      mountPath: /samba/symlinks-block
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 445 
 
 knightcrawler: &app_knightcrawler
   enabled: false
