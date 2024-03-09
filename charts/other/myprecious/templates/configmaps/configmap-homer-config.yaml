@@ -21,6 +21,11 @@ data:
     while true
     do
 
+    # disabled this until migrations are done - remove the next 2 lines to restore
+    sleep $(shuf -i 1800-5400 -n 1)
+    done
+
+
       # Once for all of /config...
       # disabled on 19 Feb 2024 - consumes too much I/O now that we have "infinite" streaming - @funkypenguin
       # tree --du -hF -s  /config/ -H https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config -T "🧝 ElfHosted [/config] usage for {{ .Release.Name }}"> /www/assets/message/disk-usage-config.html
