@@ -2588,7 +2588,7 @@ filebrowser:
       type: custom
       volumeSpec:
         persistentVolumeClaim:
-          claimName: samba-symlinks
+          claimName: smbmount-symlinks
       mountPath: /storage/samba-symlinks  
     dummy-storage: # so auto-provisioning doesn't break
       enabled: true
