@@ -10,5 +10,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  volumeName: smbmount-symlinks
+  volumeName: aa-{{ .Release.Name }}-smbmount-symlinks
   storageClassName: smb

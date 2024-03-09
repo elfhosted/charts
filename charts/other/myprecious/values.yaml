@@ -2583,13 +2583,13 @@ filebrowser:
   automountServiceAccountToken: true
   persistence:
     <<: *appmounts
-    symlinks-samba: 
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: smbmount-symlinks
-      mountPath: /storage/samba-symlinks  
+    # symlinks-samba: 
+    #   enabled: true
+    #   type: custom
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: smbmount-symlinks
+    #   mountPath: /storage/samba-symlinks  
     dummy-storage: # so auto-provisioning doesn't break
       enabled: true
       type: emptyDir
