@@ -4324,7 +4324,13 @@ lidarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-lidarr-ssd
+          claimName: config-lidarr-block
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-lidarr-ssd          
     s6:
       enabled: true
       type: emptyDir
@@ -4345,6 +4351,7 @@ lidarr:
     main:
       enabled: true # necessary for probes
   initContainers:
+    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -5961,7 +5968,7 @@ flaresolverr:
       cpu: 10m
       memory: 64Mi
     limits:
-      cpu: 200m
+      cpu: 600m
       memory: 384Mi
   ingress:
     main:
