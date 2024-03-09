@@ -19,3 +19,7 @@ data:
     Looking for Plex config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
   where-is-my-jellyfin.txt: |
     Looking for Jellyfin config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
+  where-is-my-emby.txt: |
+    Looking for Emby config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David
+  where-is-my-prowlarr.txt: |
+    Looking for Prowlar config? We recently migrated it to ceph block storage for performance reasons, but this means it's no longer available to expose to Filebrowser. I'm working on a solution for this! - David

@@ -264,7 +264,7 @@ elfstorage: &elfstorage
     persistentVolumeClaim:
       claimName: elfstorage
   mountPath: /storage/elfstorage
-symlinks: 
+symlinks: &symlinks
   enabled: true
   type: custom
   volumeSpec:
@@ -359,32 +359,6 @@ bootstrap_env: &bootstrap_env
   valueFrom:
     fieldRef:
       fieldPath: metadata.labels['app.elfhosted.com/name']
-
-# bootstrap_migrate_symlinks: &bootstrap_migrate_symlinks
-#   image: *tooling_image
-#   imagePullPolicy: IfNotPresent
-#   command:
-#   - /bin/bash
-#   - -c
-#   - |
-#     # set -e
-
-#     if [[ ! -f /storage/symlinks/i-am-migrated ]]
-#     then
-#       echo "Migrating symlinks from /migration/symlinks-ssd..."
-#       cp -rf --preserve=links /migration/symlinks-ssd/* /storage/symlinks/
-#       touch /storage/symlinks/i-am-migrated
-#     fi    
-    
-#   volumeMounts:
-#   - mountPath: /storage/symlinks
-#     name: symlinks
-#   - mountPath: /migration/symlinks-ssd
-#     name: symlinksssd
-
-#   env: *bootstrap_env
-#   resources: *default_resources
-#   securityContext: *default_securitycontext
 
 migrate_from_cephfs: &migrate_from_cephfs
   image: *tooling_image
@@ -2690,13 +2664,14 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-deluge-ssd
-    emby:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/emby/
+    plex:
+      enabled: "true"
+      subPath: "where-is-my-emby.txt"
+      mountPath: /storage/config/emby/where-is-my-emby.txt
+      type: "custom"
       volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-emby-ssd
+        configMap:
+          name: explain-migration    
     filebot:
       enabled: false
       type: custom
@@ -2782,27 +2757,14 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
-    # plex:
-    #   enabled: false
-    #   type: custom
-    #   mountPath: /storage/config/plex/
-    #   volumeSpec:
-    #     persistentVolumeClaim:
-    #       claimName: config-plex-ssd
-    # plexpia:
-    #   enabled: false
-    #   type: custom
-    #   mountPath: /storage/config/plex/
-    #   volumeSpec:
-    #     persistentVolumeClaim:
-    #       claimName: config-plex-ssd
-    # plexgluetun:
-    #   enabled: false
-    #   type: custom
-    #   mountPath: /storage/config/plex/
-    #   volumeSpec:
-    #     persistentVolumeClaim:
-    #       claimName: config-plex-ssd
+    plex:
+      enabled: "true"
+      subPath: "where-is-my-plex.txt"
+      mountPath: /storage/config/plex/where-is-my-plex.txt
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: explain-migration            
     joplinserver:
       enabled: false
       type: custom
@@ -3157,6 +3119,31 @@ filebrowser:
     main:
       enabled: false
   initContainers:
+    migrate_symlinks: 
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        # set -e
+
+        if [[ ! -f /storage/symlinks/i-am-migrated-to-samba ]]
+        then
+          echo "Migrating symlinks from /migrate/symlinks..."
+          cp -rf --preserve=links /migrate/symlinks/* /storage/symlinks/
+          touch /storage/symlinks/i-am-migrated-to-samba
+        fi    
+        
+      volumeMounts:
+      - mountPath: /storage/symlinks
+        name: symlinks
+      - mountPath: /migrate/symlinks
+        name: migrate-symlinks
+
+      env: *bootstrap_env
+      resources: *default_resources
+      securityContext: *default_securitycontext  
     setup:
       image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:d847fa2c4f698e909528541dcfc599e13429b3a4fb14fb5223cb3d4dbe8c4fb2
       # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last good version for TFA
