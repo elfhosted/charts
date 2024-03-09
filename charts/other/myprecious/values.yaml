@@ -10401,9 +10401,6 @@ samba:
       ports:
         http:
           port:     
-  envFrom:
-  - configMapRef:      
-      name: samba-env
 
 knightcrawler: &app_knightcrawler
   enabled: false
