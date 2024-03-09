@@ -2583,13 +2583,13 @@ filebrowser:
   automountServiceAccountToken: true
   persistence:
     <<: *appmounts
-    # symlinks-samba: 
-    #   enabled: true
-    #   type: custom
-    #   volumeSpec:
-    #     persistentVolumeClaim:
-    #       claimName: smbmount-symlinks
-    #   mountPath: /storage/samba-symlinks  
+    symlinks-samba: 
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: smbmount-symlinks
+      mountPath: /storage/samba-symlinks  
     dummy-storage: # so auto-provisioning doesn't break
       enabled: true
       type: emptyDir
@@ -10304,6 +10304,8 @@ samba:
     runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
+  env:
+    S6_READ_ONLY_ROOT: 1  
   tolerations:
   - key: node-role.elfhosted.com/download-only # run on 10Gbps nodes, but with egress capped to 40Mbit 
     operator: Exists     
@@ -10316,6 +10318,11 @@ samba:
             operator: Exists      
   automountServiceAccountToken: false
   persistence:
+    run: # used for s6-init with non-root
+      enabled: true
+      type: emptyDir
+      mountPath: /run
+      sizeLimit: 1Gi  
     config-yml:
       enabled: "true"
       subPath: "config.yml"
