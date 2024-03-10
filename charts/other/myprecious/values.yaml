@@ -7831,7 +7831,7 @@ storageboss:
   priorityClassName: tenant-critical
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-storageboss"     
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-storageboss,storageboss-config"     
   securityContext:
     seccompProfile:
       type: RuntimeDefault
