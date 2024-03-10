@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: rclone-{{ .Release.Name }}-storageboss
+  name: rclone-{{ .Release.Name }}-storageboss-symlinks
   labels:
-    name: rclone-{{ .Release.Name }}-storageboss
+    name: rclone-{{ .Release.Name }}-storageboss-symlinks
 spec:
   accessModes:
   - ReadWriteMany
@@ -14,7 +14,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   csi:
     driver: csi-rclone
-    volumeHandle: rclone-{{ .Release.Name }}-storageboss
+    volumeHandle: rclone-{{ .Release.Name }}-storageboss-symlinks
     volumeAttributes:
-      secretName: "{{ .Release.Name }}-storageboss"
+      secretName: "{{ .Release.Name }}-storageboss-symlinks"
 {{ end }}

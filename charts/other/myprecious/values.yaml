@@ -257,21 +257,20 @@ rclonemountdebridlink: &rclonemountdebridlink
     persistentVolumeClaim:
       claimName: debridlink
   mountPath: /storage/debridlink    
-elfstorage: &elfstorage
-  enabled: true # always enabled
-  type: custom
-  volumeSpec:
-    persistentVolumeClaim:
-      claimName: elfstorage
-  mountPath: /storage/elfstorage
 symlinks: &symlinks
   enabled: true
   type: custom
   volumeSpec:
     persistentVolumeClaim:
-      claimName: storageboss
+      claimName: storageboss-symlinks
   mountPath: /storage/symlinks  
-  subpath: symlinks  
+elfstorage: &elfstorage
+  enabled: true
+  type: custom
+  volumeSpec:
+    persistentVolumeClaim:
+      claimName: storageboss-elfstorage
+  mountPath: /storage/elfstorage    
 tmp: &tmp # not using ephemeral volumes anymore, too much overhead, pluse we have ephemeral limits now
   enabled: true
   mountPath: /tmp
@@ -7836,7 +7835,7 @@ storageboss:
     tag: 1.65.2@sha256:12fae0e63e154cb68d24e306bb4a3995571e004a39771cb5ed6bf0a5b11a5c61
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-storageboss"
+      configmap.reloader.stakater.com/reload: "storageboss-config,elfbot-storageboss"
   tolerations:
   - key: node-role.elfhosted.com/download-only    
     operator: Exists     
@@ -7865,6 +7864,7 @@ storageboss:
   - configMapRef:
       name: storageboss-config
   persistence:
+    # only keep this around until symlinks are migrated
     symlinks-cephfs:
       enabled: true
       type: custom
@@ -7872,7 +7872,8 @@ storageboss:
         persistentVolumeClaim:
           claimName: symlinks
       mountPath: /migrate/symlinks
-      readOnly: true    
+      readOnly: true
+    # end only keep section
     symlinks-block:
       enabled: true
       type: custom
@@ -7880,6 +7881,13 @@ storageboss:
         persistentVolumeClaim:
           claimName: symlinks-block
       mountPath: /storage/symlinks
+    elfstorage:
+      enabled: true # always enabled
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: elfstorage
+      mountPath: /storage/elfstorage      
   service:
     main:
       enabled: false # necessary for probes

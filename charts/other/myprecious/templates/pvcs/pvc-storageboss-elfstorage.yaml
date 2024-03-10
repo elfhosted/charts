@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: storageboss
+  name: storageboss-elfstorage
   labels:
     velero.io/exclude-from-backup: "true"
 spec:
@@ -14,5 +14,5 @@ spec:
   storageClassName: rclone
   selector:
     matchLabels:
-      name: rclone-{{ .Release.Name }}-storageboss
+      name: rclone-{{ .Release.Name }}-storageboss-elfstorage
 {{ end }}
