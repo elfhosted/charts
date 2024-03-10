@@ -10019,23 +10019,10 @@ redisinsight:
     config:
       enabled: true
       type: custom
-      mountPath: /redisinsight
+      mountPath: /data
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-redisinsight-ssd     
-    logs: # in case users use /tmp
-      enabled: true
-      type: custom
-      mountPath: /data/logs
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 50Gi               
+          claimName: config-redisinsight-block          
 
 annatar:
   enabled: false
