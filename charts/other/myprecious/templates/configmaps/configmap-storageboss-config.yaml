@@ -15,7 +15,10 @@ data:
     global:
       - "force user = {{ .Release.Name }}"
       - "force group = {{ .Release.Name }}"
-
+      - "allow insecure wide links" = Yes
+      - "unix extensions" = Yes
+      - "wide links" = Yes
+      
     share:
       - name: symlinks
         comment: symlinks
