@@ -270,7 +270,7 @@ symlinks: &symlinks
   volumeSpec:
     persistentVolumeClaim:
       claimName: symlinks
-  mountPath: /migrate/symlinks
+  mountPath: /storage/symlinks
   readOnly: true  
 # elfstorage: &elfstorage
 #   enabled: true
