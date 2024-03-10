@@ -271,7 +271,6 @@ symlinks: &symlinks
     persistentVolumeClaim:
       claimName: symlinks
   mountPath: /storage/symlinks
-  readOnly: true  
 # elfstorage: &elfstorage
 #   enabled: true
 #   type: custom

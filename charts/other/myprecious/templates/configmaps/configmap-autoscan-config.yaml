@@ -11,6 +11,7 @@ data:
     minimum-age: 1m
 
     # Uncomment the streamer(s) you use, and set the necessary API token
+    # Ensure the indentation remains the same as the sample below - "url" and "token" vertically aligned
     targets:
       # plex:
       #   - url: http://plex:32400
