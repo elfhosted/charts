@@ -16,4 +16,8 @@ spec:
       - ports:
         - port: '5574'
           protocol: TCP
+  - toPorts:
+      - ports:
+        - port: '445'
+          protocol: TCP
 {{ end }}
