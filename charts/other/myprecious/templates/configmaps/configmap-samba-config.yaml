@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: samba-config
+data:
+  config.yml: |
+    auth:
+      - user: {{ .Release.Name }}
+        group: {{ .Release.Name }}
+        uid: 568
+        gid: 568
+        password: {{ .Release.Name }}
+
+
+    global:
+      - "force user = {{ .Release.Name }}"
+      - "force group = {{ .Release.Name }}"
+
+    share:
+      - name: symlinks
+        comment: symlinks
+        path: /samba/symlinks-block
+        browsable: yes
+        readonly: no
+        guestok: no
+        veto: no
+        recycle: no
