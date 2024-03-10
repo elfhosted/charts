@@ -15,10 +15,10 @@ data:
     global:
       - "force user = {{ .Release.Name }}"
       - "force group = {{ .Release.Name }}"
-      - "allow insecure wide links" = Yes
-      - "unix extensions" = Yes
+      - "unix extensions" = No
       - "wide links" = Yes
-      
+      - "allow insecure wide links" = Yes      
+
     share:
       - name: symlinks
         comment: symlinks
@@ -28,6 +28,8 @@ data:
         guestok: no
         veto: no
         recycle: no
+        follow symlinks: yes
+        wide links: yes
 
     elfstorage:
       - name: elfstorage
@@ -38,3 +40,5 @@ data:
         guestok: no
         veto: no
         recycle: no        
+        follow symlinks: yes
+        wide links: yes
