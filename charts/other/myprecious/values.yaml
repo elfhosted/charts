@@ -269,8 +269,9 @@ symlinks: &symlinks
   type: custom
   volumeSpec:
     persistentVolumeClaim:
-      claimName: smbmount-symlinks
-  mountPath: /storage/symlinks    
+      claimName: storageboss
+  mountPath: /storage/symlinks  
+  subpath: symlinks  
 tmp: &tmp # not using ephemeral volumes anymore, too much overhead, pluse we have ephemeral limits now
   enabled: true
   mountPath: /tmp
@@ -2557,14 +2558,6 @@ filebrowser:
   automountServiceAccountToken: true
   persistence:
     <<: *appmounts
-    migrate-symlinks:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: symlinks
-      mountPath: /migrate/symlinks
-      readOnly: true
     dummy-storage: # so auto-provisioning doesn't break
       enabled: true
       type: emptyDir
@@ -3119,31 +3112,6 @@ filebrowser:
     main:
       enabled: false
   initContainers:
-    migrate_symlinks: 
-      image: *tooling_image
-      imagePullPolicy: IfNotPresent
-      command:
-      - /bin/bash
-      - -c
-      - |
-        # set -e
-
-        if [[ ! -f /storage/symlinks/i-am-migrated-to-samba ]]
-        then
-          echo "Migrating symlinks from /migrate/symlinks..."
-          cp -rf --preserve=links /migrate/symlinks/* /storage/symlinks/
-          touch /storage/symlinks/i-am-migrated-to-samba
-        fi    
-        
-      volumeMounts:
-      - mountPath: /storage/symlinks
-        name: symlinks
-      - mountPath: /migrate/symlinks
-        name: migrate-symlinks
-
-      env: *bootstrap_env
-      resources: *default_resources
-      securityContext: *default_securitycontext  
     setup:
       image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:d847fa2c4f698e909528541dcfc599e13429b3a4fb14fb5223cb3d4dbe8c4fb2
       # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last good version for TFA
@@ -7856,6 +7824,108 @@ webdav: &webdav
       cpu: 150m
       memory: 512Mi
 
+storageboss:
+  enabled:
+    true
+  podLabels:
+    app.elfhosted.com/name: storageboss
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "150M"
+  priorityClassName: tenant-critical
+  image:
+    repository: ghcr.io/geek-cookbook/rclone
+    tag: 1.65.2@sha256:12fae0e63e154cb68d24e306bb4a3995571e004a39771cb5ed6bf0a5b11a5c61
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-storageboss"
+  tolerations:
+  - key: node-role.elfhosted.com/download-only    
+    operator: Exists     
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists        
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  command:
+  - /webdav.sh
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  envFrom:
+  - configMapRef:
+      name: storageboss-config
+  persistence:
+    symlinks-cephfs:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: symlinks
+      mountPath: /migrate/symlinks
+      readOnly: true    
+    symlinks-block:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: symlinks-block
+      mountPath: /storage/symlinks
+  service:
+    main:
+      enabled: false # necessary for probes
+      ports:
+        http:
+          port: 5576
+  ingress:
+    main:
+      enabled: false
+  resources:
+    requests:
+      cpu: 1m
+      memory: 60Mi
+    limits:
+      cpu: 150m
+      memory: 512Mi
+  initContainers:
+    migrate-symlinks: 
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        # set -e
+
+        if [[ ! -f /storage/symlinks/i-am-migrated-to-samba ]]
+        then
+          echo "Migrating symlinks from /migrate/symlinks..."
+          cp -rf --preserve=links /migrate/symlinks/* /storage/symlinks/
+          touch /storage/symlinks/i-am-migrated-to-samba
+        fi    
+        
+      volumeMounts:
+      - mountPath: /storage/symlinks
+        name: symlinks-block
+      - mountPath: /migrate/symlinks
+        name: symlinks-cephfs
+        
+
+      env: *bootstrap_env
+      resources: *default_resources
+      securityContext: *default_securitycontext  
+
+
 webdavplus: 
   enabled: false
   <<: *webdav
@@ -10272,79 +10342,6 @@ shluflix:
   - configMapRef:      
       name: elfbot-xtremio
       optional: true
-
-samba:
-  image:
-    repository: ghcr.io/crazy-max/samba
-    tag: 4.18.9
-  priorityClassName: tenant-critical
-  controller:
-    annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-samba"     
-  securityContext:
-    seccompProfile:
-      type: RuntimeDefault
-    # readOnlyRootFilesystem: true
-  podSecurityContext:
-    seccompProfile:
-      type: RuntimeDefault
-    # runAsUser: 568
-    # runAsGroup: 568
-    # fsGroup: 568
-    fsGroupChangePolicy: "OnRootMismatch"
-  tolerations:
-  - key: node-role.elfhosted.com/download-only # run on 10Gbps nodes, but with egress capped to 40Mbit 
-    operator: Exists     
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/download-only
-            operator: Exists      
-  automountServiceAccountToken: false
-  persistence:
-    run: # used for s6-init with non-root
-      enabled: true
-      type: emptyDir
-      mountPath: /run
-      sizeLimit: 1Gi  
-    var-log: 
-      enabled: true
-      type: emptyDir
-      mountPath: /var/log
-      sizeLimit: 1Gi        
-    config-yml:
-      enabled: "true"
-      subPath: "config.yml"
-      mountPath: /data/config.yml
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: samba-config 
-    symlinks-block:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: symlinks-block
-      mountPath: /samba/symlinks-block
-  resources:
-    requests:
-      cpu: 10m
-      memory: 512Mi
-    limits:
-      cpu: 1
-      memory: 1Gi
-  ingress:
-    main:
-      enabled: false
-  service:
-    main:
-      enabled: true # necessary for probes
-      ports:
-        http:
-          port: 445 
 
 knightcrawler: &app_knightcrawler
   enabled: false

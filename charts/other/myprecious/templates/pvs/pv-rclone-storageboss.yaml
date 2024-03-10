@@ -1,0 +1,20 @@
+{{ if .Values.storageboss.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rclone-{{ .Release.Name }}-storageboss
+  labels:
+    name: rclone-{{ .Release.Name }}-storageboss
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi # doesn't matter, is used to match with the PVC
+  storageClassName: rclone
+  persistentVolumeReclaimPolicy: Delete
+  csi:
+    driver: csi-rclone
+    volumeHandle: rclone-{{ .Release.Name }}-storageboss
+    volumeAttributes:
+      secretName: "{{ .Release.Name }}-storageboss"
+{{ end }}
