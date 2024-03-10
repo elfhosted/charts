@@ -7851,7 +7851,24 @@ storageboss:
       type: RuntimeDefault
     readOnlyRootFilesystem: true
   command:
-  - /webdav.sh
+  - /usr/bin/dumb-init
+  - /bin/bash
+  - -c
+  - |    
+    /usr/bin/rclone serve webdav \
+    --config /config/rclone.conf \
+    --addr :5574 \
+    --max-header-bytes=8192 \
+    --no-modtime \
+    --vfs-read-chunk-size=10M \
+    --vfs-read-chunk-size-limit=10M \
+    --vfs-cache-mode=minimal \
+    --stats 60s \
+    --cache-dir /tmp \
+    --vfs-cache-max-size 10G \
+    --links \
+    -v \
+    /storage    
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -7860,9 +7877,6 @@ storageboss:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  envFrom:
-  - configMapRef:
-      name: storageboss-config
   persistence:
     # only keep this around until symlinks are migrated
     symlinks-cephfs:

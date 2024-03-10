@@ -1,9 +1,0 @@
-{{ if .Values.storageboss.enabled }}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: storageboss-config
-data:
-  WEBDAV_USERNAME: {{ .Release.Name }} # just enough auth to prevent accidental crossconnects
-  WEBDAV_PASSWORD: blah # We use an obscured version of "blah" in the secret
-{{ end }}
