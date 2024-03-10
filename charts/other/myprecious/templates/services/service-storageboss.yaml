@@ -10,8 +10,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 5576
-    targetPort: 5576
+  - port: 5574
+    targetPort: 5574
     protocol: TCP
     name: http
   selector:

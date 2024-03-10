@@ -14,6 +14,6 @@ spec:
   #       app: csi-nodeplugin-rclone
   - toPorts:
       - ports:
-        - port: '5576'
+        - port: '5574'
           protocol: TCP
 {{ end }}

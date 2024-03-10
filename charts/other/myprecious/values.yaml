@@ -7885,7 +7885,7 @@ storageboss:
       enabled: false # necessary for probes
       ports:
         http:
-          port: 5576
+          port: 5574
   ingress:
     main:
       enabled: false
