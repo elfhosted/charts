@@ -7824,6 +7824,7 @@ webdav: &webdav
       memory: 512Mi
 
 storageboss:
+  enabled: true
   image:
     repository: ghcr.io/crazy-max/samba
     tag: 4.18.9
