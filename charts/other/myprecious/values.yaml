@@ -257,20 +257,35 @@ rclonemountdebridlink: &rclonemountdebridlink
     persistentVolumeClaim:
       claimName: debridlink
   mountPath: /storage/debridlink    
+# symlinks: &symlinks
+#   enabled: true
+#   type: custom
+#   volumeSpec:
+#     persistentVolumeClaim:
+#       claimName: storageboss-symlinks
+#   mountPath: /storage/symlinks  
 symlinks: &symlinks
   enabled: true
   type: custom
   volumeSpec:
     persistentVolumeClaim:
-      claimName: storageboss-symlinks
-  mountPath: /storage/symlinks  
+      claimName: symlinks
+  mountPath: /migrate/symlinks
+  readOnly: true  
+# elfstorage: &elfstorage
+#   enabled: true
+#   type: custom
+#   volumeSpec:
+#     persistentVolumeClaim:
+#       claimName: storageboss-elfstorage
+#   mountPath: /storage/elfstorage    
 elfstorage: &elfstorage
-  enabled: true
+  enabled: true # always enabled
   type: custom
   volumeSpec:
     persistentVolumeClaim:
-      claimName: storageboss-elfstorage
-  mountPath: /storage/elfstorage    
+      claimName: elfstorage
+  mountPath: /storage/elfstorage   
 tmp: &tmp # not using ephemeral volumes anymore, too much overhead, pluse we have ephemeral limits now
   enabled: true
   mountPath: /tmp
@@ -7877,31 +7892,33 @@ storageboss:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  persistence:
+  # persistence:
     # only keep this around until symlinks are migrated
-    symlinks-cephfs:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: symlinks
-      mountPath: /migrate/symlinks
-      readOnly: true
+    # symlinks-cephfs:
+    #   enabled: true
+    #   type: custom
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: symlinks
+    #   mountPath: /migrate/symlinks
+    #   readOnly: true
     # end only keep section
-    symlinks-block:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: symlinks-block
-      mountPath: /storage/symlinks
-    elfstorage:
-      enabled: true # always enabled
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: elfstorage
-      mountPath: /storage/elfstorage      
+
+    # uncomment this when we're ready to migrate again
+    # symlinks-block:
+    #   enabled: true
+    #   type: custom
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: symlinks-block
+    #   mountPath: /storage/symlinks
+    # elfstorage:
+    #   enabled: true # always enabled
+    #   type: custom
+    #   volumeSpec:
+    #     persistentVolumeClaim:
+    #       claimName: elfstorage
+    #   mountPath: /storage/elfstorage      
   service:
     main:
       enabled: false # necessary for probes
@@ -7918,33 +7935,33 @@ storageboss:
     limits:
       cpu: 150m
       memory: 512Mi
-  initContainers:
-    migrate-symlinks: 
-      image: *tooling_image
-      imagePullPolicy: IfNotPresent
-      command:
-      - /bin/bash
-      - -c
-      - |
-        # set -e
+  # initContainers:
+  #   migrate-symlinks: 
+  #     image: *tooling_image
+  #     imagePullPolicy: IfNotPresent
+  #     command:
+  #     - /bin/bash
+  #     - -c
+  #     - |
+  #       # set -e
 
-        if [[ ! -f /storage/symlinks/i-am-migrated-to-samba ]]
-        then
-          echo "Migrating symlinks from /migrate/symlinks..."
-          cp -rf --preserve=links /migrate/symlinks/* /storage/symlinks/
-          touch /storage/symlinks/i-am-migrated-to-samba
-        fi    
+  #       if [[ ! -f /storage/symlinks/i-am-migrated-to-samba ]]
+  #       then
+  #         echo "Migrating symlinks from /migrate/symlinks..."
+  #         cp -rf --preserve=links /migrate/symlinks/* /storage/symlinks/
+  #         touch /storage/symlinks/i-am-migrated-to-samba
+  #       fi    
         
-      volumeMounts:
-      - mountPath: /storage/symlinks
-        name: symlinks-block
-      - mountPath: /migrate/symlinks
-        name: symlinks-cephfs
+  #     volumeMounts:
+  #     - mountPath: /storage/symlinks
+  #       name: symlinks-block
+  #     - mountPath: /migrate/symlinks
+  #       name: symlinks-cephfs
         
 
-      env: *bootstrap_env
-      resources: *default_resources
-      securityContext: *default_securitycontext  
+  #     env: *bootstrap_env
+  #     resources: *default_resources
+  #     securityContext: *default_securitycontext  
 
 
 webdavplus: 
