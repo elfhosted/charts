@@ -1,7 +1,8 @@
 # Lets us tag the individual deployments with our current version
 global:
   labels:
-    app.elfhosted.com/version: {{ .Chart.Version }}
+    # Manually updated for now
+    myprecious.elfhosted.com/version: 1.0.32395-pre-03
 
 # This controls whether our automation will auto-release this to stable during the daily maint window
 safeToRelease: false
