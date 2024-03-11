@@ -10,6 +10,71 @@ safeToRelease: false
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
 
+volumespec_ephemeral_volume_1000g: &ephemeral_volume_1000g
+  ephemeral:
+    volumeClaimTemplate:
+      metadata:
+        labels:
+          velero.io/exclude-from-backup: "true"       
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "topolvm-provisioner-thin"
+        resources:
+          requests:
+            storage: 1000Gi  
+
+volumespec_ephemeral_volume_1g: &ephemeral_volume_1g
+  ephemeral:
+    volumeClaimTemplate:
+      metadata:
+        labels:
+          velero.io/exclude-from-backup: "true"       
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "topolvm-provisioner-thin"
+        resources:
+          requests:
+            storage: 1Gi  
+
+volumespec_ephemeral_volume_50g: &ephemeral_volume_50g
+  ephemeral:
+    volumeClaimTemplate:
+      metadata:
+        labels:
+          velero.io/exclude-from-backup: "true"       
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "topolvm-provisioner-thin"
+        resources:
+          requests:
+            storage: 1Gi  
+
+volumespec_ephemeral_volume_200g: &ephemeral_volume_200g
+  ephemeral:
+    volumeClaimTemplate:
+      metadata:
+        labels:
+          velero.io/exclude-from-backup: "true"       
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "topolvm-provisioner-thin"
+        resources:
+          requests:
+            storage: 200Gi 
+
+volumespec_ephemeral_volume_500g: &ephemeral_volume_500g
+  ephemeral:
+    volumeClaimTemplate:
+      metadata:
+        labels:
+          velero.io/exclude-from-backup: "true"       
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "topolvm-provisioner-thin"
+        resources:
+          requests:
+            storage: 500Gi              
+
 # And this makes the media / rclone mounts tidier.
 rclonecustoma: &rclonecustoma
   enabled: false
@@ -296,7 +361,7 @@ tmp: &tmp # not using ephemeral volumes anymore, too much overhead, pluse we hav
   mountPath: /tmp
   type: emptyDir
   sizeLimit: 1Gi
-              
+
 # This simplfies the process of adding all the optional mounts to every app
 appmounts: &appmounts
   tmp: *tmp
@@ -777,15 +842,7 @@ rutorrentgluetun: &rutorrent
       enabled: true
       type: custom
       mountPath: /tmp
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1000Gi          
+      volumeSpec: *volumespec_ephemeral_volume_1000g
     config:
       enabled: true
       type: custom
@@ -1056,15 +1113,7 @@ delugegluetun: &deluge
       enabled: true
       type: custom
       mountPath: /tmp
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1000Gi         
+      volumeSpec: *volumespec_ephemeral_volume_1000g      
     config:
       enabled: true
       type: custom
@@ -1363,15 +1412,7 @@ qbittorrentgluetun: &qbittorrent
       enabled: true
       type: custom
       mountPath: /tmp
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1000Gi       
+      volumeSpec: *volumespec_ephemeral_volume_1000g 
     config:
       enabled: true
       type: custom
@@ -1726,18 +1767,7 @@ nzbget:
       enabled: true
       type: custom
       mountPath: /tmp
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 200Gi      
-      #   persistentVolumeClaim:
-      #     claimName: config-nzbget-ssd          
-      # sizeLimit: 1000Gi
+      volumeSpec: *volumespec_ephemeral_volume_1000g
     elfbot:
       enabled: "true"
       type: "custom"
@@ -1821,15 +1851,7 @@ sabnzbd:
       enabled: true
       type: custom
       mountPath: /tmp
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 200Gi      
+      volumeSpec: *volumespec_ephemeral_volume_1000g    
     elfbot:
       enabled: "true"
       type: "custom"
@@ -4654,15 +4676,7 @@ plex: &plex
       enabled: true
       type: custom
       mountPath: /transcode
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 50Gi
+      volumeSpec: *volumespec_ephemeral_volume_50g
     elfbot:
       enabled: "true"
       type: "custom"
@@ -4857,15 +4871,7 @@ jellyfin:
       enabled: true
       type: custom
       mountPath: /transcode
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 50Gi
+      volumeSpec: *volumespec_ephemeral_volume_50g
     elfbot:
       enabled: "true"
       type: "custom"
@@ -4969,15 +4975,7 @@ emby:
       enabled: true
       type: custom
       mountPath: /config/transcoding-temp
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 50Gi      
+      volumeSpec: *volumespec_ephemeral_volume_50g
     elfbot:
       enabled: "true"
       type: "custom"
@@ -8021,15 +8019,7 @@ alldebridwebdavpia:
       enabled: true
       type: custom
       mountPath: /tmp
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 10Gi  
+      volumeSpec: *volumespec_ephemeral_volume_10g
     rclone-conf:
       enabled: "true"
       subPath: "rclone.conf"
@@ -8675,15 +8665,7 @@ rdtclient: &app_rdtclient
       enabled: true
       type: custom
       mountPath: /data/downloads
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1Gi          
+      volumeSpec: *volumespec_ephemeral_volume_1g         
   ingress:
     main:
       enabled: false
@@ -8764,15 +8746,7 @@ rdtclientvpnpia:
       enabled: true
       type: custom
       mountPath: /data/downloads
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1Gi                              
+      volumeSpec: *volumespec_ephemeral_volume_1g                        
   addons:
     vpn:
       enabled: true # in case we ever need it
@@ -9228,28 +9202,12 @@ tdarr:
       enabled: true
       type: custom
       mountPath: /tmp
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 200Gi
+      volumeSpec: *volumespec_ephemeral_volume_200g
     transcode:
       enabled: true
       type: custom
       mountPath: /transcode
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 200Gi
+      volumeSpec: *volumespec_ephemeral_volume_200g
   ingress:
     main:
       enabled: false
@@ -9842,15 +9800,7 @@ stremio:
       enabled: true
       type: custom
       mountPath: /transcode
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 2Gi
+      volumeSpec: *volumespec_ephemeral_volume_10g
   initContainers:
     update-dns: *update_dns
 
@@ -10428,28 +10378,12 @@ knightcrawler: &app_knightcrawler
       enabled: true
       type: custom
       mountPath: /.npm
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1Gi   
+      volumeSpec: *volumespec_ephemeral_volume_1g
     pm2: 
       enabled: true
       type: custom
       mountPath: /.pm2
-      volumeSpec:
-        ephemeral:
-          volumeClaimTemplate:
-            spec:
-              accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "topolvm-provisioner-thin"
-              resources:
-                requests:
-                  storage: 1Gi                           
+      volumeSpec: *volumespec_ephemeral_volume_1g                          
   env:
     PORT: 7001
     PUID: 568
