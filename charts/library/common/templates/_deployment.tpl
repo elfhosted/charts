@@ -12,7 +12,6 @@ metadata:
   labels: {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- with (merge (.Values.controller.annotations | default dict) (include "geek-cookbook.common.annotations" $ | fromYaml)) }}
-    app.elfhosted.com/version: {{ .Chart.Version }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
