@@ -2,7 +2,7 @@
 global:
   labels:
     # Manually updated for now
-    myprecious.elfhosted.com/version: 1.0.32395
+    myprecious.elfhosted.com/version: 1.0.32396
 
 # This controls whether our automation will auto-release this to stable during the daily maint window
 safeToRelease: false
@@ -3830,7 +3830,7 @@ calibre:
   enabled: false
   sso:
     enabled: true
-  runtimeClassName: kata
+  # runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
     tag: 7.6.0@sha256:f0884e529b4453ac182c41cf49f9a151edbb3e94765338d9f684bfce1efa2d8e
@@ -5911,7 +5911,7 @@ flaresolverr:
 
 seafile:
   enabled: false
-  runtimeClassName: kata
+  # runtimeClassName: kata
   sso:
     enabled: false
   image:
@@ -8409,7 +8409,7 @@ mattermost:
     MM_PLUGINSETTINGS_CLIENTDIRECTORY: "./client/plugins"
 
 rapidleech:
-  runtimeClassName: kata
+  # runtimeClassName: kata
   enabled: false
   sso:
     enabled: true
@@ -8873,7 +8873,7 @@ aria:
 jdownloader:
   enabled: false
   hostname: elfhosted
-  runtimeClassName: kata
+  # runtimeClassName: kata
   priorityClassName: tenant-bulk
   image:
     repository: jlesage/jdownloader-2
@@ -9409,7 +9409,7 @@ wallabag:
       type: RuntimeDefault
     readOnlyRootFilesystem: false
     privileged: false
-  runtimeClassName: kata    
+  # runtimeClassName: kata    
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -10766,7 +10766,7 @@ zurggluetun:
 
 plexdebrid:
   enabled: false
-  runtimeClassName: kata  
+  # runtimeClassName: kata  
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
     tag: rolling@sha256:22c8d85ac75ace24e594420d991eb27b8a62dc38eaba6136f16f7d9437fd1c88
