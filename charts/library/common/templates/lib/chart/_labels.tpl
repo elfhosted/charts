@@ -6,7 +6,6 @@ helm.sh/chart: {{ include "geek-cookbook.common.names.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
   {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.elfhosted.com/version: {{ .Chart.Version }}
   {{- with .Values.global.labels }}
     {{- range $k, $v := . }}
       {{- $name := $k }}
