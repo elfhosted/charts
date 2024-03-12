@@ -154,15 +154,16 @@ data:
             if [[ $ITEMPATH == *"/storage/symlinks"* ]]; then
                 echo "ERROR: Can't symlink a source in /storage/symlinks (#deathbysymlink)"
                 exit 1
-            fi            
+            fi
 
             # Get ready to create symlinks
 
-            TARGET=/storage/symlinks/blackhole/$3
+            TARGET=/storage/symlinks/blackhole/$2
             CACHE=/storage/symlinks/blackhole/.symlink_cache
 
             echo "Symlinking new items in $ITEMPATH to $TARGET... "
             mkdir -p $TARGET
+            mkdir -p $CACHE
 
             ls "${ITEMPATH}/" | while read -r ITEM
             do
@@ -171,6 +172,9 @@ data:
                 ln -s "${ITEMPATH}/${ITEM}" "$CACHE/" 2> /dev/null
                 if [[ $? -eq 0 ]]; then
                     cp -rs "${ITEMPATH}/${ITEM}" "$TARGET/" 2> /dev/null
+                echo "[created symlink] $TARGET/${ITEM}"
+                else
+                echo "[already exists, skipped] $CACHE/${DIR}${ITEM}"
                 fi
             done
 
