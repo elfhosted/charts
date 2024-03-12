@@ -176,6 +176,8 @@ data:
 
             echo "Done! 🎉"
 
+            ;;
+
         "symlink")
 
             if [[ "$#" -lt 2 ]]; then
