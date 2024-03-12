@@ -10,7 +10,7 @@ safeToRelease: false
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
 
-volumespec_ephemeral_volume_1000g: &ephemeral_volume_1000g
+volumespec_ephemeral_volume_1000g: &volumespec_ephemeral_volume_1000g
   ephemeral:
     volumeClaimTemplate:
       metadata:
@@ -23,7 +23,7 @@ volumespec_ephemeral_volume_1000g: &ephemeral_volume_1000g
           requests:
             storage: 1000Gi  
 
-volumespec_ephemeral_volume_1g: &ephemeral_volume_1g
+volumespec_ephemeral_volume_1g: &volumespec_ephemeral_volume_1g
   ephemeral:
     volumeClaimTemplate:
       metadata:
@@ -36,7 +36,7 @@ volumespec_ephemeral_volume_1g: &ephemeral_volume_1g
           requests:
             storage: 1Gi  
 
-volumespec_ephemeral_volume_50g: &ephemeral_volume_50g
+volumespec_ephemeral_volume_50g: &volumespec_ephemeral_volume_50g
   ephemeral:
     volumeClaimTemplate:
       metadata:
@@ -49,7 +49,7 @@ volumespec_ephemeral_volume_50g: &ephemeral_volume_50g
           requests:
             storage: 1Gi  
 
-volumespec_ephemeral_volume_200g: &ephemeral_volume_200g
+volumespec_ephemeral_volume_200g: &volumespec_ephemeral_volume_200g
   ephemeral:
     volumeClaimTemplate:
       metadata:
@@ -62,7 +62,7 @@ volumespec_ephemeral_volume_200g: &ephemeral_volume_200g
           requests:
             storage: 200Gi 
 
-volumespec_ephemeral_volume_500g: &ephemeral_volume_500g
+volumespec_ephemeral_volume_500g: &volumespec_ephemeral_volume_500g
   ephemeral:
     volumeClaimTemplate:
       metadata:
