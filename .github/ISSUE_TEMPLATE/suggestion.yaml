@@ -1,6 +1,8 @@
 name: "💡 Suggestion"
 description: I have a suggestion for an improvement 🧐
 title: "[suggestion] "
+assignees: funkypenguin
+labels: [ suggestion ]
 
 body:
   - type: markdown
