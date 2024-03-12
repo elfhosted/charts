@@ -2,7 +2,7 @@
 global:
   labels:
     # Manually updated for now
-    myprecious.elfhosted.com/version: 1.0.32397
+    myprecious.elfhosted.com/version: 1.0.32399
 
 # This controls whether our automation will auto-release this to stable during the daily maint window
 safeToRelease: true
