@@ -3228,14 +3228,22 @@ filebrowser:
                 fi
 
                 # If we were passed a key=value string in /etc/elfbot, then split it
-                if (cat /elfbot/$APP | grep -q =); then
-                  KEY=$(cat /elfbot/$APP | cut -f1 -d=)
-                  VALUE=$(cat /elfbot/$APP | cut -f2 -d=)
-                # If not, then it was just a simple command, like "backup"
-                else
-                  KEY=$(cat /elfbot/$APP)
-                  VALUE=$(date +%s)
-                fi
+                COMMAND=$(cat /elfbot/$APP)
+
+                # We separate key and value with an '=', but sometimes the value may contain __another__ '=' (like Plex preferences)
+                sep='='                
+                case $COMMAND in
+                  # If we are separated by an =
+                  (*"$sep"*)
+                    KEY=${COMMAND%%"$sep"*}
+                    VALUE=${COMMAND#*"$sep"}
+                    ;;
+                  # if not, we are a simple command like "backup"
+                  (*)
+                    KEY=$COMMAND
+                    VALUE=$(date +%s)
+                    ;;
+                esac
 
                 # patch the configmap with the latest key/value
                 kubectl patch configmap -n {{ .Release.Namespace }} elfbot-${APP} -p "{\"data\":{\"${KEY}\":\"${VALUE}\"}}"
