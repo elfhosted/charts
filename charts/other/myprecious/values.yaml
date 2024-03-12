@@ -4658,7 +4658,7 @@ plex: &plex
   automountServiceAccountToken: false
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex,elfbot-zurg,plex-config" # Reload the deployment every time the rclones change   
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-plex,plex-config" # Reload the deployment every time the rclones change   
   image:
     registry: ghcr.io
     repository: geek-cookbook/plex
@@ -4706,7 +4706,7 @@ plex: &plex
       name: plex-config
   - configMapRef:
       name: elfbot-plex
-      optional: true          
+      optional: true
   resources:
     requests:
       cpu: "200m"

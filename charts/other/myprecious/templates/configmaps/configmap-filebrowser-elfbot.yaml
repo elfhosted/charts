@@ -19,7 +19,11 @@ data:
         echo "elfbot backup <app>                           : creates a dated backup folder in under /config/<app>"
         echo "elfbot claim plex <token>                     : claims a plex server"
         echo "elfbot env <app> <key>=<value>                : set an env var inside an app (advanced beta feature)"
-        echo "elfbot symlink <storage-mount>|<report>       : import remotely-mounted, read-only media as symlinks, or generate a report"
+        echo "elfbot blackhole <app>                        : symlink the contents of the CWD into /storage/symlinks/blackhole/<app>/ for automated import
+        echo "elfbot symlink <storage-mount>                : import remotely-mounted, read-only media as symlinks, or generate a report"
+        echo "elfbot symlink report-broken                  : generate a report on all broken symlinks found under /storage/symlinks"
+        echo "elfbot symlink delete-broken                  : delete (without confirmation!) all broken symlinks found under /storage/symlinks"
+
         echo
     fi
 
@@ -138,6 +142,40 @@ data:
             fi
             ;;      
 
+        "blackhole")
+
+            if [[ "$#" -lt 2 ]]; then
+                echo "ERROR: target missing - example : 'elfbot blackhole radarr'"
+                exit 1
+            fi
+            ITEMPATH="$(pwd)"
+
+            # Never symlink ourselves!
+            if [[ $ITEMPATH == *"/storage/symlinks"* ]]; then
+                echo "ERROR: Can't symlink a source in /storage/symlinks (#deathbysymlink)"
+                exit 1
+            fi            
+
+            # Get ready to create symlinks
+
+            TARGET=/storage/symlinks/blackhole/$3
+            CACHE=/storage/symlinks/blackhole/.symlink_cache
+
+            echo "Symlinking new items in $ITEMPATH to $TARGET... "
+            mkdir -p $TARGET
+
+            ls "${ITEMPATH}/" | while read -r ITEM
+            do
+                # symlink to target only if cache doesn't already exist
+                # so that if a user moves a file out of the TARGET folder while importing, we don't recreate it
+                ln -s "${ITEMPATH}/${ITEM}" "$CACHE/" 2> /dev/null
+                if [[ $? -eq 0 ]]; then
+                    cp -rs "${ITEMPATH}/${ITEM}" "$TARGET/" 2> /dev/null
+                fi
+            done
+
+            echo "Done! 🎉"
+
         "symlink")
 
             if [[ "$#" -lt 2 ]]; then
@@ -156,7 +194,10 @@ data:
                 echo ".. Done!"
                 exit 0
             elif [[ "$2" == "here" ]]; then
+                # Get the path to the _parent_ folder of where we are now
+                cd ..
                 ITEMPATH="$(pwd)"
+                cd -
             elif [[ ! -d "$2" ]]; then
                 echo "ERROR: $2 does not exist"
                 exit 1
