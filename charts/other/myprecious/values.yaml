@@ -36,6 +36,19 @@ volumespec_ephemeral_volume_1g: &volumespec_ephemeral_volume_1g
           requests:
             storage: 1Gi  
 
+volumespec_ephemeral_volume_10g: &volumespec_ephemeral_volume_10g
+  ephemeral:
+    volumeClaimTemplate:
+      metadata:
+        labels:
+          velero.io/exclude-from-backup: "true"       
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "topolvm-provisioner-thin"
+        resources:
+          requests:
+            storage: 10Gi              
+
 volumespec_ephemeral_volume_50g: &volumespec_ephemeral_volume_50g
   ephemeral:
     volumeClaimTemplate:
