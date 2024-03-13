@@ -200,10 +200,7 @@ data:
                 echo ".. Done!"
                 exit 0
             elif [[ "$2" == "here" ]]; then
-                # Get the path to the _parent_ folder of where we are now
-                cd ..
                 ITEMPATH="$(pwd)"
-                cd -
             elif [[ ! -d "$2" ]]; then
                 echo "ERROR: $2 does not exist"
                 exit 1
@@ -241,6 +238,6 @@ data:
 
             echo "Done! 🎉"
 
-            ;;        
+            ;;
 
     esac
