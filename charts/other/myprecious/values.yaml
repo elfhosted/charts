@@ -60,7 +60,7 @@ volumespec_ephemeral_volume_50g: &volumespec_ephemeral_volume_50g
         storageClassName: "topolvm-provisioner-thin"
         resources:
           requests:
-            storage: 1Gi  
+            storage: 50Gi  
 
 volumespec_ephemeral_volume_200g: &volumespec_ephemeral_volume_200g
   ephemeral:
