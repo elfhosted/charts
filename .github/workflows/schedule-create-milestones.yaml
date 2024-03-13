@@ -3,7 +3,6 @@ name: schedule-create-milestones
 on:
   schedule:
     - cron: 0 0 * * SAT
-    - cron: 15 0 * * *
   workflow_dispatch:
 
 jobs:
@@ -18,7 +17,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Daily Maintenance
           days: Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
-          date_options: {"month": "short", "day": "numeric", "weekday": 'short'}
+          date_options: '{"month": "short", "day": "numeric", "weekday": "short"}'
           count: 2
           format: YYYY.MM.DD
 
