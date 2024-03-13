@@ -3636,7 +3636,7 @@ lazylibrarian:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
-    tag: rolling@sha256:1a53f469e6d0634d52e878750c8fe050aefc5f612108e1cc31adb56da9e5d0d5
+    tag: rolling@sha256:f9ccbc598854901594384b8526b18ca698710a931601df23be8970ed3bcff5ee
   enabled: false
   controller:
     annotations:
@@ -3823,7 +3823,7 @@ kavita:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/kavita
-    tag: 0.7.14@sha256:57739dc21f24d50000c48670d63dc01295abfa6eccadb836d542a0d634d98754
+    tag: 0.7.14@sha256:f1f441842c563e5e04099ce4a3dc35e5437fc595e7e995a1003f158c0e33a387
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4476,7 +4476,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.20.2452@sha256:b22bddd2dce4ece24449de3da180d24ce734de6ab37f1948346673bbc830c8fb
+    tag: 0.3.21.2457@sha256:db9f9f627d1011d190972aa908242d975a93f7055670ca5a0ed0d89f5b5952cd
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4564,7 +4564,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.20.2452@sha256:b22bddd2dce4ece24449de3da180d24ce734de6ab37f1948346673bbc830c8fb
+    tag: 0.3.21.2457@sha256:db9f9f627d1011d190972aa908242d975a93f7055670ca5a0ed0d89f5b5952cd
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -7813,7 +7813,7 @@ webdav: &webdav
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.65.2@sha256:12fae0e63e154cb68d24e306bb4a3995571e004a39771cb5ed6bf0a5b11a5c61
+    tag: 1.65.2@sha256:610fd50dc7a3393afcb4561a68e0d9999fb26e6ea14c191be8a7c91191a8d2fe
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
@@ -7871,7 +7871,7 @@ storageboss:
   priorityClassName: tenant-critical
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.65.2@sha256:12fae0e63e154cb68d24e306bb4a3995571e004a39771cb5ed6bf0a5b11a5c61
+    tag: 1.65.2@sha256:610fd50dc7a3393afcb4561a68e0d9999fb26e6ea14c191be8a7c91191a8d2fe
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "storageboss-config,elfbot-storageboss"
@@ -10348,7 +10348,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:1bd23e4e2e774c209425fc27bdd665db1ada19768e1a401c6b8a746bb3527270
+    tag: rolling@sha256:4d01e7a2c984aed4e52f5761c40f6b5db99859b8728974c2b5cd9f55f334ca7a
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
