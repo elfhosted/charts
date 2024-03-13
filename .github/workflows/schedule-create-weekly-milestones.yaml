@@ -1,0 +1,26 @@
+name: schedule-create-milestones
+
+on:
+  schedule:
+    - cron: 0 0 * * SAT
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: readmeio/scheduled-milestones@v1.1
+        id: run
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: Daily Maintenance
+          days: Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
+          date_options: |
+            {"month": "short", "day": "numeric", "weekday": 'short'}
+          count: 2
+          format: YYYY.MM.DD
+
+      - name: result
+        run: echo ${{ steps.run.outputs.milestones }}
