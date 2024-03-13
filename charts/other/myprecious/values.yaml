@@ -8947,7 +8947,7 @@ miniflux:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/miniflux
-    tag: 2.1.0
+    tag: 2.1.1
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-miniflux,miniflux-config"
