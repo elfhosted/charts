@@ -10054,7 +10054,7 @@ jackettio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackettio
-    tag: v1.1.11@sha256:115790f2f93bc74a443e52987b2a9b5da171227e761df110c7c5f3e4bb8571d8
+    tag: v1.1.15@sha256:b98e2e566686bc744342ced50ca110f4a59cd788918aed917cdd2e0a01330bf9
   priorityClassName: tenant-normal
   controller:
     annotations:
