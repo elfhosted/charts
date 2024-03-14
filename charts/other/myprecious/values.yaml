@@ -5750,16 +5750,16 @@ gatus:
     seccompProfile:
       type: RuntimeDefault
     fsGroup: 568
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/observability
-            operator: Exists    
-  tolerations:
-  - key: node-role.elfhosted.com/observability
-    operator: Exists    
+  # affinity:
+  #   nodeAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: node-role.elfhosted.com/observability
+  #           operator: Exists    
+  # tolerations:
+  # - key: node-role.elfhosted.com/observability
+  #   operator: Exists    
   automountServiceAccountToken: false
   resources:
     requests:
@@ -7201,7 +7201,7 @@ rclonebrowser:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:8f76660629995897f4293dae8bd37832e10499c1a6775fd4ebc5e5f8790ae452
+    tag: 1.65.1
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rclonebrowser,elfbot-rcloneui,elfbot-rclonefm,rclonefm-config,elfhosted-user-config"
@@ -7813,7 +7813,7 @@ webdav: &webdav
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:8f76660629995897f4293dae8bd37832e10499c1a6775fd4ebc5e5f8790ae452
+    tag: 1.65.1
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
@@ -7871,7 +7871,7 @@ storageboss:
   priorityClassName: tenant-critical
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:8f76660629995897f4293dae8bd37832e10499c1a6775fd4ebc5e5f8790ae452
+    tag: 1.65.1
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "storageboss-config,elfbot-storageboss"
@@ -9537,7 +9537,7 @@ iceberg:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/iceberg
-    tag: rolling@sha256:8ca4bcc2bcbf01e93e9975f779c027f1a25d42c9bdb4fe3b4891fa9cbcff06ed
+    tag: rolling@sha256:a5f9514c4353fcf4b1a845e5dedb901435e37b653e071b158254b0baa2b131c3
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10005,7 +10005,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: v0.12.0
+    tag: v0.12.1
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10802,16 +10802,16 @@ kubernetesdashboard:
   ## Note: If set to true, you may want to add --enable-insecure-login to extraArgs
   protocolHttp: true
 
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: node-role.elfhosted.com/observability
-            operator: Exists    
-  tolerations:
-  - key: node-role.elfhosted.com/observability
-    operator: Exists
+  # affinity:
+  #   nodeAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: node-role.elfhosted.com/observability
+  #           operator: Exists    
+  # tolerations:
+  # - key: node-role.elfhosted.com/observability
+  #   operator: Exists
 
   # Global dashboard settings
   settings:

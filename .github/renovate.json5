@@ -9,7 +9,7 @@
   "allowedPostUpgradeCommands": ["./scripts/bump-myprecious.sh"],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
-  "ignoreDeps": ["filebrowser"],
+  "ignoreDeps": ["filebrowser","rclone","iceberg"],
   "postUpgradeTasks": {
     "commands": ["./scripts/bump-myprecious.sh"],
     "fileFilters": ["charts/other/myprecious/Chart.yaml"],
