@@ -64,7 +64,7 @@ data:
             fi
 
             if [[ "$#" -lt 3 ]]; then  
-                echo syntax is "elfbot env KEY=VALUE"
+                echo syntax is "elfbot env <app> KEY=VALUE"
                 exit 1
             fi
             echo "adding $3 to env for $2, triggering a restart..."
