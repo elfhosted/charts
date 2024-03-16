@@ -31,7 +31,8 @@ jobs:
         uses: yokawasa/action-setup-kube-tools@v0.9.3
         with:
           setup-tools: |
-            helmv3
+            helm
+            yq
           helm: "${{ env.HELM_VERSION }}"
 
       - name: Login to GitHub Container Registry
