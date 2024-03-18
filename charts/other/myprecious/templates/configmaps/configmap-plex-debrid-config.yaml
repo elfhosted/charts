@@ -260,7 +260,7 @@ data:
         "Jackett resolver timeout": "1",
         "Jackett indexer filter": "!status:failing,test:passed",
         "Prowlarr Base URL": "http://prowlarr:9696",
-        "Prowlarr API Key": "{{ Values.prowlarrexposed.apikey }}",
+        "Prowlarr API Key": "{{ .Values.prowlarrexposed.apikey }}",
         "Orionoid API Key": "",
         "Orionoid Scraper Parameters": [
             [
