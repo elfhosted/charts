@@ -5,7 +5,7 @@ global:
     myprecious.elfhosted.com/version: 1.0.32399
 
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: false
+safeToRelease: true
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
@@ -2101,10 +2101,10 @@ radarr:
       securityContext: *default_securitycontext          
   resources:
     requests:
-      cpu: 10m
-      memory: 256Mi
+      cpu: 200m
+      memory: 500Mi
     limits:
-      cpu: 2
+      cpu: 1
       memory: 1Gi
 
 radarr4k:
@@ -2197,8 +2197,8 @@ radarr4k:
       securityContext: *default_securitycontext    
   resources:
     requests:
-      cpu: 20m
-      memory: 256Mi
+      cpu: 200m
+      memory: 500Mi
     limits:
       cpu: 1
       memory: 1Gi
@@ -4037,10 +4037,10 @@ sonarr:
       securityContext: *default_securitycontext   
   resources:
     requests:
-      cpu: 10m
-      memory: 192Mi
+      cpu: 200m
+      memory: 600Mi
     limits:
-      cpu: 2
+      cpu: 1
       memory: 1Gi
 
 
@@ -4203,8 +4203,8 @@ resiliosync:
       enabled: false
   resources:
     requests:
-      cpu: 10m
-      memory: 32Mi
+      cpu: 200m
+      memory: 512Mi
     limits:
       cpu: 1
       memory: 1Gi
@@ -4731,7 +4731,7 @@ plex: &plex
   resources:
     requests:
       cpu: "200m"
-      memory: 2048Mi
+      memory: 512Mi
     limits:
       cpu: "2" # 1.5 works, but results in buffering when playback starts, see https://github.com/geek-cookbook/elf-charts/issues/501
       memory: 4096Mi
