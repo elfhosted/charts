@@ -10763,7 +10763,7 @@ plexdebrid:
     config:
       enabled: true
       type: custom
-      mountPath: /config/elfhosted
+      mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-debrid-ssd
