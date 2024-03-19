@@ -10724,7 +10724,7 @@ plexdebrid:
   # runtimeClassName: kata  
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
-    tag: rolling@sha256:391e64ca5d59e5365006a8eb3555881d7f2a5fcc487c0687f43981adf96ef4b5
+    tag: rolling@sha256:5448e1a82d69c41a969716cf51c409a497c5fa8674cff84a56e37dd7dfb6ed0e
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10763,7 +10763,7 @@ plexdebrid:
     config:
       enabled: true
       type: custom
-      mountPath: /config/elfhosted
+      mountPath: /config
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-debrid-ssd
