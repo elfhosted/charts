@@ -2207,7 +2207,7 @@ ombi:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/ombi
-    tag: 4.43.5@sha256:3d1e5dbdd073c38399a116f51b7341c59925598712c720681d28481c9479ffa5
+    tag: 4.43.5@sha256:a8c2f64d4756c55a11db0fbec5c4c707f07940ed524ddf6e451cc0cba7fb65ce
   priorityClassName: tenant-normal
   controller:
     annotations:
