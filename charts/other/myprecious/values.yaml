@@ -1726,7 +1726,7 @@ nzbget:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/nzbget
-    tag: 23.0@sha256:863f49bfc6e1b61aff82375e22ab4f196b280faaffd8a69813e0b063376e0ed1
+    tag: 23.0@sha256:c805efb11f440c53995e2314e2ee1326a8a5e6a4ded4666b8b28034ef9569987
   priorityClassName: tenant-bulk
   podLabels:
     app.elfhosted.com/class: nzb
