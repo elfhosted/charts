@@ -8427,7 +8427,7 @@ rapidleech:
   priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/geek-cookbook/rapidleech
-    tag: rolling@sha256:a7b5ccdf923a401870a744c41649b73513cfe923e8ee15a7cc2075293a5a3670
+    tag: rolling@sha256:c19229924e47f323a811e15d157a5c726d2d88e7ad7156622ef7fae2e9f78c53
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rapidleech"
