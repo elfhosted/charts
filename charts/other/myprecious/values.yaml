@@ -10801,7 +10801,7 @@ plexdebrid:
       memory: 100Mi
     limits:
       cpu: 50m
-      memory: 128Mi
+      memory: 256Mi
   ingress:
     main:
       enabled: false
