@@ -15,4 +15,5 @@ data:
   PORT_FILE: /config/forwarded-port
   POST_UP: /gluetun/scripts/up.sh
   PRE_DOWN: /gluetun/scripts/down.sh
+  VPNDNS: "0"
 {{ end }}

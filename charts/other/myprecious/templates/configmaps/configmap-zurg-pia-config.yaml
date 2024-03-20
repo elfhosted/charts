@@ -12,4 +12,5 @@ data:
   PORT_FORWARDING: "0"
   PORT_PERSIST: "1"
   NFTABLES: "1"
+  VPNDNS: "0" 
 {{ end }}
