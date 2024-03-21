@@ -5,7 +5,7 @@ global:
     myprecious.elfhosted.com/version: 1.0.32399
 
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: false
+safeToRelease: true
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
@@ -10774,7 +10774,7 @@ plexdebrid:
   # runtimeClassName: kata  
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
-    tag: rolling@sha256:5448e1a82d69c41a969716cf51c409a497c5fa8674cff84a56e37dd7dfb6ed0e
+    tag: rolling@sha256:22c8d85ac75ace24e594420d991eb27b8a62dc38eaba6136f16f7d9437fd1c88
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10794,11 +10794,11 @@ plexdebrid:
     PGID: 568
   resources:
     requests:
-      cpu: 1m
-      memory: 100Mi
+      cpu: 10m
+      memory: 16Mi
     limits:
-      cpu: 50m
-      memory: 256Mi
+      cpu: 100m
+      memory: 1024Mi
   ingress:
     main:
       enabled: false
@@ -10813,7 +10813,7 @@ plexdebrid:
     config:
       enabled: true
       type: custom
-      mountPath: /config
+      mountPath: /config/elfhosted
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plex-debrid-ssd
@@ -10824,38 +10824,9 @@ plexdebrid:
         configMap:
           name: elfbot-plex-debrid
           optional: true
-    example-config:
-      enabled: "true"
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: plexdebrid-config
+
   initContainers:
     bootstrap: *bootstrap
-    copy-example-config:
-      image: *tooling_image
-      imagePullPolicy: IfNotPresent
-      command:
-      - /bin/bash
-      - -c
-      - |
-        set -x
-        set -e
-
-        # If we don't already have an example config, create one
-        if [ ! -f /config/settings.json ];
-        then
-          cp /bootstrap/settings.json /config/
-        fi
-      volumeMounts:
-      - mountPath: /config
-        name: config
-      - name: example-config
-        mountPath: "/bootstrap/"
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
-        readOnlyRootFilesystem: true    
 
 kubernetesdashboard:
 
