@@ -509,6 +509,7 @@ update_dns: &update_dns
     else
       # No record exists, so create it
       cfcli add -t A $MY_NODE_NAME $MY_NODE_IP
+      cfcli enable $MY_NODE_NAME $MY_NODE_IP
     fi
 
     # Does a DNS entry exist for me?
@@ -518,9 +519,11 @@ update_dns: &update_dns
     then
       # A record exists, so update it
       cfcli edit -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
+      cfcli enable $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
     else
       # No record exists, so create it
       cfcli add -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
+      cfcli enable $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
     fi
   env:
     - name: MY_NODE_NAME
