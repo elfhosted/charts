@@ -1,0 +1,20 @@
+{{ if .Values.rclonefm.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: rclonefm
+  labels:
+    app.kubernetes.io/name: rclonefm
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5573
+    targetPort: 5573
+    protocol: TCP
+    name: rclonefm
+  selector:
+    app.kubernetes.io/name: rclonefm
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

@@ -1,0 +1,20 @@
+{{ if .Values.rcloneui.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: rcloneui
+  labels:
+    app.kubernetes.io/name: rcloneui
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5572
+    targetPort: 5572
+    protocol: TCP
+    name: rcloneui
+  selector:
+    app.kubernetes.io/name: rcloneui
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}

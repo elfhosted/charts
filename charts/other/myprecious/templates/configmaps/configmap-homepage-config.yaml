@@ -872,14 +872,22 @@ data:
     - Migration Tools:
         - Rclone UI:
             icon: rclone.png
-            href: https://{{ .Release.Name }}-rcloneui.elfhosted.com
-            siteMonitor: http://rclonebrowser:5572
+            {{ if .Values.rclonefm.enabled }}
+            href: "https://{{ .Release.Name }}-rcloneui.elfhosted.com"
+            siteMonitor: http://rcloneui:5572
+            {{ else }}
+            href: https://store.elfhosted.com/product/rcloneui
+            {{ end }}
             description: Rclone UI
 
         - Rclone FM:
             icon: rclone.png
-            href: https://{{ .Release.Name }}-rclonefm.elfhosted.com
-            siteMonitor: http://rclonebrowser:5573
+            {{ if .Values.rclonefm.enabled }}
+            href: "https://{{ .Release.Name }}-rclonefm.elfhosted.com"
+            siteMonitor: http://rclonefm:5573
+            {{ else }}
+            href: https://store.elfhosted.com/product/rclonefm
+            {{ end }}
             description: Rclone File Manager
 
         - Rclone Remotes:

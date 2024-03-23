@@ -1297,7 +1297,11 @@ data:
             subtitle: "Rclone UI"
             tag: "protected"
             tagstyle: "is-success"
+            {{ if .Values.rcloneui.enabled }}
             url: "https://{{ .Release.Name }}-rcloneui.elfhosted.com"
+            {{ else }}
+            url: https://store.elfhosted.com/product/rcloneui
+            {{ end }}
             target: "_blank" # optional html tag target attribute
 
           - name: "Rclone FM"
@@ -1305,7 +1309,11 @@ data:
             subtitle: "Rclone File Manager"
             tag: "protected"
             tagstyle: "is-success"
+            {{ if .Values.rclonefm.enabled }}
             url: "https://{{ .Release.Name }}-rclonefm.elfhosted.com"
+            {{ else }}
+            url: https://store.elfhosted.com/product/rclonefm
+            {{ end }}
             target: "_blank" # optional html tag target attribute
 
           {{ if .Values.webdav.enabled }}

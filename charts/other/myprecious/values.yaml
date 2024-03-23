@@ -7196,6 +7196,7 @@ plexmetamanager:
       image: stefanprodan/podinfo # used to run probes from gatus
 
 rclonebrowser:
+  enabled: false
   podLabels:
     app.elfhosted.com/name: webdav
   priorityClassName: tenant-normal
@@ -7792,6 +7793,191 @@ rclonebrowser:
       cpu: 150m
       memory: 512Mi
 
+rcloneui:
+  enabled: false
+  priorityClassName: tenant-normal
+  image:
+    repository: ghcr.io/geek-cookbook/rclone
+    tag: 1.66.0@sha256:ececcc1e6c3ebb21276937d91298a01d354b9a5ff71fad1b464995579603ce53
+  command: 
+  - /rcloneui.sh
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rcloneui,elfhosted-user-config"
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "40M"     
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rclonebrowser-ssd
+    rclone-remote-storage:
+      enabled: "true"
+      subPath: "rclone-remote-storage"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rclonefm-config          
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-rclonebrowser
+          optional: true
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # add local remote if it doesn't exist
+        grep -q '/storage' /config/rclone.conf || cat /rclone-remote-storage >> /config/rclone.conf
+
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /tmp # need this for cating into a file
+        name: tmp        
+      - mountPath: /rclone-remote-storage
+        subPath: rclone-remote-storage
+        name: rclone-remote-storage
+      resources: *default_resources
+      securityContext: *default_securitycontext
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5572
+  ingress:
+    main:
+      enabled: false
+  resources:
+    requests:
+      cpu: 1m
+      memory: 60Mi
+    limits:
+      cpu: 150m
+      memory: 512Mi
+
+rclonefm:
+  enabled: false
+  priorityClassName: tenant-normal
+  image:
+    repository: ghcr.io/geek-cookbook/rclone
+    tag: 1.66.0@sha256:ececcc1e6c3ebb21276937d91298a01d354b9a5ff71fad1b464995579603ce53
+  command: 
+  - /rclonefm.sh
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rclonefm,rclonefm-config"
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "40M"     
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-rclonebrowser-ssd
+    rclonefm-config:
+      enabled: "true"
+      mountPath: /var/lib/rclonefm/js/settings.js
+      subPath: "settings.js"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rclonefm-config
+    rclone-remote-storage:
+      enabled: "true"
+      subPath: "rclone-remote-storage"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: rclonefm-config          
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-rclonefm
+          optional: true
+  initContainers:
+    bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # add local remote if it doesn't exist
+        grep -q '/storage' /config/rclone.conf || cat /rclone-remote-storage >> /config/rclone.conf
+
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /tmp # need this for cating into a file
+        name: tmp        
+      - mountPath: /rclone-remote-storage
+        subPath: rclone-remote-storage
+        name: rclone-remote-storage
+      resources: *default_resources
+      securityContext: *default_securitycontext
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5573
+  ingress:
+    main:
+      enabled: false
+  resources:
+    requests:
+      cpu: 1m
+      memory: 60Mi
+    limits:
+      cpu: 150m
+      memory: 512Mi      
 
 webdav: &webdav
   enabled:

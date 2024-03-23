@@ -1,3 +1,4 @@
+{{ if .Values.rcloneui.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -13,4 +14,5 @@ spec:
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
-          namespace: traefik        
+          namespace: traefik
+{{ end }}

@@ -813,23 +813,27 @@ data:
         alerts:
           - type: email                     
 
+      {{ if .Values.rcloneui.enabled }}
       - name: rcloneui
         group: tools
-        url: "http://rclonebrowser:5572"
+        url: "http://rcloneui:5572"
         interval: 5m
         conditions:
           - "[STATUS] == 200"   
         alerts:
-          - type: email           
+          - type: email   
+      {{ end }}        
 
+      {{ if .Values.rclonefm.enabled }}
       - name: rclonefm
         group: tools
-        url: "http://rclonebrowser:5573"
+        url: "http://rclonefm:5573"
         interval: 5m
         conditions:
           - "[STATUS] == 200"      
         alerts:
           - type: email
+      {{ end }}
 
       {{ if .Values.webdav.enabled }}
       - name: webdav
