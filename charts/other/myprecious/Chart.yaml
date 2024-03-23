@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.32479-pre-01
+version: 1.0.32479
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -294,14 +294,6 @@ dependencies:
     version: ~0.0.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: nextpvr.enabled
-  - name: rcloneui
-    version: ~0.0.1
-    repository: http://chartmuseum.chartmuseum:8080
-    condition: rcloneui.enabled
-  - name: rclonefm
-    version: ~0.0.1
-    repository: http://chartmuseum.chartmuseum:8080
-    condition: rclonefm.enabled    
   - name: syncthing
     version: ~3.5.0
     repository: http://chartmuseum.chartmuseum:8080
@@ -416,7 +408,17 @@ dependencies:
     condition: webdavplus.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: webdavplus    
+    alias: webdavplus
+  - name: app-template
+    condition: rcloneui.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: rcloneui
+  - name: app-template
+    condition: rclonefm.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: rclonefm              
   - name: app-template
     condition: webdav.enabled
     version: ~0.2.1
