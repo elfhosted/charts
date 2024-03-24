@@ -9756,7 +9756,13 @@ iceberg:
     cd backend
     source /venv/bin/activate
     exec python /iceberg/backend/main.py   
-  resources: *default_resources
+  resources: 
+    requests:
+      cpu: 1m
+      memory: 80Mi
+    limits:
+      cpu: 100m
+      memory: 512Mi
   ingress:
     main:
       enabled: false
