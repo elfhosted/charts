@@ -838,7 +838,7 @@ data:
       {{ if .Values.webdav.enabled }}
       - name: webdav
         group: tools
-        url: "http://rclonebrowser:5574"
+        url: "http://webdav:5574"
         interval: 5m
         conditions:
           - "[STATUS] == 401"      
