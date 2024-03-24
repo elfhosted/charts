@@ -10,6 +10,7 @@
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "ignoreDeps": ["filebrowser","rclone","iceberg"],
+  "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","rclone"],
   "postUpgradeTasks": {
     "commands": ["./scripts/bump-myprecious.sh"],
     "fileFilters": ["charts/other/myprecious/Chart.yaml"],
