@@ -5766,7 +5766,7 @@ gatus:
       cpu: 1m
       memory: 20Mi
     limits:
-      cpu: 20m
+      cpu: 200m
       memory: 128Mi
   ingress:
     main:
