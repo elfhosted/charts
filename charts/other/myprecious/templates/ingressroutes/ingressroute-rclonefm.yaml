@@ -8,7 +8,7 @@ spec:
     - match: Host(`{{ .Release.Name }}-rclonefm.elfhosted.com`)
       kind: Rule
       services:
-        - name: rclonebrowser
+        - name: rclonefm
           kind: Service
           port: 5573
       middlewares:
