@@ -42,7 +42,15 @@
       "platformAutomerge": true,
       "ignoreTests": true,
       "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","rclone"]
-    } 
+    },
+    {
+      "matchPackagePatterns": ["minor"],
+      "automerge": true,
+      "automergeType": "branch",
+      "platformAutomerge": true,
+      "ignoreTests": true,
+      "excludePackagePatterns": ["filebrowser"]
+    }     
   ],
   // since we version by bumping, each PR needs to be rebased every time we merge
   "rebaseWhen": "behind-base-branch" 
