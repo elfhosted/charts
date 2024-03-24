@@ -7820,6 +7820,11 @@ rcloneui:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
+    cache:
+      enabled: true
+      type: emptyDir
+      mountPath: /home/elfie/.cache
+      sizeLimit: 1Gi
     config:
       enabled: true
       type: custom
@@ -7910,6 +7915,11 @@ rclonefm:
   automountServiceAccountToken: false
   persistence:
     <<: *appmounts
+    cache:
+      enabled: true
+      type: emptyDir
+      mountPath: /home/elfie/.cache
+      sizeLimit: 1Gi    
     config:
       enabled: true
       type: custom
