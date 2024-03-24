@@ -9,5 +9,5 @@ spec:
     recordTTL: 180
     recordType: CNAME
     targets:
-    - "traefik-ingress.${dns_domain}"
+    - "traefik-ingress.elfhosted.com"
 {{ end }}  
