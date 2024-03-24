@@ -13,8 +13,8 @@ data:
         ],
         "Plex users": [
             [
-                "http://plex:32400",
-                "replace-me"
+                "{{ .Release.Name }}",
+                "replace-me-with-plex-token"
             ]
         ],
         "Plex auto remove": "movie",
@@ -293,7 +293,7 @@ data:
         "Premiumize API Key": "",
         "Debrid Link API Key": "",
         "Put.io API Key": "",
-        "Show Menu on Startup": "true",
+        "Show Menu on Startup": "false",
         "Debug printing": "false",
         "Log to file": "false",
         "version": [
