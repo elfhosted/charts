@@ -5750,20 +5750,20 @@ gatus:
     seccompProfile:
       type: RuntimeDefault
     fsGroup: 568
-  # affinity:
-  #   nodeAffinity:
-  #     requiredDuringSchedulingIgnoredDuringExecution:
-  #       nodeSelectorTerms:
-  #       - matchExpressions:
-  #         - key: node-role.elfhosted.com/observability
-  #           operator: Exists    
-  # tolerations:
-  # - key: node-role.elfhosted.com/observability
-  #   operator: Exists    
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/observability
+            operator: Exists    
+  tolerations:
+  - key: node-role.elfhosted.com/observability
+    operator: Exists    
   automountServiceAccountToken: false
   resources:
     requests:
-      cpu: 1m
+      cpu: 20m
       memory: 20Mi
     limits:
       cpu: 200m
