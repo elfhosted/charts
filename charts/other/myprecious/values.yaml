@@ -7798,7 +7798,7 @@ rcloneui:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:ececcc1e6c3ebb21276937d91298a01d354b9a5ff71fad1b464995579603ce53
+    tag: 1.66.0@sha256:b351b0d640bd48eef464912e1bec8fa82f67b0ad6c8341eb008a72f93ce66c00
   command: 
   - /rcloneui.sh
   controller:
@@ -7893,7 +7893,7 @@ rclonefm:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:ececcc1e6c3ebb21276937d91298a01d354b9a5ff71fad1b464995579603ce53
+    tag: 1.66.0@sha256:b351b0d640bd48eef464912e1bec8fa82f67b0ad6c8341eb008a72f93ce66c00
   command: 
   - /rclonefm.sh
   controller:
@@ -8001,7 +8001,7 @@ webdav: &webdav
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:ececcc1e6c3ebb21276937d91298a01d354b9a5ff71fad1b464995579603ce53
+    tag: 1.66.0@sha256:b351b0d640bd48eef464912e1bec8fa82f67b0ad6c8341eb008a72f93ce66c00
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
@@ -8059,7 +8059,7 @@ storageboss:
   priorityClassName: tenant-critical
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:ececcc1e6c3ebb21276937d91298a01d354b9a5ff71fad1b464995579603ce53
+    tag: 1.66.0@sha256:b351b0d640bd48eef464912e1bec8fa82f67b0ad6c8341eb008a72f93ce66c00
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "storageboss-config,elfbot-storageboss"
