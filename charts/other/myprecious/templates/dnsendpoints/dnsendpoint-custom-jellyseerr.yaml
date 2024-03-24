@@ -1,0 +1,13 @@
+{{- if .Values.jellyseerrcustomdomain.enabled }}
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: {{ .Release.Name }}-jellyseerr.elfhosted.com
+spec:
+  endpoints:
+  - dnsName: {{ .Release.Name }}-jellyseerr.elfhosted.com
+    recordTTL: 180
+    recordType: CNAME
+    targets:
+    - "traefik-ingress.${dns_domain}"
+{{ end }}  
