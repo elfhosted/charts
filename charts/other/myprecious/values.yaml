@@ -2163,7 +2163,6 @@ radarr4k:
     main:
       enabled: true # necessary for probes
   initContainers:
-    a-migrate-from-cephfs: *migrate_from_cephfs  
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -3274,7 +3273,7 @@ filebrowser:
   resources:
     requests:
       cpu: 10m
-      memory: 10Mi
+      memory: 6Mi
     limits:
       cpu: 200m
       memory: 514Mi
@@ -4098,7 +4097,6 @@ sonarr4k:
     main:
       enabled: false
   initContainers:
-    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -4265,7 +4263,6 @@ prowlarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -4362,7 +4359,6 @@ lidarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -4529,7 +4525,6 @@ readarr:
     main:
       enabled: true # necessary for probes
   initContainers:
-    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -4617,7 +4612,6 @@ readarraudio:
     main:
       enabled: true # necessary for probes
   initContainers:
-    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     setup:
       image: *tooling_image
@@ -5010,7 +5004,6 @@ emby:
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"
   initContainers:
-    a-migrate-from-cephfs: *migrate_from_cephfs
     bootstrap: *bootstrap
     update-dns: *update_dns
   ingress:
@@ -5813,8 +5806,6 @@ gatus:
     config:
       # -- Store homer configuration as a ConfigMap, but don't specify any config, since we'll supply our own
       enabled: false
-  initContainers:
-    migrate-from-cephfs: *migrate_from_cephfs
 
 gotify:
   sso:
@@ -10988,7 +10979,7 @@ plexdebrid:
     PGID: 568
   resources:
     requests:
-      cpu: 1m
+      cpu: 2m
       memory: 100Mi
     limits:
       cpu: 500m
@@ -11059,7 +11050,7 @@ kubernetesdashboard:
   ## Pod resource requests & limits
   resources:
     requests:
-      cpu: 1m
+      cpu: 10m
       memory: 64Mi
     limits:
       cpu: 1
