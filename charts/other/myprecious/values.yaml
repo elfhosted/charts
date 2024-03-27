@@ -9946,17 +9946,17 @@ jackett:
   initContainers:
     bootstrap: *bootstrap
 
-stremio:
+stremioserver:
   enabled: false
   image:
-    repository: stremio/server
-    tag: v4.20.8
+    repository: ghcr.io/geek-cookbook/stremio-server
+    tag: v4.20.8@sha256:e5124e1160c5c2fc43ab43c79e1340f70cdabdbff9de6e2d7f7059892d5393b6
   priorityClassName: tenant-normal
   podLabels:
-    app.elfhosted.com/name: stremio  
+    app.elfhosted.com/name: stremio-server
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio,stremio-env,stremio-config"
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio-server,stremio-server-env,stremio-config"
     strategy:
     rollingUpdate:
       unavailable: 1      
@@ -9993,7 +9993,7 @@ stremio:
           port: 11470 
   envFrom:
   - configMapRef:
-      name: stremio-env 
+      name: stremio-server-env 
   persistence:
     render-device:
       enabled: "true"
@@ -10007,7 +10007,7 @@ stremio:
       type: "custom"
       volumeSpec:
         configMap:
-          name: stremio-config      
+          name: stremio-server-config      
     transcode: # in case users use /tmp
       enabled: true
       type: custom

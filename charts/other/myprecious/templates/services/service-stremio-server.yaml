@@ -1,10 +1,10 @@
-{{ if .Values.stremio.enabled }}
+{{ if .Values.stremioserver.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: stremio
+  name: stremio-server
   labels:
-    app.kubernetes.io/name: stremio
+    app.kubernetes.io/name: stremioserver
     app.kubernetes.io/instance: {{ .Release.Name }}
   annotations:
 spec:
@@ -15,6 +15,6 @@ spec:
     protocol: TCP
     name: streamer
   selector:
-    app.kubernetes.io/name: stremio
+    app.kubernetes.io/name: stremioserver
     app.kubernetes.io/instance: {{ .Release.Name }}
 {{ end }}

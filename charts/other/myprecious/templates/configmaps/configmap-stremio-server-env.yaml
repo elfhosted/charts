@@ -1,8 +1,8 @@
-{{ if .Values.stremio.enabled }}
+{{ if .Values.stremioserver.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: stremio-env
+  name: stremio-server-env
 data:
   WEBUI_LOCATION: https://app.strem.io
   NO_CORS: "1"
