@@ -10872,8 +10872,8 @@ zurg: &zurg
         # Ensure download cache is disabled (works better when IPs change)
         sed -i  "s/use_download_cache: true/use_download_cache: false/" /config/config.yml
 
-        # Don't let this instance do repairs
-        sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
+        # # Don't let this instance do repairs
+        # sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
 
         # Set to 32 workers
         sed -i  "s/concurrent_workers:.*/concurrent_workers: 32/" /config/config.yml
@@ -10892,12 +10892,12 @@ zurg: &zurg
         name: config
       - name: repairman
         mountPath: "/repairman/"
-  additionalContainers:
-    repairman:
-      image: ghcr.io/geek-cookbook/zurg:v0.9.3-hotfix.11@sha256:f3110e087387d0584700d43708121135f6b2880290711c682d9f817a0637a3f6
-      volumeMounts:
-      - mountPath: /config
-        name: repairman        
+  # additionalContainers:
+  #   repairman:
+  #     image: ghcr.io/geek-cookbook/zurg:v0.9.3-hotfix.11@sha256:f3110e087387d0584700d43708121135f6b2880290711c682d9f817a0637a3f6
+  #     volumeMounts:
+  #     - mountPath: /config
+  #       name: repairman        
   addons:
     vpn: &zurg_addons_vpn
       enabled: false # in case we ever need it
