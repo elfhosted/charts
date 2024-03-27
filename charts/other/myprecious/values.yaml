@@ -9947,7 +9947,7 @@ stremio:
   enabled: false
   image:
     repository: stremio/server
-    tag: v4.20.5
+    tag: v4.20.8
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: stremio  
