@@ -4910,7 +4910,7 @@ jellyfin:
       enabled: true # necessary for probes
   resources:
     requests:
-      cpu: 10m
+      cpu: "200m"
       memory: 512Mi
     limits:
       cpu: 2
@@ -5014,7 +5014,7 @@ emby:
       enabled: true # necessary for probes
   resources:
     requests:
-      cpu: "10m"
+      cpu: "200m"
       memory: 512Mi
     limits:
       cpu: 1
@@ -10214,7 +10214,7 @@ annatar:
     tmp: *tmp
   resources:
     requests:
-      cpu: 10m
+      cpu: 100m
       memory: 512Mi
     limits:
       cpu: 1
