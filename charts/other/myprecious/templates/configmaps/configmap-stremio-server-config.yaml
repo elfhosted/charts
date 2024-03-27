@@ -1,12 +1,12 @@
-{{ if .Values.stremio.enabled }}
+{{ if .Values.stremioserver.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: stremio-config
+  name: stremio-server-config
 data:
   server-settings.json: |
     {
-        "serverVersion": "4.20.5",
+        "serverVersion": "4.20.8",
         "appPath": "/config",
         "cacheRoot": "/transcode",
         "cacheSize": 2147483648,
@@ -15,7 +15,7 @@ data:
         "btRequestTimeout": 1,
         "btDownloadSpeedSoftLimit": 1,
         "btDownloadSpeedHardLimit": 1,
-        "btMinPeersForStable": 9999,
+        "btMinPeersForStable": 1,
         "remoteHttps": "",
         "localAddonEnabled": false,
         "transcodeHorsepower": 0.75,

@@ -446,13 +446,13 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}  
 
-          {{ if .Values.stremio.enabled }}
-          - name: "Stremio"
+          {{ if .Values.stremioserver.enabled }}
+          - name: "Stremio Server"
             logo: "assets/png/stremio.png"
-            subtitle: "Stremio"
+            subtitle: "Stremio Server"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio.elfhosted.com#/"
+            url: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server.elfhosted.com/{{ .Values.stremioserver.token }}#/"
             target: "_blank" # optional html tag target attribute
           {{ end }}            
 
