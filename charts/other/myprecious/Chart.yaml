@@ -480,6 +480,11 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080        
     alias: stremioserver
   - name: app-template
+    condition: stremioweb.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: stremioweb    
+  - name: app-template
     condition: pgadmin.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
