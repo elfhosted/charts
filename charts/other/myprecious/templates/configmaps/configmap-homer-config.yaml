@@ -452,7 +452,7 @@ data:
             subtitle: "Stremio Server"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server.elfhosted.com/{{ .Values.stremioserver.token }}#/"
+            url: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
             target: "_blank" # optional html tag target attribute
           {{ end }}            
 

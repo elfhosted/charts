@@ -227,7 +227,7 @@ data:
         {{ if .Values.stremioserver.enabled }}
         - Stremio:
             icon: mdi-tv
-            href: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server.elfhosted.com/{{ .Values.stremioserver.token }}#/"
+            href: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
             description: Stremio Frontend
             siteMonitor: http://stremio-server:8080
         {{ end }}          
