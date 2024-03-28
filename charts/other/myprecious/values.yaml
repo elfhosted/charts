@@ -9946,8 +9946,8 @@ jackett:
 stremioserver:
   enabled: false
   image:
-    repository: tsaridas/stremio-docker
-    tag: latest
+    repository: ghcr.io/geek-cookbook/stremio-server
+    tag: v4.20.8@sha256:e5124e1160c5c2fc43ab43c79e1340f70cdabdbff9de6e2d7f7059892d5393b6
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: stremio-server
@@ -9960,7 +9960,7 @@ stremioserver:
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: false
+    readOnlyRootFilesystem: true
     privileged: true
   podSecurityContext:
     seccompProfile:
@@ -9986,22 +9986,12 @@ stremioserver:
     main:
       enabled: true # necessary for probes
       ports:
-        http:
-          port: 12470 
-  env:
-  - name: IPADDRESS
-    valueFrom:
-      fieldRef:
-        fieldPath: status.podIP          
+        https:
+          port: 12470    
   envFrom:
   - configMapRef:
       name: stremio-server-env 
   persistence:
-    config:
-      enabled: true
-      type: emptyDir
-      mountPath: /config
-      sizeLimit: 1Gi  
     render-device:
       enabled: "true"
       type: hostPath

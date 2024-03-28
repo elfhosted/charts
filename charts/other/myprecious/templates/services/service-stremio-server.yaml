@@ -13,7 +13,7 @@ spec:
   - port: 12470
     targetPort: 12470
     protocol: TCP
-    name: streamer
+    name: https
   selector:
     app.kubernetes.io/name: stremioserver
     app.kubernetes.io/instance: {{ .Release.Name }}
