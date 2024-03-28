@@ -245,10 +245,10 @@ data:
           - type: email               
       {{ end }}  
 
-      {{ if .Values.stremio.enabled }}
-      - name: stremio
+      {{ if .Values.stremioserver.enabled }}
+      - name: stremio-server
         group: consume-media
-        url: "http://stremio:8080"
+        url: "http://stremio-server:8080"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
