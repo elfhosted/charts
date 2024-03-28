@@ -9987,9 +9987,9 @@ stremioserver:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 11470    
-        https:
-          port: 12470              
+          port: 12470    
+        # https:
+        #   port: 12470              
   envFrom:
   - configMapRef:
       name: stremio-server-env 
