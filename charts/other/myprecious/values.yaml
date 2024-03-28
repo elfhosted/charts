@@ -9946,8 +9946,8 @@ jackett:
 stremioserver:
   enabled: false
   image:
-    repository: ghcr.io/geek-cookbook/stremio-server
-    tag: tsaridas/stremio-docker:latest
+    repository: tsaridas/stremio-docker
+    tag: latest
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: stremio-server
@@ -9997,6 +9997,11 @@ stremioserver:
   - configMapRef:
       name: stremio-server-env 
   persistence:
+    config:
+      enabled: true
+      type: emptyDir
+      mountPath: /config
+      sizeLimit: 1Gi  
     render-device:
       enabled: "true"
       type: hostPath
