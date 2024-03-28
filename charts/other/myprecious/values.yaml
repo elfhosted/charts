@@ -8877,7 +8877,7 @@ rdtclient: &app_rdtclient
       enabled: true # necessary for probes
   resources:
     requests:
-      cpu: 10m
+      cpu: 50m
       memory: 128Mi
       ephemeral-storage: 50Mi
     limits:
