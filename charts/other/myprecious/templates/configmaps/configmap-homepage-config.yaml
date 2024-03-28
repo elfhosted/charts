@@ -224,12 +224,12 @@ data:
             siteMonitor: http://shluflix:8001
         {{ end }}                
 
-        {{ if .Values.stremio.enabled }}
+        {{ if .Values.stremioserver.enabled }}
         - Stremio:
             icon: mdi-tv
-            href: https://{{ .Release.Name }}-stremio.elfhosted.com
+            href: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server.elfhosted.com/{{ .Values.stremioserver.token }}#/"
             description: Stremio Frontend
-            siteMonitor: http://stremio:8080
+            siteMonitor: http://stremio-server:8080
         {{ end }}          
 
     - Manage Media:
