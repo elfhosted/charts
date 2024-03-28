@@ -475,10 +475,10 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080        
     alias: jackettio        
   - name: app-template
-    condition: stremio.enabled
+    condition: stremioserver.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: stremio   
+    alias: stremioserver
   - name: app-template
     condition: pgadmin.enabled
     version: ~0.2.1
