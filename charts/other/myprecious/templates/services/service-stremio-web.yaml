@@ -1,20 +1,19 @@
-{{ if .Values.stremioserver.enabled }}
+{{ if .Values.stremioweb.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: stremio-server
+  name: stremio-web
   labels:
-    app.kubernetes.io/name: stremioserver
+    app.kubernetes.io/name: stremioweb
     app.kubernetes.io/instance: {{ .Release.Name }}
   annotations:
 spec:
   type: ClusterIP
   ports:
-  - port: 12470
-    targetPort: 12470
+  - port: 8080
+    targetPort: 8080
     protocol: TCP
-    name: streamer
   selector:
-    app.kubernetes.io/name: stremioserver
+    app.kubernetes.io/name: stremioweb
     app.kubernetes.io/instance: {{ .Release.Name }}
 {{ end }}
