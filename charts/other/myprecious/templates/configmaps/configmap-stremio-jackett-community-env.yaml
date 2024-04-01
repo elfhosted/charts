@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: stremio-jackett-community-env
 data:
-  COMMUNITY_VERSION: "true"
+  IS_COMMUNITY_VERSION: "true"
   ADDON_ID: {{ .Release.Name }}-stremio-jackett.elfhosted.com
   ADDON_NAME: Stremio-Jackett Community - {{ .Release.Name }} | ElfHosted
   ADDON_ICON: https://elfhosted.com/images/stremio-jackett-elfhosted.png
