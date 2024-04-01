@@ -10071,7 +10071,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v3.0.13@sha256:ac8243561541c67445706fa5fb37cad4f2ac53b295e97e749eb9451bdff13724
+    tag: v4.0.0@sha256:a5181d16e5883cea6920239b9e43962d18c89fc2086153c6576ff0f0e7c9dcc7
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10091,8 +10091,9 @@ stremiojackett:
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  env:
-    DISABLE_AUTOMATIC_UPDATES: "true"
+  envFrom:
+  - configMapRef:
+      name: stremio-jackett-env       
   resources:
     requests:
       cpu: 10m
@@ -10455,8 +10456,8 @@ stremiojackettcommunity: &stremiojackettcommunity
   podLabels: 
       app.elfhosted.com/name: stremio-jackett-community    
   image:
-    repository: ghcr.io/geek-cookbook/stremio-jackett-community
-    tag: v3.0.8@sha256:c84f11f92aac3663fd3e1750140972b2eda21bc7f4a8647257be4f206280b32e
+    repository: ghcr.io/geek-cookbook/stremio-jackett
+    tag: v4.0.0@sha256:a5181d16e5883cea6920239b9e43962d18c89fc2086153c6576ff0f0e7c9dcc7
   priorityClassName: tenant-normal
   # command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"] # allow logs on private instances
   controller:
@@ -10495,8 +10496,9 @@ stremiojackettcommunity: &stremiojackettcommunity
       ports:
         http:
           port: 3000    
-  env:
-    CACHE_URL: http://stremio-jackett-cacher.stremio-jackett-cacher:8080 # the internal IP of the cacher, since this pod is VPN'd
+  envFrom:
+  - configMapRef:
+      name: stremio-jackett-community-env             
 
 stremiojackettcommunityalldebrid: 
   enabled: false
