@@ -828,7 +828,7 @@ rutorrentgluetun: &rutorrent
   podLabels:
     app.elfhosted.com/name: rutorrent
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M"    
+    kubernetes.io/egress-bandwidth: "150M"    
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,rutorrent-config,rutorrent-gluetun-config,elfbot-rutorrent" # Reload the deployment every time the yaml config changes
@@ -1099,7 +1099,7 @@ delugegluetun: &deluge
   podLabels:
     app.elfhosted.com/name: deluge
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M"    
+    kubernetes.io/egress-bandwidth: "150M"    
   sso:
     enabled: true
   automountServiceAccountToken: false
@@ -1393,7 +1393,7 @@ qbittorrentgluetun: &qbittorrent
   podLabels:
     app.elfhosted.com/name: qbittorrent
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M"    
+    kubernetes.io/egress-bandwidth: "150M"    
   enabled: false
   sso:
     enabled: true
@@ -4648,7 +4648,7 @@ plex: &plex
     app.elfhosted.com/name: plex
     app.elfhosted.com/class: streaming   
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux
+    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
@@ -4843,7 +4843,7 @@ jellyfin:
     app.elfhosted.com/class: streaming  
     app.elfhosted.com/name: jellyfin
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux
+    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
   priorityClassName: tenant-streaming
   securityContext:
     seccompProfile:
@@ -4939,7 +4939,7 @@ emby:
     app.elfhosted.com/class: streaming
     app.elfhosted.com/name: emby
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux    
+    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux    
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -10773,7 +10773,7 @@ zurg: &zurg
     app.elfhosted.com/class: debrid
     app.elfhosted.com/name: zurg  
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "100M" # tested with _kilos in Discord on a 97Mbit remux
+    kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
   image:
     repository: ghcr.io/geek-cookbook/zurg
     tag: v0.9.3-hotfix.11@sha256:f3110e087387d0584700d43708121135f6b2880290711c682d9f817a0637a3f6
@@ -10829,10 +10829,10 @@ zurg: &zurg
           topologyKey: "kubernetes.io/hostname"
   resources:
     requests:
-      cpu: 10m
+      cpu: 20m
       memory: 32Mi
     limits:
-      cpu: 100m
+      cpu: 200m
       memory: 1024Mi
   ingress:
     main:
