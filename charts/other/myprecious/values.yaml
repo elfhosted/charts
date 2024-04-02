@@ -8179,7 +8179,7 @@ webdavplus:
     kubernetes.io/egress-bandwidth: "150M"
   envFrom:
   - configMapRef:
-      name: webdav-config    
+      name: webdav-plus-config    
 
 # This is basically a proxy webdav for alldebrid, so that we can use it over a VPN
 alldebridwebdavpia:
