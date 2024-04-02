@@ -1,0 +1,13 @@
+{{- if .Values.vaultwardencustomdomain.enabled }}
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: {{ .Release.Name }}-vaultwarden.elfhosted.com
+spec:
+  endpoints:
+  - dnsName: {{ .Release.Name }}-vaultwarden.elfhosted.com
+    recordTTL: 180
+    recordType: CNAME
+    targets:
+    - "traefik-ingress.elfhosted.com"
+{{ end }}  
