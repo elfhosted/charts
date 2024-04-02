@@ -1,4 +1,4 @@
-{{ if .Values.webdav.enabled }}
+{{ if or .Values.webdav.enabled .Values.webdavplus.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
