@@ -4727,7 +4727,7 @@ plex: &plex
       optional: true
   resources:
     requests:
-      cpu: "200m"
+      cpu: "500m"
       memory: 512Mi
     limits:
       cpu: "2.5" # 1.5 works, but results in buffering when playback starts, see https://github.com/geek-cookbook/elf-charts/issues/501
