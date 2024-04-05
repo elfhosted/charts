@@ -10630,8 +10630,100 @@ shluflix:
   - configMapRef:      
       name: shluflix-env
   - configMapRef:      
-      name: elfbot-xtremio
+      name: elfbot-shluflix
       optional: true
+
+recyclarr:
+  enabled: false
+  image:
+    repository: ghcr.io/recyclarr/recyclarr
+    tag: latest@sha256:02add40feae0569401b5020528e06419b47046723d0bb4bef1e82325e9eefdad
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-recyclarr"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 9898    
+  persistence:
+    <<: *appmounts
+    config:
+      enabled: true
+      type: custom
+      mountPath: /config/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-recyclarr-ssd
+    example-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: recyclarr-config
+    elfbot:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: elfbot-recyclarr
+          optional: true
+  initContainers:
+    bootstrap: *bootstrap
+    copy-example-config:
+      image: ghcr.io/geek-cookbook/unpackerr@sha256:014440a2a7e4499a9ce52be1388567d24fc515d8d00422434239b918c56a717a
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # If we don't already have an example config, create one
+        if [ ! -f /config/recyclarr.yaml ];
+        then
+          cp /bootstrap/recyclarr.yaml /config/
+        fi
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - name: example-config
+        mountPath: "/bootstrap/"
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true
+  additionalContainers:
+    podinfo:
+      image: stefanprodan/podinfo # used to run probes from gatus
 
 knightcrawler: &app_knightcrawler
   enabled: false

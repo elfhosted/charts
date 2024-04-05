@@ -586,6 +586,17 @@ data:
           - type: email               
       {{ end }} 
 
+      {{ if or .Values.recyclarr.enabled }}
+      - name: recyclarr
+        group: manage-media
+        url: "http://recyclarr:9898"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }} 
+
       {{ if .Values.nzbget.enabled }}
       - name: nzbget
         group: download-media
