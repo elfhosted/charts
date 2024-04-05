@@ -43,7 +43,7 @@ data:
       {{ if .Values.radarr.enabled }}
       radarr_hd:
         base_url: http://radarr:7878
-        api_key: {{ .Values.radarrkexposed.apikey }}
+        api_key: {{ .Values.radarr4kexposed.apikey }}
         quality_definition:
           type: movie
           preferred_ratio: 0.5
@@ -51,7 +51,7 @@ data:
       {{ if .Values.radarr4k.enabled }}
       radarr_4k:
         base_url: http://radarr4k:7878
-        api_key: {{ .Values.radarr4kkexposed.apikey }}
+        api_key: {{ .Values.radarr4kexposed.apikey }}
         quality_definition:
           type: movie
           preferred_ratio: 0.5
