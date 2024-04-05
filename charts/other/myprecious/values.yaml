@@ -9392,12 +9392,7 @@ stremioserver:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 11470
-  env:
-  - name: IPADDRESS
-    valueFrom:
-      fieldRef:
-        fieldPath: status.podIP          
+          port: 11470    
   envFrom:
   - configMapRef:
       name: stremio-server-env 
