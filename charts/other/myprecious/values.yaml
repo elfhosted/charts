@@ -10784,7 +10784,7 @@ knightcrawler: &app_knightcrawler
       mountPath: /.pm2
       volumeSpec: *volumespec_ephemeral_volume_1g                          
   envFrom:
-  - configMap:
+  - configMapRef:
       name: torrentio-env     
   - secretRef:
       name: torrentio-env     
