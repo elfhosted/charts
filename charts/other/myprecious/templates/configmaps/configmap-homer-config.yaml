@@ -806,6 +806,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}          
 
+          {{ if .Values.recyclarr.enabled }}
+          - name: "Recyclarr"
+            icon: "fas fa-recycle"
+            subtitle: "Configure Autoscan"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/recyclarr/"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                    
+
           {{ if .Values.tdarr.enabled }}
           - name: "Tdarr"
             logo: "assets/png/tdarr.png"

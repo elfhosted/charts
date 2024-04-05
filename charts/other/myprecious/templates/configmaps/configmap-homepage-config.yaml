@@ -500,7 +500,15 @@ data:
             href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/autoscan/
             description: Configure Autoscan  
             # siteMonitor: http://autoscan:3030
-        {{ end }}                              
+        {{ end }}    
+
+        {{ if or .Values.recyclarr.enabled }}
+        - Recyclarr:
+            icon: mdi-recycle
+            href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/recyclarr/
+            description: Configure Recyclarr  
+            siteMonitor: http://recyclarr:9898
+        {{ end }}    
 
         {{ if .Values.tdarr.enabled }}
         - Tdarr:
