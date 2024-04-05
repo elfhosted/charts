@@ -11,7 +11,7 @@ data:
       {{ if .Values.sonarr.enabled }}
       sonarr_hd:
         base_url: http://sonarr:8989
-        api_key: {{ sonarrexposed.apikey }}
+        api_key: {{ .Values.sonarrexposed.apikey }}
         quality_definition:
           type: series
         release_profiles:
@@ -25,7 +25,7 @@ data:
       {{ if .Values.sonarr4k.enabled }}
       sonarr_4k:
         base_url: http://sonarr4k:8989
-        api_key: {{ sonarr4kexposed.apikey }}
+        api_key: {{ .Values.sonarr4kexposed.apikey }}
         quality_definition:
           type: series
         release_profiles:
@@ -43,7 +43,7 @@ data:
       {{ if .Values.radarr.enabled }}
       radarr_hd:
         base_url: http://radarr:7878
-        api_key: {{ radarrkexposed.apikey }}
+        api_key: {{ .Values.radarrkexposed.apikey }}
         quality_definition:
           type: movie
           preferred_ratio: 0.5
@@ -51,7 +51,7 @@ data:
       {{ if .Values.radarr4k.enabled }}
       radarr_4k:
         base_url: http://radarr4k:7878
-        api_key: {{ radarr4kkexposed.apikey }}
+        api_key: {{ .Values.radarr4kkexposed.apikey }}
         quality_definition:
           type: movie
           preferred_ratio: 0.5
