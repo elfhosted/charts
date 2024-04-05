@@ -9,7 +9,7 @@
   "allowedPostUpgradeCommands": ["./scripts/bump-myprecious.sh"],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
-  "ignoreDeps": ["filebrowser","rclone","iceberg"],
+  "ignoreDeps": ["filebrowser"],
   "postUpgradeTasks": {
     "commands": ["./scripts/bump-myprecious.sh"],
     "fileFilters": ["charts/other/myprecious/Chart.yaml"],
@@ -25,8 +25,7 @@
       "automerge": true,
       "automergeType": "branch",
       "platformAutomerge": true,
-      "ignoreTests": true,
-      "excludePackagePatterns": ["iceberg"]
+      "ignoreTests": true
     },
     {
       "matchPackagePatterns": ["nightly"],
@@ -41,7 +40,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true,
-      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","rclone"]
+      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent"]
     },
     {
       "matchPackagePatterns": ["minor"],
@@ -49,7 +48,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true,
-      "excludePackagePatterns": ["filebrowser"]
+      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent"]
     }     
   ],
   // since we version by bumping, each PR needs to be rebased every time we merge
