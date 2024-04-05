@@ -10059,7 +10059,7 @@ stremioweb:
       ports:
         http:
           port: 8080
-          
+
 stremiojackett:
   enabled: false
   image:
@@ -10783,26 +10783,9 @@ knightcrawler: &app_knightcrawler
       type: custom
       mountPath: /.pm2
       volumeSpec: *volumespec_ephemeral_volume_1g                          
-  env:
-    PORT: 7001
-    PUID: 568
-    PGID: 568
-    TENANT_NAME: "{{ .Release.Name }}"    
-    # PostgreSQL
-    POSTGRES_HOST: pooler-torrentio.torrentio # pooler
-    POSTGRES_PORT: 5432
-    POSTGRES_USER: torrentio
-    # POSTGRES_PASSWORD goes in secret
-    POSTGRES_DB: torrentio
-
-    # MongoDB
-    MONGODB_HOST: mongodb.torrentio # mongodb svc
-    MONGODB_PORT: 27017
-    MONGODB_DB: torrentio
-    MONGO_INITDB_ROOT_USERNAME: mongo
-    MONGO_INITDB_ROOT_PASSWORD: mongo
-
   envFrom:
+  - configMap:
+      name: torrentio-env     
   - secretRef:
       name: torrentio-env     
 
@@ -10811,29 +10794,10 @@ torrentio:
   <<: *app_knightcrawler
   enabled: false
 
+# Add a VPN for AD
 knightcrawlervpn:
   <<: *app_knightcrawler
   enabled: false
-  env:
-    PORT: 7001
-    PUID: 568
-    PGID: 568
-    TENANT_NAME: "{{ .Release.Name }}"    
-    # PostgreSQL
-    POSTGRES_HOST: 10.43.74.255 # (can't use DNS resolution on VPN
-    POSTGRES_PORT: 5432
-    POSTGRES_USER: torrentio
-    # POSTGRES_PASSWORD goes in secret
-    POSTGRES_DB: torrentio
-
-    # MongoDB
-    MONGODB_HOST: 10.43.0.3 # (can't use DNS resolution on VPN)
-    MONGODB_PORT: 27017
-    MONGODB_DB: torrentio
-    MONGO_INITDB_ROOT_USERNAME: mongo # mongo needs this
-    MONGO_INITDB_ROOT_PASSWORD: mongo # mongo needs this
-    MONGODB_USER: mongo               # nodejs apps need this
-    MONGODB_PASSWORD: mongo           # nodejs apps need this
   addons:
     vpn:
       enabled: true # in case we ever need it
