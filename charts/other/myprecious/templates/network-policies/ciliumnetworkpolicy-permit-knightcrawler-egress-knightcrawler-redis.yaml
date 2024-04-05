@@ -1,0 +1,19 @@
+{{ if or .Values.knightcrawler.enabled .Values.knightcrawlervpn.enabled .Values.torrentio.enabled }}
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-knightcrawler-egress-knightcrawler-redis"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.elfhosted.com/name: knightcrawler
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: knightcrawler
+        app.kubernetes.io/name: redis
+    toPorts:
+      - ports:
+        - port: '6379'
+          protocol: TCP
+{{ end }}
