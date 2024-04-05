@@ -9942,8 +9942,8 @@ jackett:
 stremioserver:
   enabled: false
   image:
-    repository: tsaridas/stremio-docker # ghcr.io/geek-cookbook/stremio-server
-    tag: latest # v4.20.8@sha256:e5124e1160c5c2fc43ab43c79e1340f70cdabdbff9de6e2d7f7059892d5393b6
+    repository: ghcr.io/geek-cookbook/stremio-server
+    tag: v4.20.8@sha256:e5124e1160c5c2fc43ab43c79e1340f70cdabdbff9de6e2d7f7059892d5393b6
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: stremio-server
@@ -10024,7 +10024,7 @@ stremioweb:
     app.elfhosted.com/name: stremio-web
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio-web,stremio-web-env,stremio-web-config"
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremio-web"
     strategy:
     rollingUpdate:
       unavailable: 1      
@@ -10058,11 +10058,8 @@ stremioweb:
       enabled: true # necessary for probes
       ports:
         http:
-          port: 8080 
-  envFrom:
-  - configMapRef:
-      name: stremio-web-env 
-
+          port: 8080
+          
 stremiojackett:
   enabled: false
   image:
