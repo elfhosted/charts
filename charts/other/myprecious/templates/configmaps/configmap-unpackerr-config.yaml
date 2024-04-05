@@ -1,3 +1,4 @@
+{{ if .Values.unpackerr.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -191,3 +192,4 @@ data:
     ## Optional Command Hook Configuration
     #  exclude       = []    # list of apps to exclude, ie. ["radarr", "lidarr"]
     #  timeout       = "10s" # You can adjust how long to wait for a server response.
+{{ end }}

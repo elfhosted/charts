@@ -1,0 +1,60 @@
+{{ if .Values.recyclarr.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: recyclarr-config
+data:
+  recyclarr.yaml: |
+
+    {{ if or .Values.sonarr.enabled .Values.sonarr4k.enabled }}
+    sonarr:
+      {{ if .Values.sonarr.enabled }}
+      sonarr_hd:
+        base_url: http://sonarr:8989
+        api_key: {{ sonarrexposed.apikey }}
+        quality_definition:
+          type: series
+        release_profiles:
+          - trash_ids:
+              - EBC725268D687D588A20CBC5F97E538B # Low Quality Groups
+              - 1B018E0C53EC825085DD911102E2CA36 # Release Sources (Streaming Service)
+              - 71899E6C303A07AF0E4746EFF9873532 # P2P Groups + Repack/Proper
+            strict_negative_scores: false
+            tags: [tv]
+      {{ end }}
+      {{ if .Values.sonarr4k.enabled }}
+      sonarr_4k:
+        base_url: http://sonarr4k:8989
+        api_key: {{ sonarr4kexposed.apikey }}
+        quality_definition:
+          type: series
+        release_profiles:
+          - trash_ids:
+              - EBC725268D687D588A20CBC5F97E538B # Low Quality Groups
+              - 1B018E0C53EC825085DD911102E2CA36 # Release Sources (Streaming Service)
+              - 71899E6C303A07AF0E4746EFF9873532 # P2P Groups + Repack/Proper
+            strict_negative_scores: false
+            tags: [tv]       
+      {{ end }}     
+    {{ end }}
+
+    {{ if or .Values.radarr.enabled .Values.radarr4k.enabled }}
+    radarr:
+      {{ if .Values.radarr.enabled }}
+      radarr_hd:
+        base_url: http://radarr:7878
+        api_key: {{ radarrkexposed.apikey }}
+        quality_definition:
+          type: movie
+          preferred_ratio: 0.5
+      {{ end }}
+      {{ if .Values.radarr4k.enabled }}
+      radarr_4k:
+        base_url: http://radarr4k:7878
+        api_key: {{ radarr4kkexposed.apikey }}
+        quality_definition:
+          type: movie
+          preferred_ratio: 0.5
+      {{ end }}
+    {{ end }}
+{{ end }}
