@@ -8,7 +8,7 @@ spec:
     - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com`)
       kind: Rule
       services:
-        - name: stremio-server
+        - name: {{ .Release.Name }}-stremioserver # because the other one is stuck in https mode for some reason!
           kind: Service
           port: 11470
       middlewares:
