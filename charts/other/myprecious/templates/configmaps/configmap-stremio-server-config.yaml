@@ -16,12 +16,12 @@ data:
         "btDownloadSpeedSoftLimit": 2621440,
         "btDownloadSpeedHardLimit": 3670016,
         "btMinPeersForStable": 5
-        "remoteHttps": "",
+        "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com",
         "localAddonEnabled": false,
         "transcodeHorsepower": 0.75,
         "transcodeMaxBitRate": 0,
-        "transcodeConcurrency": 1,
-        "transcodeTrackConcurrency": 1,
+        "transcodeConcurrency": 2,
+        "transcodeTrackConcurrency": 2,
         "transcodeHardwareAccel": true,
         "transcodeProfile": "qsv-linux",
         "transcodeMaxWidth": 1920

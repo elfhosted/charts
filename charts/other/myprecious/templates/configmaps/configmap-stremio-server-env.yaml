@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: stremio-server-env
 data:
-  WEBUI_LOCATION: https://app.strem.io
+  WEBUI_LOCATION: https://web.strem.io
   NO_CORS: "1"
   CASTING_DISABLED: "1"
   APP_PATH: /config
