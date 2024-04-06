@@ -9351,8 +9351,8 @@ jackett:
 stremioserver:
   enabled: false
   image:
-    repository: ghcr.io/geek-cookbook/stremio-server
-    tag: v4.20.8@sha256:e5124e1160c5c2fc43ab43c79e1340f70cdabdbff9de6e2d7f7059892d5393b6
+    repository: tsaridas/stremio-docker
+    tag: latest
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: stremio-server
@@ -9372,8 +9372,8 @@ stremioserver:
       type: RuntimeDefault
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
-    # runAsUser: 568 # review
-    # runAsGroup: 568
+    runAsUser: 568 # review
+    runAsGroup: 568
     supplementalGroups:
     - 109
   automountServiceAccountToken: false
@@ -9415,8 +9415,8 @@ stremioserver:
       type: custom
       mountPath: /transcode
       volumeSpec: *volumespec_ephemeral_volume_10g
-  initContainers:
-    update-dns: *update_dns
+  # initContainers:
+  #   update-dns: *update_dns
   addons:
     vpn:
       enabled: true
@@ -9443,7 +9443,6 @@ stremioserver:
             - NET_ADMIN
             - SYS_MODULE
       config: # We have to set this to null so that we can override with our own config   
-
 
 stremioweb:
   enabled: false
