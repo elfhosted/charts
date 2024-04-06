@@ -8,12 +8,12 @@ spec:
     - match: Host(`{{ .Release.Name }}-stremio-web.elfhosted.com`)
       kind: Rule
       services:
-        - name: stremio-web
+        - name: stremio-server
           kind: Service
           port: 8080
       middlewares:
-        # - name: headers-add-cors-for-stremio
-        #   namespace: traefik
+        - name: headers-add-cors-for-stremio
+          namespace: traefik
         - name: error-pages
           namespace: traefik
 {{ end }}
