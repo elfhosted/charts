@@ -13,8 +13,8 @@ data:
         "btMaxConnections": 55,
         "btHandshakeTimeout": 20000,
         "btRequestTimeout": 4000,
-        "btDownloadSpeedSoftLimit": 2621440,
-        "btDownloadSpeedHardLimit": 3670016,
+        "btDownloadSpeedSoftLimit": 2621440000,
+        "btDownloadSpeedHardLimit": 3670016000,
         "btMinPeersForStable": 5
         "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com",
         "localAddonEnabled": false,
@@ -23,7 +23,7 @@ data:
         "transcodeConcurrency": 2,
         "transcodeTrackConcurrency": 2,
         "transcodeHardwareAccel": true,
-        "transcodeProfile": "qsv-linux",
+        "transcodeProfile": "vaapi-renderD128",
         "transcodeMaxWidth": 1920
     }
 {{ end }}
