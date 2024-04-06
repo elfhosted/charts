@@ -9351,8 +9351,8 @@ jackett:
 stremioserver:
   enabled: false
   image:
-    repository: tsaridas/stremio-docker
-    tag: latest
+    repository: ghcr.io/geek-cookbook/stremio
+    tag: v1.1.9@sha256:b77b155961444b493d18b0d4e79a18cb0a4c5879ca6aed43327b4a9b9aec1209
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: stremio-server
