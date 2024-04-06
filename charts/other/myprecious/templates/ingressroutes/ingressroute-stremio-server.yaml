@@ -11,8 +11,6 @@ spec:
         - name: stremio-server
           kind: Service
           port: 11470
-          # scheme: https # expect stremioserver to supply its own SSL cert
-          # serversTransport: insecureskipverify # expect stremioserver to supply its own SSL cert
       middlewares:
         - name: headers-add-cors-for-stremio
           namespace: traefik
