@@ -9379,10 +9379,10 @@ stremioserver:
   automountServiceAccountToken: false
   resources:
     requests:
-      cpu: 10m
-      memory: 128Mi
+      cpu: 250m
+      memory: 2Gi
     limits:
-      cpu: 200m
+      cpu: 500m
       memory: 4Gi
   ingress:
     main:
