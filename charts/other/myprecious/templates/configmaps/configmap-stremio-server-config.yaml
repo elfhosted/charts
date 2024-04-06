@@ -16,7 +16,6 @@ data:
         "btDownloadSpeedSoftLimit": 1,
         "btDownloadSpeedHardLimit": 1,
         "btMinPeersForStable": 1,
-        "remoteHttps": "",
         "localAddonEnabled": false,
         "transcodeHorsepower": 0.75,
         "transcodeMaxBitRate": 0,
@@ -24,6 +23,7 @@ data:
         "transcodeTrackConcurrency": 1,
         "transcodeHardwareAccel": true,
         "transcodeProfile": "qsv-linux",
-        "transcodeMaxWidth": 1920
+        "transcodeMaxWidth": 1920,
+        "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com"
     }
 {{ end }}
