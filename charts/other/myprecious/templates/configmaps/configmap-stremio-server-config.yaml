@@ -24,6 +24,10 @@ data:
         "transcodeHardwareAccel": true,
         "transcodeProfile": "qsv-linux",
         "transcodeMaxWidth": 1920,
-        "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com"
+        "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com",
+        "allTranscodeProfiles": [
+            "qsv-linux",
+            "vaapi-renderD128"
+        ]
     }
 {{ end }}
