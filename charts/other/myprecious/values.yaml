@@ -4723,7 +4723,7 @@ plex: &plex
       memory: 4096Mi
   initContainers:
     bootstrap: *bootstrap
-    update-dns: **update_dns_on_init
+    update-dns: *update_dns_on_init
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination
   addons:
@@ -4901,7 +4901,7 @@ jellyfin:
           name: tooling-scripts      
   initContainers:
     bootstrap: *bootstrap
-    update-dns: **update_dns_on_init  
+    update-dns: *update_dns_on_init  
   ingress:
     main:
       enabled: false
@@ -5012,7 +5012,7 @@ emby:
           name: tooling-scripts      
   initContainers:
     bootstrap: *bootstrap
-    update-dns: **update_dns_on_init
+    update-dns: *update_dns_on_init
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination    
   ingress:
@@ -7440,7 +7440,7 @@ webdav: &webdav
         configMap:
           name: tooling-scripts             
   initContainers:
-    update-dns: **update_dns_on_init
+    update-dns: *update_dns_on_init
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination    
   service:
@@ -9437,7 +9437,7 @@ stremioserver: &app_stremioserver
       mountPath: /transcode
       volumeSpec: *volumespec_ephemeral_volume_10g
   initContainers:
-    update-dns: **update_dns_on_init
+    update-dns: *update_dns_on_init
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination    
 
