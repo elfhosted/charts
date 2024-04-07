@@ -2,7 +2,13 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
+  {{ if .Values.stremioserver.enabled }}
   name: {{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com
+  {{ elif .Values.stremioservepia.enabled }}
+  name: {{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com
+  {{ elif .Values.stremioservegluetun.enabled }}
+  name: {{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com
+  {{ end }}
 spec:
   routes:
     {{ if .Values.stremioserver.enabled }}
