@@ -228,9 +228,21 @@ data:
         - Stremio:
             icon: mdi-tv
             {{ if .Values.stremioweb.enabled }}
+              {{ if .Values.stremioserver.enabled }}
             href: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
+              {{ elif .Values.stremioservepia.enabled }}
+            href: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com#/"
+              {{ elif .Values.stremioservegluetun.enabled }}
+            href: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com#/"
+              {{ end }}            
             {{ else }}
-            href: "https://{{ .Release.Name }}-stremio-web.elfhosted.com?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
+              {{ if .Values.stremioserver.enabled }}
+            href: "https://{{ .Release.Name }}-stremio-web.elfhosted.com/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
+              {{ elif .Values.stremioservepia.enabled }}
+            href: "https://{{ .Release.Name }}-stremio-web.elfhosted.com/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com#/"
+              {{ elif .Values.stremioservegluetun.enabled }}
+            href: "https://{{ .Release.Name }}-stremio-web.elfhosted.com/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com#/"
+              {{ end }}            
             {{ end }}
             description: Stremio Server
             siteMonitor: http://stremio-server:11470

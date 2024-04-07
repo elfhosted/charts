@@ -5,7 +5,13 @@ metadata:
   name: {{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com
 spec:
   routes:
+    {{ if .Values.stremioserver.enabled }}
     - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com`)
+    {{ elif .Values.stremioservepia.enabled }}
+    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com`)
+    {{ elif .Values.stremioservegluetun.enabled }}
+    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com`)
+    {{ end }}
       kind: Rule
       services:
         - name: stremio-server

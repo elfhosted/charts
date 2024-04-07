@@ -453,9 +453,21 @@ data:
             tag: "protected"
             tagstyle: "is-success"
             {{ if .Values.stremioweb.enabled }}
+              {{ if .Values.stremioserver.enabled }}
             url: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
+              {{ elif .Values.stremioservepia.enabled }}
+            url: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com#/"
+              {{ elif .Values.stremioservegluetun.enabled }}
+            url: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com#/"
+              {{ end }}            
             {{ else }}
-            url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
+              {{ if .Values.stremioserver.enabled }}
+            url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
+              {{ elif .Values.stremioservepia.enabled }}
+            url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com#/"
+              {{ elif .Values.stremioservegluetun.enabled }}
+            url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com#/"
+              {{ end }}            
             {{ end }}
             target: "_blank" # optional html tag target attribute
           {{ end }}      
