@@ -1,0 +1,21 @@
+{{ if .Values.stremioserverpia.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deluge-pia-config
+data:
+  # These are used by the PIA image
+  IPTABLES_BACKEND: nft
+  KILLSWITCH: "true"
+  LOCAL_NETWORK: 10.2.0.0/15,10.43.0.0/16
+  USER: "{{ .Values.stremioserverpia.USER | default }}"
+  PASS: "{{ .Values.stremioserverpia.PASS | default }}"
+  # LOC: nl_amsterdam
+  LOC: de-frankfurt
+  PORT_FORWARDING: "0"
+  PORT_PERSIST: "0"
+  NFTABLES: "1"
+  VPNDNS: "0"
+  POST_UP: /gluetun/scripts/up.sh
+  PRE_DOWN: /gluetun/scripts/down.sh
+{{ end }}
