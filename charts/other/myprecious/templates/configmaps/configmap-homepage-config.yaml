@@ -224,13 +224,25 @@ data:
             siteMonitor: http://shluflix:8001
         {{ end }}                
 
-        {{ if .Values.stremioserver.enabled }}
+        {{ if or .Values.stremioserver.enabled .Values.stremioserverpia.enabled .Values.stremioservergluetun.enabled }}
         - Stremio:
             icon: mdi-tv
-            href: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
-            description: Stremio Frontend
-            siteMonitor: http://stremio-server:8080
-        {{ end }}          
+            {{ if .Values.stremioweb.enabled }}
+            href: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
+            {{ else }}
+            href: "https://{{ .Release.Name }}-stremio-web.elfhosted.com?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
+            {{ end }}
+            description: Stremio Server
+            siteMonitor: http://stremio-server:11470
+        {{ end }}        
+
+        {{ if .Values.stremioweb.enabled }}
+        - Stremio:
+            icon: mdi-tv
+            href: "https://{{ .Release.Name }}-stremio-web.elfhosted.com"
+            description: Stremio Web
+            siteMonitor: http://stremio-web:8080
+        {{ end }}             
 
     - Manage Media:
         {{ if .Values.radarr.enabled }}

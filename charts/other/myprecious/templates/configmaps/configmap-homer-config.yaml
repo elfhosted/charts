@@ -446,15 +446,29 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}  
 
-          {{ if .Values.stremioserver.enabled }}
+          {{ if or .Values.stremioserver.enabled .Values.stremioserverpia.enabled .Values.stremioservergluetun.enabled }}
           - name: "Stremio Server"
             logo: "assets/png/stremio.png"
             subtitle: "Stremio Server"
             tag: "protected"
             tagstyle: "is-success"
-            url: "https://app.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
+            {{ if .Values.stremioweb.enabled }}
+            url: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
+            {{ else }}
+            url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
+            {{ end }}
             target: "_blank" # optional html tag target attribute
-          {{ end }}            
+          {{ end }}      
+
+          {{ if .Values.stremioweb.enabled }}
+          - name: "Stremio Web"
+            logo: "assets/png/stremio.png"
+            subtitle: "Stremio Web"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                      
 
       - name: "Manage Media"
         icon: "fas fa-photo-video"

@@ -9422,7 +9422,7 @@ stremioserver: &app_stremioserver
 
 
 # Stremioserver with PIA
-stremioserverpia:
+stremioserverpia: &app_stremioserver_vpn
   <<: *app_stremioserver
   enabled: false
   addons:
@@ -9450,6 +9450,20 @@ stremioserverpia:
         down: |-
           #!/bin/ash
           echo "disconnected" > /shared/vpnstatus
+
+# Stremioserver with Gluetun
+stremioservergluetun:
+  <<: *app_stremioserver_vpn
+  enabled: false
+  addons:
+    vpn:
+      gluetun:
+        image:
+          repository: ghcr.io/geek-cookbook/gluetun
+          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
+      envFrom:
+      - configMapRef:
+          name: stremioserver-gluetun-config
 
 stremioweb:
   enabled: false
