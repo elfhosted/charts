@@ -1,4 +1,4 @@
-{{ if .Values.stremioserver.enabled }}
+{{ if or .Values.stremioserver.enabled .Values.stremioserverpia.enabled .Values.stremioservergluetun.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
