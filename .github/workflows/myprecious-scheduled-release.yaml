@@ -4,8 +4,8 @@ concurrency: helm-release
 
 on:
   schedule:
-    # 8:55am UTC is 21h55 NZDT, giving us 5 min to run before the maint window starts 10pm weekdays NZ time
-    - cron: '55 08 * * *'
+    # 9:55am UTC is 21h55 NZST, giving us 5 min to run before the maint window starts 10pm weekdays NZ time
+    - cron: '55 09 * * *'
   workflow_dispatch:
 
 jobs:

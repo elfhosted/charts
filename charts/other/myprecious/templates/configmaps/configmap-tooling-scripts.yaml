@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tooling-scripts
+data:
+  update-dns-on-init.sh: |
+    # Detect external address
+    MY_NODE_IP=$(wget -qO- ipinfo.io/ip)
+
+    # Does a DNS entry exist for my node?
+    cfcli find $MY_NODE_NAME | grep $MY_NODE_NAME.elfhosted.com
+
+    if [[ $? -eq 0 ]]
+    then
+      # If it exists but it's not correct, then update it
+      (cfcli find $MY_NODE_NAME | grep $MY_NODE_IP) || cfcli edit -t A $MY_NODE_NAME $MY_NODE_IP
+    else
+      # No record exists, so create it
+      cfcli add -t A $MY_NODE_NAME $MY_NODE_IP
+      cfcli enable $MY_NODE_NAME $MY_NODE_IP
+    fi
+
+    # What's my name? (adjusted for stremio-server secretstring)
+    case $ELF_APP_NAME in
+
+      {{ if .Values.stremioserver.enabled }}
+      "stremio-server")
+        MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioserver.SECRET_STRING }}
+        ;;
+      {{ elif .Values.stremioserverpia.enabled }}
+      "stremio-server")
+        MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioserverpia.SECRET_STRING }}
+        ;;
+      {{ elif .Values.stremioservergluetun.enabled }}
+      "stremio-server")
+        MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioservergluetun.SECRET_STRING }}
+        ;;        
+      {{ end }}      
+
+      "*")
+        MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME
+        ;;
+    esac
+
+
+    # Does a DNS entry exist for me?
+    cfcli find $MY_NAME | grep $MY_NAME
+
+    if [[ $? -eq 0 ]]
+    then
+      # A record exists, so update it
+      cfcli edit -t CNAME $MY_NAME $MY_NODE_NAME.elfhosted.com
+      
+    else
+      # No record exists, so create it
+      cfcli add -t CNAME $MY_NAME $MY_NODE_NAME.elfhosted.com
+    fi  
+
+    # Enable proxying if we're not doing a custom URL (because of cloudflare cross-tenant rules)
+    case "$ELF_APP_NAME" in 
+      {{- if .Values.embycustomdomain.enabled }}
+      *emby*)
+        # don't enable proxy
+        ;;
+      {{ end }}
+      {{- if .Values.plexcustomdomain.enabled }}
+      *plex*)
+        # don't enable proxy
+        ;;
+      {{ end }}     
+      {{- if .Values.jellyfincustomdomain.enabled }}
+      *jellyfin*)
+        # don't enable proxy
+        ;;
+      {{ end }}
+      *)
+        cfcli enable $MY_NAME $MY_NODE_NAME.elfhosted.com
+        ;;
+    esac
+  
+  clean-up-dns-on-termination.sh: |
+    #!/bin/bash
+
+    function cleanup_dns_on_shutdown {
+        echo "Received SIGTERM, cleaning up DNS entries..."
+
+        # What's my name? (adjusted for stremio-server secretstring)
+        case $ELF_APP_NAME in
+
+          {{ if .Values.stremioserver.enabled }}
+          "stremio-server")
+            MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioserver.SECRET_STRING }}
+            ;;
+          {{ elif .Values.stremioserverpia.enabled }}
+          "stremio-server")
+            MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioserverpia.SECRET_STRING }}
+            ;;
+          {{ elif .Values.stremioservergluetun.enabled }}
+          "stremio-server")
+            MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioservergluetun.SECRET_STRING }}
+            ;;        
+          {{ end }}  
+
+          "*")
+            MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME
+            ;;
+        esac
+
+
+        # Does a DNS entry exist for me?
+        cfcli find $MY_NAME | grep $MY_NAME
+
+        if [[ $? -eq 0 ]]
+        then
+          # A record exists, so update it
+          cfcli delete -t CNAME $MY_NAME $MY_NODE_NAME.elfhosted.com
+    }
+
+    # When we terminate, delete the DNS record
+    trap cleanup_dns_on_shutdown SIGTERM
+
+    # Hang around doing nothing until terminated
+    while true
+    do
+        echo "Waiting for SIGTERM to remove DNS entry"
+        sleep infinity
+    done    

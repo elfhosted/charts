@@ -482,43 +482,13 @@ migrate_from_cephfs: &migrate_from_cephfs
   securityContext: *default_securitycontext
 
 
-update_dns: &update_dns
+update_dns_on_init: &update_dns_on_init
   image: dpig/cloudflare-cli
   imagePullPolicy: IfNotPresent
   command:
   - /bin/ash
   - -c
-  - |
-
-    # Detect external address
-    MY_NODE_IP=$(wget -qO- ipinfo.io/ip)
-
-    # Does a DNS entry exist for my node?
-    cfcli find $MY_NODE_NAME | grep $MY_NODE_NAME.elfhosted.com
-
-    if [[ $? -eq 0 ]]
-    then
-      # If it exists but it's not correct, then update it
-      (cfcli find $MY_NODE_NAME | grep $MY_NODE_IP) || cfcli edit -t A $MY_NODE_NAME $MY_NODE_IP
-    else
-      # No record exists, so create it
-      cfcli add -t A $MY_NODE_NAME $MY_NODE_IP
-      cfcli enable $MY_NODE_NAME $MY_NODE_IP
-    fi
-
-    # Does a DNS entry exist for me?
-    cfcli find $ELF_TENANT_NAME-$ELF_APP_NAME | grep $ELF_TENANT_NAME-$ELF_APP_NAME
-
-    if [[ $? -eq 0 ]]
-    then
-      # A record exists, so update it
-      cfcli edit -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
-      cfcli disable $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
-    else
-      # No record exists, so create it
-      cfcli add -t CNAME $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
-      cfcli disable $ELF_TENANT_NAME-$ELF_APP_NAME $MY_NODE_NAME.elfhosted.com
-    fi
+  - /tooling-scripts/update-dns-on-init.sh
   env:
     - name: MY_NODE_NAME
       valueFrom:
@@ -541,11 +511,23 @@ update_dns: &update_dns
   envFrom:
   - secretRef:
       name: cloudflare-api-token
+  volumeMounts:
+  - mountPath: /tooling-scripts
+    name: tooling-scripts      
   securityContext:
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: true    
-    
+
+# This is almost the same as the dns-update script, except we run it as a sidecar, waiting on pod termination
+clean_up_dns_on_termination: &clean_up_dns_on_termination
+  <<: *update_dns_on_init
+  command:
+  - /bin/ash
+  - -c
+  - /tooling-scripts/update-dns-on-init.sh
+
+
 bootstrap: &bootstrap
   image: *tooling_image
   imagePullPolicy: IfNotPresent
@@ -4713,7 +4695,13 @@ plex: &plex
       mountPath: /shared
       type: emptyDir
       volumeSpec:
-        medium: Memory           
+        medium: Memory    
+    tooling-scripts:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: tooling-scripts               
   ingress:
     main:
       enabled: false
@@ -4735,7 +4723,9 @@ plex: &plex
       memory: 4096Mi
   initContainers:
     bootstrap: *bootstrap
-    update-dns: *update_dns
+    update-dns: **update_dns_on_init
+  additionalContainers:
+    clean-up-dns: *clean_up_dns_on_termination
   addons:
     vpn: &plex_addons_vpn
       enabled: true
@@ -4903,9 +4893,15 @@ jellyfin:
       type: hostPath
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"
+    tooling-scripts:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: tooling-scripts      
   initContainers:
     bootstrap: *bootstrap
-    update-dns: *update_dns  
+    update-dns: **update_dns_on_init  
   ingress:
     main:
       enabled: false
@@ -4920,6 +4916,7 @@ jellyfin:
       cpu: 2
       memory: 2Gi
   additionalContainers:
+    clean-up-dns: *clean_up_dns_on_termination  
     jellyfixer:
       image: quay.io/xsteadfastx/jellyfixer:latest
       env:
@@ -5007,9 +5004,17 @@ emby:
       type: hostPath
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"
+    tooling-scripts:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: tooling-scripts      
   initContainers:
     bootstrap: *bootstrap
-    update-dns: *update_dns
+    update-dns: **update_dns_on_init
+  additionalContainers:
+    clean-up-dns: *clean_up_dns_on_termination    
   ingress:
     main:
       enabled: false
@@ -7428,8 +7433,16 @@ webdav: &webdav
         configMap:
           name: elfbot-webdav-plus
           optional: true
+    tooling-scripts:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: tooling-scripts             
   initContainers:
-    update-dns: *update_dns
+    update-dns: **update_dns_on_init
+  additionalContainers:
+    clean-up-dns: *clean_up_dns_on_termination    
   service:
     main:
       enabled: false # necessary for probes
@@ -9411,15 +9424,22 @@ stremioserver: &app_stremioserver
       type: "custom"
       volumeSpec:
         configMap:
-          name: stremio-server-config      
+          name: stremio-server-config   
+    tooling-scripts:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: tooling-scripts              
     transcode: # in case users use /tmp
       enabled: true
       type: custom
       mountPath: /transcode
       volumeSpec: *volumespec_ephemeral_volume_10g
-  # initContainers:
-  #   update-dns: *update_dns
-
+  initContainers:
+    update-dns: **update_dns_on_init
+  additionalContainers:
+    clean-up-dns: *clean_up_dns_on_termination    
 
 # Stremioserver with PIA
 stremioserverpia: &app_stremioserver_vpn
@@ -9515,7 +9535,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v4.0.0@sha256:e3b70ade07b4e81b8d1ca209efceeb9b759be29eb56628bda36f9bb0581b184a
+    tag: v4.1.0@sha256:755a4bcfe34f194d062ea450b2a3ed79784ef6671165f0cf2bb382a0be863bd2
   priorityClassName: tenant-normal
   controller:
     annotations:
