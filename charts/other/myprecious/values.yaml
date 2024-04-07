@@ -9365,7 +9365,7 @@ stremioserver: &app_stremioserver
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-server
-    tag: v4.20.8
+    tag: v4.20.8@sha256:d38cfaac664d711614ff5bfe8528034318fe028d32d58f57ca176ca0b8cf291f
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: stremio-server
