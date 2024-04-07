@@ -27,11 +27,11 @@ data:
       "stremio-server")
         MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioserver.SECRET_STRING }}
         ;;
-      {{ elif .Values.stremioserverpia.enabled }}
+      {{ elseif .Values.stremioserverpia.enabled }}
       "stremio-server")
         MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioserverpia.SECRET_STRING }}
         ;;
-      {{ elif .Values.stremioservergluetun.enabled }}
+      {{ elseif .Values.stremioservergluetun.enabled }}
       "stremio-server")
         MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioservergluetun.SECRET_STRING }}
         ;;        
@@ -91,11 +91,11 @@ data:
           "stremio-server")
             MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioserver.SECRET_STRING }}
             ;;
-          {{ elif .Values.stremioserverpia.enabled }}
+          {{ elseif .Values.stremioserverpia.enabled }}
           "stremio-server")
             MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioserverpia.SECRET_STRING }}
             ;;
-          {{ elif .Values.stremioservergluetun.enabled }}
+          {{ elseif .Values.stremioservergluetun.enabled }}
           "stremio-server")
             MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioservergluetun.SECRET_STRING }}
             ;;        

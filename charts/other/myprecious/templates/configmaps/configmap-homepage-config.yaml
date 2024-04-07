@@ -230,17 +230,17 @@ data:
             {{ if .Values.stremioweb.enabled }}
               {{ if .Values.stremioserver.enabled }}
             href: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
-              {{ elif .Values.stremioserverpia.enabled }}
+              {{ elseif .Values.stremioserverpia.enabled }}
             href: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com#/"
-              {{ elif .Values.stremioservergluetun.enabled }}
+              {{ elseif .Values.stremioservergluetun.enabled }}
             href: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com#/"
               {{ end }}            
             {{ else }}
               {{ if .Values.stremioserver.enabled }}
             href: "https://{{ .Release.Name }}-stremio-web.elfhosted.com/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
-              {{ elif .Values.stremioserverpia.enabled }}
+              {{ elseif .Values.stremioserverpia.enabled }}
             href: "https://{{ .Release.Name }}-stremio-web.elfhosted.com/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com#/"
-              {{ elif .Values.stremioservergluetun.enabled }}
+              {{ elseif .Values.stremioservergluetun.enabled }}
             href: "https://{{ .Release.Name }}-stremio-web.elfhosted.com/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com#/"
               {{ end }}            
             {{ end }}
