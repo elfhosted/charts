@@ -4,18 +4,18 @@ kind: IngressRoute
 metadata:
   {{ if .Values.stremioserver.enabled }}
   name: {{ .Release.Name }}-stremio-server{{ .Values.stremioserver.SECRET_STRING | default "nothing" }}.elfhosted.com
-  {{ elseif .Values.stremioserverpia.enabled }}
+  {{ else if .Values.stremioserverpia.enabled }}
   name: {{ .Release.Name }}-stremio-server{{ .Values.stremioserverpia.SECRET_STRING | default "pia" }}.elfhosted.com
-  {{ elseif .Values.stremioservergluetun.enabled }}
+  {{ else if .Values.stremioservergluetun.enabled }}
   name: {{ .Release.Name }}-stremio-server{{ .Values.stremioservergluetun.SECRET_STRING | default "gluetun" }}.elfhosted.com
   {{ end }}
 spec:
   routes:
     {{ if .Values.stremioserver.enabled }}
     - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com`)
-    {{ elseif .Values.stremioserverpia.enabled }}
+    {{ else if .Values.stremioserverpia.enabled }}
     - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com`)
-    {{ elseif .Values.stremioservergluetun.enabled }}
+    {{ else if .Values.stremioservergluetun.enabled }}
     - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com`)
     {{ end }}
       kind: Rule
