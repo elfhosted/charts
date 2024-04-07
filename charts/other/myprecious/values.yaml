@@ -4476,7 +4476,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.22.2499@sha256:4c1fd4fab5435d1f2bbee80c090782376da8e2067adae0f073dd4eb662bc8fb5
+    tag: 0.3.23.2500@sha256:dec59ff97c2d9693e8d82a90fa3be483bed6a00059fb44adf7e735b68388fb3d
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4563,7 +4563,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.22.2499@sha256:4c1fd4fab5435d1f2bbee80c090782376da8e2067adae0f073dd4eb662bc8fb5
+    tag: 0.3.23.2500@sha256:dec59ff97c2d9693e8d82a90fa3be483bed6a00059fb44adf7e735b68388fb3d
   securityContext:
     seccompProfile:
       type: RuntimeDefault
