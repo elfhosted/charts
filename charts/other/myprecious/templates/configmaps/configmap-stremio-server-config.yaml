@@ -16,7 +16,7 @@ data:
         "btDownloadSpeedSoftLimit": 2621440000,
         "btDownloadSpeedHardLimit": 3670016000,
         "btMinPeersForStable": 5
-        "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com",
+        "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com",
         "localAddonEnabled": false,
         "transcodeHorsepower": 0.75,
         "transcodeMaxBitRate": 0,

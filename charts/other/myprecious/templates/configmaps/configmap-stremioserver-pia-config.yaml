@@ -8,8 +8,8 @@ data:
   IPTABLES_BACKEND: nft
   KILLSWITCH: "true"
   LOCAL_NETWORK: 10.2.0.0/15,10.43.0.0/16
-  USER: "{{ .Values.stremioserverpia.USER | default }}"
-  PASS: "{{ .Values.stremioserverpia.PASS | default }}"
+  USER: "{{ .Values.stremioserverpia.PIA_USERNAME | default }}"
+  PASS: "{{ .Values.stremioserverpia.PIA_PASSWORD | default }}"
   # LOC: nl_amsterdam
   LOC: de-frankfurt
   PORT_FORWARDING: "0"

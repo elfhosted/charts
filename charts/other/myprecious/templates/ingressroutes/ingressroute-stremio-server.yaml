@@ -2,10 +2,10 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com
+  name: {{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com
 spec:
   routes:
-    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com`)
+    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com`)
       kind: Rule
       services:
         - name: stremio-server

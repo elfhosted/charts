@@ -453,9 +453,9 @@ data:
             tag: "protected"
             tagstyle: "is-success"
             {{ if .Values.stremioweb.enabled }}
-            url: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
+            url: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
             {{ else }}
-            url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.token }}.elfhosted.com#/"
+            url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
             {{ end }}
             target: "_blank" # optional html tag target attribute
           {{ end }}      
