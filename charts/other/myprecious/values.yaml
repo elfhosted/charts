@@ -10181,6 +10181,10 @@ recyclarr:
         configMap:
           name: elfbot-recyclarr
           optional: true
+  envFrom:
+  - configMapRef:
+      name: elfbot-recyclarr
+      optional: true           
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
@@ -10221,7 +10225,7 @@ knightcrawler: &app_knightcrawler
     app.elfhosted.com/name: knightcrawler  
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio"
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio,knightcrawler-env"
       secret.reloader.stakater.com/reload: "knightcrawler-env"
     strategy:
     rollingUpdate:

@@ -835,7 +835,7 @@ data:
           {{ if .Values.recyclarr.enabled }}
           - name: "Recyclarr"
             icon: "fas fa-recycle"
-            subtitle: "Configure Autoscan"
+            subtitle: "Configure Recyclarr"
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/recyclarr/"
