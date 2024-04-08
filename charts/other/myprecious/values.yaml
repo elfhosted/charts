@@ -2,7 +2,7 @@
 safeToRelease: false
 
 # This section just makes images easier to update / parse
-tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20231211@sha256:dc2f0486426c126331240a32e9a88357b284fedd3b40236dc13f7a1877115da1
+tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20240216@sha256:aa9430756b3245bb3f25591b0ec61499cb0b9e68b4671343bc5d0170a9c91b10
 
 volumespec_ephemeral_volume_1000g: &volumespec_ephemeral_volume_1000g
   ephemeral:
@@ -483,9 +483,13 @@ migrate_from_cephfs: &migrate_from_cephfs
 
 
 update_dns_on_init: &update_dns_on_init
-  image: dpig/cloudflare-cli
+  image: *tooling_image
   imagePullPolicy: IfNotPresent
-  command: [ "/tooling-scripts/update-dns-on-init.sh" ]
+  command:
+  - /usr/bin/dumb-init
+  - /bin/bash
+  - -c
+  - /tooling-scripts/update-dns-on-init.sh
   env:
     - name: MY_NODE_NAME
       valueFrom:
@@ -519,8 +523,11 @@ update_dns_on_init: &update_dns_on_init
 # This is almost the same as the dns-update script, except we run it as a sidecar, waiting on pod termination
 clean_up_dns_on_termination: &clean_up_dns_on_termination
   <<: *update_dns_on_init
-  command: [ "/tooling-scripts/clean-up-dns-on-termination.sh" ]
-
+  command:
+  - /usr/bin/dumb-init
+  - /bin/bash
+  - -c
+  - /tooling-scripts/clean-up-dns-on-termination.sh
 
 bootstrap: &bootstrap
   image: *tooling_image
@@ -4626,19 +4633,20 @@ plex: &plex
     app.elfhosted.com/class: streaming   
   podAnnotations:
     kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
-  affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 1
-        podAffinityTerm:    
-          labelSelector:
-            matchExpressions:
-            - key: app.elfhosted.com/class
-              operator: In
-              values:
-              - streaming
-          topologyKey: "kubernetes.io/hostname"
-          namespaceSelector: {}
+  # use memory to force plex pod spread, rather than affinity
+  # affinity:
+  #   podAntiAffinity:
+  #     preferredDuringSchedulingIgnoredDuringExecution: 
+  #     - weight: 1
+  #       podAffinityTerm:    
+  #         labelSelector:
+  #           matchExpressions:
+  #           - key: app.elfhosted.com/class
+  #             operator: In
+  #             values:
+  #             - streaming
+  #         topologyKey: "kubernetes.io/hostname"
+  #         namespaceSelector: {}
   securityContext:
     runAsUser: 568
     runAsGroup: 568
@@ -4712,10 +4720,10 @@ plex: &plex
   resources:
     requests:
       cpu: "500m"
-      memory: 512Mi
+      memory: 2Gi
     limits:
       cpu: "2.5" # 1.5 works, but results in buffering when playback starts, see https://github.com/geek-cookbook/elf-charts/issues/501
-      memory: 4096Mi
+      memory: 4Gi
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns_on_init
