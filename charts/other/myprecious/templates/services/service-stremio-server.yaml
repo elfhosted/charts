@@ -19,6 +19,6 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.kubernetes.io/name: stremioserver
+    app.elfhosted.com/name: stremio-server
     app.kubernetes.io/instance: {{ .Release.Name }}
 {{ end }}
