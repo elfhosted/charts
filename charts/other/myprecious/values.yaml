@@ -10231,7 +10231,10 @@ recyclarr:
       - -c
       - |
         recyclarr sync
-
+      volumeMounts:
+      - mountPath: /config
+        name: config
+        
 knightcrawler: &app_knightcrawler
   enabled: false
   image:
