@@ -7647,6 +7647,12 @@ alldebridwebdavpia:
       volumeSpec:
         secret:
           secretName: alldebrid-webdav-rclone-config
+    tooling-scripts:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: tooling-scripts             
   addons:
     vpn:
       enabled: true # in case we ever need it
