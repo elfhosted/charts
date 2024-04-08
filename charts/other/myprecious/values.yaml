@@ -485,9 +485,7 @@ migrate_from_cephfs: &migrate_from_cephfs
 update_dns_on_init: &update_dns_on_init
   image: dpig/cloudflare-cli
   imagePullPolicy: IfNotPresent
-  command:
-  - /bin/ash
-  - /tooling-scripts/update-dns-on-init.sh
+  command: /tooling-scripts/update-dns-on-init.sh
   env:
     - name: MY_NODE_NAME
       valueFrom:
@@ -512,7 +510,7 @@ update_dns_on_init: &update_dns_on_init
       name: cloudflare-api-token
   volumeMounts:
   - mountPath: /tooling-scripts
-    name: tooling-scripts      
+    name: tooling-scripts 
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -521,9 +519,7 @@ update_dns_on_init: &update_dns_on_init
 # This is almost the same as the dns-update script, except we run it as a sidecar, waiting on pod termination
 clean_up_dns_on_termination: &clean_up_dns_on_termination
   <<: *update_dns_on_init
-  command:
-  - /bin/ash
-  - /tooling-scripts/clean-up-dns-on-termination.sh
+  command: /tooling-scripts/clean-up-dns-on-termination.sh
 
 
 bootstrap: &bootstrap
@@ -4699,7 +4695,8 @@ plex: &plex
       type: "custom"
       volumeSpec:
         configMap:
-          name: tooling-scripts               
+          name: tooling-scripts   
+        defaultMode: 0755            
   ingress:
     main:
       enabled: false
@@ -4897,6 +4894,7 @@ jellyfin:
       volumeSpec:
         configMap:
           name: tooling-scripts      
+        defaultMode: 0755          
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns_on_init  
@@ -5008,6 +5006,7 @@ emby:
       volumeSpec:
         configMap:
           name: tooling-scripts      
+        defaultMode: 0755          
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns_on_init
@@ -7437,6 +7436,7 @@ webdav: &webdav
       volumeSpec:
         configMap:
           name: tooling-scripts             
+        defaultMode: 0755          
   initContainers:
     update-dns: *update_dns_on_init
   additionalContainers:
@@ -7651,6 +7651,7 @@ alldebridwebdavpia:
       volumeSpec:
         configMap:
           name: tooling-scripts             
+        defaultMode: 0755          
   addons:
     vpn:
       enabled: true # in case we ever need it
@@ -9435,6 +9436,7 @@ stremioserver: &app_stremioserver
       volumeSpec:
         configMap:
           name: tooling-scripts              
+        defaultMode: 0755          
     transcode: # in case users use /tmp
       enabled: true
       type: custom
