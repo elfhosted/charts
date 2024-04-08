@@ -10180,11 +10180,7 @@ recyclarr:
       volumeSpec:
         configMap:
           name: elfbot-recyclarr
-          optional: true
-  envFrom:
-  - configMapRef:
-      name: elfbot-recyclarr
-      optional: true           
+          optional: true   
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
@@ -10214,6 +10210,9 @@ recyclarr:
   additionalContainers:
     podinfo:
       image: stefanprodan/podinfo # used to run probes from gatus
+    sync:
+      image: ghcr.io/recyclarr/recyclarr:latest@sha256:02add40feae0569401b5020528e06419b47046723d0bb4bef1e82325e9eefdad      
+      command: [ "sync" ]
 
 knightcrawler: &app_knightcrawler
   enabled: false
