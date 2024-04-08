@@ -10212,7 +10212,11 @@ recyclarr:
       image: stefanprodan/podinfo # used to run probes from gatus
     sync:
       image: ghcr.io/recyclarr/recyclarr:latest@sha256:02add40feae0569401b5020528e06419b47046723d0bb4bef1e82325e9eefdad      
-      command: [ "sync" ]
+      command:
+      - /bin/bash
+      - -c
+      - |
+        recyclarr sync
 
 knightcrawler: &app_knightcrawler
   enabled: false
