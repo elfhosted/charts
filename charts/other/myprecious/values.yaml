@@ -487,7 +487,6 @@ update_dns_on_init: &update_dns_on_init
   imagePullPolicy: IfNotPresent
   command:
   - /bin/ash
-  - -c
   - /tooling-scripts/update-dns-on-init.sh
   env:
     - name: MY_NODE_NAME
@@ -524,8 +523,7 @@ clean_up_dns_on_termination: &clean_up_dns_on_termination
   <<: *update_dns_on_init
   command:
   - /bin/ash
-  - -c
-  - /tooling-scripts/update-dns-on-init.sh
+  - /tooling-scripts/clean-up-dns-on-termination.sh
 
 
 bootstrap: &bootstrap
