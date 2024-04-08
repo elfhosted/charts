@@ -9420,6 +9420,7 @@ stremioserver: &app_stremioserver
   - configMapRef:
       name: stremio-server-env 
   persistence:
+    tmp: *tmp
     render-device:
       enabled: "true"
       type: hostPath
