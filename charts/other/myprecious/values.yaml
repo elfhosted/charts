@@ -792,7 +792,7 @@ jellyfincustomdomain:
   enabled: false   
 embycustomdomain:
   enabled: false   
-stremiocustomdomain:
+stremiowebcustomdomain:
   enabled: false      
 
 rutorrentgluetun: &rutorrent
