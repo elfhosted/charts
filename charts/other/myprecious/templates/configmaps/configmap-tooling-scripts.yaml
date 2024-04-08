@@ -5,6 +5,8 @@ metadata:
 data:
   update-dns-on-init.sh: |
     # Detect external address
+
+    set -x
     MY_NODE_IP=$(wget -qO- ipinfo.io/ip)
 
     # Does a DNS entry exist for my node?
@@ -34,8 +36,8 @@ data:
       {{ else if .Values.stremioservergluetun.enabled }}
       "stremio-server")
         MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioservergluetun.SECRET_STRING }}
-        ;;        
-      {{ end }}      
+        ;;
+      {{ end }}
 
       "*")
         MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME
@@ -50,14 +52,14 @@ data:
     then
       # A record exists, so update it
       cfcli edit -t CNAME $MY_NAME $MY_NODE_NAME.elfhosted.com
-      
+
     else
       # No record exists, so create it
       cfcli add -t CNAME $MY_NAME $MY_NODE_NAME.elfhosted.com
-    fi  
+    fi
 
     # Enable proxying if we're not doing a custom URL (because of cloudflare cross-tenant rules)
-    case "$ELF_APP_NAME" in 
+    case $ELF_APP_NAME in
       {{- if .Values.embycustomdomain.enabled }}
       *emby*)
         # don't enable proxy
@@ -67,7 +69,7 @@ data:
       *plex*)
         # don't enable proxy
         ;;
-      {{ end }}     
+      {{ end }}
       {{- if .Values.jellyfincustomdomain.enabled }}
       *jellyfin*)
         # don't enable proxy
@@ -77,7 +79,7 @@ data:
         cfcli enable $MY_NAME $MY_NODE_NAME.elfhosted.com
         ;;
     esac
-  
+
   clean-up-dns-on-termination.sh: |
     #!/bin/bash
 
@@ -99,8 +101,8 @@ data:
           {{ else if .Values.stremioservergluetun.enabled }}
           "stremio-server")
             MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME-{{ .Values.stremioservergluetun.SECRET_STRING }}
-            ;;        
-          {{ end }}  
+            ;;
+          {{ end }}
 
           "*")
             MY_NAME=$ELF_TENANT_NAME-$ELF_APP_NAME
@@ -126,4 +128,4 @@ data:
     do
         echo "Waiting for SIGTERM to remove DNS entry"
         sleep infinity
-    done    
+    done
