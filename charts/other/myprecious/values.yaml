@@ -9489,7 +9489,7 @@ stremioserver: &app_stremioserver
       type: hostPath
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"  
-    config-yml:
+    config:
       enabled: "true"
       subPath: "server-settings.json"
       mountPath: /config/server-settings.json
