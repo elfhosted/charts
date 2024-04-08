@@ -84,6 +84,7 @@ data:
     function cleanup_dns_on_shutdown {
         echo "Received SIGTERM, cleaning up DNS entries..."
 
+        set -x
         # What's my name? (adjusted for stremio-server secretstring)
         case $ELF_APP_NAME in
 
