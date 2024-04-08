@@ -450,8 +450,8 @@ data:
           - name: "Stremio Server"
             logo: "assets/png/stremio.png"
             subtitle: "Stremio Server"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
             {{ if .Values.stremioweb.enabled }}
               {{ if .Values.stremioserver.enabled }}
             url: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
@@ -476,8 +476,8 @@ data:
           - name: "Stremio Web"
             logo: "assets/png/stremio.png"
             subtitle: "Stremio Web"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}                      

@@ -4,7 +4,15 @@ kind: ConfigMap
 metadata:
   name: stremio-server-env
 data:
+  {{ if .Values.stremioweb.enabled }}
+  {{ if .Values.stremiowebcustomdomain.enabled }}
+  WEBUI_LOCATION: https://{{ .Values.stremiowebcustomdomain.cname }}
+  {{ else }}
+  WEBUI_LOCATION: https://{{ .Release.Name }}-stremio-web.elfhosted.com
+  {{ end }}
+  {{ else }}
   WEBUI_LOCATION: https://web.strem.io
+  {{ end }}
   NO_CORS: "1"
   CASTING_DISABLED: "1"
   APP_PATH: /config

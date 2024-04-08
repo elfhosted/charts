@@ -791,7 +791,9 @@ plexcustomdomain:
 jellyfincustomdomain:
   enabled: false   
 embycustomdomain:
-  enabled: false    
+  enabled: false   
+stremiocustomdomain:
+  enabled: false      
 
 rutorrentgluetun: &rutorrent
   enabled: false

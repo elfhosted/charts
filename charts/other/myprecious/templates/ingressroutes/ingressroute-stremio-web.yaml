@@ -12,8 +12,6 @@ spec:
           kind: Service
           port: 8080
       middlewares:
-        - name: headers-add-cors-for-stremio
-          namespace: traefik
         - name: error-pages
           namespace: traefik
 {{ end }}
