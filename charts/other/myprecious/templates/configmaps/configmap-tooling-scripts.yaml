@@ -114,6 +114,7 @@ data:
         then
           # A record exists, so update it
           cfcli delete -t CNAME $MY_NAME $MY_NODE_NAME.elfhosted.com
+        fi
     }
 
     # When we terminate, delete the DNS record
