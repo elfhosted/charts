@@ -9455,6 +9455,17 @@ stremioserver: &app_stremioserver
     update-dns: *update_dns_on_init
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination    
+    settings:
+      image: nginxinc/nginx-unprivileged
+      volumeMounts:
+      - mountPath: /usr/share/nginx/html/settings
+        name: config
+        subPath: settings
+        readOnly: true
+      - mountPath: /tmp
+        name: tmp
+      resources: *default_resources
+      securityContext: *default_securitycontext   
 
 # Stremioserver with PIA
 stremioserverpia: &app_stremioserver_vpn
