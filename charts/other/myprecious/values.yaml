@@ -2782,15 +2782,7 @@ filebrowser:
       mountPath: /storage/config/plexmetamanager/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plexmetamanager-ssd
-    plex:
-      enabled: "true"
-      subPath: "where-is-my-plex.txt"
-      mountPath: /storage/config/plex/where-is-my-plex.txt
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: explain-migration            
+          claimName: config-plexmetamanager-ssd        
     joplinserver:
       enabled: false
       type: custom
@@ -4459,7 +4451,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.22.2488@sha256:7e11af117c9726ebb074b040c8d0eb25fdeebb3cbf792f9c666d0d53576d1d01
+    tag: 0.3.23.2500@sha256:dec59ff97c2d9693e8d82a90fa3be483bed6a00059fb44adf7e735b68388fb3d
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4546,7 +4538,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.22.2488@sha256:7e11af117c9726ebb074b040c8d0eb25fdeebb3cbf792f9c666d0d53576d1d01
+    tag: 0.3.23.2500@sha256:dec59ff97c2d9693e8d82a90fa3be483bed6a00059fb44adf7e735b68388fb3d
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -7205,7 +7197,7 @@ rcloneui:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:b351b0d640bd48eef464912e1bec8fa82f67b0ad6c8341eb008a72f93ce66c00
+    tag: 1.66.0@sha256:2fe5ae402567e67006978de0ddfca1fd1a6c42725fba49579df59fb8bc837a65
   command: 
   - /rcloneui.sh
   controller:
@@ -7300,7 +7292,7 @@ rclonefm:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:b351b0d640bd48eef464912e1bec8fa82f67b0ad6c8341eb008a72f93ce66c00
+    tag: 1.66.0@sha256:2fe5ae402567e67006978de0ddfca1fd1a6c42725fba49579df59fb8bc837a65
   command: 
   - /rclonefm.sh
   controller:
@@ -7408,7 +7400,7 @@ webdav: &webdav
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:b351b0d640bd48eef464912e1bec8fa82f67b0ad6c8341eb008a72f93ce66c00
+    tag: 1.66.0@sha256:2fe5ae402567e67006978de0ddfca1fd1a6c42725fba49579df59fb8bc837a65
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-webdav-plus"
@@ -7475,7 +7467,7 @@ storageboss:
   priorityClassName: tenant-critical
   image:
     repository: ghcr.io/geek-cookbook/rclone
-    tag: 1.66.0@sha256:b351b0d640bd48eef464912e1bec8fa82f67b0ad6c8341eb008a72f93ce66c00
+    tag: 1.66.0@sha256:2fe5ae402567e67006978de0ddfca1fd1a6c42725fba49579df59fb8bc837a65
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "storageboss-config,elfbot-storageboss"
@@ -7949,7 +7941,7 @@ mattermost:
     #   value: postgres://$(POSTGRES_USER_GITLAB):$(POSTGRES_PASSWORD_GITLAB)@$(POSTGRES_HOST_GITLAB):$(POSTGRES_PORT_GITLAB)/$(POSTGRES_DB_NAME_MATTERMOST)?sslmode=disable&connect_timeout=10
 
   ## Additional init containers
-  extraInitContainers: []
+  # extraInitContainers: []
     # This is an example of extra Init Container when using with the deployment with GitLab Helm Charts
     # - name: bootstrap-database
     #   image: "postgres:9.6-alpine"
@@ -9555,7 +9547,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v4.1.0@sha256:755a4bcfe34f194d062ea450b2a3ed79784ef6671165f0cf2bb382a0be863bd2
+    tag: v4.0.0@sha256:e3b70ade07b4e81b8d1ca209efceeb9b759be29eb56628bda36f9bb0581b184a
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9946,7 +9938,7 @@ stremiojackettcommunity: &stremiojackettcommunity
       app.elfhosted.com/name: stremio-jackett-community    
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v4.0.0@sha256:e3b70ade07b4e81b8d1ca209efceeb9b759be29eb56628bda36f9bb0581b184a
+    tag: v4.0.0@sha256:07a9446a5b704344f3a31e4b6acb001937704abdf209a6f2fe7256fc8b313a70
   priorityClassName: tenant-normal
   # command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"] # allow logs on private instances
   controller:
@@ -10222,7 +10214,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: v2.0.21@sha256:4d9d66546c03d6d3eb4f1ee59ae8917ac4afe062bed0e68c55911dd04c8fb78d
+    tag: rolling@sha256:40017554007b96490396032d8cdeab8d2f5812608a3401ba430e889366de6306
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
