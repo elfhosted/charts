@@ -14,11 +14,10 @@ data:
         api_key: {{ .Values.sonarrexposed.apikey }}
         quality_definition:
           type: series
-        release_profiles:
+        custom_formats:
           - trash_ids:
-              - EBC725268D687D588A20CBC5F97E538B # Low Quality Groups
-              - 1B018E0C53EC825085DD911102E2CA36 # Release Sources (Streaming Service)
-              - 71899E6C303A07AF0E4746EFF9873532 # P2P Groups + Repack/Proper
+              - c20f169ef63c5f40c2def54abaf4438e # Web Tier 01
+              - 403816d65392c79236dcb6dd591aeda4 # Web Tier 02
             strict_negative_scores: false
             tags: [tv]
       {{ end }}
@@ -28,11 +27,10 @@ data:
         api_key: {{ .Values.sonarr4kexposed.apikey }}
         quality_definition:
           type: series
-        release_profiles:
+        custom_formats:
           - trash_ids:
-              - EBC725268D687D588A20CBC5F97E538B # Low Quality Groups
-              - 1B018E0C53EC825085DD911102E2CA36 # Release Sources (Streaming Service)
-              - 71899E6C303A07AF0E4746EFF9873532 # P2P Groups + Repack/Proper
+              - c20f169ef63c5f40c2def54abaf4438e # Web Tier 01
+              - 403816d65392c79236dcb6dd591aeda4 # Web Tier 02
             strict_negative_scores: false
             tags: [tv]       
       {{ end }}     
@@ -43,7 +41,7 @@ data:
       {{ if .Values.radarr.enabled }}
       radarr_hd:
         base_url: http://radarr:7878
-        api_key: {{ .Values.radarr4kexposed.apikey }}
+        api_key: {{ .Values.radarrexposed.apikey }}
         quality_definition:
           type: movie
           preferred_ratio: 0.5
