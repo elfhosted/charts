@@ -485,7 +485,7 @@ migrate_from_cephfs: &migrate_from_cephfs
 update_dns_on_init: &update_dns_on_init
   image: dpig/cloudflare-cli
   imagePullPolicy: IfNotPresent
-  command: /tooling-scripts/update-dns-on-init.sh
+  command: [ "/tooling-scripts/update-dns-on-init.sh" ]
   env:
     - name: MY_NODE_NAME
       valueFrom:
@@ -519,7 +519,7 @@ update_dns_on_init: &update_dns_on_init
 # This is almost the same as the dns-update script, except we run it as a sidecar, waiting on pod termination
 clean_up_dns_on_termination: &clean_up_dns_on_termination
   <<: *update_dns_on_init
-  command: /tooling-scripts/clean-up-dns-on-termination.sh
+  command: [ "/tooling-scripts/clean-up-dns-on-termination.sh" ]
 
 
 bootstrap: &bootstrap
