@@ -25,7 +25,8 @@
       "automerge": true,
       "automergeType": "branch",
       "platformAutomerge": true,
-      "ignoreTests": true
+      "ignoreTests": true,
+      "excludePackagePatterns": ["iceberg"]
     },
     {
       "matchPackagePatterns": ["nightly"],
