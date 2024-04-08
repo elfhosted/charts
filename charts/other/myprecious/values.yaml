@@ -821,7 +821,28 @@ rutorrentgluetun: &rutorrent
   - configMapRef:
       name: elfbot-rutorrent
       optional: true 
-
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - nzb
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists  
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
     seccompProfile:
@@ -1090,7 +1111,28 @@ delugegluetun: &deluge
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: true
-
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - torrent
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists  
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
     seccompProfile:
@@ -1388,7 +1430,28 @@ qbittorrentgluetun: &qbittorrent
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: false # doesn't seem to work well with entrypoint
-
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - torrent
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists  
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
     seccompProfile:
@@ -10234,7 +10297,7 @@ recyclarr:
       volumeMounts:
       - mountPath: /config
         name: config
-        
+
 knightcrawler: &app_knightcrawler
   enabled: false
   image:
