@@ -4696,7 +4696,7 @@ plex: &plex
       volumeSpec:
         configMap:
           name: tooling-scripts   
-        defaultMode: 0755            
+          defaultMode: 0755            
   ingress:
     main:
       enabled: false
@@ -4894,7 +4894,7 @@ jellyfin:
       volumeSpec:
         configMap:
           name: tooling-scripts      
-        defaultMode: 0755          
+          defaultMode: 0755          
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns_on_init  
@@ -5006,7 +5006,7 @@ emby:
       volumeSpec:
         configMap:
           name: tooling-scripts      
-        defaultMode: 0755          
+          defaultMode: 0755          
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns_on_init
@@ -7436,7 +7436,7 @@ webdav: &webdav
       volumeSpec:
         configMap:
           name: tooling-scripts             
-        defaultMode: 0755          
+          defaultMode: 0755          
   initContainers:
     update-dns: *update_dns_on_init
   additionalContainers:
@@ -7651,7 +7651,7 @@ alldebridwebdavpia:
       volumeSpec:
         configMap:
           name: tooling-scripts             
-        defaultMode: 0755          
+          defaultMode: 0755          
   addons:
     vpn:
       enabled: true # in case we ever need it
@@ -9436,7 +9436,7 @@ stremioserver: &app_stremioserver
       volumeSpec:
         configMap:
           name: tooling-scripts              
-        defaultMode: 0755          
+          defaultMode: 0755          
     transcode: # in case users use /tmp
       enabled: true
       type: custom
