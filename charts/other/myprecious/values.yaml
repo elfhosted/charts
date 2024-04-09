@@ -7471,6 +7471,28 @@ webdav: &webdav
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: true
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - bulk
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists      
   command:
   - /webdav.sh
   podSecurityContext:
