@@ -10230,10 +10230,10 @@ stremify:
       enabled: true
       type: emptyDir
       mountPath: /home/node/app/.output
-    nitro-dev: 
+    nitro: 
       enabled: true
       type: emptyDir
-      mountPath: /home/node/app/.nitro/dev      
+      mountPath: /home/node/app/.nitro
   resources:
     requests:
       cpu: 10m
