@@ -10222,12 +10222,14 @@ stremify:
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false 
   persistence:
-    tmp: *tmp
-    npm:
+    tmp: 
       enabled: true
       type: emptyDir
-      mountPath: /home/elfie/.npm
-      sizeLimit: 1Gi    
+      mountPath: /tmp
+    output: 
+      enabled: true
+      type: emptyDir
+      mountPath: /home/node/app/.output
   resources:
     requests:
       cpu: 10m
