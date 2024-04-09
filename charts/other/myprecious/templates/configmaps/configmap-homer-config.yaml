@@ -446,12 +446,22 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}  
 
+          {{ if .Values.stremify.enabled }}
+          - name: "Stremify"
+            icon: "fas fa-tv"
+            subtitle: "Watch HTTP streams with Stremio"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-stremify.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}            
+
           {{ if or .Values.stremioserver.enabled .Values.stremioserverpia.enabled .Values.stremioservergluetun.enabled }}
           - name: "Stremio Server"
             logo: "assets/png/stremio.png"
             subtitle: "Stremio Server"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
             {{ if .Values.stremioweb.enabled }}
               {{ if .Values.stremioserver.enabled }}
             url: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
@@ -476,8 +486,8 @@ data:
           - name: "Stremio Web"
             logo: "assets/png/stremio.png"
             subtitle: "Stremio Web"
-            tag: "protected"
-            tagstyle: "is-success"
+            tag: "public"
+            tagstyle: "is-danger"
             url: "https://{{ .Release.Name }}-stremio-web.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}                      
@@ -835,7 +845,7 @@ data:
           {{ if .Values.recyclarr.enabled }}
           - name: "Recyclarr"
             icon: "fas fa-recycle"
-            subtitle: "Configure Autoscan"
+            subtitle: "Configure Recyclarr"
             tag: "protected"
             tagstyle: "is-success"
             url: "https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/recyclarr/"

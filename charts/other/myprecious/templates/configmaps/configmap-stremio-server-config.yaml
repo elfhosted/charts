@@ -10,13 +10,28 @@ data:
         "appPath": "/config",
         "cacheRoot": "/transcode",
         "cacheSize": 10737418240,
+        {{ if .Values.stremioserver.enabled }}
+        "btMaxConnections": 1,
+        "btHandshakeTimeout": 1,
+        "btRequestTimeout": 1,
+        "btDownloadSpeedSoftLimit": 1,
+        "btDownloadSpeedHardLimit": 1,
+        "btMinPeersForStable": 999
+        {{ else }}
         "btMaxConnections": 55,
         "btHandshakeTimeout": 20000,
         "btRequestTimeout": 4000,
         "btDownloadSpeedSoftLimit": 2621440000,
         "btDownloadSpeedHardLimit": 3670016000,
         "btMinPeersForStable": 5
+        {{ end }}
+        {{ if .Values.stremioserver.enabled }}
         "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com",
+        {{ else if .Values.stremioserverpia.enabled }}
+        "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com",
+        {{ else if .Values.stremioservergluetun.enabled }}
+        "remoteHttps": "{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com",
+        {{ end }}
         "localAddonEnabled": false,
         "transcodeHorsepower": 0.75,
         "transcodeMaxBitRate": 0,
@@ -26,4 +41,6 @@ data:
         "transcodeProfile": "vaapi-renderD128",
         "transcodeMaxWidth": 1920
     }
+  casting.json: |
+    []
 {{ end }}

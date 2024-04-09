@@ -1,0 +1,9 @@
+{{ if or .Values.stremioserver.enabled .Values.stremioserverpia.enabled .Values.stremioservergluetun.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: stremio-server-casting
+spec:
+  replacePath:
+    path: /casting.json
+{{ end }}

@@ -116,7 +116,7 @@ data:
         if [[ $? -eq 0 ]]
         then
           # A record exists, so update it
-          cfcli delete -t CNAME $MY_NAME $MY_NODE_NAME.elfhosted.com
+          cfcli rm -t CNAME $MY_NAME $MY_NODE_NAME.elfhosted.com
         fi
     }
 

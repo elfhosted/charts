@@ -1,0 +1,16 @@
+{{- if .Values.stremiowebcustomdomain.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Values.stremiowebcustomdomain.cname }}
+spec:
+  routes:
+    - match: Host(`{{ .Values.stremiowebcustomdomain.cname }}`)
+      kind: Rule
+      services:
+        - name: stremio-web
+          kind: Service
+          port: 8080
+  tls:
+    secretName: cert-{{ .Values.stremiowebcustomdomain.cname }}
+{{ end }}

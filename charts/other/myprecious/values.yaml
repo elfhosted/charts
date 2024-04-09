@@ -791,7 +791,9 @@ plexcustomdomain:
 jellyfincustomdomain:
   enabled: false   
 embycustomdomain:
-  enabled: false    
+  enabled: false   
+stremiowebcustomdomain:
+  enabled: false      
 
 rutorrentgluetun: &rutorrent
   enabled: false
@@ -819,7 +821,28 @@ rutorrentgluetun: &rutorrent
   - configMapRef:
       name: elfbot-rutorrent
       optional: true 
-
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - nzb
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists  
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
     seccompProfile:
@@ -1076,7 +1099,7 @@ delugegluetun: &deluge
   podLabels:
     app.elfhosted.com/name: deluge
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "150M"    
+    kubernetes.io/egress-bandwidth: "150M"   
   sso:
     enabled: true
   automountServiceAccountToken: false
@@ -1088,7 +1111,28 @@ delugegluetun: &deluge
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: true
-
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - torrent
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists  
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
     seccompProfile:
@@ -1370,7 +1414,7 @@ qbittorrentgluetun: &qbittorrent
   podLabels:
     app.elfhosted.com/name: qbittorrent
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "150M"    
+    kubernetes.io/egress-bandwidth: "150M"     
   enabled: false
   sso:
     enabled: true
@@ -1386,7 +1430,28 @@ qbittorrentgluetun: &qbittorrent
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: false # doesn't seem to work well with entrypoint
-
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: node-role.elfhosted.com/download-only
+            operator: Exists
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100  
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - torrent
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}            
+  tolerations:
+  - key: node-role.elfhosted.com/download-only
+    operator: Exists  
   # we need the injected initcontainer to run as root, so we can't change the pod-level uid/gid
   podSecurityContext:
     seccompProfile:
@@ -2578,8 +2643,6 @@ filebrowser:
       type: RuntimeDefault
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
-  podAnnotations:
-    kubernetes.io/egress-bandwidth: "40M"    
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,filebrowser-elfbot-script,elfbot-filebrowser" # Reload the deployment every time the rclones change
@@ -7396,7 +7459,7 @@ webdav: &webdav
   podLabels:
     app.elfhosted.com/name: webdav
   podAnnotations:
-    kubernetes.io/egress-bandwidth: "150M"    
+    kubernetes.io/egress-bandwidth: "40M"    
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/rclone
@@ -9418,12 +9481,13 @@ stremioserver: &app_stremioserver
   - configMapRef:
       name: stremio-server-env 
   persistence:
+    tmp: *tmp
     render-device:
       enabled: "true"
       type: hostPath
       hostPath: "/dev/dri/renderD128"
       mountPath: "/dev/dri/renderD128"  
-    config-yml:
+    config:
       enabled: "true"
       subPath: "server-settings.json"
       mountPath: /config/server-settings.json
@@ -9453,6 +9517,18 @@ stremioserver: &app_stremioserver
     update-dns: *update_dns_on_init
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination    
+    # Avoid 404s on the /casting endpoint
+    casting:
+      image: nginxinc/nginx-unprivileged
+      volumeMounts:
+      - mountPath: /usr/share/nginx/html/casting.json
+        name: config
+        subPath: casting.json
+        readOnly: true
+      - mountPath: /tmp
+        name: tmp
+      resources: *default_resources
+      securityContext: *default_securitycontext   
 
 # Stremioserver with PIA
 stremioserverpia: &app_stremioserver_vpn
@@ -10119,6 +10195,68 @@ shluflix:
       name: elfbot-shluflix
       optional: true
 
+stremify:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/stremify
+    tag: rolling@sha256:bbba3d64fd20fecffec1266bc75c25dfdba987f274c53f03b06181f806e3661d
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremify"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false 
+  persistence:
+    tmp: 
+      enabled: true
+      type: emptyDir
+      mountPath: /tmp
+    output: 
+      enabled: true
+      type: emptyDir
+      mountPath: /home/node/app/.output
+    nitro: 
+      enabled: true
+      type: emptyDir
+      mountPath: /home/node/app/.nitro
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 3000    
+  envFrom:
+  - configMapRef:      
+      name: stremify-env      
+  - configMapRef:      
+      name: elfbot-stremify
+      optional: true    
+  - secretRef:      
+      name: stremify-env        
+
 recyclarr:
   enabled: false
   image:
@@ -10180,7 +10318,7 @@ recyclarr:
       volumeSpec:
         configMap:
           name: elfbot-recyclarr
-          optional: true
+          optional: true   
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
@@ -10210,6 +10348,17 @@ recyclarr:
   additionalContainers:
     podinfo:
       image: stefanprodan/podinfo # used to run probes from gatus
+    sync:
+      image: ghcr.io/recyclarr/recyclarr:latest@sha256:02add40feae0569401b5020528e06419b47046723d0bb4bef1e82325e9eefdad      
+      command:
+      - /bin/bash
+      - -c
+      - |
+        recyclarr sync
+        sleep infinity
+      volumeMounts:
+      - mountPath: /config
+        name: config
 
 knightcrawler: &app_knightcrawler
   enabled: false
@@ -10221,7 +10370,7 @@ knightcrawler: &app_knightcrawler
     app.elfhosted.com/name: knightcrawler  
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio"
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio,knightcrawler-env"
       secret.reloader.stakater.com/reload: "knightcrawler-env"
     strategy:
     rollingUpdate:
