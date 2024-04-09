@@ -10295,6 +10295,7 @@ recyclarr:
       - -c
       - |
         recyclarr sync
+        sleep infinity
       volumeMounts:
       - mountPath: /config
         name: config
