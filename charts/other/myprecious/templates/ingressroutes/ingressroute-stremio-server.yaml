@@ -24,6 +24,9 @@ spec:
           kind: Service
           port: 8080 # nginx pod with casting.json
       middlewares:
+        - name: headers-add-cors-for-stremio
+          namespace: traefik
+        - name: stremio-server-casting
         - name: error-pages
           namespace: traefik  
     {{ if .Values.stremioserver.enabled }}
