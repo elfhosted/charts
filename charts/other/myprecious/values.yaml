@@ -9646,7 +9646,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v4.0.0@sha256:07a9446a5b704344f3a31e4b6acb001937704abdf209a6f2fe7256fc8b313a70
+    tag: v4.1.1@sha256:68158c50431e8829fb4d8b3fbd5a5c78cf66c152bb1c49cf9d3583a379a63a4b
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10037,7 +10037,7 @@ stremiojackettcommunity: &stremiojackettcommunity
       app.elfhosted.com/name: stremio-jackett-community    
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v4.0.0@sha256:07a9446a5b704344f3a31e4b6acb001937704abdf209a6f2fe7256fc8b313a70
+    tag: v4.1.1@sha256:68158c50431e8829fb4d8b3fbd5a5c78cf66c152bb1c49cf9d3583a379a63a4b
   priorityClassName: tenant-normal
   # command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"] # allow logs on private instances
   controller:
