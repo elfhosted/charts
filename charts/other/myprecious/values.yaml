@@ -9519,12 +9519,13 @@ stremioserver: &app_stremioserver
     update-dns: *update_dns_on_init
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination    
-    settings:
+    # Avoid 404s on the /casting endpoint
+    casting:
       image: nginxinc/nginx-unprivileged
       volumeMounts:
-      - mountPath: /usr/share/nginx/html/settings
+      - mountPath: /usr/share/nginx/html/casting.json
         name: config
-        subPath: settings
+        subPath: casting.json
         readOnly: true
       - mountPath: /tmp
         name: tmp

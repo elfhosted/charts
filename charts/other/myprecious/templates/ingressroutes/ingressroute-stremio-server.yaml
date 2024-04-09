@@ -12,6 +12,21 @@ metadata:
 spec:
   routes:
     {{ if .Values.stremioserver.enabled }}
+    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com`) && Path(`/casting`)
+    {{ else if .Values.stremioserverpia.enabled }}
+    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com`) && Path(`/casting`)
+    {{ else if .Values.stremioservergluetun.enabled }}
+    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com`) && Path(`/casting`)
+    {{ end }}
+      kind: Rule
+      services:
+        - name: stremio-server
+          kind: Service
+          port: 8080 # nginx pod with casting.json
+      middlewares:
+        - name: error-pages
+          namespace: traefik  
+    {{ if .Values.stremioserver.enabled }}
     - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com`)
     {{ else if .Values.stremioserverpia.enabled }}
     - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com`)
@@ -26,21 +41,6 @@ spec:
       middlewares:
         - name: headers-add-cors-for-stremio
           namespace: traefik
-        - name: error-pages
-          namespace: traefik
-    {{ if .Values.stremioserver.enabled }}
-    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com`) && Path(`/settings`)
-    {{ else if .Values.stremioserverpia.enabled }}
-    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioserverpia.SECRET_STRING }}.elfhosted.com`) && Path(`/settings`)
-    {{ else if .Values.stremioservergluetun.enabled }}
-    - match: Host(`{{ .Release.Name }}-stremio-server-{{ .Values.stremioservergluetun.SECRET_STRING }}.elfhosted.com`) && Path(`/settings`)
-    {{ end }}
-      kind: Rule
-      services:
-        - name: stremio-server
-          kind: Service
-          port: 8080 # nginx pod with settings json
-      middlewares:
         - name: error-pages
           namespace: traefik
 {{ end }}
