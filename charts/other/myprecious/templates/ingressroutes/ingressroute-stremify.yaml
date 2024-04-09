@@ -1,0 +1,27 @@
+{{ if .Values.stremify.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-stremify.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-stremify.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: stremify
+          kind: Service
+          port: 3000
+      middlewares:
+        - name: chain-hosted-stremio-addon
+          namespace: traefik
+    - match: Host(`{{ .Release.Name }}-stremify.elfhosted.com`) && PathPrefix(`/configure/`)
+      kind: Rule
+      services:
+        - name: stremify
+          kind: Service
+          port: 3000
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: chain-hosted-stremio-addon
+          namespace: traefik
+{{ end }}

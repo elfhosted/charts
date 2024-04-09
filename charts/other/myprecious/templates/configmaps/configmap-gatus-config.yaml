@@ -243,7 +243,18 @@ data:
           - "[STATUS] == 200"
         alerts:
           - type: email               
-      {{ end }}  
+      {{ end }} 
+
+      {{ if .Values.stremify.enabled }}
+      - name: stremify
+        group: consume-media
+        url: "http://stremify:3000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email               
+      {{ end }}        
 
       {{ if .Values.stremioserver.enabled }}
       - name: stremio-server

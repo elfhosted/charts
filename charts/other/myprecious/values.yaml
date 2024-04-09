@@ -10197,6 +10197,62 @@ shluflix:
       name: elfbot-shluflix
       optional: true
 
+stremify:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/stremifx
+    tag: rolling@sha256:cb4d06ef08ae73170dbdd7df98e37a5a4ee9d3c582378bdfa4d481f1332b0065
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-stremify"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false 
+  persistence:
+    tmp: *tmp
+    npm:
+      enabled: true
+      type: emptyDir
+      mountPath: /home/elfie/.npm
+      sizeLimit: 1Gi    
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 3000    
+  envFrom:
+  - configMapRef:      
+      name: stremify-env      
+  - configMapRef:      
+      name: elfbot-stremify
+      optional: true    
+  - secretRef:      
+      name: stremify-env        
+
 recyclarr:
   enabled: false
   image:

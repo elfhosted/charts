@@ -446,6 +446,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}  
 
+          {{ if .Values.stremify.enabled }}
+          - name: "Stremify"
+            icon: "fas fa-tv"
+            subtitle: "Watch HTTP streams with Stremio"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-stremify.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}            
+
           {{ if or .Values.stremioserver.enabled .Values.stremioserverpia.enabled .Values.stremioservergluetun.enabled }}
           - name: "Stremio Server"
             logo: "assets/png/stremio.png"

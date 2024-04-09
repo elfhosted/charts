@@ -222,7 +222,15 @@ data:
             href: https://{{ .Release.Name }}-shluflix.elfhosted.com
             description: Watch HTTP streams in Stremio
             siteMonitor: http://shluflix:8001
-        {{ end }}                
+        {{ end }}     
+
+        {{ if .Values.stremify.enabled }}
+        - Stremify:
+            icon: mdi-tv
+            href: https://{{ .Release.Name }}-stremify.elfhosted.com
+            description: Watch HTTP streams in Stremio
+            siteMonitor: http://stremify:3000
+        {{ end }}                        
 
         {{ if or .Values.stremioserver.enabled .Values.stremioserverpia.enabled .Values.stremioservergluetun.enabled }}
         - Stremio:

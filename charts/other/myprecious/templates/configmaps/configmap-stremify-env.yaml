@@ -1,0 +1,9 @@
+{{ if .Values.stremify.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stremify-env
+data:
+  scrape_english: "true"
+  foreign_provider_languages: "de,it,fr,es"
+{{ end }}

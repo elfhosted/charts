@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.32528-pre-19
+version: 1.0.32528-pre-20
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -453,7 +453,12 @@ dependencies:
     condition: shluflix.enabled
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
-    alias: shluflix          
+    alias: shluflix 
+  - name: app-template
+    condition: stremify.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: stremify              
   - name: app-template
     condition: mediafusion.enabled
     version: ~0.2.1
