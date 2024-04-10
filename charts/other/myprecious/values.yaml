@@ -10457,7 +10457,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:66b70b6a93440952ced85d6f99ac6778f84b1de5191cffab328e6cc84bdb8deb
+    tag: rolling@sha256:60fae8d1152d0a26429f3ba5982053369e7bba989d52cba1cb760174256b94a7
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
@@ -10485,7 +10485,7 @@ knightcrawler: &app_knightcrawler
       cpu: 10m
       memory: 128Mi
     limits:
-      cpu: 1
+      cpu: 100m
       memory: 256Mi
   ingress:
     main:
