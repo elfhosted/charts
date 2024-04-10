@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: config-thelounge-
+  name: config-thelounge
   annotations:
     helm.sh/resource-policy: keep
 spec:
