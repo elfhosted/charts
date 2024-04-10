@@ -4764,6 +4764,11 @@ plex: &plex
       type: custom
       mountPath: /transcode
       volumeSpec: *volumespec_ephemeral_volume_50g
+    phototranscoder:
+      enabled: true
+      type: custom
+      mountPath: /phototranscoder
+      volumeSpec: *volumespec_ephemeral_volume_50g      
     elfbot:
       enabled: "true"
       type: "custom"
@@ -4822,13 +4827,16 @@ plex: &plex
         set -e
 
         # Clean up wasteful temporary media storage (Plex will just re-download these)
-        rm -rf "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder/*"
+        rm -rf "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
+
+        # Create symlink for future content
+        ln -s /phototranscoder '/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder'
 
       volumeMounts:
-      - mountPath: /storage/elfstorage
-        name: elfstorage
-      - mountPath: /tmp
-        name: tmp
+      - mountPath: /config
+        name: config
+      - mountPath: /phototranscoder
+        name: phototranscoder        
       resources: *default_resources
       securityContext: *default_securitycontext    
   additionalContainers:
