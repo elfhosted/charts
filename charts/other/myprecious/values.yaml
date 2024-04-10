@@ -2874,7 +2874,7 @@ filebrowser:
       mountPath: /storage/config/plexmetamanager/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plexmetamanager-ssd        
+          claimName: config-plexmetamanager        
     joplinserver:
       enabled: false
       type: custom
@@ -3168,7 +3168,7 @@ filebrowser:
       mountPath: /storage/config/thelounge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-thelounge-ssd
+          claimName: config-thelounge
     unpackerr:
       enabled: false
       type: custom
@@ -4811,6 +4811,26 @@ plex: &plex
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns_on_init
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Clean up wasteful temporary media storage (Plex will just re-download these)
+        rm -rf "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder/*"
+
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      - mountPath: /tmp
+        name: tmp
+      resources: *default_resources
+      securityContext: *default_securitycontext    
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination
   addons:
