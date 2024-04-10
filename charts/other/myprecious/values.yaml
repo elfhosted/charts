@@ -9973,7 +9973,7 @@ jackettio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackettio
-    tag: v1.1.17@sha256:d662fd92c22ae1d923ca74e3a5e147502cce24178e0f23c94475434f5fd0fc7c
+    tag: v1.1.19@sha256:76020a7c74d62e6543a571bc348c427a0da71874dd37cba455ea7c889ed22c46
   priorityClassName: tenant-normal
   controller:
     annotations:
