@@ -452,6 +452,35 @@ bootstrap_env: &bootstrap_env
     fieldRef:
       fieldPath: metadata.labels['app.elfhosted.com/name']
 
+migrate_data: &migrate_data
+  image: *tooling_image
+  imagePullPolicy: IfNotPresent
+  command:
+  - /bin/bash
+  - -c
+  - |
+    set -e
+
+    if [[ ! -f /config/i-am-migrated ]]
+    then
+      if [[ ! -z "$(ls -A /migration)" ]]    
+      then
+        echo "Migrating from /migration/..."
+        cp -rfp /migration/* /config/
+        touch /config/i-am-migrated
+      fi
+    fi    
+    
+  volumeMounts:
+  - mountPath: /config
+    name: config
+  - mountPath: /migration
+    name: migration
+
+  env: *bootstrap_env
+  resources: *default_resources
+  securityContext: *default_securitycontext
+
 migrate_from_cephfs: &migrate_from_cephfs
   image: *tooling_image
   imagePullPolicy: IfNotPresent
@@ -6318,6 +6347,12 @@ thelounge:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-thelounge
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-thelounge-ssd
     elfbot:
       enabled: "true"
@@ -6327,6 +6362,7 @@ thelounge:
           name: elfbot-thelounge
           optional: true
   initContainers:
+    a-migrate: *migrate_data
     bootstrap: *bootstrap
     create-user:
       image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:52318d1dff41d9d0fc3748e97c291742da48702b37c8b8e74247fac8e929cf60
@@ -7193,6 +7229,12 @@ plexmetamanager:
       mountPath: /app/config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-plexmetamanager
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
     elfbot:
       enabled: "true"
@@ -7209,6 +7251,7 @@ plexmetamanager:
         configMap:
           name: plexmetamanager-config
   initContainers:
+    a-migrate: *migrate_data
     bootstrap: *bootstrap
     copy-example-config:
       image: *tooling_image
