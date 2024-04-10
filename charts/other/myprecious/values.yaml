@@ -10618,11 +10618,13 @@ zurg: &zurg
       type: emptyDir
       volumeSpec:
         medium: Memory
-    repairman: # used for the repair instance
-      enabled: true
-      type: emptyDir
+    tooling-scripts:
+      enabled: "true"
+      type: "custom"
       volumeSpec:
-        medium: Memory        
+        configMap:
+          name: tooling-scripts   
+          defaultMode: 0755                
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
@@ -10649,7 +10651,6 @@ zurg: &zurg
         then
           cp /bootstrap/plex_update.sh /config/
         fi
-
       volumeMounts:
       - mountPath: /config
         name: config
@@ -10684,23 +10685,12 @@ zurg: &zurg
         # Check for changes every 10 sec
         sed -i  "s/check_for_changes_every_secs:.*/check_for_changes_every_secs: 10/" /config/config.yml
 
-        # Copy zurg config to repairman for repairing
-        cp /config/config.yml /repairman/
-        sed -i  "s/enable_repair: false/enable_repair: true/" /repairman/config.yml
-        # sed -i  "s/check_for_changes_every_secs:.*/check_for_changes_every_secs: 300/" /repairman/config.yml
-        sed -i  "s/port:.*/port: 9998/" /repairman/config.yml # don't conflict
-
       volumeMounts:
       - mountPath: /config
         name: config
-      - name: repairman
-        mountPath: "/repairman/"
+    update-dns: *update_dns_on_init
   additionalContainers:
-    repairman:
-      image: ghcr.io/geek-cookbook/zurg:v0.9.3-hotfix.11@sha256:f3110e087387d0584700d43708121135f6b2880290711c682d9f817a0637a3f6
-      volumeMounts:
-      - mountPath: /config
-        name: repairman        
+    clean-up-dns: *clean_up_dns_on_termination
   addons:
     vpn: &zurg_addons_vpn
       enabled: false # in case we ever need it
