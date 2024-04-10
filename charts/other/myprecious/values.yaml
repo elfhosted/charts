@@ -6333,7 +6333,7 @@ thelounge:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/thelounge
-    tag: "4.4.1@sha256:52318d1dff41d9d0fc3748e97c291742da48702b37c8b8e74247fac8e929cf60"
+    tag: "4.4.3@sha256:c34664387d9d5a65f4d72f71fbe6466da22a10e1ea07696d02d59bb06167bf10"
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -6393,7 +6393,7 @@ thelounge:
     a-migrate: *migrate_data
     bootstrap: *bootstrap
     create-user:
-      image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:52318d1dff41d9d0fc3748e97c291742da48702b37c8b8e74247fac8e929cf60
+      image: ghcr.io/geek-cookbook/thelounge:4.4.3@sha256:c34664387d9d5a65f4d72f71fbe6466da22a10e1ea07696d02d59bb06167bf10
       imagePullPolicy: IfNotPresent
       command:
       - /bin/bash
