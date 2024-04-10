@@ -452,6 +452,35 @@ bootstrap_env: &bootstrap_env
     fieldRef:
       fieldPath: metadata.labels['app.elfhosted.com/name']
 
+migrate_data: &migrate_data
+  image: *tooling_image
+  imagePullPolicy: IfNotPresent
+  command:
+  - /bin/bash
+  - -c
+  - |
+    set -e
+
+    if [[ ! -f /config/i-am-migrated ]]
+    then
+      if [[ ! -z "$(ls -A /migration)" ]]    
+      then
+        echo "Migrating from /migration/..."
+        cp -rfp /migration/* /config/
+        touch /config/i-am-migrated
+      fi
+    fi    
+    
+  volumeMounts:
+  - mountPath: /config
+    name: config
+  - mountPath: /migration
+    name: migration
+
+  env: *bootstrap_env
+  resources: *default_resources
+  securityContext: *default_securitycontext
+
 migrate_from_cephfs: &migrate_from_cephfs
   image: *tooling_image
   imagePullPolicy: IfNotPresent
@@ -2845,7 +2874,7 @@ filebrowser:
       mountPath: /storage/config/plexmetamanager/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-plexmetamanager-ssd        
+          claimName: config-plexmetamanager        
     joplinserver:
       enabled: false
       type: custom
@@ -3139,7 +3168,7 @@ filebrowser:
       mountPath: /storage/config/thelounge/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-thelounge-ssd
+          claimName: config-thelounge
     unpackerr:
       enabled: false
       type: custom
@@ -4735,6 +4764,11 @@ plex: &plex
       type: custom
       mountPath: /transcode
       volumeSpec: *volumespec_ephemeral_volume_50g
+    phototranscoder:
+      enabled: true
+      type: custom
+      mountPath: /phototranscoder
+      volumeSpec: *volumespec_ephemeral_volume_50g      
     elfbot:
       enabled: "true"
       type: "custom"
@@ -4782,6 +4816,29 @@ plex: &plex
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns_on_init
+    setup:
+      image: *tooling_image
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Clean up wasteful temporary media storage (Plex will just re-download these)
+        rm -rf "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
+
+        # Create symlink for future content
+        ln -s /phototranscoder '/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder'
+
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /phototranscoder
+        name: phototranscoder        
+      resources: *default_resources
+      securityContext: *default_securitycontext    
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination
   addons:
@@ -6318,6 +6375,12 @@ thelounge:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-thelounge
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-thelounge-ssd
     elfbot:
       enabled: "true"
@@ -6327,6 +6390,7 @@ thelounge:
           name: elfbot-thelounge
           optional: true
   initContainers:
+    a-migrate: *migrate_data
     bootstrap: *bootstrap
     create-user:
       image: ghcr.io/geek-cookbook/thelounge:4.4.1@sha256:52318d1dff41d9d0fc3748e97c291742da48702b37c8b8e74247fac8e929cf60
@@ -7193,6 +7257,12 @@ plexmetamanager:
       mountPath: /app/config/
       volumeSpec:
         persistentVolumeClaim:
+          claimName: config-plexmetamanager
+    migration:
+      enabled: true
+      type: custom
+      volumeSpec:
+        persistentVolumeClaim:
           claimName: config-plexmetamanager-ssd
     elfbot:
       enabled: "true"
@@ -7209,6 +7279,7 @@ plexmetamanager:
         configMap:
           name: plexmetamanager-config
   initContainers:
+    a-migrate: *migrate_data
     bootstrap: *bootstrap
     copy-example-config:
       image: *tooling_image
@@ -10386,14 +10457,14 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:66b70b6a93440952ced85d6f99ac6778f84b1de5191cffab328e6cc84bdb8deb
+    tag: rolling@sha256:9b8704333a0ab20fd6b25382f7d930ffea8672a7bb79133e1b71aa214c02c251
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio,knightcrawler-env"
-      secret.reloader.stakater.com/reload: "knightcrawler-env"
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio"
+      secret.reloader.stakater.com/reload: "torrentio-env"
     strategy:
     rollingUpdate:
       unavailable: 1
@@ -10424,7 +10495,7 @@ knightcrawler: &app_knightcrawler
       enabled: true # necessary for probes
       ports:
         http:
-          port: 7000
+          port: 7001      
   persistence:                 
     elfbot:
       enabled: "true"
@@ -10443,21 +10514,57 @@ knightcrawler: &app_knightcrawler
       type: custom
       mountPath: /.pm2
       volumeSpec: *volumespec_ephemeral_volume_1g                          
+  env:
+    PORT: 7001
+    PUID: 568
+    PGID: 568
+    TENANT_NAME: "{{ .Release.Name }}"    
+    # PostgreSQL
+    POSTGRES_HOST: pooler-torrentio.torrentio # pooler
+    POSTGRES_PORT: 5432
+    POSTGRES_USER: torrentio
+    # POSTGRES_PASSWORD goes in secret
+    POSTGRES_DB: torrentio
+
+    # MongoDB
+    MONGODB_HOST: mongodb.torrentio # mongodb svc
+    MONGODB_PORT: 27017
+    MONGODB_DB: torrentio
+    MONGO_INITDB_ROOT_USERNAME: mongo
+    MONGO_INITDB_ROOT_PASSWORD: mongo
+
   envFrom:
-  - configMapRef:
-      name: knightcrawler-env     
   - secretRef:
-      name: knightcrawler-env     
+      name: torrentio-env     
 
 # Old naming convention
 torrentio: 
   <<: *app_knightcrawler
   enabled: false
 
-# Add a VPN for AD
 knightcrawlervpn:
   <<: *app_knightcrawler
   enabled: false
+  env:
+    PORT: 7001
+    PUID: 568
+    PGID: 568
+    TENANT_NAME: "{{ .Release.Name }}"    
+    # PostgreSQL
+    POSTGRES_HOST: 10.43.74.255 # (can't use DNS resolution on VPN
+    POSTGRES_PORT: 5432
+    POSTGRES_USER: torrentio
+    # POSTGRES_PASSWORD goes in secret
+    POSTGRES_DB: torrentio
+
+    # MongoDB
+    MONGODB_HOST: 10.43.0.3 # (can't use DNS resolution on VPN)
+    MONGODB_PORT: 27017
+    MONGODB_DB: torrentio
+    MONGO_INITDB_ROOT_USERNAME: mongo # mongo needs this
+    MONGO_INITDB_ROOT_PASSWORD: mongo # mongo needs this
+    MONGODB_USER: mongo               # nodejs apps need this
+    MONGODB_PASSWORD: mongo           # nodejs apps need this
   addons:
     vpn:
       enabled: true # in case we ever need it
@@ -10476,7 +10583,7 @@ knightcrawlervpn:
           add:
             - NET_ADMIN
             - SYS_MODULE
-      config: # We have to set this to null so that we can override with our own config        
+      config: # We have to set this to null so that we can override with our own config  
 
 zurg: &zurg
   enabled: false
@@ -10582,11 +10689,13 @@ zurg: &zurg
       type: emptyDir
       volumeSpec:
         medium: Memory
-    repairman: # used for the repair instance
-      enabled: true
-      type: emptyDir
+    tooling-scripts:
+      enabled: "true"
+      type: "custom"
       volumeSpec:
-        medium: Memory        
+        configMap:
+          name: tooling-scripts   
+          defaultMode: 0755                
   initContainers:
     bootstrap: *bootstrap
     copy-example-config:
@@ -10613,7 +10722,6 @@ zurg: &zurg
         then
           cp /bootstrap/plex_update.sh /config/
         fi
-
       volumeMounts:
       - mountPath: /config
         name: config
@@ -10648,23 +10756,12 @@ zurg: &zurg
         # Check for changes every 10 sec
         sed -i  "s/check_for_changes_every_secs:.*/check_for_changes_every_secs: 10/" /config/config.yml
 
-        # Copy zurg config to repairman for repairing
-        cp /config/config.yml /repairman/
-        sed -i  "s/enable_repair: false/enable_repair: true/" /repairman/config.yml
-        # sed -i  "s/check_for_changes_every_secs:.*/check_for_changes_every_secs: 300/" /repairman/config.yml
-        sed -i  "s/port:.*/port: 9998/" /repairman/config.yml # don't conflict
-
       volumeMounts:
       - mountPath: /config
         name: config
-      - name: repairman
-        mountPath: "/repairman/"
+    update-dns: *update_dns_on_init
   additionalContainers:
-    repairman:
-      image: ghcr.io/geek-cookbook/zurg:v0.9.3-hotfix.11@sha256:f3110e087387d0584700d43708121135f6b2880290711c682d9f817a0637a3f6
-      volumeMounts:
-      - mountPath: /config
-        name: repairman        
+    clean-up-dns: *clean_up_dns_on_termination
   addons:
     vpn: &zurg_addons_vpn
       enabled: false # in case we ever need it
