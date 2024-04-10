@@ -7893,7 +7893,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 9.6.0@sha256:afff189b9be52bf3b255ba7de7ca89c0b5cdb9b39164fc2163f82765adcedb46
+    tag: 9.7.1@sha256:0d0ed3b351a54ecf10f1e8e24edf6bf2ff4cb796a6a7694c49141559ce6cf68b
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
