@@ -9893,7 +9893,7 @@ annatar:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/annatar
-    tag: v0.12.7
+    tag: v0.12.8
   priorityClassName: tenant-normal
   controller:
     annotations:
