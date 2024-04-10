@@ -1381,3 +1381,23 @@ data:
             url: "https://{{ .Release.Name }}-webdav-plus.elfhosted.com"
             target: "_blank" # optional html tag target attribute
           {{ end }}
+
+      - name: "Grafana"
+        icon: "fas fa-globe"
+        items:
+
+          - name: "Cluster Resources"
+            logo: "assets/png/grafana.png"
+            subtitle: "Cluster Resources"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://fnky.nz/grafana-elfhosted"
+            target: "_blank" # optional html tag target attribute
+
+          - name: "KnightCrawler"
+            logo: "assets/png/grafana.png"
+            subtitle: "Knightcrawler"
+            tag: "public"
+            tagstyle: "is-danger"
+            url: "https://fnky.nz/grafana-knightcrawler"
+            target: "_blank" # optional html tag target attribute
