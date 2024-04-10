@@ -1021,7 +1021,7 @@ rutorrentgluetun: &rutorrent
       gluetun:
         image:
           repository: ghcr.io/geek-cookbook/gluetun
-          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
+          tag: 3.38.0@sha256:bfa60c589cb6c06fbf2f30696d9d2b5a0f7fcfbf3066ff85363a89b7fed869d8
       securityContext:
         runAsUser: 0
         capabilities:
@@ -1303,7 +1303,7 @@ delugegluetun: &deluge
       gluetun:
         image:
           repository: ghcr.io/geek-cookbook/gluetun
-          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
+          tag: 3.38.0@sha256:bfa60c589cb6c06fbf2f30696d9d2b5a0f7fcfbf3066ff85363a89b7fed869d8
       securityContext:
         runAsUser: 0
         capabilities:
@@ -1684,7 +1684,7 @@ qbittorrentgluetun: &qbittorrent
       gluetun:
         image:
           repository: ghcr.io/geek-cookbook/gluetun
-          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e          
+          tag: 3.38.0@sha256:bfa60c589cb6c06fbf2f30696d9d2b5a0f7fcfbf3066ff85363a89b7fed869d8          
       securityContext:
         runAsUser: 0
         capabilities:
@@ -4912,7 +4912,7 @@ plexgluetun:
       gluetun:
         image:
           repository: ghcr.io/geek-cookbook/gluetun
-          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
+          tag: 3.38.0@sha256:bfa60c589cb6c06fbf2f30696d9d2b5a0f7fcfbf3066ff85363a89b7fed869d8
       envFrom:
       - configMapRef:
           name: plex-gluetun-config
@@ -9662,7 +9662,7 @@ stremioservergluetun:
       gluetun:
         image:
           repository: ghcr.io/geek-cookbook/gluetun
-          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
+          tag: 3.38.0@sha256:bfa60c589cb6c06fbf2f30696d9d2b5a0f7fcfbf3066ff85363a89b7fed869d8
       envFrom:
       - configMapRef:
           name: stremioserver-gluetun-config
@@ -10812,7 +10812,7 @@ zurggluetun:
       gluetun:
         image:
           repository: ghcr.io/geek-cookbook/gluetun
-          tag: 3.37.0@sha256:8f8a0443560e0720ac8bd9c3adfb625d00a4362bfa9daf781c7624fa430c160e
+          tag: 3.38.0@sha256:bfa60c589cb6c06fbf2f30696d9d2b5a0f7fcfbf3066ff85363a89b7fed869d8
       envFrom:
       - configMapRef:
           name: zurg-gluetun-config
