@@ -10,7 +10,7 @@ spec:
       services:
         - name: knightcrawler-vpn
           kind: Service
-          port: 7001
+          port: 7000
       middlewares:
         - name: chain-hosted-stremio-addon
           namespace: traefik
@@ -19,7 +19,7 @@ spec:
       services:
         - name: knightcrawler-vpn
           kind: Service
-          port: 7001
+          port: 7000
       middlewares:
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: chain-hosted-stremio-addon
