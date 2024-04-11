@@ -26,7 +26,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true,
-      "excludePackagePatterns": ["iceberg"]
+      "excludePackagePatterns": ["iceberg","knightcrawler-addon"]
     },
     {
       "matchPackagePatterns": ["nightly"],
@@ -41,7 +41,7 @@
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true,
-      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent"]
+      "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","knightcrawler-addon"]
     },
     {
       "matchPackagePatterns": ["minor"],
