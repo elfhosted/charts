@@ -4827,10 +4827,10 @@ plex: &plex
         set -e
 
         # Clean up wasteful temporary media storage (Plex will just re-download these)
-        rm -rf "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
-
-        # Create symlink for future content
-        ln -s /phototranscoder '/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder'
+        if [ -d "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"]; then
+          rm -rf "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
+          ln -s /phototranscoder '/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder'
+        fi
 
       volumeMounts:
       - mountPath: /config
@@ -8372,22 +8372,15 @@ rdtclient: &app_rdtclient
   podLabels:
     app.elfhosted.com/class: debrid  
   image:
-    # repository: laster13/rdtclient
-    # tag: amd64@sha256:a8a134d90f0600a87b733dc38c3d5ccbb6fa650adbcbd7aff8962780679d8606  
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.72@sha256:7ff0bb059490af91245f878fe421fdcd766d666b828f6a4919111d00f03914cc
-    # repository: ghcr.io/geek-cookbook/rdtclient
-    # tag: rolling@sha256:08b743f593b7cf84371593f7d3ab8922dc3a21c39e5b01172a54dd7c7d41b220
-  env:
-    PUID: 568
-    PGID: 568
+    tag: v2.0.72@sha256:885b8f95c1ef45eff0f59ab69c9832d45384f82fe32ca326c0c7cd369eb3c314
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: false # until we can fix it
+    readOnlyRootFilesystem: true # until we can fix it
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -8422,8 +8415,8 @@ rdtclient: &app_rdtclient
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    # runAsUser: 568
-    # runAsGroup: 568
+    runAsUser: 568
+    runAsGroup: 568
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
@@ -10457,7 +10450,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: v2.0.21@sha256:66b70b6a93440952ced85d6f99ac6778f84b1de5191cffab328e6cc84bdb8deb
+    tag: v2.0.24@sha256:7ff13371c5fc59755a0e74081460dccc2b935589c6db73780eeddf6ec1e7692c
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
