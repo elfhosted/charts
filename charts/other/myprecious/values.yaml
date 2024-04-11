@@ -8375,7 +8375,7 @@ rdtclient: &app_rdtclient
     # repository: laster13/rdtclient
     # tag: amd64@sha256:a8a134d90f0600a87b733dc38c3d5ccbb6fa650adbcbd7aff8962780679d8606  
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.70@sha256:86b1e31065cbee3d2d9e6a41f1100da778870051edd062349be9f93e085bfce6
+    tag: v2.0.72@sha256:7ff0bb059490af91245f878fe421fdcd766d666b828f6a4919111d00f03914cc
     # repository: ghcr.io/geek-cookbook/rdtclient
     # tag: rolling@sha256:08b743f593b7cf84371593f7d3ab8922dc3a21c39e5b01172a54dd7c7d41b220
   env:
