@@ -8373,14 +8373,14 @@ rdtclient: &app_rdtclient
     app.elfhosted.com/class: debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.72@sha256:ddd412b76f01df556087b46e1456c86963423103add145272f7908d4a14bfd35
+    tag: v2.0.72@sha256:2e66873295003dd695a7fa789baff7d38c522b06d6d47621dd246038bb890c3d
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
   securityContext:
     seccompProfile:
       type: RuntimeDefault
-    readOnlyRootFilesystem: false # it wants to save syminks into `/app` before moving them :facepalm:
+    readOnlyRootFilesystem: true
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
