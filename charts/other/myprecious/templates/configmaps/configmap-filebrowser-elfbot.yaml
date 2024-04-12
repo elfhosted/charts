@@ -144,7 +144,7 @@ data:
             ;;     
 
         "recyclarr")
-            recyclarr --app-data /storage/elfstorage/recyclarr $2 $3 $4 $5
+            recyclarr $2 --app-data /storage/elfstorage/recyclarr $3 $4 $5
             ;;                  
 
         "blackhole")
