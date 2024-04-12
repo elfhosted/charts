@@ -3236,7 +3236,7 @@ filebrowser:
       enabled: false
   initContainers:
     setup:
-      image: ghcr.io/geek-cookbook/filebrowser:2.27.0@sha256:7fe99bd50a412d691d14574b851df9beab1165432029be8ee2975ea9b54e596a
+      image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:b44792453980ab6fe59f14211024fcc5de24516112f62fb31ca1f3cc00c832c6
       # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last good version for TFA
       imagePullPolicy: IfNotPresent
       command:
@@ -3266,7 +3266,7 @@ filebrowser:
           --cache-dir /tmp
 
         # allow zip, unzip, rar, unrar, ls, pwd, cd, mv
-        /filebrowser config set --database /tmp/filebrowser.db --commands zip,unzip,rar,unrar,ls,pwd,cd,mv,cp,ln,find,echo,grep,cat,touch,tar,gzip,rm,tree,du,mlocate,updatedb,locate,elfbot,Elfbot,recyclarr
+        /filebrowser config set --database /tmp/filebrowser.db --commands zip,unzip,rar,unrar,ls,pwd,cd,mv,cp,ln,find,echo,grep,cat,touch,tar,gzip,rm,tree,du,mlocate,updatedb,locate,elfbot,Elfbot
         # /filebrowser config set --database /tmp/filebrowser.db --shell 'vstat -c'
 
         # now tell filebrowser about the user (who gets authenticated via the proxy)
