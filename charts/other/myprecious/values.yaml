@@ -3266,7 +3266,7 @@ filebrowser:
           --cache-dir /tmp
 
         # allow zip, unzip, rar, unrar, ls, pwd, cd, mv
-        /filebrowser config set --database /tmp/filebrowser.db --commands zip,unzip,rar,unrar,ls,pwd,cd,mv,cp,ln,find,echo,grep,cat,touch,tar,gzip,rm,tree,du,mlocate,updatedb,locate,elfbot,Elfbot
+        /filebrowser config set --database /tmp/filebrowser.db --commands zip,unzip,rar,unrar,ls,pwd,cd,mv,cp,ln,find,echo,grep,cat,touch,tar,gzip,rm,tree,du,mlocate,updatedb,locate,elfbot,Elfbot,recyclarr
         # /filebrowser config set --database /tmp/filebrowser.db --shell 'vstat -c'
 
         # now tell filebrowser about the user (who gets authenticated via the proxy)
