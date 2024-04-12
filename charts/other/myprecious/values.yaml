@@ -2653,7 +2653,7 @@ filebrowser:
     app.elfhosted.com/name: filebrowser
   image:
     repository: ghcr.io/geek-cookbook/filebrowser
-    tag: 2.23.0@sha256:6bb362b2538816f675a03b4ccb814c08cb79e63db4f2c691060a129d7eddf03b
+    tag: 2.23.0@sha256:7bf774286741aac7d9972aa3a62a363fc95577684c66492e2fb8befbae82bd49
     # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last version which works with uploads
   env:
     FB_DATABASE: /tmp/filebrowser.db
