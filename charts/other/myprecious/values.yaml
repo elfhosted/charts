@@ -8373,7 +8373,7 @@ rdtclient: &app_rdtclient
     app.elfhosted.com/class: debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.72@sha256:40a14b8d7a2a88d74c6c8ca02f0ea2a9ed439141fc5f1de1a2d32e11932f2e77
+    tag: v2.0.73@sha256:785189ca57c9078e6624ed77692f5a07e06606333fa71872102e928be0e28ecb
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
