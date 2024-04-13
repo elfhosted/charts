@@ -2709,6 +2709,12 @@ filebrowser:
         configMap:
           name: filebrowser-elfbot-script
           defaultMode: 0755
+    recyclarr-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: recyclarr-config
 
     # We need one of these per-app. The global section will override the false enablement
     airdcpp:
@@ -3272,7 +3278,6 @@ filebrowser:
         # now tell filebrowser about the user (who gets authenticated via the proxy)
         /filebrowser users add 1 bogus --database /tmp/filebrowser.db
 
-
       volumeMounts:
       - mountPath: /tmp
         name: tmp
@@ -3280,6 +3285,31 @@ filebrowser:
         name: dummy-storage
       resources: *default_resources
       securityContext: *default_securitycontext
+    copy-example-config:
+      image: ghcr.io/geek-cookbook/unpackerr@sha256:014440a2a7e4499a9ce52be1388567d24fc515d8d00422434239b918c56a717a
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir -p /storage/elfstorage/recyclarr
+        # If we don't already have an example config, create one
+        if [ ! -f /storage/elfstorage/recyclarr/recyclarr.yaml ];
+        then
+          cp /bootstrap/recyclarr.yaml /storage/elfstorage/recyclarr/
+        fi
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      - name: recyclarr-config
+        mountPath: "/bootstrap/"
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true      
   additionalContainers:
     # this container exists to watch for restarts requested by elfbot, and to use create configmaps to trigger restarts using reloader
     elfbot:
