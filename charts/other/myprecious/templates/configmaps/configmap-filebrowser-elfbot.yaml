@@ -152,7 +152,7 @@ data:
             fi
 
             echo "This may take a while..."
-            HOME=/storage/elfstorage/recyclarr recyclarr $2 $3 $4 $5
+            recyclarr $2 $3 $4 $5 --config /storage/elfstorage/recyclarr/recyclarr.yaml
             ;;                  
 
         "blackhole")

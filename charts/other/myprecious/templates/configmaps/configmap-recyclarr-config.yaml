@@ -25,7 +25,7 @@ data:
             anime: default
 
         quality_profiles:
-          - name: series-hd
+          - name: series
             upgrade:
               allowed: true
               until_quality: CF based
@@ -540,7 +540,7 @@ data:
               # - dbfc0a4b5cb4cbd693311c4482ae9683 # FR WEB Tier 03
 
             quality_profiles:
-              - name: series4k
+              - name: series-4k
 
       {{ end }}     
     {{ end }}
