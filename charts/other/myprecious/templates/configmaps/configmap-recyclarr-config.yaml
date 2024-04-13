@@ -561,7 +561,7 @@ data:
           folder: plex
           movie:
             rename: true
-            standard: plex
+            standard: jellyfin
 
         quality_profiles:
           - name: movies
@@ -827,7 +827,7 @@ data:
           folder: plex
           movie:
             rename: true
-            standard: plex
+            standard: jellyfin
 
         quality_profiles:
           - name: movies-4k
