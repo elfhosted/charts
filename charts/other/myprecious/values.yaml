@@ -4855,7 +4855,7 @@ plex: &plex
         set -e
 
         # Clean up wasteful temporary media storage (Plex will just re-download these)
-        if [ -d "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"]; then
+        if [ -d "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder" ]; then
           rm -rf "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
           ln -s /phototranscoder '/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder'
         fi
