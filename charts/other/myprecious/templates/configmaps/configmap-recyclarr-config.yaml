@@ -10,7 +10,7 @@ data:
       {{ if .Values.sonarr.enabled }}
       sonarr_hd:
         base_url: http://sonarr:8989
-        api_key: {{ .Values.sonarrexposed.apikey }}
+        api_key: !env_var SONARR_API_KEY
         quality_definition:
           type: series
 
@@ -278,7 +278,7 @@ data:
       {{ if .Values.sonarr4k.enabled }}
       sonarr_4k:
         base_url: http://sonarr4k:8989
-        api_key: {{ .Values.sonarr4kexposed.apikey }}
+        api_key: !env_var SONARR4K_API_KEY
         quality_definition:
           type: series
 
@@ -550,7 +550,7 @@ data:
       {{ if .Values.radarr.enabled }}
       radarr_hd:
         base_url: http://radarr:7878
-        api_key: {{ .Values.radarrexposed.apikey }}
+        api_key: !env_var RADARR_API_KEY
 
         # Which quality definition in the guide to sync to Radarr. Only choice right now is 'movie'
         quality_definition:
@@ -816,7 +816,7 @@ data:
       {{ if .Values.radarr4k.enabled }}
       radarr_4k:
         base_url: http://radarr4k:7878
-        api_key: {{ .Values.radarr4kexposed.apikey }}
+        api_key: !env_var RADARR4K_API_KEY
 
         # Which quality definition in the guide to sync to Radarr. Only choice right now is 'movie'
         quality_definition:

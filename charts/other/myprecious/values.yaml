@@ -2654,10 +2654,9 @@ filebrowser:
   image:
     repository: ghcr.io/geek-cookbook/filebrowser
     tag: 2.23.0@sha256:b44792453980ab6fe59f14211024fcc5de24516112f62fb31ca1f3cc00c832c6
-  env:
-    FB_DATABASE: /tmp/filebrowser.db
-    FB_CONFIG: /etc/filebrowser/.filebrowser.json # this would work implicitly anyway, but this way it's clear what's happening
-    FB_ADDRESS: 0.0.0.0
+  envFrom:
+  - configMapRef:
+      name: filebrowser-env      
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
