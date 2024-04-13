@@ -144,7 +144,13 @@ data:
             ;;     
 
         "recyclarr")
-            set -x
+
+            if [[ "$#" -lt 2 ]]; then
+                # Just echo the recyclarr options
+                recyclarr
+            fi
+
+            echo "This may take a while..."
             recyclarr $2 --app-data /storage/elfstorage/recyclarr $3 $4 $5
             ;;                  
 
