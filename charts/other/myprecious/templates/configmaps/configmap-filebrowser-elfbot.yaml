@@ -144,6 +144,7 @@ data:
             ;;     
 
         "recyclarr")
+            set -x
             recyclarr $2 --app-data /storage/elfstorage/recyclarr $3 $4 $5
             ;;                  
 
