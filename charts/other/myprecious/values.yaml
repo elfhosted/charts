@@ -2655,10 +2655,9 @@ filebrowser:
     repository: ghcr.io/geek-cookbook/filebrowser
     tag: 2.23.0@sha256:b44792453980ab6fe59f14211024fcc5de24516112f62fb31ca1f3cc00c832c6
     # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last version which works with uploads
-  env:
-    FB_DATABASE: /tmp/filebrowser.db
-    FB_CONFIG: /etc/filebrowser/.filebrowser.json # this would work implicitly anyway, but this way it's clear what's happening
-    FB_ADDRESS: 0.0.0.0
+  envFrom:
+  - configMapRef:
+      name: filebrowser-env
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -3287,6 +3286,30 @@ filebrowser:
         name: dummy-storage
       resources: *default_resources
       securityContext: *default_securitycontext
+    copy-example-config:
+      image: ghcr.io/geek-cookbook/unpackerr@sha256:014440a2a7e4499a9ce52be1388567d24fc515d8d00422434239b918c56a717a
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+        mkdir -p /storage/elfstorage/recyclarr
+        # If we don't already have an example config, create one
+        if [ ! -f /storage/elfstorage/recyclarr/recyclarr.yaml ];
+        then
+          cp /bootstrap/recyclarr.yaml /storage/elfstorage/recyclarr/
+        fi
+      volumeMounts:
+      - mountPath: /storage/elfstorage
+        name: elfstorage
+      - name: recyclarr-config
+        mountPath: "/bootstrap/"
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        readOnlyRootFilesystem: true         
   additionalContainers:
     # this container exists to watch for restarts requested by elfbot, and to use create configmaps to trigger restarts using reloader
     elfbot:
@@ -4833,7 +4856,7 @@ plex: &plex
         set -e
 
         # Clean up wasteful temporary media storage (Plex will just re-download these)
-        if [ -d "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"]; then
+        if [ -d "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder" ]; then
           rm -rf "/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
           ln -s /phototranscoder '/config/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder'
         fi
