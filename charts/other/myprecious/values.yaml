@@ -2102,7 +2102,7 @@ radarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
-    tag: 5.3.6.8612@sha256:eb0451b622e046d4c6ac7d3d56116dbf15d754f2ba7743bfd757e40ac8970972
+    tag: 5.4.6.8723@sha256:0b9c318f0f02d3759afba3b9db2ff57783ad4071e3475a99354af108e589dec9
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2189,7 +2189,7 @@ radarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
-    tag: 5.3.6.8612@sha256:eb0451b622e046d4c6ac7d3d56116dbf15d754f2ba7743bfd757e40ac8970972
+    tag: 5.4.6.8723@sha256:0b9c318f0f02d3759afba3b9db2ff57783ad4071e3475a99354af108e589dec9
   securityContext:
     seccompProfile:
       type: RuntimeDefault
