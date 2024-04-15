@@ -9617,7 +9617,7 @@ stremioserver: &app_stremioserver
       securityContext: *default_securitycontext   
 
 # Stremioserver with PIA
-stremioserverpia: &app_stremioserver_vpn
+stremioserverpia:
   <<: *app_stremioserver
   enabled: false
   addons:
@@ -9648,18 +9648,33 @@ stremioserverpia: &app_stremioserver_vpn
 
 # Stremioserver with Gluetun
 stremioservergluetun:
-  <<: *app_stremioserver_vpn
+  <<: *app_stremioserver
   enabled: false
   addons:
     vpn:
-      enabled: true
+      enabled: true # in case we ever need it
       gluetun:
         image:
           repository: ghcr.io/geek-cookbook/gluetun
           tag: 3.38.0@sha256:bfa60c589cb6c06fbf2f30696d9d2b5a0f7fcfbf3066ff85363a89b7fed869d8
       envFrom:
       - configMapRef:
-          name: stremioserver-gluetun-config
+          name: stremioserver-pia-config
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE
+      config: # We have to set this to null so that we can override with our own config       
+      scripts:
+        up: |-
+          #!/bin/ash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/ash
+          echo "disconnected" > /shared/vpnstatus          
 
 stremioweb:
   enabled: false
