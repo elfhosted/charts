@@ -4406,7 +4406,7 @@ lidarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/lidarr-develop
-    tag: 2.2.3.4098@sha256:ae766d8e6eb9302844db1600d65f8ee6d20b250857703d196938187447446b16
+    tag: 2.2.5.4141@sha256:24613e5dfb00e917f289fca7881d2dd39af5000a84634f12f2fec47e543c35c5
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
