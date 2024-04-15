@@ -17,12 +17,13 @@ data:
         echo "elfbot pause <app>                            : stop an app, wait 5 min, and restart it"
         echo "elfbot reset <app> [--yesiamsure]             : resets an app to defaults"
         echo "elfbot backup <app>                           : creates a dated backup folder in under /config/<app>"
-        echo "elfbot claim plex <token>                     : claims a plex server"
         echo "elfbot env <app> <key>=<value>                : set an env var inside an app (advanced beta feature)"
+        echo "elfbot claim plex <token>                     : claims a plex server"
         echo "elfbot blackhole <app>                        : symlink the contents of the CWD into /storage/symlinks/blackhole/<app>/ for automated import"
         echo "elfbot symlink <storage-mount>                : import remotely-mounted, read-only media as symlinks, or generate a report"
         echo "elfbot symlink report-broken                  : generate a report on all broken symlinks found under /storage/symlinks"
         echo "elfbot symlink delete-broken                  : delete (without confirmation!) all broken symlinks found under /storage/symlinks"
+        echo "elfbot recyclarr <command>                    : run recyclarr (using config files in /storage/elfstorage/recyclarr)" 
 
         echo
     fi
@@ -140,7 +141,19 @@ data:
             else
                 echo "this command is only for claiming plex"
             fi
-            ;;      
+            ;;     
+
+        "recyclarr")
+
+            if [[ "$#" -lt 2 ]]; then
+                # Just echo the recyclarr options
+                recyclarr
+                exit 0
+            fi
+
+            echo "This may take a while..."
+            HOME=/storage/elfstorage/recyclarr/ $@ --config /storage/elfstorage/recyclarr/recyclarr.yaml
+            ;;                  
 
         "blackhole")
 
