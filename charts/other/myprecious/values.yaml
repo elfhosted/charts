@@ -2710,6 +2710,12 @@ filebrowser:
         configMap:
           name: filebrowser-elfbot-script
           defaultMode: 0755
+    recyclarr-config:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: recyclarr-config          
 
     # We need one of these per-app. The global section will override the false enablement
     airdcpp:
