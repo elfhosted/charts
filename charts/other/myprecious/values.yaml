@@ -5888,7 +5888,7 @@ traefikforwardauth:
 gatus:
   image:
     repository: ghcr.io/geek-cookbook/gatus
-    tag: 5.8.0@sha256:3192c866eab1923d33b72c0d60d0db727a63d2648c8b62033ff09459d90acefe
+    tag: 5.9.0@sha256:9af95ccdfcfbaea079efdb42fe8e08f9bc6c522141d66a21e98a81ae85d4eb3a
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
