@@ -16,7 +16,7 @@ data:
       - name: Dashboard
         link: https://{{ .Release.Name }}.elfhosted.com
       - name: Account
-        link: https://store.elfhosted.com/my-account    
+        link: https://store.elfhosted.com/my-account
       - name: Docs
         link: https://elfhosted.com
       - name: Discord
@@ -32,12 +32,12 @@ data:
         to: "{{ .Values.traefikforwardauth.whitelist }}"
         default-alert:
           description: |
-            
-            
+
+
             See https://{{ .Release.Name }}-health.elfhosted.com for details, or
             visit https://discord.elfhosted.com for status updates / help.
 
-            -- Sent with ❤️ from your friends at ElfHosted 🧝 
+            -- Sent with ❤️ from your friends at ElfHosted 🧝
             (https://elfhosted.com)
           send-on-resolved: true
           failure-threshold: 4
@@ -45,9 +45,9 @@ data:
 
     maintenance:
       start: 10:00 # 10am UTC = 10pm NZDT
-      duration: 1h        
-                              
-    endpoints:       
+      duration: 1h
+
+    endpoints:
 
       {{ if .Values.jellyfin.enabled }}
       - name: jellyfin
@@ -57,8 +57,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email             
-      {{ end }} 
+          - type: email
+      {{ end }}
 
       {{ if .Values.emby.enabled }}
       - name: emby
@@ -68,8 +68,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email             
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if or .Values.plex.enabled .Values.plexgluetun.enabled .Values.plexpia.enabled }}
       - name: plex
@@ -79,8 +79,8 @@ data:
         conditions:
           - "[STATUS] == 401"
         alerts:
-          - type: email            
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if .Values.navidrome.enabled }}
       - name: navidrome
@@ -90,8 +90,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email          
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.calibreweb.enabled }}
       - name: calibreweb
@@ -101,8 +101,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email          
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if .Values.calibre.enabled }}
       - name: calibre
@@ -112,8 +112,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email             
-      {{ end }}     
+          - type: email
+      {{ end }}
 
       {{ if .Values.komga.enabled }}
       - name: komga
@@ -123,8 +123,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email             
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if .Values.kavita.enabled }}
       - name: kavita
@@ -134,8 +134,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email             
-      {{ end }}         
+          - type: email
+      {{ end }}
 
       {{ if .Values.audiobookshelf.enabled }}
       - name: audiobookshelf
@@ -145,8 +145,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email          
-      {{ end }}         
+          - type: email
+      {{ end }}
 
       {{ if .Values.xtremio.enabled }}
       - name: xtremio
@@ -156,8 +156,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}       
+          - type: email
+      {{ end }}
 
 
       {{ if .Values.stremiojackett.enabled }}
@@ -168,8 +168,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if or .Values.stremiojackettcommunity.enabled .Values.stremiojackettcommunityalldebrid.enabled }}
       - name: stremio-jackett-community
@@ -179,8 +179,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.jackettio.enabled }}
       - name: jackettio
@@ -190,8 +190,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}                
+          - type: email
+      {{ end }}
 
       {{ if .Values.annatar.enabled }}
       - name: annatar
@@ -201,8 +201,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}             
+          - type: email
+      {{ end }}
 
       {{ if .Values.torrentio.enabled }}
       - name: torrentio
@@ -212,8 +212,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.knightcrawler.enabled }}
       - name: knightcrawler
@@ -223,8 +223,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}     
+          - type: email
+      {{ end }}
 
       {{ if .Values.knightcrawlervpn.enabled }}
       - name: knightcrawler-vpn
@@ -234,7 +234,7 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
+          - type: email
       {{ end }}
 
       {{ if .Values.mediafusion.enabled }}
@@ -245,8 +245,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.shluflix.enabled }}
       - name: shluflix
@@ -256,8 +256,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }} 
+          - type: email
+      {{ end }}
 
       {{ if .Values.stremify.enabled }}
       - name: stremify
@@ -267,8 +267,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}        
+          - type: email
+      {{ end }}
 
       {{ if .Values.stremioserver.enabled }}
       - name: stremio-server
@@ -278,8 +278,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}            
+          - type: email
+      {{ end }}
 
       {{ if .Values.radarr.enabled }}
       - name: radarr
@@ -289,8 +289,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email             
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.radarr4k.enabled }}
       - name: radarr4K
@@ -300,8 +300,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email          
-      {{ end }}         
+          - type: email
+      {{ end }}
 
       {{ if .Values.sonarr.enabled }}
       - name: sonarr
@@ -311,8 +311,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email             
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if .Values.sonarr4k.enabled }}
       - name: sonarr4K
@@ -322,8 +322,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email             
-      {{ end }}          
+          - type: email
+      {{ end }}
 
       {{ if .Values.scannarr.enabled }}
       - name: scannarr
@@ -333,8 +333,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.scannarr4k.enabled }}
       - name: scannarr
@@ -344,8 +344,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}          
+          - type: email
+      {{ end }}
 
       {{ if .Values.lidarr.enabled }}
       - name: lidarr
@@ -355,8 +355,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}         
+          - type: email
+      {{ end }}
 
       {{ if .Values.readarr.enabled }}
       - name: readarr
@@ -366,8 +366,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}     
+          - type: email
+      {{ end }}
 
       {{ if .Values.readarraudio.enabled }}
       - name: readarraudio
@@ -377,8 +377,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}               
+          - type: email
+      {{ end }}
 
       {{ if .Values.bazarr.enabled }}
       - name: bazarr
@@ -388,8 +388,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.bazarr4k.enabled }}
       - name: bazarr4K
@@ -399,8 +399,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.rpdb.enabled }}
       - name: rpdb
@@ -410,8 +410,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}                
+          - type: email
+      {{ end }}
 
       {{ if .Values.ombi.enabled }}
       - name: ombi
@@ -421,8 +421,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.overseerr.enabled }}
       - name: overseerr
@@ -432,8 +432,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.jellyseerr.enabled }}
       - name: jellyseerr
@@ -443,8 +443,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}        
+          - type: email
+      {{ end }}
 
       {{ if .Values.jfa.enabled }}
       - name: jfa
@@ -454,8 +454,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email          
-      {{ end }}              
+          - type: email
+      {{ end }}
 
       {{ if .Values.tautulli.enabled }}
       - name: tautulli
@@ -465,8 +465,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if .Values.tdarr.enabled }}
       - name: tdarr
@@ -476,8 +476,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if .Values.plexdebrid.enabled }}
       - name: plex-debrid
@@ -487,8 +487,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if .Values.iceberg.enabled }}
       - name: iceberg
@@ -498,8 +498,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}                     
+          - type: email
+      {{ end }}
 
       {{ if .Values.xteve.enabled }}
       - name: xteve
@@ -509,8 +509,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if .Values.nextpvr.enabled }}
       - name: nextpvr
@@ -520,8 +520,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}                
+          - type: email
+      {{ end }}
 
       {{ if .Values.lazylibrarian.enabled }}
       - name: lazylibrarian
@@ -531,8 +531,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}        
+          - type: email
+      {{ end }}
 
       {{ if .Values.mylar.enabled }}
       - name: mylar
@@ -542,8 +542,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }} 
+          - type: email
+      {{ end }}
 
       {{ if .Values.notifiarr.enabled }}
       - name: notifiarr
@@ -553,7 +553,7 @@ data:
         conditions:
           - "[STATUS] == 401"
         alerts:
-          - type: email               
+          - type: email
       {{ end }}
 
       {{ if .Values.shoko.enabled }}
@@ -564,8 +564,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}     
+          - type: email
+      {{ end }}
 
       {{ if .Values.filebot.enabled }}
       - name: filebot
@@ -575,8 +575,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.unpackerr.enabled }}
       - name: unpackerr
@@ -586,8 +586,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.plexmetamanager.enabled }}
       - name: plexmetamanager
@@ -597,8 +597,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}                               
+          - type: email
+      {{ end }}
 
       {{ if or .Values.autoscan.enabled }}
       - name: autoscan
@@ -608,19 +608,19 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }} 
+          - type: email
+      {{ end }}
 
-      {{ if or .Values.recyclarr.enabled }}
-      - name: recyclarr
-        group: manage-media
-        url: "http://recyclarr:9898"
-        interval: 5m
-        conditions:
-          - "[STATUS] == 200"
-        alerts:
-          - type: email               
-      {{ end }} 
+      # {{ if or .Values.recyclarr.enabled }}
+      # - name: recyclarr
+      #   group: manage-media
+      #   url: "http://recyclarr:9898"
+      #   interval: 5m
+      #   conditions:
+      #     - "[STATUS] == 200"
+      #   alerts:
+      #     - type: email
+      # {{ end }}
 
       {{ if .Values.nzbget.enabled }}
       - name: nzbget
@@ -630,7 +630,7 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
+          - type: email
       {{ end }}
 
       {{ if .Values.sabnzbd.enabled }}
@@ -641,8 +641,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.prowlarr.enabled }}
       - name: prowlarr
@@ -652,8 +652,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.jackett.enabled }}
       - name: jackett
@@ -663,8 +663,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}                              
+          - type: email
+      {{ end }}
 
       {{ if .Values.nzbhydra.enabled }}
       - name: nzbhydra
@@ -674,8 +674,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}          
+          - type: email
+      {{ end }}
 
       {{ if or .Values.delugepia.enabled .Values.delugegluetun.enabled }}
       - name: deluge
@@ -685,8 +685,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if or .Values.qbittorrentpia.enabled .Values.qbittorrentgluetun.enabled }}
       - name: qbittorrent
@@ -694,10 +694,10 @@ data:
         url: "http://qbittorrent:8080"
         interval: 5m
         conditions:
-          - "[STATUS] == 200"     
+          - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if or .Values.rutorrentpia.enabled .Values.rutorrentgluetun.enabled }}
       - name: rutorrent
@@ -707,8 +707,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}                
+          - type: email
+      {{ end }}
 
       {{ if .Values.autobrr.enabled }}
       - name: autobrr
@@ -718,8 +718,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}         
+          - type: email
+      {{ end }}
 
       {{ if .Values.pyload.enabled }}
       - name: pyload
@@ -729,8 +729,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.rapidleech.enabled }}
       - name: rapidleech
@@ -740,8 +740,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.rdtclient.enabled }}
       - name: rdtclient
@@ -751,8 +751,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.rdtclientvpnpia.enabled }}
       - name: rdtclient-alldebrid
@@ -762,8 +762,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}          
+          - type: email
+      {{ end }}
 
       {{ if or .Values.zurg.enabled .Values.zurggluetun.enabled }}
       - name: zurg
@@ -773,8 +773,8 @@ data:
         conditions:
         - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.rclonemountalldebridpia.enabled }}
       - name: alldebrid
@@ -784,8 +784,8 @@ data:
         conditions:
         - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}                
+          - type: email
+      {{ end }}
 
       {{ if .Values.openbooks.enabled }}
       - name: openbooks
@@ -795,8 +795,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.jdownloader.enabled }}
       - name: jdownloader
@@ -806,8 +806,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.aria.enabled }}
       - name: aria
@@ -817,8 +817,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.airdcpppia.enabled }}
       - name: airdcpp
@@ -828,8 +828,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email               
-      {{ end }}           
+          - type: email
+      {{ end }}
 
       - name: filebrowser
         group: tools
@@ -838,7 +838,7 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email    
+          - type: email
 
       - name: kubernetes-dashboard
         group: tools
@@ -847,7 +847,7 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email                     
+          - type: email
 
       {{ if .Values.rcloneui.enabled }}
       - name: rcloneui
@@ -855,10 +855,10 @@ data:
         url: "http://rcloneui:5572"
         interval: 5m
         conditions:
-          - "[STATUS] == 200"   
+          - "[STATUS] == 200"
         alerts:
-          - type: email   
-      {{ end }}        
+          - type: email
+      {{ end }}
 
       {{ if .Values.rclonefm.enabled }}
       - name: rclonefm
@@ -866,7 +866,7 @@ data:
         url: "http://rclonefm:5573"
         interval: 5m
         conditions:
-          - "[STATUS] == 200"      
+          - "[STATUS] == 200"
         alerts:
           - type: email
       {{ end }}
@@ -877,10 +877,10 @@ data:
         url: "http://webdav:5574"
         interval: 5m
         conditions:
-          - "[STATUS] == 401"      
+          - "[STATUS] == 401"
         alerts:
-          - type: email   
-      {{ end }}     
+          - type: email
+      {{ end }}
 
       {{ if .Values.webdavplus.enabled }}
       - name: webdav-plus
@@ -888,10 +888,10 @@ data:
         url: "http://webdav-plus:5574"
         interval: 5m
         conditions:
-          - "[STATUS] == 401"      
+          - "[STATUS] == 401"
         alerts:
-          - type: email   
-      {{ end }}                                      
+          - type: email
+      {{ end }}
 
       {{ if .Values.privatebin.enabled }}
       - name: privatebin
@@ -901,8 +901,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.miniflux.enabled }}
       - name: miniflux
@@ -912,9 +912,9 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}         
-           
+          - type: email
+      {{ end }}
+
       {{ if .Values.uptimekuma.enabled }}
       - name: uptimekuma
         group: tools
@@ -923,8 +923,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}        
+          - type: email
+      {{ end }}
 
       {{ if .Values.gotify.enabled }}
       - name: gotify
@@ -934,8 +934,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.flaresolverr.enabled }}
       - name: flaresolverr
@@ -945,8 +945,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.seafile.enabled }}
       - name: seafile
@@ -956,17 +956,17 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
+          - type: email
 
       - name: seafile-mysql
         group: tools
         url: "tcp://{{ .Release.Name }}-seafile-mysql:3306"
         interval: 5m
         conditions:
-          - "[CONNECTED] == true"   
+          - "[CONNECTED] == true"
         alerts:
-          - type: email                    
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.resiliosync.enabled }}
       - name: resiliosync
@@ -976,8 +976,8 @@ data:
         conditions:
           - "[STATUS] == 401"
         alerts:
-          - type: email           
-      {{ end }}  
+          - type: email
+      {{ end }}
 
       {{ if .Values.syncthing.enabled }}
       - name: syncthing
@@ -987,8 +987,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}          
+          - type: email
+      {{ end }}
 
       {{ if .Values.thelounge.enabled }}
       - name: thelounge
@@ -998,8 +998,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}                                
+          - type: email
+      {{ end }}
 
       {{ if .Values.vaultwarden.enabled }}
       - name: vaultwarden
@@ -1009,8 +1009,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email           
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.mattermost.enabled }}
       - name: mattermost
@@ -1020,7 +1020,7 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email                      
+          - type: email
       {{ end }}
 
       {{ if .Values.joplinserver.enabled }}
@@ -1031,8 +1031,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email                      
-      {{ end }}   
+          - type: email
+      {{ end }}
 
       {{ if .Values.homepage.enabled }}
       - name: homepage
@@ -1042,8 +1042,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email                      
-      {{ end }}            
+          - type: email
+      {{ end }}
 
       {{ if .Values.wallabag.enabled }}
       - name: wallabag
@@ -1053,8 +1053,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email                      
-      {{ end }}    
+          - type: email
+      {{ end }}
 
       {{ if .Values.pgadmin.enabled }}
       - name: pgadmin
@@ -1064,8 +1064,8 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email                      
-      {{ end }}       
+          - type: email
+      {{ end }}
 
       {{ if .Values.redisinsight.enabled }}
       - name: redisinsight
@@ -1075,5 +1075,5 @@ data:
         conditions:
           - "[STATUS] == 200"
         alerts:
-          - type: email                      
-      {{ end }}                              
+          - type: email
+      {{ end }}
