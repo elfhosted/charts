@@ -10080,9 +10080,6 @@ mediafusion:
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
   persistence:
