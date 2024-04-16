@@ -2102,7 +2102,7 @@ radarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
-    tag: 5.3.6.8612@sha256:eb0451b622e046d4c6ac7d3d56116dbf15d754f2ba7743bfd757e40ac8970972
+    tag: 5.4.6.8723@sha256:0b9c318f0f02d3759afba3b9db2ff57783ad4071e3475a99354af108e589dec9
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2189,7 +2189,7 @@ radarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/radarr
-    tag: 5.3.6.8612@sha256:eb0451b622e046d4c6ac7d3d56116dbf15d754f2ba7743bfd757e40ac8970972
+    tag: 5.4.6.8723@sha256:0b9c318f0f02d3759afba3b9db2ff57783ad4071e3475a99354af108e589dec9
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -2713,7 +2713,7 @@ filebrowser:
       type: "custom"
       volumeSpec:
         configMap:
-          name: recyclarr-config
+          name: recyclarr-config          
 
     # We need one of these per-app. The global section will override the false enablement
     airdcpp:
@@ -3293,7 +3293,6 @@ filebrowser:
       - |
         set -x
         set -e
-
         mkdir -p /storage/elfstorage/recyclarr
         # If we don't already have an example config, create one
         if [ ! -f /storage/elfstorage/recyclarr/recyclarr.yaml ];
@@ -3308,7 +3307,7 @@ filebrowser:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-        readOnlyRootFilesystem: true      
+        readOnlyRootFilesystem: true         
   additionalContainers:
     # this container exists to watch for restarts requested by elfbot, and to use create configmaps to trigger restarts using reloader
     elfbot:
@@ -4070,7 +4069,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.3.1465@sha256:61e32495c90f18d6a33cc6a7a48fd683cda868edd362c8e78d6d4aa087ccfab2
+    tag: 4.0.4.1515@sha256:9b1a32d6211d1c71dca5e88cf98adc22dfd7c81b588592d0b92f422ff5761bd6
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4153,7 +4152,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.3.1465@sha256:61e32495c90f18d6a33cc6a7a48fd683cda868edd362c8e78d6d4aa087ccfab2
+    tag: 4.0.4.1515@sha256:9b1a32d6211d1c71dca5e88cf98adc22dfd7c81b588592d0b92f422ff5761bd6
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4314,7 +4313,7 @@ prowlarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/prowlarr-develop
-    tag: 1.15.0.4361@sha256:3e358d3a90b5a7d3344cfa6e287d7ab59bef2fe336f4183b6d7e50c80a9829ac
+    tag: 1.16.1.4420@sha256:ed5ae0ba2802b92d31db4bb3af5287abe43d4dfe804f277dbb141f181c2cc9aa
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4405,7 +4404,7 @@ lidarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/lidarr-develop
-    tag: 2.2.3.4098@sha256:ae766d8e6eb9302844db1600d65f8ee6d20b250857703d196938187447446b16
+    tag: 2.2.5.4141@sha256:24613e5dfb00e917f289fca7881d2dd39af5000a84634f12f2fec47e543c35c5
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -5887,7 +5886,7 @@ traefikforwardauth:
 gatus:
   image:
     repository: ghcr.io/geek-cookbook/gatus
-    tag: 5.8.0@sha256:3192c866eab1923d33b72c0d60d0db727a63d2648c8b62033ff09459d90acefe
+    tag: 5.9.0@sha256:9af95ccdfcfbaea079efdb42fe8e08f9bc6c522141d66a21e98a81ae85d4eb3a
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -6645,7 +6644,7 @@ jellyseerr:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jellyseerr
-    tag: 1.7.0@sha256:73e7f3b0c57d785d709412e8c96cb722529e37578e6e38d94ab8874bedcb3758
+    tag: 1.8.0@sha256:eeb55ad37ad844c6b9d19f206cb6c908eddf4f28bb46e7073e73bc8d2bc9901b
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -6686,7 +6685,7 @@ jellyseerr:
     bootstrap: *bootstrap
     # We do this so that we can override the /app/jellyseer/public path with our own, allowing the user to customize the branding
     copy-branding:
-      image: ghcr.io/geek-cookbook/jellyseerr:1.7.0@sha256:73e7f3b0c57d785d709412e8c96cb722529e37578e6e38d94ab8874bedcb3758
+      image: ghcr.io/geek-cookbook/jellyseerr:1.8.0@sha256:eeb55ad37ad844c6b9d19f206cb6c908eddf4f28bb46e7073e73bc8d2bc9901b
       command:
         - /bin/bash
         - -c
@@ -8401,7 +8400,7 @@ rdtclient: &app_rdtclient
     app.elfhosted.com/class: debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.72@sha256:2e66873295003dd695a7fa789baff7d38c522b06d6d47621dd246038bb890c3d
+    tag: v2.0.73@sha256:785189ca57c9078e6624ed77692f5a07e06606333fa71872102e928be0e28ecb
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
@@ -9492,7 +9491,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2335@sha256:4cd6407c385291b3387f9b5d86964b1fba835f1cfecbeb528e734cb9fd63b6c9
+    tag: 0.21.2392@sha256:6bb3998d81a2618e85fb461867cdbd8ba92450dbd34e10362befb0293628f40e
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9645,7 +9644,7 @@ stremioserver: &app_stremioserver
       securityContext: *default_securitycontext   
 
 # Stremioserver with PIA
-stremioserverpia: &app_stremioserver_vpn
+stremioserverpia:
   <<: *app_stremioserver
   enabled: false
   addons:
@@ -9676,10 +9675,11 @@ stremioserverpia: &app_stremioserver_vpn
 
 # Stremioserver with Gluetun
 stremioservergluetun:
-  <<: *app_stremioserver_vpn
+  <<: *app_stremioserver
   enabled: false
   addons:
     vpn:
+      enabled: true # in case we ever need it
       gluetun:
         image:
           repository: ghcr.io/geek-cookbook/gluetun
@@ -9687,6 +9687,21 @@ stremioservergluetun:
       envFrom:
       - configMapRef:
           name: stremioserver-gluetun-config
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE
+      config: # We have to set this to null so that we can override with our own config       
+      scripts:
+        up: |-
+          #!/bin/ash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/ash
+          echo "disconnected" > /shared/vpnstatus          
 
 stremioweb:
   enabled: false
@@ -10050,7 +10065,7 @@ mediafusion:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/mediafusion
-    tag: 3.7.5@sha256:647d599e8823cab37035536c7828e8673a06a47e0d3be992675debf32aa1bc07
+    tag: 3.8.0@sha256:136a8600b7e63e8fb3f7a3a6aed4039f8173afbd7409a86855f324bd2b98a65f
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10832,7 +10847,7 @@ plexdebrid:
       memory: 100Mi
     limits:
       cpu: 500m
-      memory: 1Gi
+      memory: 2Gi
   ingress:
     main:
       enabled: false

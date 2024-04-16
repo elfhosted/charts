@@ -5,7 +5,6 @@ metadata:
   name: mediafusion-env
 data:
   HOST_URL: https://{{ .Release.Name }}-mediafusion.elfhosted.com
-  ENABLE_TAMILMV_SEARCH_SCRAPER: "false"
   ENABLE_RATE_LIMIT: "false"
   PROWLARR_IMMEDIATE_MAX_PROCESS: "3"
   PROWLARR_SEARCH_INTERVAL_HOUR: "24"
@@ -13,4 +12,6 @@ data:
   IS_SCRAP_FROM_TORRENTIO: "true"
   TORRENTIO_URL: http://elfhosted.torrentio
   REDIS_URL: redis://redis-master.mediafusion:6379
+  prowlarr_immediate_max_process_time: "0"
+  validate_m3u8_urls_liveness: "true"
 {{ end }}
