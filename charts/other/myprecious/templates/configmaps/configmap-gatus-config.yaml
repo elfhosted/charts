@@ -10,8 +10,8 @@ data:
 
     ui:
       logo: https://elfhosted.com/images/logo.svg
-      link: https://{{ .Release.Name }}.elfhosted.com
-      description: {{ .Release.Name }}'s ElfHosted Health
+      link: https://elfhosted.com
+      title: {{ .Release.Name }}'s ElfHosted Health
       buttons:
       - name: Dashboard
         link: https://{{ .Release.Name }}.elfhosted.com
