@@ -11,7 +11,8 @@ data:
     ui:
       logo: https://elfhosted.com/images/logo.svg
       link: https://elfhosted.com
-      title: {{ .Release.Name }}'s ElfHosted Health
+      header: {{ .Release.Name }}'s ElfHosted Health
+      title: Health | ElfHosted
       buttons:
       - name: Dashboard
         link: https://{{ .Release.Name }}.elfhosted.com
