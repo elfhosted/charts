@@ -16,6 +16,9 @@ spec:
       - ports:
         - port: '7001'
           protocol: TCP
+      - ports:
+        - port: '7000'
+          protocol: TCP          
   - toEndpoints:
     - matchLabels:
         app.kubernetes.io/name: torrentio-addon-internal
@@ -23,5 +26,8 @@ spec:
     toPorts:
       - ports:
         - port: '7001'
+          protocol: TCP
+      - ports:
+        - port: '7000'
           protocol: TCP
 {{ end }}

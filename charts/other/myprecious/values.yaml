@@ -2654,10 +2654,9 @@ filebrowser:
   image:
     repository: ghcr.io/geek-cookbook/filebrowser
     tag: 2.23.0@sha256:b44792453980ab6fe59f14211024fcc5de24516112f62fb31ca1f3cc00c832c6
-    # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last version which works with uploads
   envFrom:
   - configMapRef:
-      name: filebrowser-env
+      name: filebrowser-env      
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -3242,7 +3241,7 @@ filebrowser:
       enabled: false
   initContainers:
     setup:
-      image: ghcr.io/geek-cookbook/filebrowser:2.27.0@sha256:7fe99bd50a412d691d14574b851df9beab1165432029be8ee2975ea9b54e596a
+      image: ghcr.io/geek-cookbook/filebrowser:2.23.0@sha256:b44792453980ab6fe59f14211024fcc5de24516112f62fb31ca1f3cc00c832c6
       # 2.23.0@sha256:1db0f0114a169ea2a877d75c47903a6d01534340421948845d5e298c7ac7ceb4 is the last good version for TFA
       imagePullPolicy: IfNotPresent
       command:
@@ -3277,7 +3276,6 @@ filebrowser:
 
         # now tell filebrowser about the user (who gets authenticated via the proxy)
         /filebrowser users add 1 bogus --database /tmp/filebrowser.db
-
 
       volumeMounts:
       - mountPath: /tmp
@@ -10492,14 +10490,14 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: rolling@sha256:60fae8d1152d0a26429f3ba5982053369e7bba989d52cba1cb760174256b94a7
+    tag: v2.0.24@sha256:7ff13371c5fc59755a0e74081460dccc2b935589c6db73780eeddf6ec1e7692c
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio"
-      secret.reloader.stakater.com/reload: "torrentio-env"
+      configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-knightcrawler,elfbot-torrentio,knightcrawler-env"
+      secret.reloader.stakater.com/reload: "knightcrawler-env"
     strategy:
     rollingUpdate:
       unavailable: 1
@@ -10530,7 +10528,7 @@ knightcrawler: &app_knightcrawler
       enabled: true # necessary for probes
       ports:
         http:
-          port: 7001      
+          port: 7000
   persistence:                 
     elfbot:
       enabled: "true"
@@ -10549,57 +10547,21 @@ knightcrawler: &app_knightcrawler
       type: custom
       mountPath: /.pm2
       volumeSpec: *volumespec_ephemeral_volume_1g                          
-  env:
-    PORT: 7001
-    PUID: 568
-    PGID: 568
-    TENANT_NAME: "{{ .Release.Name }}"    
-    # PostgreSQL
-    POSTGRES_HOST: pooler-torrentio.torrentio # pooler
-    POSTGRES_PORT: 5432
-    POSTGRES_USER: torrentio
-    # POSTGRES_PASSWORD goes in secret
-    POSTGRES_DB: torrentio
-
-    # MongoDB
-    MONGODB_HOST: mongodb.torrentio # mongodb svc
-    MONGODB_PORT: 27017
-    MONGODB_DB: torrentio
-    MONGO_INITDB_ROOT_USERNAME: mongo
-    MONGO_INITDB_ROOT_PASSWORD: mongo
-
   envFrom:
+  - configMapRef:
+      name: knightcrawler-env     
   - secretRef:
-      name: torrentio-env     
+      name: knightcrawler-env     
 
 # Old naming convention
 torrentio: 
   <<: *app_knightcrawler
   enabled: false
 
+# Add a VPN for AD
 knightcrawlervpn:
   <<: *app_knightcrawler
   enabled: false
-  env:
-    PORT: 7001
-    PUID: 568
-    PGID: 568
-    TENANT_NAME: "{{ .Release.Name }}"    
-    # PostgreSQL
-    POSTGRES_HOST: 10.43.74.255 # (can't use DNS resolution on VPN
-    POSTGRES_PORT: 5432
-    POSTGRES_USER: torrentio
-    # POSTGRES_PASSWORD goes in secret
-    POSTGRES_DB: torrentio
-
-    # MongoDB
-    MONGODB_HOST: 10.43.0.3 # (can't use DNS resolution on VPN)
-    MONGODB_PORT: 27017
-    MONGODB_DB: torrentio
-    MONGO_INITDB_ROOT_USERNAME: mongo # mongo needs this
-    MONGO_INITDB_ROOT_PASSWORD: mongo # mongo needs this
-    MONGODB_USER: mongo               # nodejs apps need this
-    MONGODB_PASSWORD: mongo           # nodejs apps need this
   addons:
     vpn:
       enabled: true # in case we ever need it
@@ -10618,7 +10580,7 @@ knightcrawlervpn:
           add:
             - NET_ADMIN
             - SYS_MODULE
-      config: # We have to set this to null so that we can override with our own config  
+      config: # We have to set this to null so that we can override with our own config        
 
 zurg: &zurg
   enabled: false
