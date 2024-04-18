@@ -9696,7 +9696,7 @@ stremioweb:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-web
-    tag: v5.0.0-beta.0@sha256:309f68e76527d38d8f6642171ecd1dd2daaae081a3615a064709521bb22cc142
+    tag: v5.0.0-beta.8@sha256:892ffcc84a0fa32e75f4953f50354c5020e2488dfefc8eaca8f0f0dcfe48dd49
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: stremio-web
@@ -10734,7 +10734,7 @@ zurg: &zurg
         sed -i  "s/use_download_cache: true/use_download_cache: false/" /config/config.yml
 
         # Don't let this instance do repairs
-        sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
+        # sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
 
         # Set to 32 workers
         sed -i  "s/concurrent_workers:.*/concurrent_workers: 32/" /config/config.yml
