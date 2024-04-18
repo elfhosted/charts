@@ -135,7 +135,7 @@ data:
               - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
               - e2315f990da2e2cbfc9fa5b7a6fcfe48 # LQ (Release Title)
               - 23297a736ca77c0fc8e70f8edd7ee56c # Upscaled
-              # - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD) - This blocks/ignores 720/1080p(HD) releases that are encoded in x265
+              - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD) - This blocks/ignores 720/1080p(HD) releases that are encoded in x265
               - fbcb31d8dabd2a319072b84fc0b7249c # Extras - This blocks/ignores Extras (bonus footage, outtakes, etc)
 
               # Misc
@@ -344,7 +344,7 @@ data:
               - 9c11cd3f07101cdba90a2d81cf0e56b4 # LQ
               - e2315f990da2e2cbfc9fa5b7a6fcfe48 # LQ (Release Title)
               - 23297a736ca77c0fc8e70f8edd7ee56c # Upscaled
-              # - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD) - This blocks/ignores 720/1080p(HD) releases that are encoded in x265
+              - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD) - This blocks/ignores 720/1080p(HD) releases that are encoded in x265
               - fbcb31d8dabd2a319072b84fc0b7249c # Extras - This blocks/ignores Extras (bonus footage, outtakes, etc)
 
               # Misc
