@@ -11,8 +11,8 @@ data:
       sonarr_hd:
         base_url: http://sonarr:8989
         api_key: !env_var SONARR_API_KEY
-        quality_definition:
-          type: series
+        # quality_definition:
+        #   type: series
 
         # Media Naming Configuration
         media_naming:
@@ -25,15 +25,39 @@ data:
             anime: default
 
         quality_profiles:
-          - name: TRaSH Series | ElfHosted
+          - name: TRaSH <= HD
             upgrade:
               allowed: true
-              until_quality: CF based
+              until_quality: HD (CF based)
               until_score: 99999
+            qualities:
+              - name: HD (CF based)
+                qualities:
+                - HDTV-2160p
+                - Bluray-1080p Remux
+                - Bluray-1080p
+                - WEBDL-1080p
+                - WEBRip-1080p
+                - HDTV-1080p
+                - Bluray-720p
+                - WEBDL-720p
+                - WEBRip-720p
+                - HDTV-720p
+                - Bluray-480p
+                - WEBDL-480p
+                - WEBRip-480p
+                - DVD
+                - SDTV
+                - Raw-HD             
+          - name: TRaSH <= 4K
+            upgrade:
+              allowed: true
+              until_quality: 4K (CF based)
+              until_score: 99999              
             min_format_score: 500
             quality_sort: top
             qualities:
-              - name: CF based
+              - name: 4K (CF based)
                 qualities:
                   - Bluray-2160p Remux
                   - Bluray-2160p
@@ -54,7 +78,7 @@ data:
                   - WEBRip-480p
                   - DVD
                   - SDTV
-                  - Raw-HD
+                  - Raw-HD   
 
         # Custom Format Settings
         # If enabled, custom formats matching the guide are always synced to the service, replacing any existing CFs with the same name, whether you created them or not
@@ -272,15 +296,16 @@ data:
               # - dbfc0a4b5cb4cbd693311c4482ae9683 # FR WEB Tier 03
 
             quality_profiles:
-              - name: TRaSH Series | ElfHosted
+              - name: TRaSH <= HD
+              - name: TRaSH <= 4K
 
       {{ end }}
       {{ if .Values.sonarr4k.enabled }}
       sonarr_4k:
         base_url: http://sonarr4k:8989
         api_key: !env_var SONARR4K_API_KEY
-        quality_definition:
-          type: series
+        # quality_definition:
+        #   type: series
 
         # Media Naming Configuration
         media_naming:
@@ -293,15 +318,39 @@ data:
             anime: default
 
         quality_profiles:
-          - name: TRaSH Series 4K | ElfHosted
+          - name: TRaSH <= HD
             upgrade:
               allowed: true
-              until_quality: CF based
+              until_quality: HD (CF based)
               until_score: 99999
+            qualities:
+              - name: HD (CF based)
+                qualities:
+                  - HDTV-2160p
+                  - Bluray-1080p Remux
+                  - Bluray-1080p
+                  - WEBDL-1080p
+                  - WEBRip-1080p
+                  - HDTV-1080p
+                  - Bluray-720p
+                  - WEBDL-720p
+                  - WEBRip-720p
+                  - HDTV-720p
+                  - Bluray-480p
+                  - WEBDL-480p
+                  - WEBRip-480p
+                  - DVD
+                  - SDTV
+                  - Raw-HD             
+          - name: TRaSH <= 4K
+            upgrade:
+              allowed: true
+              until_quality: 4K (CF based)
+              until_score: 99999              
             min_format_score: 500
             quality_sort: top
             qualities:
-              - name: CF based
+              - name: 4K (CF based)
                 qualities:
                   - Bluray-2160p Remux
                   - Bluray-2160p
@@ -322,7 +371,7 @@ data:
                   - WEBRip-480p
                   - DVD
                   - SDTV
-                  - Raw-HD
+                  - Raw-HD 
 
         # Custom Format Settings
         # If enabled, custom formats matching the guide are always synced to the service, replacing any existing CFs with the same name, whether you created them or not
@@ -540,7 +589,8 @@ data:
               # - dbfc0a4b5cb4cbd693311c4482ae9683 # FR WEB Tier 03
 
             quality_profiles:
-              - name: TRaSH Series 4K | ElfHosted
+              - name: TRaSH <= HD
+              - name: TRaSH <= 4K
 
       {{ end }}     
     {{ end }}
@@ -553,8 +603,8 @@ data:
         api_key: !env_var RADARR_API_KEY
 
         # Which quality definition in the guide to sync to Radarr. Only choice right now is 'movie'
-        quality_definition:
-          type: sqp-streaming
+        # quality_definition:
+        #   type: sqp-streaming
 
         # Media Naming Configuration
         media_naming:
@@ -564,15 +614,44 @@ data:
             standard: jellyfin
 
         quality_profiles:
-          - name: TRaSH Movies | ElfHosted
+          - name: TRaSH <= HD
             upgrade:
               allowed: true
-              until_quality: CF based
+              until_quality: HD (CF based)
               until_score: 99999
+            qualities:
+              - name: HD (CF based)
+                qualities:
+                  - Remux-1080p
+                  - Bluray-1080p
+                  - WEBDL-1080p
+                  - WEBRip-1080p
+                  - HDTV-1080p
+                  - Bluray-720p
+                  - WEBDL-720p
+                  - WEBRip-720p
+                  - HDTV-720p
+                  - Bluray-576p
+                  - Bluray-480p
+                  - WEBDL-480p
+                  - WEBRip-480p
+                  - DVD-R
+                  - DVD
+                  - SDTV
+                  - DVDSCR
+                  - REGIONAL
+                  - TELECINE
+                  - TELESYNC
+                  - Raw-HD            
+          - name: TRaSH <= 4K
+            upgrade:
+              allowed: true
+              until_quality: 4K (CF based)
+              until_score: 99999              
             min_format_score: 500
             quality_sort: top
             qualities:
-              - name: CF based
+              - name: 4K (CF based)
                 qualities:
                   - Remux-2160p
                   - Bluray-2160p
@@ -599,7 +678,7 @@ data:
                   - REGIONAL
                   - TELECINE
                   - TELESYNC
-                  - Raw-HD
+                  - Raw-HD                  
 
         # Custom Format Settings
         # If enabled, custom formats that you remove from your YAML configuration OR that are removed from the guide will be deleted from your Radarr instance
@@ -752,7 +831,7 @@ data:
               - ab56ccdc473a1f2897c76187ea365be2 # STRP
 
               # Anime Streaming Services
-              - 44a8ee6403071dd7b8a3a8dd3fe8cb20 # VRV
+              # - 44a8ee6403071dd7b8a3a8dd3fe8cb20 # VRV
 
               # Anime
               - 949c16fe0a8147f50ba82cc2df9411c9 # Anime BD Tier 01 (Top SeaDex Muxers)
@@ -810,7 +889,8 @@ data:
               # - 48f031e76111f17ea94898f4cdc34fdc # FR LQ
               
             quality_profiles:
-              - name: TRaSH Movies | ElfHosted
+              - name: TRaSH <= HD
+              - name: TRaSH <= 4K
 
       {{ end }}
       {{ if .Values.radarr4k.enabled }}
@@ -819,8 +899,8 @@ data:
         api_key: !env_var RADARR4K_API_KEY
 
         # Which quality definition in the guide to sync to Radarr. Only choice right now is 'movie'
-        quality_definition:
-          type: sqp-streaming
+        # quality_definition:
+        #   type: sqp-streaming
 
         # Media Naming Configuration
         media_naming:
@@ -830,15 +910,44 @@ data:
             standard: jellyfin
 
         quality_profiles:
-          - name: TRaSH Movies 4K | ElfHosted
+          - name: TRaSH <= HD
             upgrade:
               allowed: true
-              until_quality: CF based
+              until_quality: HD (CF based)
               until_score: 99999
+            qualities:
+              - name: HD (CF based)
+                qualities:
+                  - Remux-1080p
+                  - Bluray-1080p
+                  - WEBDL-1080p
+                  - WEBRip-1080p
+                  - HDTV-1080p
+                  - Bluray-720p
+                  - WEBDL-720p
+                  - WEBRip-720p
+                  - HDTV-720p
+                  - Bluray-576p
+                  - Bluray-480p
+                  - WEBDL-480p
+                  - WEBRip-480p
+                  - DVD-R
+                  - DVD
+                  - SDTV
+                  - DVDSCR
+                  - REGIONAL
+                  - TELECINE
+                  - TELESYNC
+                  - Raw-HD                
+          - name: TRaSH <= 4K
+            upgrade:
+              allowed: true
+              until_quality: 4K (CF based)
+              until_score: 99999              
             min_format_score: 500
             quality_sort: top
             qualities:
-              - name: CF based
+              - name: 4K (CF based)
                 qualities:
                   - Remux-2160p
                   - Bluray-2160p
@@ -865,7 +974,7 @@ data:
                   - REGIONAL
                   - TELECINE
                   - TELESYNC
-                  - Raw-HD
+                  - Raw-HD                  
 
         # Custom Format Settings
         # If enabled, custom formats that you remove from your YAML configuration OR that are removed from the guide will be deleted from your Radarr instance
@@ -1018,7 +1127,7 @@ data:
               - ab56ccdc473a1f2897c76187ea365be2 # STRP
 
               # Anime Streaming Services
-              - 44a8ee6403071dd7b8a3a8dd3fe8cb20 # VRV
+              # - 44a8ee6403071dd7b8a3a8dd3fe8cb20 # VRV
 
               # Anime
               - 949c16fe0a8147f50ba82cc2df9411c9 # Anime BD Tier 01 (Top SeaDex Muxers)
@@ -1076,7 +1185,8 @@ data:
               # - 48f031e76111f17ea94898f4cdc34fdc # FR LQ
               
             quality_profiles:
-              - name: TRaSH Movies 4K | ElfHosted
+              - name: TRaSH <= HD
+              - name: TRaSH <= 4K
 
       {{ end }}
     {{ end }}
