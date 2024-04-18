@@ -2708,10 +2708,8 @@ filebrowser:
         configMap:
           name: filebrowser-elfbot-script
           defaultMode: 0755
-    recyclarr-config: # this is not editable, so that works consistently without users having to remove it when there are updates
+    recyclarr-config:
       enabled: "true"
-      mountPath: /storage/config/elfbot/recyclarr/recyclarr.yaml
-      subPath: recyclarr.yaml
       type: "custom"
       volumeSpec:
         configMap:
@@ -3069,7 +3067,7 @@ filebrowser:
         configMap:
           name: explain-migration  
     recyclarr:
-      enabled: false
+      enabled: true
       type: custom
       mountPath: /storage/config/recyclarr/
       volumeSpec:
@@ -3279,28 +3277,26 @@ filebrowser:
         name: dummy-storage
       resources: *default_resources
       securityContext: *default_securitycontext
-    # copy-example-config:
-    #   image: ghcr.io/geek-cookbook/unpackerr@sha256:014440a2a7e4499a9ce52be1388567d24fc515d8d00422434239b918c56a717a
-    #   imagePullPolicy: IfNotPresent
-    #   command:
-    #   - /bin/bash
-    #   - -c
-    #   - |
-    #     set -x
-    #     set -e
-    #     mkdir -p /storage/elfstorage/recyclarr
-    #     # If we don't already have an example config, create one
-    #     if [ ! -f /storage/elfstorage/recyclarr/recyclarr.yaml ];
-    #     then
-    #       cp /bootstrap/recyclarr.yaml /storage/elfstorage/recyclarr/
-    #     fi
-    #   volumeMounts:
-    #   - mountPath: /storage/elfstorage
-    #     name: elfstorage
-    #     subPath: recyclarr
-    #   - name: recyclarr-config
-    #     mountPath: "/bootstrap/"
-    #   securityContext: *default_securitycontext       
+    copy-recyclarr-example-config:
+      image: ghcr.io/geek-cookbook/unpackerr@sha256:014440a2a7e4499a9ce52be1388567d24fc515d8d00422434239b918c56a717a
+      imagePullPolicy: IfNotPresent
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+        # If we don't already have an example config, create one
+        if [ ! -f /storage/elfstorage/recyclarr/recyclarr.yaml ];
+        then
+          cp /bootstrap/recyclarr.yaml /storage/config/recyclarr/
+        fi
+      volumeMounts:
+      - mountPath: /storage/config/recyclarr/
+        name: recyclarr
+      - name: recyclarr-config
+        mountPath: "/bootstrap/"
+      securityContext: *default_securitycontext       
   additionalContainers:
     # this container exists to watch for restarts requested by elfbot, and to use create configmaps to trigger restarts using reloader
     elfbot:
