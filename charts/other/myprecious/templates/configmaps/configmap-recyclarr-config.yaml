@@ -33,27 +33,22 @@ data:
             qualities:
               - name: HD (CF based)
                 qualities:
-                  - Remux-1080p
-                  - Bluray-1080p
-                  - WEBDL-1080p
-                  - WEBRip-1080p
-                  - HDTV-1080p
-                  - Bluray-720p
-                  - WEBDL-720p
-                  - WEBRip-720p
-                  - HDTV-720p
-                  - Bluray-576p
-                  - Bluray-480p
-                  - WEBDL-480p
-                  - WEBRip-480p
-                  - DVD-R
-                  - DVD
-                  - SDTV
-                  - DVDSCR
-                  - REGIONAL
-                  - TELECINE
-                  - TELESYNC
-                  - Raw-HD                
+                - HDTV-2160p
+                - Bluray-1080p Remux
+                - Bluray-1080p
+                - WEBDL-1080p
+                - WEBRip-1080p
+                - HDTV-1080p
+                - Bluray-720p
+                - WEBDL-720p
+                - WEBRip-720p
+                - HDTV-720p
+                - Bluray-480p
+                - WEBDL-480p
+                - WEBRip-480p
+                - DVD
+                - SDTV
+                - Raw-HD             
           - name: TRaSH <= 4K
             upgrade:
               allowed: true
@@ -64,12 +59,12 @@ data:
             qualities:
               - name: 4K (CF based)
                 qualities:
-                  - Remux-2160p
+                  - Bluray-2160p Remux
                   - Bluray-2160p
                   - WEBDL-2160p
                   - WEBRip-2160p
                   - HDTV-2160p
-                  - Remux-1080p
+                  - Bluray-1080p Remux
                   - Bluray-1080p
                   - WEBDL-1080p
                   - WEBRip-1080p
@@ -78,18 +73,12 @@ data:
                   - WEBDL-720p
                   - WEBRip-720p
                   - HDTV-720p
-                  - Bluray-576p
                   - Bluray-480p
                   - WEBDL-480p
                   - WEBRip-480p
-                  - DVD-R
                   - DVD
                   - SDTV
-                  - DVDSCR
-                  - REGIONAL
-                  - TELECINE
-                  - TELESYNC
-                  - Raw-HD     
+                  - Raw-HD   
 
         # Custom Format Settings
         # If enabled, custom formats matching the guide are always synced to the service, replacing any existing CFs with the same name, whether you created them or not
@@ -337,7 +326,8 @@ data:
             qualities:
               - name: HD (CF based)
                 qualities:
-                  - Remux-1080p
+                  - HDTV-2160p
+                  - Bluray-1080p Remux
                   - Bluray-1080p
                   - WEBDL-1080p
                   - WEBRip-1080p
@@ -346,18 +336,12 @@ data:
                   - WEBDL-720p
                   - WEBRip-720p
                   - HDTV-720p
-                  - Bluray-576p
                   - Bluray-480p
                   - WEBDL-480p
                   - WEBRip-480p
-                  - DVD-R
                   - DVD
                   - SDTV
-                  - DVDSCR
-                  - REGIONAL
-                  - TELECINE
-                  - TELESYNC
-                  - Raw-HD                
+                  - Raw-HD             
           - name: TRaSH <= 4K
             upgrade:
               allowed: true
@@ -368,12 +352,12 @@ data:
             qualities:
               - name: 4K (CF based)
                 qualities:
-                  - Remux-2160p
+                  - Bluray-2160p Remux
                   - Bluray-2160p
                   - WEBDL-2160p
                   - WEBRip-2160p
                   - HDTV-2160p
-                  - Remux-1080p
+                  - Bluray-1080p Remux
                   - Bluray-1080p
                   - WEBDL-1080p
                   - WEBRip-1080p
@@ -382,18 +366,12 @@ data:
                   - WEBDL-720p
                   - WEBRip-720p
                   - HDTV-720p
-                  - Bluray-576p
                   - Bluray-480p
                   - WEBDL-480p
                   - WEBRip-480p
-                  - DVD-R
                   - DVD
                   - SDTV
-                  - DVDSCR
-                  - REGIONAL
-                  - TELECINE
-                  - TELESYNC
-                  - Raw-HD     
+                  - Raw-HD 
 
         # Custom Format Settings
         # If enabled, custom formats matching the guide are always synced to the service, replacing any existing CFs with the same name, whether you created them or not
@@ -636,7 +614,7 @@ data:
             standard: jellyfin
 
         quality_profiles:
-          - name: TRaSH Movies <= HD
+          - name: TRaSH <= HD
             upgrade:
               allowed: true
               until_quality: HD (CF based)
@@ -665,7 +643,7 @@ data:
                   - TELECINE
                   - TELESYNC
                   - Raw-HD            
-          - name: TRaSH Movies <= 4K
+          - name: TRaSH <= 4K
             upgrade:
               allowed: true
               until_quality: 4K (CF based)
@@ -932,7 +910,7 @@ data:
             standard: jellyfin
 
         quality_profiles:
-          - name: TRaSH Movies <= HD
+          - name: TRaSH <= HD
             upgrade:
               allowed: true
               until_quality: HD (CF based)
@@ -961,7 +939,7 @@ data:
                   - TELECINE
                   - TELESYNC
                   - Raw-HD                
-          - name: TRaSH Movies <= 4K
+          - name: TRaSH <= 4K
             upgrade:
               allowed: true
               until_quality: 4K (CF based)
