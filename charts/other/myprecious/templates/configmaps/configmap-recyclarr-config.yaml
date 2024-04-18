@@ -33,7 +33,6 @@ data:
             qualities:
               - name: HD (CF based)
                 qualities:
-                - HDTV-2160p
                 - Bluray-1080p Remux
                 - Bluray-1080p
                 - WEBDL-1080p
@@ -326,7 +325,6 @@ data:
             qualities:
               - name: HD (CF based)
                 qualities:
-                  - HDTV-2160p
                   - Bluray-1080p Remux
                   - Bluray-1080p
                   - WEBDL-1080p
