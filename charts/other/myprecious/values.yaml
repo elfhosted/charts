@@ -6633,7 +6633,7 @@ jellyseerr:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jellyseerr
-    tag: 1.8.0@sha256:eeb55ad37ad844c6b9d19f206cb6c908eddf4f28bb46e7073e73bc8d2bc9901b
+    tag: 1.8.1@sha256:0a272697c83247fe6ecd7cd86053ff33da19e02a7f485ffd78d053ba6dd3ef89
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -6674,7 +6674,7 @@ jellyseerr:
     bootstrap: *bootstrap
     # We do this so that we can override the /app/jellyseer/public path with our own, allowing the user to customize the branding
     copy-branding:
-      image: ghcr.io/geek-cookbook/jellyseerr:1.8.0@sha256:eeb55ad37ad844c6b9d19f206cb6c908eddf4f28bb46e7073e73bc8d2bc9901b
+      image: ghcr.io/geek-cookbook/jellyseerr:1.8.1@sha256:0a272697c83247fe6ecd7cd86053ff33da19e02a7f485ffd78d053ba6dd3ef89
       command:
         - /bin/bash
         - -c
