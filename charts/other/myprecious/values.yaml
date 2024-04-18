@@ -2710,7 +2710,7 @@ filebrowser:
           defaultMode: 0755
     recyclarr-config: # this is not editable, so that works consistently without users having to remove it when there are updates
       enabled: "true"
-      mountPath: /storage/config/recyclarr/recyclarr.yaml
+      mountPath: /storage/config/elfbot/recyclarr/recyclarr.yaml
       subPath: recyclarr.yaml
       type: "custom"
       volumeSpec:
