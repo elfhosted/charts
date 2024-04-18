@@ -29,14 +29,14 @@
       "excludePackagePatterns": ["iceberg","knightcrawler-addon"]
     },
     {
-      "matchPackagePatterns": ["nightly"],
+      "matchUpdateTypes": ["nightly"],
       "automerge": true,
       "automergeType": "branch",
       "platformAutomerge": true,
       "ignoreTests": true
     },
     {
-      "matchPackagePatterns": ["patch"],
+      "matchUpdateTypes": ["patch"],
       "automerge": true,
       "automergeType": "branch",
       "platformAutomerge": true,
@@ -44,7 +44,7 @@
       "excludePackagePatterns": ["filebrowser","qbittorrent","deluge","rutorrent","knightcrawler-addon"]
     },
     {
-      "matchPackagePatterns": ["minor"],
+      "matchUpdateTypes": ["minor"],
       "automerge": true,
       "automergeType": "branch",
       "platformAutomerge": true,
