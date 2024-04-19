@@ -10593,7 +10593,8 @@ zurg: &zurg
       type: RuntimeDefault
     readOnlyRootFilesystem: true
   env:
-    LOG_LEVEL: INFO    
+    LOG_LEVEL: DEBUG    
+    WAIT_FOR_VPN: "true"
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -10748,8 +10749,6 @@ zurg: &zurg
     update-dns: *update_dns_on_init
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination
-  env:
-    WAIT_FOR_VPN: "true"    
   addons:
     vpn: &zurg_addons_vpn
       enabled: true # in case we ever need it
@@ -10769,6 +10768,14 @@ zurg: &zurg
             - NET_ADMIN
             - SYS_MODULE
       config: # We have to set this to null so that we can override with our own config
+      scripts:
+        up: |-
+          #!/bin/ash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/ash
+          echo "disconnected" > /shared/vpnstatus      
   probes:
     startup:
       spec:
