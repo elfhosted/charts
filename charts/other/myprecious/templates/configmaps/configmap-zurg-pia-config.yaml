@@ -8,7 +8,7 @@ data:
   IPTABLES_BACKEND: nft
   KILLSWITCH: "true"
   LOCAL_NETWORK: 10.2.0.0/15,10.43.0.0/16
-  LOC: gt # guatamala, working with RD for now
+  LOC: gt_guatemala-pf # guatamala, working with RD for now
   PORT_FORWARDING: "0"
   PORT_PERSIST: "1"
   NFTABLES: "1"
