@@ -10595,7 +10595,7 @@ zurg: &zurg
   env:
     LOG_LEVEL: DEBUG    
     # Activate this if we need VPN
-    WAIT_FOR_VPN: "true"
+    WAIT_FOR_VPN: "false"
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -10741,6 +10741,9 @@ zurg: &zurg
         # Set to 32 workers
         sed -i  "s/concurrent_workers:.*/concurrent_workers: 32/" /config/config.yml
 
+        # Force IPv6
+        sed -i  "s/force_ipv6:.*/force_ipv6: true/" /config/config.yml
+
         # Check for changes every 10 sec
         sed -i  "s/check_for_changes_every_secs:.*/check_for_changes_every_secs: 10/" /config/config.yml
 
@@ -10752,7 +10755,7 @@ zurg: &zurg
     clean-up-dns: *clean_up_dns_on_termination
   addons:
     vpn: &zurg_addons_vpn
-      enabled: true # in case we ever need it
+      enabled: false # in case we ever need it
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
