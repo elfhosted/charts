@@ -10584,7 +10584,7 @@ zurg: &zurg
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-zurg"
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-zurg,zurg-pia-config "
   tolerations:
   - key: node-role.elfhosted.com/download-only
     operator: Exists            
