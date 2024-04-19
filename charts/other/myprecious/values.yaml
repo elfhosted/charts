@@ -10584,7 +10584,7 @@ zurg: &zurg
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-zurg"
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-zurg,zurg-pia-config "
   tolerations:
   - key: node-role.elfhosted.com/download-only
     operator: Exists            
@@ -10593,7 +10593,9 @@ zurg: &zurg
       type: RuntimeDefault
     readOnlyRootFilesystem: true
   env:
-    LOG_LEVEL: INFO    
+    LOG_LEVEL: DEBUG    
+    # Activate this if we need VPN
+    WAIT_FOR_VPN: "true"
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -10734,7 +10736,7 @@ zurg: &zurg
         sed -i  "s/use_download_cache: true/use_download_cache: false/" /config/config.yml
 
         # Don't let this instance do repairs
-        sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
+        # sed -i  "s/enable_repair: true/enable_repair: false/" /config/config.yml
 
         # Set to 32 workers
         sed -i  "s/concurrent_workers:.*/concurrent_workers: 32/" /config/config.yml
@@ -10750,7 +10752,7 @@ zurg: &zurg
     clean-up-dns: *clean_up_dns_on_termination
   addons:
     vpn: &zurg_addons_vpn
-      enabled: false # in case we ever need it
+      enabled: true # in case we ever need it
       gluetun:
         image:
           repository: thrnz/docker-wireguard-pia
@@ -10767,6 +10769,14 @@ zurg: &zurg
             - NET_ADMIN
             - SYS_MODULE
       config: # We have to set this to null so that we can override with our own config
+      scripts:
+        up: |-
+          #!/bin/ash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/ash
+          echo "disconnected" > /shared/vpnstatus      
   probes:
     startup:
       spec:
