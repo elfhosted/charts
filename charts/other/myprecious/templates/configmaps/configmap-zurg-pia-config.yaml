@@ -13,4 +13,6 @@ data:
   PORT_PERSIST: "1"
   NFTABLES: "1"
   VPNDNS: "0" 
+  POST_UP: /gluetun/scripts/up.sh
+  PRE_DOWN: /gluetun/scripts/down.sh
 {{ end }}
