@@ -3962,7 +3962,7 @@ calibre:
   # runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.8.0@sha256:fa53a6b85d34abb46593b3959223b5b4eb9d97c067ce4ad0bdb9c552e1906d17
+    tag: 7.9.0@sha256:09305d4225f22dc60f8539b158d652b3fde1bf999adeaac387588b8e28b50ca7
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
