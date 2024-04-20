@@ -4369,6 +4369,7 @@ prowlarr:
         if [ -f /config/Definitions/Custom/elfhosted-torrentio.yml ]; then rm /config/Definitions/Custom/elfhosted-torrentio.yml; fi
         curl https://raw.githubusercontent.com/geek-cookbook/elfhosted-prowlarr-indexers/main/Custom/torrentio.yml > /config/Definitions/Custom/torrentio.yml
         curl https://raw.githubusercontent.com/geek-cookbook/elfhosted-prowlarr-indexers/main/Custom/elfhosted-internal.yml > /config/Definitions/Custom/elfhosted-internal.yml
+        curl https://raw.githubusercontent.com/geek-cookbook/elfhosted-prowlarr-indexers/main/Custom/annatar.yml > /config/Definitions/Custom/elfhosted-annatar.yml
       volumeMounts:
       - mountPath: /config
         name: config
