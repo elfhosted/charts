@@ -1,0 +1,19 @@
+{{ if .Values.prowlarr.enabled }}
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-prowlarr-egress-annatar"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: prowlarr
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: annatar
+        k8s:io.kubernetes.pod.namespace: annatar
+    toPorts:
+      - ports:
+        - port: '8000'
+          protocol: TCP
+{{ end }}
