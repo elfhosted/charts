@@ -101,6 +101,10 @@ data:
         echo "Detected update on: $arg"
         echo "Absolute path: $modified_arg"
 
+        echo "Symlinking $modified_arg to /storage/symlinks/real-debrid-blackhole"
+        mkdir /storage/symlinks/real-debrid-blackhole
+        cp -rs "$modified_arg" "/storage/symlinks/real-debrid-blackhole"        
+
         encoded_arg=$(echo -n "$modified_arg" | python3 -c "import sys, urllib.parse as ul; print (ul.quote_plus(sys.stdin.read()))")
 
         if [ -z "$encoded_arg" ]; then
@@ -118,6 +122,7 @@ data:
 
             curl -s "$final_url"
         done
+
     done
 
     echo "All updated sections refreshed"

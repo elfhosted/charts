@@ -10650,6 +10650,7 @@ zurg: &zurg
         http:
           port: 9999 
   persistence:
+    symlinks: *symlinks
     elfstorage: *elfstorage
     config:
       enabled: true
