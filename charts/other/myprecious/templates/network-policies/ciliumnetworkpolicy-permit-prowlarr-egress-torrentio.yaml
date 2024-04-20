@@ -21,7 +21,7 @@ spec:
           protocol: TCP          
   - toEndpoints:
     - matchLabels:
-        app.kubernetes.io/name: torrentio-addon-internal
+        app.kubernetes.io/name: knightcrawler-addon-internal
         k8s:io.kubernetes.pod.namespace: torrentio
     toPorts:
       - ports:

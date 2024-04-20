@@ -1,0 +1,19 @@
+{{ if .Values.prowlarr.enabled }}
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "permit-prowlarr-egress-knightcrawler"
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: prowlarr
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: knightcrawler-addon-internal
+        k8s:io.kubernetes.pod.namespace: knightcrawler
+    toPorts:
+      - ports:
+        - port: '7000'
+          protocol: TCP
+{{ end }}
