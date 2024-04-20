@@ -10652,6 +10652,7 @@ zurg: &zurg
   persistence:
     symlinks: *symlinks
     elfstorage: *elfstorage
+    rclonemountrealdebridzurg: *rclonemountrealdebridzurg
     config:
       enabled: true
       type: custom
