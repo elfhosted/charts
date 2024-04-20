@@ -5062,7 +5062,7 @@ emby:
   image:
     registry: ghcr.io
     repository: geek-cookbook/emby
-    tag: 4.8.4.0@sha256:95ac6fd09839c00dc37277a32af475ba7114a6e114f8e8b12483803adb004393
+    tag: 4.8.4.0@sha256:82a73e46eb35d3b0f074c027933d14f8bfb0d1f73a376ec53c4c646a80b9a698
   enabled: false
   priorityClassName: tenant-streaming
   podLabels:
@@ -5086,19 +5086,19 @@ emby:
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-emby" # Reload the deployment every time the rclones change
-  affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution: 
-      - weight: 100  
-        podAffinityTerm:    
-          labelSelector:
-            matchExpressions:
-            - key: app.elfhosted.com/class
-              operator: In
-              values:
-              - streaming
-          topologyKey: "kubernetes.io/hostname"
-          namespaceSelector: {}     
+  # affinity:
+  #   podAntiAffinity:
+  #     preferredDuringSchedulingIgnoredDuringExecution: 
+  #     - weight: 100  
+  #       podAffinityTerm:    
+  #         labelSelector:
+  #           matchExpressions:
+  #           - key: app.elfhosted.com/class
+  #             operator: In
+  #             values:
+  #             - streaming
+  #         topologyKey: "kubernetes.io/hostname"
+  #         namespaceSelector: {}
   persistence:
     <<: *appmounts
     config:
@@ -6247,7 +6247,7 @@ xteve:
       memory: 256Mi
     limits:
       cpu: 1
-      memory: 1Gi
+      memory: 2Gi
   ingress:
     main:
       enabled: false
