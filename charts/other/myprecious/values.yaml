@@ -4731,23 +4731,122 @@ plex: &plex
   priorityClassName: tenant-streaming
   podLabels:
     app.elfhosted.com/name: plex
-    app.elfhosted.com/class: streaming   
+    app.elfhosted.com/anti-affinity-10: "plex"  
+    app.elfhosted.com/anti-affinity-20: "plex"  
+    app.elfhosted.com/anti-affinity-30: "plex"  
+    app.elfhosted.com/anti-affinity-40: "plex"  
+    app.elfhosted.com/anti-affinity-50: "plex"  
+    app.elfhosted.com/anti-affinity-60: "plex"  
+    app.elfhosted.com/anti-affinity-70: "plex"  
+    app.elfhosted.com/anti-affinity-80: "plex"  
+    app.elfhosted.com/anti-affinity-90: "plex"  
+    app.elfhosted.com/anti-affinity-100: "plex"   
   podAnnotations:
     kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
   # use memory to force plex pod spread, rather than affinity
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 10
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: anti-affinity-10
+              operator: In
+              values:
+              - plex
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}
+      - weight: 20
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: anti-affinity-20
+              operator: In
+              values:
+              - plex
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}     
+      - weight: 30
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: anti-affinity-30
+              operator: In
+              values:
+              - plex
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}
+      - weight: 40
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: anti-affinity-40
+              operator: In
+              values:
+              - plex
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}          
+      - weight: 50
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: anti-affinity-50
+              operator: In
+              values:
+              - plex
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}    
+      - weight: 60
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: anti-affinity-60
+              operator: In
+              values:
+              - plex
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}     
+      - weight: 70
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: anti-affinity-70
+              operator: In
+              values:
+              - plex
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}         
+      - weight: 80
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: anti-affinity-80
+              operator: In
+              values:
+              - plex
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}     
+      - weight: 90
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: anti-affinity-90
+              operator: In
+              values:
+              - plex
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {} 
       - weight: 100
         podAffinityTerm:    
           labelSelector:
             matchExpressions:
-            - key: app.elfhosted.com/class
+            - key: anti-affinity-100
               operator: In
               values:
-              - streaming
+              - plex
           topologyKey: "kubernetes.io/hostname"
-          namespaceSelector: {}
+          namespaceSelector: {}                                    
   securityContext:
     runAsUser: 568
     runAsGroup: 568
