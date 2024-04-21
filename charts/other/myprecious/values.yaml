@@ -1675,7 +1675,7 @@ qbittorrentgluetun: &qbittorrent
       ephemeral-storage: 50Mi
     limits:
       cpu: 500m
-      memory: 1200Mi # .2 GB for headroom
+      memory: 2Gi # .2 GB for headroom
       ephemeral-storage: 100Mi # a safety net against node ephemeral space exhaustion
   addons:
     vpn: &qbittorrent_addons_vpn
