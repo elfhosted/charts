@@ -4735,19 +4735,19 @@ plex: &plex
   podAnnotations:
     kubernetes.io/egress-bandwidth: "150M" # tested with _kilos in Discord on a 97Mbit remux
   # use memory to force plex pod spread, rather than affinity
-  # affinity:
-  #   podAntiAffinity:
-  #     preferredDuringSchedulingIgnoredDuringExecution: 
-  #     - weight: 1
-  #       podAffinityTerm:    
-  #         labelSelector:
-  #           matchExpressions:
-  #           - key: app.elfhosted.com/class
-  #             operator: In
-  #             values:
-  #             - streaming
-  #         topologyKey: "kubernetes.io/hostname"
-  #         namespaceSelector: {}
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution: 
+      - weight: 100
+        podAffinityTerm:    
+          labelSelector:
+            matchExpressions:
+            - key: app.elfhosted.com/class
+              operator: In
+              values:
+              - streaming
+          topologyKey: "kubernetes.io/hostname"
+          namespaceSelector: {}
   securityContext:
     runAsUser: 568
     runAsGroup: 568
