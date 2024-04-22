@@ -3722,7 +3722,7 @@ lazylibrarian:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
-    tag: rolling@sha256:77d461787ee7a73da92481c6e37993f0ed1216bfdc9c1438d4a3ad7af4c03542
+    tag: rolling@sha256:277b1409c4ff10cdd91e5ac753c4865d8dec624855e44a567389800c5b7c0900
   enabled: false
   controller:
     annotations:
@@ -3909,7 +3909,7 @@ kavita:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/kavita
-    tag: 0.8.0@sha256:4b6a94d6509b0dc53fdf90d73fbd9b744d32a3de0485336767a8946dda730e51
+    tag: 0.8.1@sha256:22413f18fa1fdb61e2b21426bc3fd66160ddb654bcf3143113aa1d9282104f5e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4560,7 +4560,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.24.2510@sha256:b893538d8267c4954bbd42c70b819bffa0007afe423ea2935a7fae8dab496406
+    tag: 0.3.25.2515@sha256:9edcea2aae65d08655c22ef2875743777d9b4417cd2d99c7f34d6362f0001e22
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4647,7 +4647,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.24.2510@sha256:b893538d8267c4954bbd42c70b819bffa0007afe423ea2935a7fae8dab496406
+    tag: 0.3.25.2515@sha256:9edcea2aae65d08655c22ef2875743777d9b4417cd2d99c7f34d6362f0001e22
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5162,7 +5162,7 @@ emby:
   image:
     registry: ghcr.io
     repository: geek-cookbook/emby
-    tag: 4.8.4.0@sha256:82a73e46eb35d3b0f074c027933d14f8bfb0d1f73a376ec53c4c646a80b9a698
+    tag: 4.8.5.0@sha256:5f93939478b3594e8bd9517e50089fda6bb710ca1f7c65e590e4ab77e5d20497
   enabled: false
   priorityClassName: tenant-streaming
   podLabels:
@@ -6816,7 +6816,7 @@ audiobookshelf:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/audiobookshelf
-    tag: 2.8.1@sha256:86f397a70e44f6b6a187a0996e985967a6ed4515ba0e480772aa5d564e120292
+    tag: 2.9.0@sha256:3fe8791219954f767a8a05c63982ad8213ddfafac5199405129f37016a942d35
   priorityClassName: tenant-streaming
   securityContext:
     seccompProfile:
@@ -8009,7 +8009,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 9.7.1@sha256:0d0ed3b351a54ecf10f1e8e24edf6bf2ff4cb796a6a7694c49141559ce6cf68b
+    tag: 9.7.2@sha256:4290e9d14ad9a7d93e9d448f8d31fdb963b0fc671098dc2b78c59f167d3b3406
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
@@ -9580,7 +9580,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2424@sha256:638da53990db6b24def345d1434d31d0a9220ef9bfe246874ed8e610289fd1bc
+    tag: 0.21.2428@sha256:7186d87e9ae7c07de5bf271858668fd6f92fca208eaea580cc58e7f206df5e9a
   priorityClassName: tenant-normal
   controller:
     annotations:
