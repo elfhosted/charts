@@ -2788,8 +2788,8 @@ filebrowser:
           claimName: config-deluge-ssd
     plex:
       enabled: "true"
-      subPath: "where-is-my-emby.txt"
-      mountPath: /storage/config/emby/where-is-my-emby.txt
+      subPath: "where-is-my-plex.txt"
+      mountPath: /storage/config/emby/where-is-my-plex.txt
       type: "custom"
       volumeSpec:
         configMap:
@@ -3000,12 +3000,13 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-privatebin-ssd
     prowlarr:
-      enabled: false
-      type: custom
-      mountPath: /storage/config/prowlarr/
+      enabled: "true"
+      subPath: "where-is-my-prowlarr.txt"
+      mountPath: /storage/config/emby/where-is-my-plex.txt
+      type: "custom"
       volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-prowlarr-ssd
+        configMap:
+          name: explain-migration    
     qbittorrentpia:
       enabled: false
       type: custom
