@@ -462,7 +462,7 @@ data:
             subtitle: "Stremio Server"
             tag: "public"
             tagstyle: "is-danger"
-            {{ if .Values.stremioweb.enabled }}
+            {{ if not .Values.stremioweb.enabled }}
               {{ if .Values.stremioserver.enabled }}
             url: "https://web.strem.io/?streamingServer=https%3A%2F%2F{{ .Release.Name }}-stremio-server-{{ .Values.stremioserver.SECRET_STRING }}.elfhosted.com#/"
               {{ else if .Values.stremioserverpia.enabled }}
