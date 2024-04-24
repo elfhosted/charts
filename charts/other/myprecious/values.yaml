@@ -3854,7 +3854,7 @@ komga:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/komga
-    tag: 1.11.0@sha256:39adcc4c3c34adc459709c8b8a2abc265273875ad26cdd41ad91bc13d87c0ab6
+    tag: 1.11.1@sha256:4a3b8eae8383c0e40a660c347b219dffb9f958b35f2e3cef47625fb25226d1da
   env:
     KOMGA_CONFIGDIR: /config
     KOMGA_REMEMBERME_KEY: yesplease
