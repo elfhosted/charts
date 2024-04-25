@@ -22,7 +22,13 @@ data:
   PLEX_PREFERENCE_16: "ButlerEndHour=6"
   PLEX_PREFERENCE_17: "ButlerTaskDeepMediaAnalysis=0" # this wrecks remote mounts
   PLEX_PREFERENCE_18: "ButlerTaskUpgradeMediaAnalysis=0" # suspect this does too
+  PLEX_PREFERENCE_19: "MarkerSource=cloud" # get credit markers from online DBs only
+  PLEX_PREFERENCE_20: "GenerateCreditsMarkerBehavior=never" # don't scan for credits
+  PLEX_PREFERENCE_21: "GenerateChapterThumbBehavior=never" # don't generate thumbnails
+  PLEX_PREFERENCE_21: "GenerateChapterThumbBehavior=never" # don't generate thumbnails
+  PLEX_PREFERENCE_22: "GenerateIntroMarkerBehavior=never" # don't detect intros for skippage
   
+    
   # For custom domains
   {{- if .Values.plexcustomdomain.enabled }}
   ADVERTISE_IP: "https://{{ .Values.plexcustomdomain.cname }}:443"
