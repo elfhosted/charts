@@ -3854,7 +3854,7 @@ komga:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/komga
-    tag: 1.11.0@sha256:39adcc4c3c34adc459709c8b8a2abc265273875ad26cdd41ad91bc13d87c0ab6
+    tag: 1.11.1@sha256:4a3b8eae8383c0e40a660c347b219dffb9f958b35f2e3cef47625fb25226d1da
   env:
     KOMGA_CONFIGDIR: /config
     KOMGA_REMEMBERME_KEY: yesplease
@@ -3962,7 +3962,7 @@ calibre:
   # runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.9.0@sha256:09305d4225f22dc60f8539b158d652b3fde1bf999adeaac387588b8e28b50ca7
+    tag: 7.9.0@sha256:b9396864085793c57ae2ece29246839ad4eb29e8f007a8d8969c6eb98ff8e850
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -8489,7 +8489,7 @@ rdtclient: &app_rdtclient
     app.elfhosted.com/class: debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.74@sha256:2f8a8dc41c3daea3502452b51963fc5ba036cef2482eac71067dd41bcb57af8c
+    tag: v2.0.75@sha256:e1c41bee50cf158bad54d4489199a28fb7f352d9fc62a7105278837152e0db43
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
@@ -9580,7 +9580,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2441@sha256:a3bcbd654cf89aed6121dbaf46f40d3dc1ae5468202dc6bfb34b4b2134144b9c
+    tag: 0.21.2446@sha256:f3a20ece41ab3e57a1f692a9f1b645fab7f654af0918e38950dcd74fc2ba0be1
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10154,7 +10154,7 @@ mediafusion:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/mediafusion
-    tag: 3.8.0@sha256:136a8600b7e63e8fb3f7a3a6aed4039f8173afbd7409a86855f324bd2b98a65f
+    tag: 3.8.1@sha256:f28aec0aa914e29552054b1aab4cdd2631783b107b0573fe086b90040b60ee47
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10924,7 +10924,7 @@ plexdebrid:
   # runtimeClassName: kata  
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
-    tag: rolling@sha256:736d975179bb40527ebdbc30d3a7ab8236cfbfc28a43e6bec6077e283ea65969
+    tag: rolling@sha256:66658baa2475c34bf8e8ecc5f0c3d12bde71def87f9e2bd554e899d5f63272bb
   priorityClassName: tenant-normal
   controller:
     annotations:
