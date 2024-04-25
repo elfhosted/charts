@@ -3723,7 +3723,7 @@ lazylibrarian:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
-    tag: rolling@sha256:0ef1f8bc0661f48fd1b12a96049d507e402636db7b300c08700c04235fedf801
+    tag: rolling@sha256:22b53f9a9f3362485ac5b50be65544bcb23d0d1df8cb617ed858da8cd7357bae
   enabled: false
   controller:
     annotations:
