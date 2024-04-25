@@ -2786,10 +2786,10 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-deluge-ssd
-    plex:
+    emby:
       enabled: "true"
-      subPath: "where-is-my-plex.txt"
-      mountPath: /storage/config/emby/where-is-my-plex.txt
+      subPath: "where-is-my-emby.txt"
+      mountPath: /storage/config/emby/where-is-my-emby.txt
       type: "custom"
       volumeSpec:
         configMap:
@@ -2999,10 +2999,18 @@ filebrowser:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-privatebin-ssd
+    plex:
+      enabled: "true"
+      subPath: "where-is-my-plex.txt"
+      mountPath: /storage/config/plex/where-is-my-plex.txt
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: explain-migration              
     prowlarr:
       enabled: "true"
       subPath: "where-is-my-prowlarr.txt"
-      mountPath: /storage/config/emby/where-is-my-plex.txt
+      mountPath: /storage/config/emby/where-is-my-prowlarr.txt
       type: "custom"
       volumeSpec:
         configMap:
