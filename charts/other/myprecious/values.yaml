@@ -3614,7 +3614,7 @@ calibreweb:
   priorityClassName: 
   image:
     repository: ghcr.io/geek-cookbook/calibre-web
-    tag: 0.6.21@sha256:5dec9f84a66c0e410cdc32f0fa0273eb70c0cb289b43eadcf161df23f693923e
+    tag: 0.6.21@sha256:8d9bb83dcd0a439d340de48e7d8743fb75e611e3b1f07e13970d7013afc62d47
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-calibreweb"
