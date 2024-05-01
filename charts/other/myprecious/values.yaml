@@ -1882,7 +1882,7 @@ sabnzbd:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sabnzbd
-    tag: 4.2.3@sha256:d66cfa4bdde33e10262f92ab7d89819c922a54d520c6c4d39070c6fdc391a43a
+    tag: 4.3.0@sha256:7872b35fbecb1e8db503abd2b87df9d4d47da2625fb5f48426295a1446ce87f3
   priorityClassName: tenant-bulk
   affinity:
     nodeAffinity:
@@ -3731,7 +3731,7 @@ lazylibrarian:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
-    tag: rolling@sha256:5543255dd92ba1bc490ed76f67ea572ce05da0aa5319c5c69d608b606d27af8b
+    tag: rolling@sha256:5c801fc0be00bb13dd282f1873656b1d31d5c34ba693796367d5edb89a2fd830
   enabled: false
   controller:
     annotations:
@@ -3971,7 +3971,7 @@ calibre:
   # runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.9.0@sha256:b9396864085793c57ae2ece29246839ad4eb29e8f007a8d8969c6eb98ff8e850
+    tag: 7.9.0@sha256:1175ad34511e6c8e82d7ce882123623433013bc2da9dee1c7d1c518996394443
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -8019,7 +8019,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 9.7.2@sha256:4290e9d14ad9a7d93e9d448f8d31fdb963b0fc671098dc2b78c59f167d3b3406
+    tag: 9.7.3@sha256:b74a8984f0a37e7547c7a43829ddd88788b5d76275c05640630b36b6333271bd
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
@@ -9590,7 +9590,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2496@sha256:1413c32363a41c34385eeaffbf0fef91e250505236f422b2fac6fcc2c08ecb2e
+    tag: 0.21.2516@sha256:ce092c815289e8278b8e552d55b5e79079132072b0dfdfdfc827e2804bd1eed9
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9852,7 +9852,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v4.1.1@sha256:68158c50431e8829fb4d8b3fbd5a5c78cf66c152bb1c49cf9d3583a379a63a4b
+    tag: 4.1.2@sha256:d81689a68fe2499b7bbbb9567a7bd01d49c772f456b424bcb6352fa48b4c0c8c
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10108,7 +10108,7 @@ jackettio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackettio
-    tag: v1.1.19@sha256:76020a7c74d62e6543a571bc348c427a0da71874dd37cba455ea7c889ed22c46
+    tag: v1.2.0@sha256:cc9cf6efcaabb0f5862139903a6e90ed6759ffc8f8c3da1339e6e124478dca11
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10164,7 +10164,7 @@ mediafusion:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/mediafusion
-    tag: 3.8.3@sha256:c68b148af7a807fdaf04e00fec62b8a007dd1f9ee5d625076d66a2be817b6ddc
+    tag: 3.8.5@sha256:0e71c4b49f9b90a2bf04d8bde41ced131cf6e7281f33fe8c6a661b6a51f63aa7
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10240,7 +10240,7 @@ stremiojackettcommunity: &stremiojackettcommunity
       app.elfhosted.com/name: stremio-jackett-community    
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v4.1.1@sha256:68158c50431e8829fb4d8b3fbd5a5c78cf66c152bb1c49cf9d3583a379a63a4b
+    tag: 4.1.2@sha256:d81689a68fe2499b7bbbb9567a7bd01d49c772f456b424bcb6352fa48b4c0c8c
   priorityClassName: tenant-normal
   # command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"] # allow logs on private instances
   controller:
