@@ -6861,17 +6861,9 @@ audiobookshelf:
       volumeSpec:
         configMap:
           name: elfbot-audiobookshelf
-          optional: true
-    tooling-scripts:
-      enabled: "true"
-      type: "custom"
-      volumeSpec:
-        configMap:
-          name: tooling-scripts             
-          defaultMode: 0755               
+          optional: true            
   initContainers:
     bootstrap: *bootstrap
-    update-dns: *update_dns_on_init
   ingress:
     main:
       enabled: false
@@ -6885,8 +6877,6 @@ audiobookshelf:
     limits:
       cpu: 2
       memory: 1Gi
-  additionalContainers:
-    clean-up-dns: *clean_up_dns_on_termination  
     
 openbooks:
   enabled: false
