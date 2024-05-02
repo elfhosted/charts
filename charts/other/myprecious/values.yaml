@@ -6862,6 +6862,13 @@ audiobookshelf:
         configMap:
           name: elfbot-audiobookshelf
           optional: true
+    tooling-scripts:
+      enabled: "true"
+      type: "custom"
+      volumeSpec:
+        configMap:
+          name: tooling-scripts             
+          defaultMode: 0755               
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns_on_init
