@@ -6864,6 +6864,7 @@ audiobookshelf:
           optional: true
   initContainers:
     bootstrap: *bootstrap
+    update-dns: *update_dns_on_init
   ingress:
     main:
       enabled: false
@@ -6877,7 +6878,9 @@ audiobookshelf:
     limits:
       cpu: 2
       memory: 1Gi
-
+  additionalContainers:
+    clean-up-dns: *clean_up_dns_on_termination  
+    
 openbooks:
   enabled: false
   image:
