@@ -3731,7 +3731,7 @@ lazylibrarian:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/geek-cookbook/lazylibrarian
-    tag: rolling@sha256:5c801fc0be00bb13dd282f1873656b1d31d5c34ba693796367d5edb89a2fd830
+    tag: rolling@sha256:e09f48eecb046db6f06cc9f3155a0e6bf6cd93f6e18c578d362ddb54f8d4681b
   enabled: false
   controller:
     annotations:
@@ -9593,7 +9593,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2516@sha256:ce092c815289e8278b8e552d55b5e79079132072b0dfdfdfc827e2804bd1eed9
+    tag: 0.21.2526@sha256:710c469d9806066097ab66d8b7528168ad4fa73d20692e4ace540324bea12c3a
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -9917,7 +9917,7 @@ pgadmin:
   enabled: false
   image:
     repository: dpage/pgadmin4
-    tag: "8.5"
+    tag: "8.6"
   priorityClassName: tenant-normal
   controller:
     annotations:
