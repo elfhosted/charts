@@ -9593,6 +9593,14 @@ airdcpppia: &app_airdcpp
       additionalVolumeMounts:
       - mountPath: /config
         name: config      
+      scripts:
+        up: |-
+          #!/bin/ash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/ash
+          echo "disconnected" > /shared/vpnstatus        
 
 airdcppgluetun:
   enabled: false
