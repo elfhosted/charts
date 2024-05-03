@@ -9585,6 +9585,20 @@ airdcpppia: &app_airdcpp
           optional: true
   initContainers:
     bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir /storage/elfstorage/downloads/airdcpp
+        
+      volumeMounts:
+      - mountPath: /config
+        name: config    
   addons:
     vpn:
       enabled: true # in case we ever need it
