@@ -2716,13 +2716,20 @@ filebrowser:
           name: recyclarr-config          
 
     # We need one of these per-app. The global section will override the false enablement
-    airdcpp:
+    airdcpppia:
       enabled: false
       type: custom
       mountPath: /storage/config/airdcpp/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-airdcpp-ssd
+    airdcppgluetun:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/airdcpp/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-airdcpp-ssd          
     autobrr:
       enabled: false
       type: custom
