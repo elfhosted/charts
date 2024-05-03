@@ -2716,13 +2716,20 @@ filebrowser:
           name: recyclarr-config          
 
     # We need one of these per-app. The global section will override the false enablement
-    airdcpp:
+    airdcpppia:
       enabled: false
       type: custom
       mountPath: /storage/config/airdcpp/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-airdcpp-ssd
+    airdcppgluetun:
+      enabled: false
+      type: custom
+      mountPath: /storage/config/airdcpp/
+      volumeSpec:
+        persistentVolumeClaim:
+          claimName: config-airdcpp-ssd          
     autobrr:
       enabled: false
       type: custom
@@ -6861,10 +6868,9 @@ audiobookshelf:
       volumeSpec:
         configMap:
           name: elfbot-audiobookshelf
-          optional: true
+          optional: true            
   initContainers:
     bootstrap: *bootstrap
-    update-dns: *update_dns_on_init
   ingress:
     main:
       enabled: false
@@ -6878,8 +6884,6 @@ audiobookshelf:
     limits:
       cpu: 2
       memory: 1Gi
-  additionalContainers:
-    clean-up-dns: *clean_up_dns_on_termination  
     
 openbooks:
   enabled: false
@@ -9505,14 +9509,16 @@ iceberg:
           name: iceberg-config        
       resources: *default_resources
 
-airdcpppia:
+airdcpppia: &app_airdcpp
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/airdcpp
-    tag: 2.9.0@sha256:829a7270032be67f314af41e8fa2d5e921f6e95bffa72cc3160420ab67c894c6
+    tag: 2.9.0@sha256:8fa14521ce9bd881832b45a525df10b1e2c760a6a1c44517db6c67860f88f9c0
   priorityClassName: tenant-normal
-  podLabels: 
-    app.elfhosted.com/name: airdcpp    
+  podLabels:
+    app.elfhosted.com/name: airdcpp
+  podAnnotations:
+    kubernetes.io/egress-bandwidth: "100M"
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-airdcpp"
@@ -9536,7 +9542,7 @@ airdcpppia:
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 100m
+      cpu: 2
       memory: 1024Mi
   ingress:
     main:
@@ -9547,6 +9553,14 @@ airdcpppia:
       ports:
         http:
           port: 5600 
+  env:
+    WAIT_FOR_VPN: "true"
+    PORT_FILE: /.airdcpp/forwarded-port
+  probes:
+    liveness:
+      enabled: false
+    startup:
+      enabled: false 
   persistence:
     <<: *appmounts
     config:
@@ -9571,6 +9585,20 @@ airdcpppia:
           optional: true
   initContainers:
     bootstrap: *bootstrap
+    setup:
+      image: *tooling_image
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        mkdir /storage/elfstorage/downloads/airdcpp
+        
+      volumeMounts:
+      - mountPath: /config
+        name: config    
   addons:
     vpn:
       enabled: true # in case we ever need it
@@ -9587,7 +9615,47 @@ airdcpppia:
           add:
             - NET_ADMIN
             - SYS_MODULE
-      config: # We have to set this to null so that we can override with our own config    
+      config: # We have to set this to null so that we can override with our own config   
+      additionalVolumeMounts:
+      - mountPath: /config
+        name: config      
+      scripts:
+        up: |-
+          #!/bin/ash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/ash
+          echo "disconnected" > /shared/vpnstatus        
+
+airdcppgluetun:
+  enabled: false
+  <<: *app_airdcpp
+  addons:
+    vpn:
+      enabled: true # in case we ever need it
+      gluetun:
+        image:
+          repository: ghcr.io/geek-cookbook/gluetun
+          tag: 3.38.0@sha256:bfa60c589cb6c06fbf2f30696d9d2b5a0f7fcfbf3066ff85363a89b7fed869d8
+      envFrom:
+      - configMapRef:
+          name: airddcpp-gluetun-config
+      securityContext:
+        runAsUser: 0
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE
+      config: # We have to set this to null so that we can override with our own config       
+      scripts:
+        up: |-
+          #!/bin/ash
+          echo "connected" > /shared/vpnstatus
+
+        down: |-
+          #!/bin/ash
+          echo "disconnected" > /shared/vpnstatus     
 
 jackett:
   enabled: false

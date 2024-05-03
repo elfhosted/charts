@@ -8,8 +8,8 @@ data:
   IPTABLES_BACKEND: nft
   KILLSWITCH: "true"
   LOCAL_NETWORK: 10.2.0.0/15,10.43.0.0/16
-  USER: "{{ .Values.airdcpppia.USER | default }}"
-  PASS: "{{ .Values.airdcpppia.PASS | default }}"
+  USER: "{{ .Values.airdcpppia.PIA_USERNAME | default }}"
+  PASS: "{{ .Values.airdcpppia.PIA_PASSWORD | default }}"
   # LOC: nl_amsterdam
   LOC: de-frankfurt
   PORT_FORWARDING: "1"
