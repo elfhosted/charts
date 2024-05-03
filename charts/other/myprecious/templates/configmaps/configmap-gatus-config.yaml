@@ -821,7 +821,7 @@ data:
           - type: email
       {{ end }}
 
-      {{ if .Values.airdcpppia.enabled }}
+      {{ if .Values.airdcpppia.enabled or .Values.airdcppgluetun.enabled }}
       - name: airdcpp
         group: manage-media
         url: "http://airdcpp:5600/login"

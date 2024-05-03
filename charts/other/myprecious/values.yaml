@@ -9599,6 +9599,8 @@ airdcpppia: &app_airdcpp
       volumeMounts:
       - mountPath: /config
         name: config    
+      - mountPath: /storage/elfstorage
+        name: elfstorage            
   addons:
     vpn:
       enabled: true # in case we ever need it

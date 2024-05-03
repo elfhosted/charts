@@ -109,7 +109,7 @@ data:
         mkdir -p /storage/symlinks/real-debrid-blackhole/shows
 
         # Copy to the RD blackhole, preserving the directory structure
-        ln -sf $modified_arg/* "/storage/symlinks/real-debrid-blackhole/$(echo $arg | cut -f1 -d/)/" 
+        cp -rs "$modified_arg/"* "/storage/symlinks/real-debrid-blackhole/$(echo $arg | cut -f1 -d/)/"
         ##### END Added by ElfHosted for auto DMM symlinking ###
 
         encoded_arg=$(echo -n "$modified_arg" | python3 -c "import sys, urllib.parse as ul; print (ul.quote_plus(sys.stdin.read()))")
