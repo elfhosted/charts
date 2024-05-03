@@ -9588,7 +9588,8 @@ airdcpppia: &app_airdcpp
             - SYS_MODULE
       config: # We have to set this to null so that we can override with our own config   
 
-airdcppgluetun: 
+airdcppgluetun:
+  enabled: false
   <<: *app_airdcpp
   addons:
     vpn:
