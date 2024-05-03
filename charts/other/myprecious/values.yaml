@@ -9506,7 +9506,7 @@ airdcpppia: &app_airdcpp
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/airdcpp
-    tag: 2.9.0@sha256:f60fd74507129d8eeda98a596ec382d78843a1f8c8ad165b9225303a171b1e8c
+    tag: 2.9.0@sha256:643dd239fa7f03ba5d45c636fb2a02f8bbc94a1b9e0f381776bfb2e2403ff76c
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: airdcpp
