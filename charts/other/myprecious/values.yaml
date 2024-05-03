@@ -9594,7 +9594,7 @@ airdcpppia: &app_airdcpp
         set -x
         set -e
 
-        mkdir /storage/elfstorage/downloads/airdcpp
+        mkdir -p /storage/elfstorage/downloads/airdcpp
         
       volumeMounts:
       - mountPath: /config
