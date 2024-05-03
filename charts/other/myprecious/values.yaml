@@ -9549,6 +9549,11 @@ airdcpppia: &app_airdcpp
   env:
     WAIT_FOR_VPN: "true"
     PORT_FILE: /.airdcpp/forwarded-port
+  probes:
+    liveness:
+      enabled: false
+    startup:
+      enabled: false 
   persistence:
     <<: *appmounts
     config:
