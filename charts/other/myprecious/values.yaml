@@ -9535,7 +9535,7 @@ airdcpppia: &app_airdcpp
       cpu: 10m
       memory: 16Mi
     limits:
-      cpu: 100m
+      cpu: 2
       memory: 1024Mi
   ingress:
     main:
