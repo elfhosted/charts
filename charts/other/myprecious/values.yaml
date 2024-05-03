@@ -10937,7 +10937,7 @@ plexdebrid:
   # runtimeClassName: kata  
   image:
     repository: ghcr.io/geek-cookbook/plex-debrid
-    tag: rolling@sha256:66658baa2475c34bf8e8ecc5f0c3d12bde71def87f9e2bd554e899d5f63272bb
+    tag: rolling@sha256:e7456474cb346b9e6a10bf060206caf96f4b2d44104eee02f81e0e8df947df2a
   priorityClassName: tenant-normal
   controller:
     annotations:
