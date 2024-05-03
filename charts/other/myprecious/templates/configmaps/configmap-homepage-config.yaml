@@ -760,11 +760,11 @@ data:
             siteMonitor: http://aria:8000
         {{ end }}             
 
-        {{ if .Values.airdcpppia.enabled }}
+        {{ if or .Values.airdcpppia.enabled .Values.airdcppgluetun.enabled }}
         - AirDC++:
             icon: mdi-image-chart-bubble
             href: https://{{ .Release.Name }}-airdcpp.elfhosted.com
-            description: Manage Downloads
+            description: Manage DC++ Sharing
             siteMonitor: http://airdcpp:5600
         {{ end }}                   
 
