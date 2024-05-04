@@ -1882,7 +1882,7 @@ sabnzbd:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sabnzbd
-    tag: 4.3.0@sha256:7872b35fbecb1e8db503abd2b87df9d4d47da2625fb5f48426295a1446ce87f3
+    tag: 4.3.1@sha256:5fb15602857e8827358e70732cac7f2d21c304b8b68a9ef046c2a35dd5db5d0f
   priorityClassName: tenant-bulk
   affinity:
     nodeAffinity:
@@ -8748,7 +8748,7 @@ aria:
     bootstrap: *bootstrap    
   additionalContainers:
     ariang:
-      image: ghcr.io/geek-cookbook/ariang:1.3.7@sha256:99268e0a6cbeca62a80dfb8dfa69e09d060dd13fb2dd4a131406e2dd30d5ce81
+      image: ghcr.io/geek-cookbook/ariang:1.3.7@sha256:da5d39c1a718c6eeddeb68003a775fb6747fcb30ec5f9a3192d4191f46ca43c5
       resources: *default_resources
       securityContext: *default_securitycontext
 
@@ -9663,7 +9663,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2530@sha256:f59c5af21d274945306d3dfdeed8237d8976b5201b108c2f0ddc78d91234cbce
+    tag: 0.21.2536@sha256:22ca78461ef633b23043d8f30b1253a818595011d5ba3a725ebbadc7afc0e9f8
   priorityClassName: tenant-normal
   controller:
     annotations:
