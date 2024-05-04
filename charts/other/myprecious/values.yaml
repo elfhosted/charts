@@ -1882,7 +1882,7 @@ sabnzbd:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sabnzbd
-    tag: 4.3.0@sha256:7872b35fbecb1e8db503abd2b87df9d4d47da2625fb5f48426295a1446ce87f3
+    tag: 4.3.1@sha256:5fb15602857e8827358e70732cac7f2d21c304b8b68a9ef046c2a35dd5db5d0f
   priorityClassName: tenant-bulk
   affinity:
     nodeAffinity:
