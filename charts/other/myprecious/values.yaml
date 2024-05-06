@@ -3464,7 +3464,7 @@ privatebin:
     enabled: false
   image:
     repository: privatebin/fs
-    tag: 1.7.1
+    tag: 1.7.2
   priorityClassName: 
   controller:
     annotations:
@@ -4074,7 +4074,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1572@sha256:f135b0820c5bc412ca78c4747d783b4e022227693ef34c4db4b06698a3757055
+    tag: 4.0.4.1616@sha256:63c321ea36cb6ac0634dd0718b1b626a1473eaa86c445d1e67e88640c2b386f3
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4157,7 +4157,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1572@sha256:f135b0820c5bc412ca78c4747d783b4e022227693ef34c4db4b06698a3757055
+    tag: 4.0.4.1616@sha256:63c321ea36cb6ac0634dd0718b1b626a1473eaa86c445d1e67e88640c2b386f3
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4411,7 +4411,7 @@ lidarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/lidarr-develop
-    tag: 2.3.0.4159@sha256:e772cacb4faa7db7dfec89ec9365b84a352eb9fa469b5d38b413ae3d1ad35618
+    tag: 2.3.2.4183@sha256:ab60ac2c48a1e10203723b0396f27c9f333a9afe3deacc6a17b53aa911d7c3a6
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -4577,7 +4577,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.25.2515@sha256:9edcea2aae65d08655c22ef2875743777d9b4417cd2d99c7f34d6362f0001e22
+    tag: 0.3.27.2532@sha256:91e18691f01a74a6adcb54993fc7909bc3d217f4c986e022b404dd8b39755557
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4664,7 +4664,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.25.2515@sha256:9edcea2aae65d08655c22ef2875743777d9b4417cd2d99c7f34d6362f0001e22
+    tag: 0.3.27.2532@sha256:91e18691f01a74a6adcb54993fc7909bc3d217f4c986e022b404dd8b39755557
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -8506,7 +8506,7 @@ rdtclient: &app_rdtclient
     app.elfhosted.com/class: debrid  
   image:
     repository: ghcr.io/geek-cookbook/rdtclient
-    tag: v2.0.77@sha256:0c3a64c9e58db8bda5749ebbe36dcbd73a2898b171888797043218499b9e28fc
+    tag: v2.0.78@sha256:4ae546a1976fc018960bd4cfdfd5395118fd4f4f630b9a307edb120edd105d8e
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-rdtclient"
@@ -9140,7 +9140,7 @@ homepage:
   priorityClassName: tenant-normal
   image:
     repository: ghcr.io/gethomepage/homepage
-    tag: v0.8.12
+    tag: v0.8.13
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-homepage,homepage-config,homepage-env"
@@ -9513,7 +9513,7 @@ airdcpppia: &app_airdcpp
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/airdcpp
-    tag: 2.9.0@sha256:8fa14521ce9bd881832b45a525df10b1e2c760a6a1c44517db6c67860f88f9c0
+    tag: 2.9.0@sha256:d9f6e597bcfc38946d0c4cafce775a559e7b8cf7c66397c9c506cb695ea01205
   priorityClassName: tenant-normal
   podLabels:
     app.elfhosted.com/name: airdcpp
@@ -9663,7 +9663,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2536@sha256:22ca78461ef633b23043d8f30b1253a818595011d5ba3a725ebbadc7afc0e9f8
+    tag: 0.21.2554@sha256:194d835b7a2b8125c601d1fd3999f8edf9e30a788be13e7bd44cb36534b035e4
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10237,7 +10237,7 @@ mediafusion:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/mediafusion
-    tag: 3.8.5@sha256:0e71c4b49f9b90a2bf04d8bde41ced131cf6e7281f33fe8c6a661b6a51f63aa7
+    tag: 3.8.8@sha256:533c4b6a0dcb3229c1d4cf3b394008db1d49438ac8701aed08d270862049713d
   priorityClassName: tenant-normal
   controller:
     annotations:
