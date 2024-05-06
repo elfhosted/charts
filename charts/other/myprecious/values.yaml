@@ -1451,7 +1451,7 @@ qbittorrentgluetun: &qbittorrent
   image:
     registry: ghcr.io
     repository: geek-cookbook/qbittorrent
-    tag: 4.6.4@sha256:5426e0272bfbfe3c13016393ff4a1a01ce89df2104adcdc2ef10617cc40e5ade
+    tag: 4.6.4@sha256:d0a13275eb78088e1f20a1d846580cfe4c6625164084d805d54f6ad8e6ab2490
   priorityClassName: tenant-bulk
   securityContext:
     runAsUser: 568
@@ -10662,7 +10662,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: v2.0.26@sha256:f5ab248e8396b6cdace277e365b0c2f4ac55d8f6487874087cd91ace1c66e20f
+    tag: v2.0.26@sha256:f98af7cbe03c36e3beef8968cad15803b8896927cae3427d1c1fbbf972aa50ab
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  
