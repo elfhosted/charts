@@ -9,7 +9,7 @@ spec:
     - match: Host(`{{ .Release.Name }}.rutorrent.elfhosted.com`) && PathPrefix(`/gluetun/`)
       kind: Rule
       services:
-        - name: qbittorrent
+        - name: rutorrent
           kind: Service
           port: 8042 # gluetun admin ui, adjusted for rutorrent
       middlewares:
