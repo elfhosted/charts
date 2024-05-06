@@ -19,8 +19,8 @@ spec:
     protocol: TCP
     name: dante
 {{ if .Values.rutorrentgluetun.enabled }}
-  - port: 8000
-    targetPort: 8000
+  - port: 8042
+    targetPort: 8042
     protocol: TCP
     name: gluetun
 {{ end }}
