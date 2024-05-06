@@ -1,5 +1,5 @@
 {{ if or .Values.sabnzbd.enabled  .Values.sonarr.enabled .Values.radarr.enabled .Values.qbittorrentpia.enabled .Values.qbittorrentgluetun.enabled .Values.prowlarr.enabled .Values.sonarr4k.enabled .Values.radarr4k.enabled .Values.delugepia.enabled .Values.delugegluetun.enabled  .Values.rutorrentpia.enabled .Values.rutorrentgluetun.enabled .Values.lidarr.enabled }}
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: {{ .Release.Name }}-add-cors-for-homer

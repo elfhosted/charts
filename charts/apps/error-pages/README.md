@@ -71,7 +71,7 @@ For use with Traefik you will also need to create a `IngressRoute` and `Middlewa
 
 ```yaml
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: error-pages
@@ -93,7 +93,7 @@ spec:
 
 ```yaml
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: error-pages
