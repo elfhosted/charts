@@ -1451,7 +1451,7 @@ qbittorrentgluetun: &qbittorrent
   image:
     registry: ghcr.io
     repository: geek-cookbook/qbittorrent
-    tag: 4.6.4@sha256:5426e0272bfbfe3c13016393ff4a1a01ce89df2104adcdc2ef10617cc40e5ade
+    tag: 4.6.4@sha256:d0a13275eb78088e1f20a1d846580cfe4c6625164084d805d54f6ad8e6ab2490
   priorityClassName: tenant-bulk
   securityContext:
     runAsUser: 568
