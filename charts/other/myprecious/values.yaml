@@ -4249,7 +4249,7 @@ resiliosync:
   priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/geek-cookbook/resilio-sync
-    tag: 2.7.3.1381-1@sha256:e73ca73c5b726362aceb0be808e409d346eb42072ab57db8d90fd0d93003d265
+    tag: 2.8.0.1389-1@sha256:d904043b452285d37128461e9faa06fe96d442b4baf7a9f0e6a0b9242f7761a0
   env:
     PUID: 568
     GUID: 568
