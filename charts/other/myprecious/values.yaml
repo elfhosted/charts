@@ -6839,6 +6839,8 @@ audiobookshelf:
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: true
+  podLabels:
+    app.elfhosted.com/name: audiobookshelf    
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
