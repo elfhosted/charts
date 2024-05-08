@@ -9521,7 +9521,7 @@ iceberg:
           name: iceberg-config        
       resources: *default_resources
 
-airdcpppia: &app_airdcpp
+airdcpp: &app_airdcpp
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/airdcpp
@@ -9641,6 +9641,10 @@ airdcpppia: &app_airdcpp
         down: |-
           #!/bin/ash
           echo "disconnected" > /shared/vpnstatus        
+
+airdcpppia:
+  enabled: false
+  <<: *app_airdcpp
 
 airdcppgluetun:
   enabled: false
