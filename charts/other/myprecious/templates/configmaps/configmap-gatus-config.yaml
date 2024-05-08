@@ -823,8 +823,8 @@ data:
 
       {{ if or .Values.airdcpppia.enabled .Values.airdcppgluetun.enabled }}
       - name: airdcpp
-        group: manage-media
-        url: "http://airdcpp:5600/home"
+        group: download-media
+        url: "http://airdcpp:5600/index.html"
         interval: 5m
         conditions:
           - "[STATUS] == 200"

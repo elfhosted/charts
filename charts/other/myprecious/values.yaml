@@ -7399,7 +7399,7 @@ plexmetamanager:
     config:
       enabled: true
       type: custom
-      mountPath: /app/config/
+      mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-plexmetamanager
@@ -7437,12 +7437,12 @@ plexmetamanager:
         set -e
 
         # If we don't already have an example config, create one
-        if [ ! -f /app/config/config.yml ];
+        if [ ! -f /config/config.yml ];
         then
-          cp /bootstrap/config.yml /app/config/
+          cp /bootstrap/config.yml /config/
         fi
       volumeMounts:
-      - mountPath: /app/config
+      - mountPath: /config
         name: config
       - name: example-config
         mountPath: "/bootstrap/"
