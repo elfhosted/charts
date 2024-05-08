@@ -1,4 +1,4 @@
-{{ if .Values.airdcpppia.enabled }}
+{{ if or .Values.airdcpppia.enabled .Values.airdcppgluetun.enabled }}
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:

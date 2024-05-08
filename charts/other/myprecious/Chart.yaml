@@ -374,11 +374,11 @@ dependencies:
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
     alias: airdcpppia
-  # - name: app-template
-  #   condition: airdcppglueun.enabled
-  #   version: ~0.2.1
-  #   repository: http://chartmuseum.chartmuseum:8080        
-  #   alias: airdcppgluetun   
+  - name: app-template
+    condition: airdcppglueun.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: airdcppgluetun   
   - name: app-template
     condition: jackett.enabled
     version: ~0.2.1
