@@ -7490,6 +7490,8 @@ kometa:
     seccompProfile:
       type: RuntimeDefault
     readOnlyRootFilesystem: true
+  podLabels:
+    app.elfhosted.com/name: kometa    
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-kometa"
