@@ -11,9 +11,9 @@ spec:
         - name: audiobookshelf
           kind: Service
           port: 8000
-      middlewares:
-        - name: error-pages
-          namespace: traefik
-        - name: set-x-forwarded-proto-https
-          namespace: traefik
+      # middlewares:
+      #   - name: error-pages
+      #     namespace: traefik
+      #   - name: set-x-forwarded-proto-https
+      #     namespace: traefik
 {{ end }}
