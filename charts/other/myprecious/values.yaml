@@ -4074,7 +4074,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1616@sha256:63c321ea36cb6ac0634dd0718b1b626a1473eaa86c445d1e67e88640c2b386f3
+    tag: 4.0.4.1650@sha256:bf0352467e51921d4e7d86034aeecebdf51e28e87f53c1b7ccde985e3e8ac909
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4157,7 +4157,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1616@sha256:63c321ea36cb6ac0634dd0718b1b626a1473eaa86c445d1e67e88640c2b386f3
+    tag: 4.0.4.1650@sha256:bf0352467e51921d4e7d86034aeecebdf51e28e87f53c1b7ccde985e3e8ac909
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4577,7 +4577,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.27.2532@sha256:91e18691f01a74a6adcb54993fc7909bc3d217f4c986e022b404dd8b39755557
+    tag: 0.3.27.2534@sha256:7175ce06d530075579065770c35f802df368d60c5412f41ea2e0c42fc856b7ee
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4664,7 +4664,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.27.2532@sha256:91e18691f01a74a6adcb54993fc7909bc3d217f4c986e022b404dd8b39755557
+    tag: 0.3.27.2534@sha256:7175ce06d530075579065770c35f802df368d60c5412f41ea2e0c42fc856b7ee
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -5163,7 +5163,7 @@ jellyfin:
       memory: 512Mi
     limits:
       cpu: 2
-      memory: 2Gi
+      memory: 3Gi
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination  
     jellyfixer:
@@ -9546,9 +9546,6 @@ airdcpp: &app_airdcpp
     fsGroup: 568
     fsGroupChangePolicy: "OnRootMismatch"
   automountServiceAccountToken: false
-  # envFrom:
-  # - configMapRef:
-  #     name: airdcpp-config
   resources:
     requests:
       cpu: 10m
@@ -9679,7 +9676,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2565@sha256:1a1a3a77ed2ee1936ea5d3eab94a4d0dc5fa71fe2e371f69c0ac69c85266be73
+    tag: 0.21.2569@sha256:e8ff51ec9b61ea5d30913a228f5c911e120779fbff671ceda77fa97ee7179b79
   priorityClassName: tenant-normal
   controller:
     annotations:
