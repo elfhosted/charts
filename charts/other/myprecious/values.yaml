@@ -9457,17 +9457,17 @@ iceberg:
   envFrom:
   - configMapRef:
       name: iceberg-config
-  command:
-  - /usr/bin/dumb-init
-  - /bin/bash
-  - -c
-  - |
-    set -e
-    set -x
+  # command:
+  # - /usr/bin/dumb-init
+  # - /bin/bash
+  # - -c
+  # - |
+  #   set -e
+  #   set -x
     
-    cd backend
-    source /venv/bin/activate
-    exec python /iceberg/backend/main.py   
+  #   cd backend
+  #   source /venv/bin/activate
+  #   exec python /iceberg/backend/main.py   
   resources: 
     requests:
       cpu: 1m
@@ -9502,24 +9502,24 @@ iceberg:
           optional: true
   initContainers:
     bootstrap: *bootstrap
-  additionalContainers:
-    frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:8ca4bcc2bcbf01e93e9975f779c027f1a25d42c9bdb4fe3b4891fa9cbcff06ed
-      command:
-      - node 
-      - /iceberg/frontend/build               
-      volumeMounts:
-      - mountPath: /iceberg/data
-        name: config
-        subPath: config
-      - mountPath: /storage/realdebrid-zurg
-        name: rclonemountrealdebridzurg
-      - mountPath: /storage/elfstorage
-        name: elfstorage
-      envFrom:
-      - configMapRef:
-          name: iceberg-config        
-      resources: *default_resources
+  # additionalContainers:
+  #   frontend:
+  #     image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:8ca4bcc2bcbf01e93e9975f779c027f1a25d42c9bdb4fe3b4891fa9cbcff06ed
+  #     command:
+  #     - node 
+  #     - /iceberg/frontend/build               
+  #     volumeMounts:
+  #     - mountPath: /iceberg/data
+  #       name: config
+  #       subPath: config
+  #     - mountPath: /storage/realdebrid-zurg
+  #       name: rclonemountrealdebridzurg
+  #     - mountPath: /storage/elfstorage
+  #       name: elfstorage
+  #     envFrom:
+  #     - configMapRef:
+  #         name: iceberg-config        
+  #     resources: *default_resources
 
 airdcpp: &app_airdcpp
   enabled: false
