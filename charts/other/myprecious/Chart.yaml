@@ -285,6 +285,11 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080
     condition: plexmetamanager.enabled
     alias: plexmetamanager
+  - name: kometa
+    version: ~2.4.0
+    repository: http://chartmuseum.chartmuseum:8080
+    condition: kometa.enabled
+    alias: kometa    
   - name: filebot-node
     version: ~0.0.1
     repository: http://chartmuseum.chartmuseum:8080

@@ -526,6 +526,14 @@ data:
             siteMonitor: http://plexmetamanager:9898
         {{ end }}   
 
+        {{ if .Values.kometa.enabled }}
+        - Kometa:
+            icon: mdi-folder-information
+            href: https://{{ .Release.Name }}-filebrowser.elfhosted.com/files/config/kometa/
+            description: Manage Plex Metadata   
+            siteMonitor: http://kometa:9898
+        {{ end }}           
+
         {{ if or .Values.autoscan.enabled }}
         - Autoscan:
             icon: mdi-magnify-scan

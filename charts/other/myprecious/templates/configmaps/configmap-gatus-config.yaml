@@ -601,6 +601,17 @@ data:
           - type: email
       {{ end }}
 
+      {{ if .Values.kometa.enabled }}
+      - name: kometa
+        group: manage-media
+        url: "http://kometa:9898"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email
+      {{ end }}      
+
       {{ if or .Values.autoscan.enabled }}
       - name: autoscan
         group: manage-media
