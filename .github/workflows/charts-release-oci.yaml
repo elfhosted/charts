@@ -42,10 +42,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Add helm repo
-        shell: bash
-        run: |
-          helm repo add chartmuseum http://chartmuseum.chartmuseum:8080 --username chartmuseum --password chartmuseum
+      # - name: Add helm repo
+      #   shell: bash
+      #   run: |
+      #     helm repo add chartmuseum http://chartmuseum.chartmuseum:8080 --username chartmuseum --password chartmuseum
  
       - name: Package & Push Helm Charts
         shell: bash
