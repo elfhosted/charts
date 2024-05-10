@@ -111,7 +111,6 @@ data:
               - 3fbafa924f361e66fbc6187af82dfa85 # 5.1 Surround
               - 9fb6d778592c293467437593ef394bf1 # 6.1 Surround
               - 204c8c3e7315bb0ea81332774fa888d6 # 7.1 Surround
-              - a377864de6228b252d6e28962673cedd # 9.1 Surround
 
               # HDR Formats
               - 2b239ed870daba8126a53bd5dc8dc1c8 # DV HDR10Plus
@@ -320,7 +319,6 @@ data:
               - 3fbafa924f361e66fbc6187af82dfa85 # 5.1 Surround
               - 9fb6d778592c293467437593ef394bf1 # 6.1 Surround
               - 204c8c3e7315bb0ea81332774fa888d6 # 7.1 Surround
-              - a377864de6228b252d6e28962673cedd # 9.1 Surround
 
               # HDR Formats
               - 2b239ed870daba8126a53bd5dc8dc1c8 # DV HDR10Plus
@@ -560,7 +558,6 @@ data:
               - 77ff61788dfe1097194fd8743d7b4524 # 5.1 Surround
               - 6fd7b090c3f7317502ab3b63cc7f51e3 # 6.1 Surround
               - e77382bcfeba57cb83744c9c5449b401 # 7.1 Surround
-              - f2aacebe2c932337fe352fa6e42c1611 # 9.1 Surround
 
               # HDR Formats
               - c53085ddbd027d9624b320627748612f # DV HDR10Plus
@@ -794,7 +791,6 @@ data:
               - 77ff61788dfe1097194fd8743d7b4524 # 5.1 Surround
               - 6fd7b090c3f7317502ab3b63cc7f51e3 # 6.1 Surround
               - e77382bcfeba57cb83744c9c5449b401 # 7.1 Surround
-              - f2aacebe2c932337fe352fa6e42c1611 # 9.1 Surround
 
               # HDR Formats
               - c53085ddbd027d9624b320627748612f # DV HDR10Plus
