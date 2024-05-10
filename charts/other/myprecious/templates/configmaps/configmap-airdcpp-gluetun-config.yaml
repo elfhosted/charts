@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: deluge-gluetun-config
+  name: airdcpp-gluetun-config
 data:
 
   # These are used by the gluetun image
