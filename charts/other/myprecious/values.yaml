@@ -4081,7 +4081,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1650@sha256:bf0352467e51921d4e7d86034aeecebdf51e28e87f53c1b7ccde985e3e8ac909
+    tag: 4.0.4.1668@sha256:c554ed3e43f416218a904341e3f559aa89c93aab18748c7abc978457d8b87303
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4164,7 +4164,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1650@sha256:bf0352467e51921d4e7d86034aeecebdf51e28e87f53c1b7ccde985e3e8ac909
+    tag: 4.0.4.1668@sha256:c554ed3e43f416218a904341e3f559aa89c93aab18748c7abc978457d8b87303
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -9787,7 +9787,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2569@sha256:e8ff51ec9b61ea5d30913a228f5c911e120779fbff671ceda77fa97ee7179b79
+    tag: 0.21.2574@sha256:2b603a32b99eff6dbd7249a063e507d13cf4d762ce8b36b8d57eabedb24184b9
   priorityClassName: tenant-normal
   controller:
     annotations:
