@@ -9766,7 +9766,7 @@ airdcppgluetun:
           tag: 3.38.0@sha256:bfa60c589cb6c06fbf2f30696d9d2b5a0f7fcfbf3066ff85363a89b7fed869d8
       envFrom:
       - configMapRef:
-          name: airddcpp-gluetun-config
+          name: airdcpp-gluetun-config
       securityContext:
         runAsUser: 0
         capabilities:
