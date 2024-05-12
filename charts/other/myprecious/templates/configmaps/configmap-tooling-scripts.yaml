@@ -20,7 +20,7 @@ data:
       # No record exists, so create it
       cfcli add -t A $MY_NODE_NAME $MY_NODE_IP
     fi
-    cfcli enable $MY_NODE_NAME $MY_NODE_IP # enable proxying for this node
+    cfcli disable $MY_NODE_NAME $MY_NODE_IP # enable proxying for this node # CHANGED on 13 May 2024
 
     # What's my name? (adjusted for stremio-server secretstring)
     case $ELF_APP_NAME in
@@ -76,7 +76,7 @@ data:
         ;;
       {{ end }}
       *)
-        cfcli enable $MY_NAME $MY_NODE_NAME.elfhosted.com
+        cfcli disable $MY_NAME $MY_NODE_NAME.elfhosted.com # CHANGED on 13 May 2024
         ;;
     esac
 
