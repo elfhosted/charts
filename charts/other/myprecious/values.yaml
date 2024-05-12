@@ -3881,6 +3881,7 @@ komga:
   env:
     KOMGA_CONFIGDIR: /config
     KOMGA_REMEMBERME_KEY: yesplease
+    JAVA_TOOL_OPTIONS: -Xmx2g
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -3925,7 +3926,7 @@ komga:
       memory: 512Mi
     limits:
       cpu: 1
-      memory: 1Gi
+      memory: 2Gi
 
 kavita:
   enabled: false
