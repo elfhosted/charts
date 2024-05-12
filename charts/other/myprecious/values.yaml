@@ -3563,7 +3563,7 @@ nzbhydra:
   image:
     registry: ghcr.io
     repository: geek-cookbook/nzbhydra2
-    tag: 6.2.0@sha256:b514466e62a37caf674a32cd00e93cf9398673825116ceca10ab1813d6a25508
+    tag: 6.2.1@sha256:e669f720323a8a470c36e2aca4a0ac3d7f5043f0666128827e6668882388bb8b
   priorityClassName: 
   controller:
     annotations:
@@ -10362,7 +10362,7 @@ mediafusion:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/mediafusion
-    tag: 3.8.9@sha256:1e6f21c0c0d0939c4ad89e20e3ff1b0cc77853766971797c87532f9ec3bc9d0b
+    tag: 3.9.0@sha256:039c591be4c6bf15880ea5c567485a9307b3affd75bffbda54189a4e0533b867
   priorityClassName: tenant-normal
   controller:
     annotations:
