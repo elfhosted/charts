@@ -5084,7 +5084,7 @@ jellyfin:
   hostname: elfhosted
   image:
     repository: ghcr.io/geek-cookbook/jellyfin
-    tag: 10.9.0@sha256:bf973d64d92e93c0e338a94fa83b07081521ff9035cd42955b7193818d704bfb
+    tag: 10.9.1@sha256:8eb4254d0e208e1ed0a3d5e597b8162c0fcd80083279ff7ad4cd58186bfde026
   enabled: false
   podLabels:
     app.elfhosted.com/class: streaming  
