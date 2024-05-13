@@ -3471,7 +3471,7 @@ privatebin:
     enabled: false
   image:
     repository: privatebin/fs
-    tag: 1.7.2
+    tag: 1.7.3
   priorityClassName: 
   controller:
     annotations:
