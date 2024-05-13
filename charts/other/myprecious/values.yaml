@@ -9774,7 +9774,10 @@ airdcppgluetun:
           add:
             - NET_ADMIN
             - SYS_MODULE
-      config: # We have to set this to null so that we can override with our own config       
+      config: # We have to set this to null so that we can override with our own config 
+      additionalVolumeMounts:
+      - mountPath: /config
+        name: config            
       scripts:
         up: |-
           #!/bin/ash
