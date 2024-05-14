@@ -5172,6 +5172,9 @@ jellyfin:
     limits:
       cpu: 2
       memory: 4Gi
+  envFrom:
+  - configMapRef:
+      name: jellyfin-config 
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination  
     jellyfixer:
