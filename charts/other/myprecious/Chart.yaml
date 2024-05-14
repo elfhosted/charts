@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.32731-pre-01
+version: 1.0.32731-pre-02
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -28,28 +28,21 @@ maintainers:
     email: davidy@funkypenguin.co.nz
 
 dependencies:
-  - name: plex
-    version: ~6.4.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: plex.enabled
-  - name: plex
-    version: ~6.4.0
-    repository: http://chartmuseum.chartmuseum:8080
-    condition: plexgluetun.enabled
-    alias: plexgluetun
-  - name: plex
-    version: ~6.4.0
-    repository: http://chartmuseum.chartmuseum:8080
-    condition: plexpia.enabled
-    alias: plexpia   
-  - name: emby
-    version: ~3.4.0
+    alias: plex
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: emby.enabled
-  - name: jellyfin
-    version: ~9.5.0
+    alias: emby
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: jellyfin.enabled
+    alias: jellyfin
   - name: nzbget
     version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
