@@ -20,7 +20,7 @@ env:
 jobs:
   release-charts:
     name: Release charts
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, actions-runner-elfhosted.com ]
     steps:
       - name: Checkout chart sources
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
@@ -45,8 +45,7 @@ jobs:
       - name: Add helm repo
         shell: bash
         run: |
-          helm repo update
-          # helm repo add chartmuseum http://chartmuseum.chartmuseum:8080 --username chartmuseum --password chartmuseum
+          helm repo add chartmuseum http://chartmuseum.chartmuseum:8080 --username chartmuseum --password chartmuseum
  
       - name: Package & Push Helm Charts
         shell: bash
