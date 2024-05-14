@@ -5171,7 +5171,7 @@ jellyfin:
       memory: 512Mi
     limits:
       cpu: 2
-      memory: 3Gi
+      memory: 4Gi
   additionalContainers:
     clean-up-dns: *clean_up_dns_on_termination  
     jellyfixer:
