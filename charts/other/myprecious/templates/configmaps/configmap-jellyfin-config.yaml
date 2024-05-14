@@ -1,0 +1,13 @@
+{{ if .Values.jellyfin.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jellyfin-config
+data:
+  # For custom domains
+  {{- if .Values.plexcustomdomain.enabled }}
+  JELLYFIN_PublishedServerUrl: "https://{{ .Values.jellyfincustomdomain.cname }}"
+  {{ else }}
+  JELLYFIN_PublishedServerUrl: "https://{{ .Release.Name }}-jellyfin.elfhosted.com"
+  {{ end }}
+{{ end }}
