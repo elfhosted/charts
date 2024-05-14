@@ -4941,6 +4941,9 @@ plex: &plex
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 32400
   envFrom:
   - configMapRef:
       name: plex-config
@@ -5165,6 +5168,9 @@ jellyfin:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8066
   resources:
     requests:
       cpu: "200m"
@@ -5279,6 +5285,9 @@ emby:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8096
   resources:
     requests:
       cpu: "200m"

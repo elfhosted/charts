@@ -1,6 +1,6 @@
 name: "Charts: Release (OCI test)"
 
-concurrency: helm-release
+concurrency: helm-release-oci
 
 on:
   workflow_dispatch:
