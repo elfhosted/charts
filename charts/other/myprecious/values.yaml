@@ -4941,6 +4941,9 @@ plex: &plex
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 32400
   envFrom:
   - configMapRef:
       name: plex-config
@@ -5164,7 +5167,41 @@ jellyfin:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
+      enabled: false # necessary for probes
+  probes:
+    liveness:
+      custom: true
+      enabled: true
+      spec:
+        failureThreshold: 5
+        httpGet:
+          path: /health
+          port: 8096
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 10
+    readiness:
+      custom: true
+      enabled: true
+      spec:
+        failureThreshold: 5
+        httpGet:
+          path: /health
+          port: 8096
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 10
+    startup:
+      custom: true
+      enabled: true
+      spec:
+        failureThreshold: 5
+        httpGet:
+          path: /health
+          port: 8096
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 10
   resources:
     requests:
       cpu: "200m"
@@ -5281,7 +5318,41 @@ emby:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
+      enabled: false # necessary for probes
+  probes:
+    liveness:
+      custom: true
+      enabled: true
+      spec:
+        failureThreshold: 5
+        httpGet:
+          path: /health
+          port: 8096
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 10
+    readiness:
+      custom: true
+      enabled: true
+      spec:
+        failureThreshold: 5
+        httpGet:
+          path: /health
+          port: 8096
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 10
+    startup:
+      custom: true
+      enabled: true
+      spec:
+        failureThreshold: 5
+        httpGet:
+          path: /health
+          port: 8096
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 10
   resources:
     requests:
       cpu: "200m"
