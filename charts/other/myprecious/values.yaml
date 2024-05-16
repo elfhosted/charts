@@ -5326,7 +5326,7 @@ emby:
       spec:
         failureThreshold: 5
         httpGet:
-          path: /health
+          path: /
           port: 8096
         initialDelaySeconds: 30
         periodSeconds: 10
@@ -5337,7 +5337,7 @@ emby:
       spec:
         failureThreshold: 5
         httpGet:
-          path: /health
+          path: /
           port: 8096
         initialDelaySeconds: 30
         periodSeconds: 10
@@ -5348,7 +5348,7 @@ emby:
       spec:
         failureThreshold: 5
         httpGet:
-          path: /health
+          path: /
           port: 8096
         initialDelaySeconds: 30
         periodSeconds: 10
