@@ -10901,7 +10901,7 @@ knightcrawler: &app_knightcrawler
     main:
       enabled: true # necessary for probes
       ports:
-        http:
+        addon:
           port: 7000
   persistence:                 
     elfbot:

@@ -4,8 +4,7 @@ kind: Service
 metadata:
   name: stremio-jackett-community
   labels:
-    app.kubernetes.io/name: stremiojackettcommunity
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.elfhosted.com/name: stremio-jackett-community
   annotations:
 spec:
   type: ClusterIP
@@ -15,6 +14,5 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app.kubernetes.io/name: stremiojackettcommunity
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.elfhosted.com/name: stremio-jackett-community
 {{ end }}
