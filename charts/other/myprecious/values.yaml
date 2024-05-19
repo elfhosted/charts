@@ -5087,7 +5087,7 @@ jellyfin:
   hostname: elfhosted
   image:
     repository: ghcr.io/geek-cookbook/jellyfin
-    tag: 10.9.1@sha256:7ed24eaeb4bc50e29fd6152cf4cfd3cec0ce4512b9b8d16f3408b7174f1c3300
+    tag: 10.9.2@sha256:76f1c309cd7d9276974d08bef38a3dd3c4924a349d05f7fa0a3c85fa9c9bcca3
   enabled: false
   podLabels:
     app.elfhosted.com/class: streaming  
@@ -5227,7 +5227,7 @@ emby:
   image:
     registry: ghcr.io
     repository: geek-cookbook/emby
-    tag: 4.8.6.0@sha256:f9f750f69208a44964dd953d565e4af9c03479fd4d35df1b792503fdb1217dcb
+    tag: 4.8.7.0@sha256:7c42d1e4b2cc1c268b81a2598b6ffa610d2e2d986a0a01c52dccd7fe6706376d
   enabled: false
   priorityClassName: tenant-streaming
   podLabels:
@@ -7330,7 +7330,7 @@ nextpvr:
   priorityClassName: tenant-streaming
   image:
     repository: ghcr.io/geek-cookbook/nextpvr
-    tag: 10.9.1@sha256:02e9d84b197e85545987b8df0196ef59bd003f21587aef5901e0c603bc6166da
+    tag: 10.9.2@sha256:c35d064ab7318e351e2b55dd34a184987114f0b42e4e59c256ef8e90fb6f68f4
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-nextpvr"
@@ -9865,7 +9865,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2606@sha256:81ac937bc60200592c8bac6546a9eb623b9d8b597e8d47fe75117ed0acba7e7b
+    tag: 0.21.2635@sha256:fc273e036b10f2356de46795e395b350b5ed3e02c65b7ad6a131cbf54a49be2e
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10127,7 +10127,7 @@ stremiojackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v4.1.4@sha256:6f6cd19aad3c15ac0bf2173f8821d5dd3e8fd4fa4cf3c86acaec9383f9dfc797
+    tag: v4.1.5@sha256:8ab9e58b880a011f0eaaf36314be86eda05f23b8cf81c193c381e87fe286436f
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10515,7 +10515,7 @@ stremiojackettcommunity: &stremiojackettcommunity
       app.elfhosted.com/name: stremio-jackett-community    
   image:
     repository: ghcr.io/geek-cookbook/stremio-jackett
-    tag: v4.1.4@sha256:6f6cd19aad3c15ac0bf2173f8821d5dd3e8fd4fa4cf3c86acaec9383f9dfc797
+    tag: v4.1.5@sha256:8ab9e58b880a011f0eaaf36314be86eda05f23b8cf81c193c381e87fe286436f
   priorityClassName: tenant-normal
   # command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"] # allow logs on private instances
   controller:
