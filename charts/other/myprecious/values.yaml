@@ -2823,7 +2823,7 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-deluge-ssd
     emby:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-emby.txt"
       mountPath: /storage/config/emby/where-is-my-emby.txt
       type: "custom"
@@ -2901,7 +2901,7 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-jdownloader-ssd
     jellyfin:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-jellyfin.txt"
       mountPath: /storage/config/jellyfin/where-is-my-jellyfin.txt
       type: "custom"
@@ -3043,7 +3043,7 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-privatebin-ssd
     plex:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-plex.txt"
       mountPath: /storage/config/plex/where-is-my-plex.txt
       type: "custom"
@@ -3051,7 +3051,7 @@ filebrowser:
         configMap:
           name: explain-migration              
     prowlarr:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-prowlarr.txt"
       mountPath: /storage/config/emby/where-is-my-prowlarr.txt
       type: "custom"
@@ -3073,7 +3073,7 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-qbittorrent-ssd
     radarr:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-radarr.txt"
       mountPath: /storage/config/radarr/where-is-my-radarr.txt
       type: "custom"
@@ -3081,7 +3081,7 @@ filebrowser:
         configMap:
           name: explain-migration   
     radarr4k:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-radarr4k.txt"
       mountPath: /storage/config/radarr4k/where-is-my-radarr4k.txt
       type: "custom"
@@ -3103,7 +3103,7 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-rclonebrowser-ssd
     readarr:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-readarr.txt"
       mountPath: /storage/config/readarr/where-is-my-readarr.txt
       type: "custom"
@@ -3111,7 +3111,7 @@ filebrowser:
         configMap:
           name: explain-migration  
     readarraudio:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-readarraudio.txt"
       mountPath: /storage/config/readarraudio/where-is-my-readarraudio.txt
       type: "custom"
@@ -3175,7 +3175,7 @@ filebrowser:
         persistentVolumeClaim:
           claimName: config-shoko-ssd
     sonarr:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-sonarr.txt"
       mountPath: /storage/config/sonarr/where-is-my-sonarr.txt
       type: "custom"
@@ -3183,7 +3183,7 @@ filebrowser:
         configMap:
           name: explain-migration  
     sonarr4k:
-      enabled: "true"
+      enabled: "false"
       subPath: "where-is-my-sonarr4k.txt"
       mountPath: /storage/config/sonarr4k/where-is-my-sonarr4k.txt
       type: "custom"
