@@ -1800,7 +1800,7 @@ nzbget:
     enabled: true
   image:
     repository: ghcr.io/geek-cookbook/nzbget
-    tag: 23.0@sha256:c805efb11f440c53995e2314e2ee1326a8a5e6a4ded4666b8b28034ef9569987
+    tag: 24.1@sha256:e5bac0b31cd47a896043327a3848b7f97c0c880b3698ad17934dec56b6511942
   priorityClassName: tenant-bulk
   podLabels:
     app.elfhosted.com/class: nzb
@@ -3581,7 +3581,7 @@ nzbhydra:
   image:
     registry: ghcr.io
     repository: geek-cookbook/nzbhydra2
-    tag: 6.2.1@sha256:e669f720323a8a470c36e2aca4a0ac3d7f5043f0666128827e6668882388bb8b
+    tag: 7.0.0@sha256:1ff21eb95c112d7178866b6d6ccc00ba88c909e48364ee281b33993f25a5155f
   priorityClassName: 
   controller:
     annotations:
@@ -6002,7 +6002,7 @@ homer:
   - /usr/local/bin/disk_usage.sh
   additionalContainers:
     ui:
-      image: ghcr.io/geek-cookbook/homer:23.10.1@sha256:c529c0b25972e7d55304e80b9629e8055b7bb2d5b2442ddc6fa3506aaa4a66d1
+      image: ghcr.io/geek-cookbook/homer:v24.04.1@sha256:a4613d058695ed7c9ed840ca6e9ec506bab89a0e43b1c3ab9d4d64be10d10493
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /www/assets/config.yml
@@ -9934,7 +9934,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2635@sha256:fc273e036b10f2356de46795e395b350b5ed3e02c65b7ad6a131cbf54a49be2e
+    tag: 0.21.2644@sha256:e3a7f96ef6e732d2cf363c35ced9b1fb16ac2fad65dc59c8ae9d42689f4c3e75
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10508,7 +10508,7 @@ mediafusion:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/mediafusion
-    tag: 3.9.0@sha256:039c591be4c6bf15880ea5c567485a9307b3affd75bffbda54189a4e0533b867
+    tag: 3.9.1@sha256:02e50b712a3e4f0cffd5e84bb28b6a1fa6b0f5a069b70c0611a2819cbad39063
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10712,7 +10712,7 @@ shluflix:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/shluflix
-    tag: rolling@sha256:6e4fafbe7e3888ff3212dfa771855272600b32d8dd50f9417202e892db424442
+    tag: rolling@sha256:d34254442091430e9559fd7ace2cc756c1b2be644aff15306803d9da38784eb6
   priorityClassName: tenant-normal
   controller:
     annotations:
