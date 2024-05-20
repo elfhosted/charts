@@ -2639,6 +2639,9 @@ autobrr:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 7474
   resources:
     requests:
       cpu: 10m
@@ -3535,6 +3538,9 @@ privatebin:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8080
   resources:
     requests:
       cpu: 10m
@@ -3636,7 +3642,10 @@ nzbhydra:
       enabled: false
   service:
     main:
-      enabled: true # necessary for custom probes
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5076
   resources:
     requests:
       cpu: 10m

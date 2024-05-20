@@ -180,22 +180,24 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080
     condition: qbittorrentpia.enabled
     alias: qbittorrentpia
-  - name: autobrr
-    version: ~1.1.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: autobrr.enabled
+    alias: autobrr
   - name: filebrowser
     version: ~1.4.0
     repository: http://chartmuseum.chartmuseum:8080
-  - name: nzbhydra2
-    version: ~10.4.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: nzbhydra.enabled
     alias: nzbhydra
-  - name: privatebin
-    version: ~2.1.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: privatebin.enabled
+    alias: privatebin
   - name: uptime-kuma
     version: ~1.4.0
     repository: http://chartmuseum.chartmuseum:8080
