@@ -1219,7 +1219,9 @@ delugegluetun: &deluge
       enabled: false
   service:
     main:
-      enabled: false # necessary for probes, but probes aren't working with vpn addon currently
+      ports:
+        http:
+          port: 8112
   env:
     # -- Set the container timezone
     TZ: UTC
@@ -1539,8 +1541,11 @@ qbittorrentgluetun: &qbittorrent
       enabled: false
   service:
     main:
-      nameOverride: qbittorrent
-      enabled: true # necessary for probes, but probes aren't working with vpn addon currently
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8080      
+      nameOverride: spanky
   env:
     # -- Set the container timezone
     TZ: UTC
@@ -3945,7 +3950,9 @@ komga:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 25600
   initContainers:
     bootstrap: *bootstrap
   resources:
@@ -3998,7 +4005,9 @@ kavita:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5000
   resources:
     requests:
       cpu: 10m
@@ -8646,7 +8655,9 @@ rapidleech:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8080
   resources:
     requests:
       cpu: 10m

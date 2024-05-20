@@ -144,36 +144,39 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080
     condition: mylar.enabled
     alias: mylar
-  - name: komga
-    version: ~2.4.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: komga.enabled
-  - name: kavita
-    version: ~2.4.0
+    alias: komga
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: kavita.enabled
-  - name: rapidleech
-    version: ~2.4.0
+    alias: kavita
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: rapidleech.enabled
-  - name: deluge
-    version: ~5.4.0
+    alias: rapidleech
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: delugepia.enabled
     alias: delugepia
-  - name: deluge
-    version: ~5.4.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: delugegluetun.enabled
     alias: delugegluetun        
-  - name: qbittorrent
-    version: ~13.5.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: qbittorrentgluetun.enabled
     alias: qbittorrentgluetun
   # Specifically for PIA's port-forwarding requirements (a separate image)
-  - name: qbittorrent
-    version: ~13.5.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: qbittorrentpia.enabled
     alias: qbittorrentpia
