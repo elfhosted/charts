@@ -3563,7 +3563,7 @@ nzbhydra:
   image:
     registry: ghcr.io
     repository: geek-cookbook/nzbhydra2
-    tag: 6.2.1@sha256:e669f720323a8a470c36e2aca4a0ac3d7f5043f0666128827e6668882388bb8b
+    tag: 7.0.0@sha256:1ff21eb95c112d7178866b6d6ccc00ba88c909e48364ee281b33993f25a5155f
   priorityClassName: 
   controller:
     annotations:
@@ -5162,6 +5162,36 @@ jellyfin:
   initContainers:
     bootstrap: *bootstrap
     update-dns: *update_dns_on_init  
+    setup:
+      image: *tooling_image
+      command:
+      - /bin/bash
+      - -c
+      - |
+        set -x
+        set -e
+
+        # Remove /config/transcode if it exists (could be old transcode data in there)
+        if [[ -f /config/transcode ]]; then
+          rm -rf /config/transcode
+        fi
+
+        # Make symlinks for various variations of transcode paths to /transcode
+        ln -sf /transcode /config/transcodes
+        ln -sf /transcode /config/transcode
+
+        # Also keep cache in /transcode
+        mkdir -p /transcode/cache
+        rm -rf /config/cache
+        ln -sf /transcode/cache /config/
+
+      volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /transcode
+        name: transcode  
+      securityContext: *default_securitycontext
+      resources: *default_resources    
   ingress:
     main:
       enabled: false
@@ -5279,11 +5309,11 @@ emby:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-emby-ssd            
-    # transcode-temp:
-    #   enabled: true
-    #   type: emptyDir
-    #   mountPath: /config/transcoding-temp
-    #   sizeLimit: 50Gi # Don't allow > 10GB in transcoding files
+    transcode-temp:
+      enabled: true
+      type: emptyDir
+      mountPath: /config/transcoding-temp
+      sizeLimit: 50Gi # Don't allow > 10GB in transcoding files
     transcode: # in case users use /tmp
       enabled: true
       type: custom
@@ -5933,7 +5963,7 @@ homer:
   - /usr/local/bin/disk_usage.sh
   additionalContainers:
     ui:
-      image: ghcr.io/geek-cookbook/homer:23.10.1@sha256:c529c0b25972e7d55304e80b9629e8055b7bb2d5b2442ddc6fa3506aaa4a66d1
+      image: ghcr.io/geek-cookbook/homer:v24.04.1@sha256:a4613d058695ed7c9ed840ca6e9ec506bab89a0e43b1c3ab9d4d64be10d10493
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /www/assets/config.yml
