@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.32758-pre-02
+version: 1.0.32758-pre-03
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -43,38 +43,43 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080
     condition: jellyfin.enabled
     alias: jellyfin
-  - name: nzbget
+  - name: app-template
     version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: nzbget.enabled
-  - name: sabnzbd
+    alias: nzbget
+  - name: app-template
     version: ~9.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: sabnzbd.enabled
-  - name: radarr
-    version: ~16.3.0
+    alias: sabnzbd
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: radarr.enabled
-  - name: radarr
-    version: ~16.3.0
+    alias: radarr
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: radarr4k.enabled
     alias: radarr4k
-  - name: sonarr
-    version: ~16.3.0
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: sonarr.enabled
-  - name: sonarr
-    version: ~16.3.0
+    alias: sonarr
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: sonarr4k.enabled
     alias: sonarr4k
-  - name: bazarr
-    version: ~10.6.0
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: bazarr.enabled
-  - name: bazarr
-    version: ~10.6.0
+    alias: bazarr
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: bazarr4k.enabled
     alias: bazarr4k
@@ -89,24 +94,26 @@ dependencies:
     version: ~2.2.0
     repository: http://chartmuseum.chartmuseum:8080
     alias: traefikforwardauth
-  - name: prowlarr
-    version: ~0.2.3
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: prowlarr.enabled
+    alias: prowlarr
   - name: tautulli
     version: ~11.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: tautulli.enabled
-  - name: lidarr
-    version: ~14.2.0
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: lidarr.enabled
-  - name: readarr
-    version: ~6.4.0
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: readarr.enabled
-  - name: readarr
-    version: ~6.4.0
+    alias: readarr
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: readarraudio.enabled
     alias: readarraudio
@@ -128,10 +135,11 @@ dependencies:
     version: ~7.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: lazylibrarian.enabled
-  - name: mylar
-    version: ~4.4.0
+  - name: app-template
+    version: ~12.4.0
     repository: http://chartmuseum.chartmuseum:8080
     condition: mylar.enabled
+    alias: mylar
   - name: komga
     version: ~2.4.0
     repository: http://chartmuseum.chartmuseum:8080

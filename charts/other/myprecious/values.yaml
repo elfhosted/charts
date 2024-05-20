@@ -1869,6 +1869,9 @@ nzbget:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 6789
   initContainers:
     bootstrap: *bootstrap
 
@@ -1954,6 +1957,9 @@ sabnzbd:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8080
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -2145,6 +2151,9 @@ radarr:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 7878
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -2236,6 +2245,9 @@ radarr4k:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 7878
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -2463,6 +2475,9 @@ bazarr:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 6767
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -2539,6 +2554,9 @@ bazarr4k:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 6767
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -3843,6 +3861,9 @@ mylar:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8090
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -4072,9 +4093,6 @@ calibre:
       securityContext: *default_securitycontext
 
 sonarr:
-  service:
-    main:
-      enabled: false
   enabled: false
   sso:
     enabled: true
@@ -4118,6 +4136,12 @@ sonarr:
   ingress:
     main:
       enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8989      
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -4155,9 +4179,6 @@ sonarr:
 
 
 sonarr4k:
-  service:
-    main:
-      enabled: false
   enabled: false
   sso:
     enabled: true
@@ -4207,6 +4228,12 @@ sonarr4k:
   ingress:
     main:
       enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8989      
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -4373,6 +4400,9 @@ prowlarr:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 9696
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -4471,6 +4501,9 @@ lidarr:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8686
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -4637,6 +4670,9 @@ readarr:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8787
   initContainers:
     bootstrap: *bootstrap
     setup:
@@ -4724,6 +4760,9 @@ readarraudio:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8787
   initContainers:
     bootstrap: *bootstrap
     setup:
