@@ -2090,6 +2090,9 @@ tautulli:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8181
   resources:
     requests:
       cpu: 10m
@@ -3684,7 +3687,9 @@ calibreweb:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8083
   initContainers:
     bootstrap: *bootstrap
   resources:
@@ -3802,7 +3807,9 @@ lazylibrarian:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5299
   initContainers:
     bootstrap: *bootstrap
   resources:
@@ -4601,7 +4608,9 @@ navidrome:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 4533
   resources:
     requests:
       cpu: 10m
