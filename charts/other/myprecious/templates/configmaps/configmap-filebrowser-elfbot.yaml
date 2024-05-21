@@ -40,8 +40,9 @@ data:
                 echo force-killing a healthy pod can result in data loss! add \'--yesiamsure\' after your restart --force command to force-kill
                 exit 1
             elif [[ "$3" == "--force" ]]; then
-                echo "force-restarting $2, data loss may occur (but sometimes there's no other way)..."
-                echo forcerestart > /elfbot/$2
+                echo force restarting disabled at present, create an \#elf-help ticket if you have a stuck pod...
+                # echo "force-restarting $2, data loss may occur (but sometimes there's no other way)..."
+                # echo forcerestart > /elfbot/$2
             else             
                 echo "restarting $2..."
                 echo restart > /elfbot/$2
