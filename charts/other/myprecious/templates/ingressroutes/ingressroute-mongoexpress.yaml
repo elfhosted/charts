@@ -1,0 +1,18 @@
+{{ if .Values.mongoexpress.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-mongoexpress.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-mongoexpress.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: mongoexpress
+          kind: Service
+          port: 8081
+      middlewares:  
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: error-pages
+          namespace: traefik
+{{ end }}

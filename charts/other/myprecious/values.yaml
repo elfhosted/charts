@@ -10434,7 +10434,57 @@ redisinsight:
       mountPath: /data
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-redisinsight-block          
+          claimName: config-redisinsight-block   
+
+mongoexpress:
+  enabled: false
+  image:
+    repository: mongo-express
+    tag: 1.0.2-18
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-mongoexpress"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+    limits:
+      cpu: 1
+      memory: 256Mi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8081
+  # persistence:
+  #   elfstorage: *elfstorage
+  #   config:
+  #     enabled: true
+  #     type: custom
+  #     mountPath: /data
+  #     volumeSpec:
+  #       persistentVolumeClaim:
+  #         claimName: config-redisinsight-block                    
 
 annatar:
   enabled: false
