@@ -5241,10 +5241,17 @@ jellyfin:
         if [[ -f /config/transcode ]]; then
           rm -rf /config/transcode
         fi
+        if [[ -f /config/transcoding-temp ]]; then
+          rm -rf /config/transcoding-temp
+        fi       
+        if [[ -f /config/transcodes ]]; then
+          rm -rf /config/transcodes
+        fi       
 
         # Make symlinks for various variations of transcode paths to /transcode
         ln -sf /transcode /config/transcodes
         ln -sf /transcode /config/transcode
+        ln -sf /transcode /config/transcoding-temp
 
         # Also keep cache in /transcode
         mkdir -p /transcode/cache
@@ -5415,10 +5422,17 @@ emby:
         if [[ -f /config/transcode ]]; then
           rm -rf /config/transcode
         fi
+        if [[ -f /config/transcoding-temp ]]; then
+          rm -rf /config/transcoding-temp
+        fi       
+        if [[ -f /config/transcodes ]]; then
+          rm -rf /config/transcodes
+        fi                
 
         # Make symlinks for various variations of transcode paths to /transcode
         ln -sf /transcode /config/transcodes
         ln -sf /transcode /config/transcode
+        ln -sf /transcode /config/transcoding-temp        
 
         # Also keep cache in /transcode
         mkdir -p /transcode/cache
