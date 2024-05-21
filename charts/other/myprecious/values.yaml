@@ -2341,7 +2341,10 @@ ombi:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5000
   initContainers:
     bootstrap: *bootstrap
   resources:
@@ -3484,6 +3487,9 @@ uptimekuma:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 3001
   initContainers:
     bootstrap: *bootstrap
   resources:
@@ -3768,6 +3774,9 @@ pyload:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000
   resources:
     requests:
       cpu: 10m
@@ -6319,6 +6328,9 @@ gotify:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8080
   persistence:
     <<: *appmounts
     config:
@@ -6394,6 +6406,9 @@ flaresolverr:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8191
 
 seafile:
   enabled: false
@@ -6587,7 +6602,10 @@ xteve:
       enabled: false
   service:
     main:
-      enabled: false # necessary for probes
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 34400
   persistence:
     <<: *appmounts
     config:
