@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.32764-pre-03
+version: 1.0.32764-pre-04
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -86,10 +86,11 @@ dependencies:
   - name: homer
     version: ~8.0.0
     repository: http://chartmuseum.chartmuseum:8080
-  - name: ombi
-    version: ~11.5.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: ombi.enabled
+    alias: ombi
   - name: traefik-forward-auth
     version: ~2.2.0
     repository: http://chartmuseum.chartmuseum:8080
@@ -198,19 +199,21 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080
     condition: privatebin.enabled
     alias: privatebin
-  - name: uptime-kuma
-    version: ~1.4.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: uptimekuma.enabled
     alias: uptimekuma
-  - name: gotify
-    version: ~1.2.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: gotify.enabled
-  - name: flaresolverr
-    version: 5.4.x
+    alias: gotify
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: flaresolverr.enabled
+    alias: flaresolverr
   - name: rtorrent-rutorrent
     version: 1.1.x
     repository: http://chartmuseum.chartmuseum:8080
@@ -221,10 +224,11 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080
     condition: rutorrentgluetun.enabled
     alias: rutorrentgluetun    
-  - name: pyload
-    version: 6.4.x
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: pyload.enabled
+    alias: pyload
   - name: seafile
     version: 3.1.x
     repository: http://chartmuseum.chartmuseum:8080
@@ -234,8 +238,8 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080
     condition: resiliosync.enabled
     alias: resiliosync
-  - name: xteve
-    version: 8.4.x
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: xteve.enabled
     alias: xteve
