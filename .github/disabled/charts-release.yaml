@@ -1,6 +1,6 @@
-name: "Charts: Release (OCI test)"
+name: "Charts: Release"
 
-concurrency: helm-release-oci
+concurrency: helm-release
 
 on:
   workflow_dispatch:
@@ -40,13 +40,22 @@ jobs:
           repoConfigFile: ./.ci/repo-config.yaml
           overrideCharts: "[${{ inputs.charts }}]"
 
-  release-github-oci:
-    name: Release Application charts to GitHub Container Registry
-    uses: ./.github/workflows/charts-release-oci.yaml
+  release-github-pages:
+    name: Push charts to Chartmuseum
+    uses: ./.github/workflows/charts-release-helm-push-chartmuseum.yaml
     needs:
       - prepare
-      # - release-library-charts
     with:
       charts: "${{ needs.prepare.outputs.charts-to-release }}"
     secrets: inherit
+
+  # release-github-oci:
+  #   name: Release Application charts to GitHub Container Registry
+  #   uses: ./.github/workflows/charts-release-oci.yaml
+  #   needs:
+  #     - prepare
+  #     # - release-library-charts
+  #   with:
+  #     charts: "${{ needs.prepare.outputs.charts-to-release }}"
+  #   secrets: inherit
   
