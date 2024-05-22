@@ -2055,7 +2055,7 @@ tautulli:
   image:
     registry: ghcr.io
     repository: geek-cookbook/tautulli
-    tag: 2.13.4@sha256:034ca5019ee840bc361a69d6fa6af5660c08eb9267f617c21940ac7a04366604
+    tag: 2.14.2@sha256:ab4d60fb7ae115ce9e18339d7c497e57c5053bf4c1a6bff50230b6fb3a2a2222
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -4134,7 +4134,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1668@sha256:c554ed3e43f416218a904341e3f559aa89c93aab18748c7abc978457d8b87303
+    tag: 4.0.4.1692@sha256:1f1039714db12c1ba8a578024c19b665bd0db8d6e148565ce605130cfcf0c2bc
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4220,7 +4220,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1668@sha256:c554ed3e43f416218a904341e3f559aa89c93aab18748c7abc978457d8b87303
+    tag: 4.0.4.1692@sha256:1f1039714db12c1ba8a578024c19b665bd0db8d6e148565ce605130cfcf0c2bc
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4654,7 +4654,7 @@ readarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.28.2546@sha256:9b6f52873ef6d5646a49c3474e6cb11596e79d0e2c25412fab8707f05165173f
+    tag: 0.3.28.2548@sha256:553d5b209e1a806ebfe61a771cabc85d269a8fbc089eb478de0df035547e19ca
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4744,7 +4744,7 @@ readarraudio:
   image:
     registry: ghcr.io
     repository: geek-cookbook/readarr-nightly
-    tag: 0.3.28.2546@sha256:9b6f52873ef6d5646a49c3474e6cb11596e79d0e2c25412fab8707f05165173f
+    tag: 0.3.28.2548@sha256:553d5b209e1a806ebfe61a771cabc85d269a8fbc089eb478de0df035547e19ca
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6218,7 +6218,7 @@ traefikforwardauth:
 gatus:
   image:
     repository: ghcr.io/geek-cookbook/gatus
-    tag: 5.10.0@sha256:75dffbc9eaf4bfe6785ed65cb3dbdf77174bf3c1c72941037d5aea109118bc4e
+    tag: 5.11.0@sha256:194609e534a7f4adc266f59184b0db28aa8b2697558fdb25110b6c1bf966be66
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
