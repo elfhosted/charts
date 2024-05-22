@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.32770-pre-03
+version: 1.0.32770-pre-04
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -283,26 +283,28 @@ dependencies:
     repository: http://chartmuseum.chartmuseum:8080
     condition: vaultwarden.enabled
     alias: vaultwarden
-  - name: notifiarr
-    version: ~0.0.1
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: notifiarr.enabled
-  - name: rpdb
-    version: ~2.4.0
+    alias: notifiarr
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: rpdb.enabled
-  - name: jfa-go
-    version: ~2.4.0
+    alias: rpdb
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: jfa.enabled
     alias: jfa
-  - name: shokoserver
-    version: ~0.0.1
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: shoko.enabled
     alias: shoko
-  - name: plex-meta-manager
-    version: ~2.4.0
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: plexmetamanager.enabled
     alias: plexmetamanager
@@ -311,35 +313,40 @@ dependencies:
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     alias: kometa    
-  - name: filebot-node
-    version: ~0.0.1
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: filebot.enabled
     alias: filebot
-  - name: nextpvr
-    version: ~0.0.1
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: nextpvr.enabled
-  - name: syncthing
-    version: ~3.5.0
+    alias: nextpvr
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
     condition: syncthing.enabled
-  - name: rdtclient
-    version: ~0.0.1
+    alias: syncthing
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
-    condition: rdtclient.enabled         
-  - name: jdownloader
-    version: ~0.0.1
+    condition: rdtclient.enabled   
+    alias: rdtclient      
+  - name: app-template
+    version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080
-    condition: jdownloader.enabled        
+    condition: jdownloader.enabled   
+    alias: jdownloader     
   - name: mattermost-team-edition
     alias: mattermost
     condition: mattermost.enabled
     version: ~6.6.0
     repository: http://chartmuseum.chartmuseum:8080
-  - name: miniflux
+  - name: app-template
+    version: ~0.2.1
     condition: miniflux.enabled
-    version: ~0.0.2
+    alias: miniflux
     repository: http://chartmuseum.chartmuseum:8080    
   - name: joplinserver
     condition: joplinserver.enabled
