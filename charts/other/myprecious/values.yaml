@@ -4134,7 +4134,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1668@sha256:c554ed3e43f416218a904341e3f559aa89c93aab18748c7abc978457d8b87303
+    tag: 4.0.4.1692@sha256:1f1039714db12c1ba8a578024c19b665bd0db8d6e148565ce605130cfcf0c2bc
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4220,7 +4220,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1668@sha256:c554ed3e43f416218a904341e3f559aa89c93aab18748c7abc978457d8b87303
+    tag: 4.0.4.1692@sha256:1f1039714db12c1ba8a578024c19b665bd0db8d6e148565ce605130cfcf0c2bc
   securityContext:
     seccompProfile:
       type: RuntimeDefault
