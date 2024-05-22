@@ -6662,7 +6662,10 @@ youtubedl:
       enabled: false
   service:
     main:
-      enabled: false # necessary for probes
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 17442
   persistence:
     <<: *appmounts
     config:
@@ -6735,6 +6738,9 @@ thelounge:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 9000
   persistence:
     <<: *appmounts
     config:
@@ -6960,7 +6966,10 @@ overseerr:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5055
   resources:
     requests:
       cpu: 10m
@@ -7043,7 +7052,10 @@ jellyseerr:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5055
   resources:
     requests:
       cpu: 10m
@@ -7121,7 +7133,10 @@ audiobookshelf:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000
   resources:
     requests:
       cpu: 10m
@@ -7196,7 +7211,10 @@ openbooks:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000
   resources:
     requests:
       cpu: 10m
@@ -7257,7 +7275,10 @@ vaultwarden:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000
   resources:
     requests:
       cpu: 10m
