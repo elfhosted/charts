@@ -10494,15 +10494,10 @@ mongoexpress:
       ports:
         http:
           port: 8081
-  # persistence:
-  #   elfstorage: *elfstorage
-  #   config:
-  #     enabled: true
-  #     type: custom
-  #     mountPath: /data
-  #     volumeSpec:
-  #       persistentVolumeClaim:
-  #         claimName: config-redisinsight-block                    
+  envFrom:
+  - configMapRef:      
+      name: elfbot-annatar
+      optional: true              
 
 annatar:
   enabled: false

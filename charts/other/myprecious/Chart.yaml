@@ -543,11 +543,11 @@ dependencies:
     version: ~0.2.1
     repository: http://chartmuseum.chartmuseum:8080        
     alias: gatus        
-  # - name: app-template
-  #   condition: recyclarr.enabled
-  #   version: ~0.2.1
-  #   repository: http://chartmuseum.chartmuseum:8080        
-  #   alias: recyclarr                                                                                   
+  - name: app-template
+    condition: recyclarr.enabled
+    version: ~0.2.1
+    repository: http://chartmuseum.chartmuseum:8080        
+    alias: recyclarr                                                                                   
   - name: kubernetes-dashboard
     repository: http://chartmuseum.chartmuseum:8080
     alias: kubernetesdashboard
