@@ -10496,7 +10496,7 @@ mongoexpress:
           port: 8081
   envFrom:
   - configMapRef:      
-      name: elfbot-annatar
+      name: elfbot-mongoexpress
       optional: true              
 
 annatar:
