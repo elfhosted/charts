@@ -11,11 +11,6 @@ spec:
         - name: vaultwarden
           kind: Service
           port: 8000
-      middlewares:
-        {{ if ne "default" .Values.themepark.theme }}
-        - name: theme-park-vaultwarden-{{ .Values.themepark.theme }}
-          namespace: theme-park
-        {{ end }}
   tls:
     secretName: cert-{{ .Values.vaultwardencustomdomain.cname }}
 {{ end }}

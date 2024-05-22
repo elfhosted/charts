@@ -740,9 +740,6 @@ elfstoragetb:
 elfstoragetbbundled:
   quantity: 0
 
-themepark:
-  theme: default # the default themegarden theme
-
 # provide a default
 userId: 1
 
