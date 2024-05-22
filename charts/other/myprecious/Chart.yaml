@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.32770-pre-04
+version: 1.0.32770-pre-05
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -343,10 +343,9 @@ dependencies:
     condition: mattermost.enabled
     version: ~6.6.0
     repository: http://chartmuseum.chartmuseum:8080
-  - name: app-template
-    version: ~0.2.1
+  - name: miniflux
     condition: miniflux.enabled
-    alias: miniflux
+    version: ~0.0.2
     repository: http://chartmuseum.chartmuseum:8080    
   - name: joplinserver
     condition: joplinserver.enabled
@@ -358,9 +357,9 @@ dependencies:
   #   version: ~0.2.1
   #   repository: http://chartmuseum.chartmuseum:8080        
   #   alias: tdarr    
-  - name: rdtclient
+  - name: app-template
+    version: ~0.2.1
     condition: rdtclientvpnpia.enabled
-    version: ~0.0.1
     repository: http://chartmuseum.chartmuseum:8080        
     alias: rdtclientvpnpia
   - name: app-template
@@ -377,11 +376,6 @@ dependencies:
     condition: wallabag.enabled
     version: ~0.0.2
     repository: http://chartmuseum.chartmuseum:8080
-  - name: nextcloud
-    alias: nextcloud
-    condition: nextcloud.enabled
-    version: ~4.1.0
-    repository: https://nextcloud.github.io/helm/
   - name: app-template
     condition: autoscan.enabled
     version: ~0.2.1
