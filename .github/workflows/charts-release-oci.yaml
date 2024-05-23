@@ -11,6 +11,10 @@ on:
         required: false
         type: string
 
+permissions:
+  contents: read
+  packages: write
+  
 env:
   HELM_VERSION: 3.11.2
   CHARTS_SRC_DIR: "charts"
