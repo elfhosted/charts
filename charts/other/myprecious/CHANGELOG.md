@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/elfhosted/charts/compare/v1.0.0...v1.0.1) (2024-05-23)
+
+
+### Bug Fixes
+
+* gatus crashes if scanarr and scanarr4k are enabled ([bf4b81b](https://github.com/elfhosted/charts/commit/bf4b81b82ed9febfa11f1a0489f8364c7920fd1e))
+* prepare for release-please auto-changelogs ([131f595](https://github.com/elfhosted/charts/commit/131f595df4ab142ada5e47401be09c287d80e3e7))
+
 ## 1.0.0 (2024-05-23)
 
 
