@@ -17,7 +17,7 @@ on:
 jobs:
   release:
     name: Release a stable version of the myprecious chart
-    runs-on: [ self-hosted, actions-runner-elfhosted.com ]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3

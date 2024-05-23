@@ -26,7 +26,7 @@ on:
 jobs:
   pr-metadata:
     name: Collect PR metadata
-    runs-on: [ self-hosted, actions-runner-elfhosted.com ]
+    runs-on: ubuntu-latest
     outputs:
       isRenovatePR: ${{ startsWith(steps.branch-name.outputs.current_branch, 'renovate/') }}
       isFork: ${{ github.event.pull_request.head.repo.full_name != github.repository }}

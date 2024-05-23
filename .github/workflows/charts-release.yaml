@@ -24,7 +24,7 @@ env:
 jobs:
   prepare:
     name: Prepare data required for release
-    runs-on: [ self-hosted, actions-runner-elfhosted.com ]
+    runs-on: ubuntu-latest
     outputs:
       charts-to-release: ${{ steps.collect-charts.outputs.charts }}
     steps:
