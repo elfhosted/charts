@@ -7,7 +7,7 @@ kubeVersion: ">=1.16.0-0"
 keywords:
   - common
   - library
-home: https://github.com/geek-cookbook/elf-charts/tree/main/charts/library/common
+home: https://github.com/elfhosted/charts/tree/main/charts/library/common
 maintainers:
   - name: funkypenguin
     email: davidy@funkypenguin.co.nz

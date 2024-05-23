@@ -11,11 +11,15 @@ on:
         required: false
         type: string
 
+permissions:
+  contents: read
+  packages: write
+  
 env:
   HELM_VERSION: 3.11.2
   CHARTS_SRC_DIR: "charts"
   TARGET_REGISTRY: ghcr.io
-  TARGET_REPO: geek-cookbook/elf-charts
+  TARGET_REPO: elfhosted/charts
 
 jobs:
   release-charts:
@@ -42,10 +46,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Add helm repo
-      #   shell: bash
-      #   run: |
-      #     helm repo add chartmuseum oci://ghcr.io/geek-cookbook/elf-charts --username chartmuseum --password chartmuseum
+      - name: Log into helm repo
+        shell: bash
+        run: |
+          helm registry login ghcr.io/elfhosted/charts -u ${{ github.actor }}  --password ${{ secrets.GITHUB_TOKEN }}
  
       - name: Package & Push Helm Charts
         shell: bash

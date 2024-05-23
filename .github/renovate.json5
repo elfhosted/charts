@@ -3,7 +3,7 @@
   "enabledManagers": ["helm-values"],
   "detectHostRulesFromEnv": true,
   "platform": "github",
-  "repositories": ["geek-cookbook/elf-charts"],
+  "repositories": ["elfhosted/charts"],
   "pinDigests": true,
   "ignorePaths": ["charts/apps/**","charts/library/**","charts/other/app-template"],  
   "allowedPostUpgradeCommands": ["./scripts/bump-myprecious.sh"],
