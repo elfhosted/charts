@@ -11,11 +11,6 @@ spec:
         - name: plex
           kind: Service
           port: 32400
-      middlewares:
-        {{ if ne "default" .Values.themepark.theme }}
-        - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
-          namespace: theme-park
-        {{ end }}
   tls:
     secretName: cert-{{ .Values.plexcustomdomain.cname }}
 {{ end }}

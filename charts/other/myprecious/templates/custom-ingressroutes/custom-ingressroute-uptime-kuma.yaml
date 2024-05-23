@@ -14,10 +14,6 @@ spec:
       middlewares:
         - name: error-pages
           namespace: traefik
-        {{ if ne "default" .Values.themepark.theme }}
-        - name: theme-park-uptime-kuma-{{ .Values.themepark.theme }}
-          namespace: theme-park
-        {{ end }}
   tls:
     secretName: cert-{{ .Values.uptimekumacustomdomain.cname }}
 {{ end }}

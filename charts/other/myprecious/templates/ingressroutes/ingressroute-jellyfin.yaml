@@ -23,8 +23,4 @@ spec:
       middlewares:
         - name: error-pages
           namespace: traefik
-        {{ if ne "default" .Values.themepark.theme }}
-        - name: theme-park-jellyfin-{{ .Values.themepark.theme }}
-          namespace: theme-park
-        {{ end }}
 {{ end }}

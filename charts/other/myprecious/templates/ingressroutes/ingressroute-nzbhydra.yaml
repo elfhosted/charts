@@ -15,8 +15,4 @@ spec:
         - name: {{ .Release.Name }}-traefik-forward-auth
         - name: error-pages
           namespace: traefik
-        {{ if ne "default" .Values.themepark.theme }}
-        - name: theme-park-nzbhydra2-{{ .Values.themepark.theme }}
-          namespace: theme-park
-        {{ end }}
 {{ end }}

@@ -740,9 +740,6 @@ elfstoragetb:
 elfstoragetbbundled:
   quantity: 0
 
-themepark:
-  theme: default # the default themegarden theme
-
 # provide a default
 userId: 1
 
@@ -6662,7 +6659,10 @@ youtubedl:
       enabled: false
   service:
     main:
-      enabled: false # necessary for probes
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 17442
   persistence:
     <<: *appmounts
     config:
@@ -6735,6 +6735,9 @@ thelounge:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 9000
   persistence:
     <<: *appmounts
     config:
@@ -6960,7 +6963,10 @@ overseerr:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5055
   resources:
     requests:
       cpu: 10m
@@ -7043,7 +7049,10 @@ jellyseerr:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5055
   resources:
     requests:
       cpu: 10m
@@ -7121,7 +7130,10 @@ audiobookshelf:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000
   resources:
     requests:
       cpu: 10m
@@ -7196,7 +7208,10 @@ openbooks:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000
   resources:
     requests:
       cpu: 10m
@@ -7257,7 +7272,10 @@ vaultwarden:
       enabled: false
   service:
     main:
-      enabled: true # necessary for probes # need this for probes?
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8000
   resources:
     requests:
       cpu: 10m
@@ -7304,7 +7322,10 @@ notifiarr:
       enabled: false
   service:
     main:
-      enabled: false # necessary for probes
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5454
   persistence:
     <<: *appmounts
     config:
@@ -7404,6 +7425,9 @@ shoko:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8111
   resources:
     requests:
       cpu: 10m
@@ -7468,6 +7492,9 @@ filebot:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 5452
   resources:
     requests:
       cpu: 10m
@@ -7531,6 +7558,9 @@ nextpvr:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8866
   resources:
     requests:
       cpu: 10m
@@ -7588,6 +7618,9 @@ rpdb:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8750
   resources:
     requests:
       cpu: 10m
@@ -8362,6 +8395,9 @@ jfa:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8056
   resources:
     requests:
       cpu: 10m
@@ -8801,6 +8837,9 @@ syncthing:
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 8384
   resources:
     requests:
       cpu: 10m
@@ -8933,6 +8972,9 @@ rdtclient: &app_rdtclient
   service:
     main:
       enabled: true # necessary for probes
+      ports:
+        http:
+          port: 6500
   resources:
     requests:
       cpu: 50m
