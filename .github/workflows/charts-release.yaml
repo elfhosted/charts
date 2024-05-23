@@ -1,4 +1,4 @@
-name: "Charts: Release (OCI test)"
+name: "Charts: Release"
 
 concurrency: helm-release-oci
 
