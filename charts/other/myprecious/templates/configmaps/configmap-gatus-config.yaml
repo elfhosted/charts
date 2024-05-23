@@ -338,7 +338,7 @@ data:
       {{ end }}
 
       {{ if .Values.scannarr4k.enabled }}
-      - name: scannarr
+      - name: scannarr4k
         group: download-media
         url: "http://scannarr4k:9898"
         interval: 5m
