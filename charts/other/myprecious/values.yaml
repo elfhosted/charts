@@ -4038,7 +4038,7 @@ calibre:
   # runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.10.0@sha256:fbd543c32b656bef73bf514765f053fe2c62b1e0d18b23cb773713fbf1249c55
+    tag: 7.10.0@sha256:7d19a20a9e4f5e7f6d5fac9baf7f60944554904de46a5bef3d0d6cf2c5118bf4
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -4131,7 +4131,7 @@ sonarr:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1692@sha256:1f1039714db12c1ba8a578024c19b665bd0db8d6e148565ce605130cfcf0c2bc
+    tag: 4.0.4.1695@sha256:34e52374a3b76dcbd2a0e765bb31821fff01bbd4c7828afdbe09c4728dba887e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -4217,7 +4217,7 @@ sonarr4k:
   image:
     registry: ghcr.io
     repository: geek-cookbook/sonarr-develop
-    tag: 4.0.4.1692@sha256:1f1039714db12c1ba8a578024c19b665bd0db8d6e148565ce605130cfcf0c2bc
+    tag: 4.0.4.1695@sha256:34e52374a3b76dcbd2a0e765bb31821fff01bbd4c7828afdbe09c4728dba887e
   securityContext:
     seccompProfile:
       type: RuntimeDefault
@@ -6074,7 +6074,7 @@ homer:
   - /usr/local/bin/disk_usage.sh
   additionalContainers:
     ui:
-      image: ghcr.io/geek-cookbook/homer:v24.04.1@sha256:a4613d058695ed7c9ed840ca6e9ec506bab89a0e43b1c3ab9d4d64be10d10493
+      image: ghcr.io/geek-cookbook/homer:v24.05.1@sha256:a11fd11af98972f83876c5f44849e8f0cf1bd3a4f2d41698a08044c5211feb16
       imagePullPolicy: IfNotPresent
       volumeMounts:
       - mountPath: /www/assets/config.yml
@@ -9457,7 +9457,7 @@ tdarr:
   priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/haveagitgat/tdarr
-    tag: 2.18.02
+    tag: 2.19.01
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-tdarr"
@@ -10062,7 +10062,7 @@ jackett:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/jackett
-    tag: 0.21.2652@sha256:b722adc301228461bf5bfc5f59e9a90905a0f77afa7b9d30722defa5f69492c5
+    tag: 0.21.2658@sha256:c58cc9a096b95773bdb1235d1e2f22f67a788de659b700eb995b356bcb5d2f9d
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -10538,7 +10538,7 @@ mongoexpress:
           port: 8081
   envFrom:
   - configMapRef:      
-      name: elfbot-annatar
+      name: elfbot-mongoexpress
       optional: true              
 
 annatar:
@@ -11106,7 +11106,7 @@ knightcrawler: &app_knightcrawler
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/knightcrawler-addon
-    tag: v2.0.26@sha256:bccdca3460c23dc2a17e23feca7e8808d8dc40ee618cb4b6a607065fa6b1717c
+    tag: v2.0.26@sha256:03f0856d58384e96f5301e08f372867c7ce409ea9246dfb88c16d508206c1b5a
   priorityClassName: tenant-normal
   podLabels: 
     app.elfhosted.com/name: knightcrawler  

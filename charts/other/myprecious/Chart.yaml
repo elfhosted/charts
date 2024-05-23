@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.32770-pre-08
+version: 1.0.32780-pre-02
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -30,217 +30,217 @@ maintainers:
 dependencies:
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: plex.enabled
     alias: plex
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: emby.enabled
     alias: emby
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: jellyfin.enabled
     alias: jellyfin
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: nzbget.enabled
     alias: nzbget
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: sabnzbd.enabled
     alias: sabnzbd
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: radarr.enabled
     alias: radarr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: radarr4k.enabled
     alias: radarr4k
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: sonarr.enabled
     alias: sonarr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: sonarr4k.enabled
     alias: sonarr4k
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: bazarr.enabled
     alias: bazarr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: bazarr4k.enabled
     alias: bazarr4k
   - name: homer
     version: ~8.0.0
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: ombi.enabled
     alias: ombi
   - name: traefik-forward-auth
     version: ~2.2.0
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     alias: traefikforwardauth
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: prowlarr.enabled
     alias: prowlarr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: tautulli.enabled
     alias: tautulli
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: lidarr.enabled
     alias: lidarr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: readarr.enabled
     alias: readarr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: readarraudio.enabled
     alias: readarraudio
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: calibreweb.enabled
     alias: calibreweb
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: calibre.enabled
     alias: calibre
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     alias: navidrome
     condition: navidrome.enabled
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: lazylibrarian.enabled
     alias: lazylibrarian
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: mylar.enabled
     alias: mylar
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: komga.enabled
     alias: komga
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: kavita.enabled
     alias: kavita
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: rapidleech.enabled
     alias: rapidleech
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: delugepia.enabled
     alias: delugepia
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: delugegluetun.enabled
     alias: delugegluetun        
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: qbittorrentgluetun.enabled
     alias: qbittorrentgluetun
   # Specifically for PIA's port-forwarding requirements (a separate image)
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: qbittorrentpia.enabled
     alias: qbittorrentpia
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: autobrr.enabled
     alias: autobrr
   - name: filebrowser
     version: ~1.4.0
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: nzbhydra.enabled
     alias: nzbhydra
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: privatebin.enabled
     alias: privatebin
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: uptimekuma.enabled
     alias: uptimekuma
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: gotify.enabled
     alias: gotify
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: flaresolverr.enabled
     alias: flaresolverr
   - name: rtorrent-rutorrent
     version: 1.1.x
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: rutorrentpia.enabled
     alias: rutorrentpia
   - name: rtorrent-rutorrent
     version: 1.1.x
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: rutorrentgluetun.enabled
     alias: rutorrentgluetun    
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: pyload.enabled
     alias: pyload
   - name: seafile
     version: 3.1.x
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: seafile.enabled
   - name: resilio-sync
     version: 5.4.x
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: resiliosync.enabled
     alias: resiliosync
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: xteve.enabled
     alias: xteve
   - name: app-template
@@ -311,7 +311,7 @@ dependencies:
   - name: app-template
     condition: kometa.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     alias: kometa    
   - name: app-template
     version: ~0.2.1
@@ -342,20 +342,20 @@ dependencies:
     alias: mattermost
     condition: mattermost.enabled
     version: ~6.6.0
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
   - name: miniflux
     condition: miniflux.enabled
     version: ~0.0.2
-    repository: http://chartmuseum.chartmuseum:8080    
+    repository: oci://ghcr.io/geek-cookbook/elf-charts    
   - name: joplinserver
     condition: joplinserver.enabled
     version: ~0.0.1
-    repository: http://chartmuseum.chartmuseum:8080  
+    repository: oci://ghcr.io/geek-cookbook/elf-charts  
   # disabled for now
   # - name: app-template
   #   condition: tdarr.enabled
   #   version: ~0.2.1
-  #   repository: http://chartmuseum.chartmuseum:8080        
+  #   repository: oci://ghcr.io/geek-cookbook/elf-charts        
   #   alias: tdarr    
   - name: app-template
     version: ~0.2.1
@@ -365,198 +365,198 @@ dependencies:
   - name: app-template
     condition: rclonemountalldebridpia.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: alldebridwebdavpia
   - name: app-template
     condition: homepage.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: homepage
   - name: wallabag
     condition: wallabag.enabled
     version: ~0.0.2
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts 
   - name: app-template
     condition: autoscan.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: autoscan
   - name: app-template
     condition: zurg.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: zurg    
   - name: app-template
     condition: plexdebrid.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: plexdebrid      
   - name: app-template
     condition: iceberg.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: iceberg       
   - name: app-template
     condition: airdcpppia.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: airdcpppia
   - name: app-template
     condition: airdcppgluetun.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: airdcppgluetun   
   - name: app-template
     condition: jackett.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: jackett
   - name: app-template
     condition: stremiojackett.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: stremiojackett     
   - name: app-template
     condition: torrentio.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: torrentio     
   - name: app-template
     condition: knightcrawlervpn.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: knightcrawlervpn  
   - name: app-template
     condition: knightcrawler.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: knightcrawler           
   - name: app-template
     condition: aria.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: aria       
   - name: app-template
     condition: webdavplus.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: webdavplus
   - name: app-template
     condition: rcloneui.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: rcloneui
   - name: app-template
     condition: rclonefm.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: rclonefm              
   - name: app-template
     condition: webdav.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: webdav   
   - name: app-template
     condition: storageboss.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: storageboss        
   - name: app-template
     condition: scannarr.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: scannarr     
   - name: app-template
     condition: scannarr4k.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: scannarr4k    
   - name: app-template
     condition: annatar.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: annatar  
   - name: app-template
     condition: xtremio.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: xtremio  
   - name: app-template
     condition: shluflix.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: shluflix 
   - name: app-template
     condition: stremify.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: stremify              
   - name: app-template
     condition: mediafusion.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: mediafusion
   - name: app-template
     condition: stremiojackettcommunity.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: stremiojackettcommunity   
   - name: app-template
     condition: stremiojackettcommunityalldebrid.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: stremiojackettcommunityalldebrid       
   - name: app-template
     condition: jackettio.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: jackettio        
   - name: app-template
     condition: stremioserver.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: stremioserver
   - name: app-template
     condition: stremioserverpia.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: stremioserverpia
   - name: app-template
     condition: stremioservergluetun.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: stremioservergluetun 
   - name: app-template
     condition: stremioweb.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: stremioweb    
   - name: app-template
     condition: pgadmin.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: pgadmin   
   - name: app-template
     condition: redisinsight.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: redisinsight  
   - name: app-template
     condition: mongoexpress.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: mongoexpress      
   - name: app-template
     condition: gatus.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: gatus        
   - name: app-template
     condition: recyclarr.enabled
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: recyclarr                                                                                   
   - name: kubernetes-dashboard
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     alias: kubernetesdashboard
     version: 5.x
