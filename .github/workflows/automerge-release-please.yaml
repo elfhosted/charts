@@ -1,0 +1,42 @@
+name: Release Please (Scheduled)
+
+on:
+  # Try enabling auto-merge for all open pull requests.
+  schedule:
+      # 9:55am UTC is 21h55 NZST, giving us 5 min to run before the maint window starts 10pm weekdays NZ time
+      - cron: '54 09 * * *'
+
+  # Try enabling auto-merge for the specified pull request,
+  # review or all open pull requests if none is specified.
+  workflow_dispatch:
+    inputs:
+      pull-request:
+        description: Pull Request Number
+        required: false
+      review:
+        description: Review ID
+        required: false
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RENOVATE_TOKEN }}
+
+      - name: Check if safe to release (and we're on a -pre version currently)
+        id: safe_to_release
+        run: |
+          grep 'safeToRelease: true' charts/other/myprecious/values.yaml && (grep ^version charts/other/myprecious/Chart.yaml | grep pre)          
+
+      - uses: reitermarkus/automerge@v2
+        with:
+          token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
+          merge-method: rebase
+          required-labels: 'autorelease: pending'
+          pull-request: ${{ github.event.inputs.pull-request }}
+          review: ${{ github.event.inputs.review }}
+          dry-run: false
