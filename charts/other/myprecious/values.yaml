@@ -1,5 +1,5 @@
 # This controls whether our automation will auto-release this to stable during the daily maint window
-safeToRelease: true
+safeToRelease: false
 
 # This section just makes images easier to update / parse
 tooling_image: &tooling_image ghcr.io/geek-cookbook/tooling:focal-20240216@sha256:aa9430756b3245bb3f25591b0ec61499cb0b9e68b4671343bc5d0170a9c91b10
