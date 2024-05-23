@@ -45,7 +45,7 @@ jobs:
       - name: Log into helm repo
         shell: bash
         run: |
-          helm registry login oci://ghcr.io/elfhosted/charts -u ${{ github.actor }}  --password ${{ secrets.GITHUB_TOKEN }}
+          helm registry login ghcr.io/elfhosted/charts -u ${{ github.actor }}  --password ${{ secrets.GITHUB_TOKEN }}
  
       - name: Package & Push Helm Charts
         shell: bash
