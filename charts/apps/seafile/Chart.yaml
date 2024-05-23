@@ -16,7 +16,7 @@ maintainers:
     email: 1985132+phybros@users.noreply.github.com
 dependencies:
   - name: common
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     version: ~0.2.10
   - name: mysql
     version: 9.10.4

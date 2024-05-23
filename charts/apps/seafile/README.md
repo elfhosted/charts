@@ -19,12 +19,12 @@ Kubernetes: `>=1.16.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | mariadb | 11.0.14 |
-| http://chartmuseum.chartmuseum:8080 | common | 0.2.2 |
+| oci://ghcr.io/geek-cookbook/elf-charts | common | 0.2.2 |
 
 ## TL;DR
 
 ```console
-helm repo add k8s-at-home http://chartmuseum.chartmuseum:8080
+helm repo add k8s-at-home oci://ghcr.io/geek-cookbook/elf-charts
 helm repo update
 helm install seafile k8s-at-home/seafile
 ```

@@ -18,7 +18,7 @@ maintainers:
     email: sm+k8s-at-home+git@samip.fi
 dependencies:
   - name: common
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     version: ~0.2.10
   - name: mariadb
     version: 11.0.14

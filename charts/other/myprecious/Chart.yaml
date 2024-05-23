@@ -245,67 +245,67 @@ dependencies:
     alias: xteve
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: youtubedl.enabled
     alias: youtubedl
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: thelounge.enabled
     alias: thelounge
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: unpackerr.enabled
     alias: unpackerr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: overseerr.enabled
     alias: overseerr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: jellyseerr.enabled
     alias: jellyseerr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: audiobookshelf.enabled
     alias: audiobookshelf
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: openbooks.enabled    
     alias: openbooks
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: vaultwarden.enabled
     alias: vaultwarden
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: notifiarr.enabled
     alias: notifiarr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: rpdb.enabled
     alias: rpdb
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: jfa.enabled
     alias: jfa
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: shoko.enabled
     alias: shoko
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: plexmetamanager.enabled
     alias: plexmetamanager
   - name: app-template
@@ -315,27 +315,27 @@ dependencies:
     alias: kometa    
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: filebot.enabled
     alias: filebot
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: nextpvr.enabled
     alias: nextpvr
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: syncthing.enabled
     alias: syncthing
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: rdtclient.enabled   
     alias: rdtclient      
   - name: app-template
     version: ~0.2.1
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     condition: jdownloader.enabled   
     alias: jdownloader     
   - name: mattermost-team-edition
@@ -360,7 +360,7 @@ dependencies:
   - name: app-template
     version: ~0.2.1
     condition: rdtclientvpnpia.enabled
-    repository: http://chartmuseum.chartmuseum:8080        
+    repository: oci://ghcr.io/geek-cookbook/elf-charts        
     alias: rdtclientvpnpia
   - name: app-template
     condition: rclonemountalldebridpia.enabled

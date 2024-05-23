@@ -17,7 +17,7 @@ maintainers:
     email: rolf@berkenbosch.nl
 dependencies:
   - name: common
-    repository: http://chartmuseum.chartmuseum:8080
+    repository: oci://ghcr.io/geek-cookbook/elf-charts
     version: ~0.2.10
 annotations:
   artifacthub.io/changes: |-
