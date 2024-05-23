@@ -5,9 +5,9 @@
 
 ### Bug Fixes
 
-* disable cloudflare proxying for streaming clients for performance reasons ([209cda9](https://github.com/geek-cookbook/elf-charts/commit/209cda9c3bb56dfef1b14e756c24f367dd0a9fc9))
-* Give Jellyfin 4GB RAM limit ([0a38200](https://github.com/geek-cookbook/elf-charts/commit/0a38200dc7367b418ec4db1b4cc34cdea8c0a89f))
-* Increase RAM limit for Komga to 2Gi ([897a41c](https://github.com/geek-cookbook/elf-charts/commit/897a41c1dcf7caa554b8635aadd57b9246adfb41))
-* Increase RAM limit for plex_debrid from 2Gi to 3Gi ([c083d94](https://github.com/geek-cookbook/elf-charts/commit/c083d944779e71a924ee1849c57d481ed165f960))
-* typo in airdcpp configmap reference ([5b9d9bb](https://github.com/geek-cookbook/elf-charts/commit/5b9d9bb016c174940b64cc7d2c02905040ec9456))
-* update airdcppgluetun configmap name ([80b8f5e](https://github.com/geek-cookbook/elf-charts/commit/80b8f5e2d25ba97610e2a4ec47b7b283b67d90c8))
+* disable cloudflare proxying for streaming clients for performance reasons ([209cda9](https://github.com/elfhosted/charts/commit/209cda9c3bb56dfef1b14e756c24f367dd0a9fc9))
+* Give Jellyfin 4GB RAM limit ([0a38200](https://github.com/elfhosted/charts/commit/0a38200dc7367b418ec4db1b4cc34cdea8c0a89f))
+* Increase RAM limit for Komga to 2Gi ([897a41c](https://github.com/elfhosted/charts/commit/897a41c1dcf7caa554b8635aadd57b9246adfb41))
+* Increase RAM limit for plex_debrid from 2Gi to 3Gi ([c083d94](https://github.com/elfhosted/charts/commit/c083d944779e71a924ee1849c57d481ed165f960))
+* typo in airdcpp configmap reference ([5b9d9bb](https://github.com/elfhosted/charts/commit/5b9d9bb016c174940b64cc7d2c02905040ec9456))
+* update airdcppgluetun configmap name ([80b8f5e](https://github.com/elfhosted/charts/commit/80b8f5e2d25ba97610e2a4ec47b7b283b67d90c8))

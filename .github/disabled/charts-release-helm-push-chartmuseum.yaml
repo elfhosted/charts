@@ -37,7 +37,7 @@ jobs:
       - name: Add helm repo
         shell: bash
         run: |
-          helm repo add chartmuseum oci://ghcr.io/geek-cookbook/elf-charts --username chartmuseum --password chartmuseum
+          helm repo add chartmuseum oci://ghcr.io/elfhosted/charts --username chartmuseum --password chartmuseum
           helm plugin install https://github.com/chartmuseum/helm-push
 
       - name: Push chart into chartmuseum 

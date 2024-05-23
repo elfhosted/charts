@@ -19,12 +19,12 @@ Kubernetes: `>=1.16.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://ghcr.io/geek-cookbook/elf-charts | common | 0.2.2 |
+| oci://ghcr.io/elfhosted/charts | common | 0.2.2 |
 
 ## TL;DR
 
 ```console
-helm repo add k8s-at-home oci://ghcr.io/geek-cookbook/elf-charts
+helm repo add k8s-at-home oci://ghcr.io/elfhosted/charts
 helm repo update
 helm install nzbhydra2 k8s-at-home/nzbhydra2
 ```

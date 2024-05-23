@@ -19,7 +19,7 @@ maintainers:
     email: k8s-at-home@xpander.eml.cc
 dependencies:
   - name: common
-    repository: oci://ghcr.io/geek-cookbook/elf-charts
+    repository: oci://ghcr.io/elfhosted/charts
     version: ~0.2.10
 annotations:
   artifacthub.io/changes: |-

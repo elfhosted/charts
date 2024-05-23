@@ -15,7 +15,7 @@ env:
   HELM_VERSION: 3.11.2
   CHARTS_SRC_DIR: "charts"
   TARGET_REGISTRY: ghcr.io
-  TARGET_REPO: geek-cookbook/elf-charts
+  TARGET_REPO: elfhosted/charts
 
 jobs:
   release-charts:
@@ -45,7 +45,7 @@ jobs:
       # - name: Add helm repo
       #   shell: bash
       #   run: |
-      #     helm repo add chartmuseum oci://ghcr.io/geek-cookbook/elf-charts --username chartmuseum --password chartmuseum
+      #     helm repo add chartmuseum oci://ghcr.io/elfhosted/charts --username chartmuseum --password chartmuseum
  
       - name: Package & Push Helm Charts
         shell: bash

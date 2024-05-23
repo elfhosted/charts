@@ -5027,7 +5027,7 @@ plex: &plex
       cpu: "500m"
       memory: 2Gi
     limits:
-      cpu: "2.5" # 1.5 works, but results in buffering when playback starts, see https://github.com/geek-cookbook/elf-charts/issues/501
+      cpu: "2.5" # 1.5 works, but results in buffering when playback starts, see https://github.com/elfhosted/charts/issues/501
       memory: 4Gi
   initContainers:
     bootstrap: *bootstrap
