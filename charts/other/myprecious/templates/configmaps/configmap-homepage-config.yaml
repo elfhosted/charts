@@ -914,7 +914,7 @@ data:
             icon: redis.png
             href: https://{{ .Release.Name }}-redisinsight.elfhosted.com
             description: PostgreSQL Admin
-            siteMonitor: http://redisinsight:5000
+            siteMonitor: http://redisinsight:5540
         {{ end }}                       
 
     - Migration Tools:

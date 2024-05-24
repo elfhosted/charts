@@ -1082,7 +1082,7 @@ data:
       {{ if .Values.redisinsight.enabled }}
       - name: redisinsight
         group: tools
-        url: "http://redisinsight:5000"
+        url: "http://redisinsight:5540"
         interval: 5m
         conditions:
           - "[STATUS] == 200"
