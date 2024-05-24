@@ -10685,7 +10685,8 @@ mediafusion:
   priorityClassName: tenant-normal
   controller:
     annotations:
-      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-mediafusion"
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-mediafusion,mediafusion-env"
+      secret.reloader.stakater.com/reload: "mediafusion-env"
     strategy:
     rollingUpdate:
       unavailable: 1      
