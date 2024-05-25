@@ -1,0 +1,27 @@
+{{ if .Values.davio.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}-davio.elfhosted.com
+spec:
+  routes:
+    - match: Host(`{{ .Release.Name }}-davio.elfhosted.com`)
+      kind: Rule
+      services:
+        - name: davio
+          kind: Service
+          port: 4000
+      middlewares:
+        - name: chain-hosted-stremio-addon
+          namespace: traefik
+    - match: Host(`{{ .Release.Name }}-davio.elfhosted.com`) && PathPrefix(`/configure/`)
+      kind: Rule
+      services:
+        - name: davio
+          kind: Service
+          port: 4000
+      middlewares:
+        - name: {{ .Release.Name }}-traefik-forward-auth
+        - name: chain-hosted-stremio-addon
+          namespace: traefik
+{{ end }}

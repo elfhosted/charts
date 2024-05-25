@@ -1,0 +1,23 @@
+{{ if .Values.davio.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: davio-env
+data:
+  TRUST_PROXY: "true"
+  DATA_FOLDER: /config
+  WELCOME_MESSAGE: |
+    ![](https://elfhosted.com/images/logo.png)
+
+    This is a subscription instance of [Davio](https://github.com/arvida42/davio) for {{ .Release.Name }} - Enjoy!
+
+    Possible interesting use-cases for Davio:
+
+    * 📺 Stream your WebDAV-compatible Debrid content via Stremio
+    * 🧠 Stream your ElfHosted-managed media from [ElfStorage](https://store.elfhosted.com/product/elfstorage) via Stremio
+    * 🤯 [Mount any rclone-compatible storage](https://store.elfhosted.com/product-category/storage) (*Dropbox, Google Drive, SSH, SMB, etc*), expose it via [WebDAV](https://store.elfhosted.com/product/webdav-access-plus), and stream it with Stremio!
+
+  ADDON_ID: {{ .Release.Name }}-davio.elfhosted.com  
+  ADDON_NAME: {{ .Release.Name }} ElfHosted Davio |
+  ADDON_ICON: https://elfhosted.com/images/davio.png
+{{ end }}

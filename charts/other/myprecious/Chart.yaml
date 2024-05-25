@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.32784
+version: 1.0.32786
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -510,7 +510,12 @@ dependencies:
     condition: jackettio.enabled
     version: ~0.2.1
     repository: oci://ghcr.io/elfhosted/charts        
-    alias: jackettio        
+    alias: jackettio   
+  - name: app-template
+    condition: davio.enabled
+    version: ~0.2.1
+    repository: oci://ghcr.io/elfhosted/charts        
+    alias: davio            
   - name: app-template
     condition: stremioserver.enabled
     version: ~0.2.1

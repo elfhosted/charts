@@ -166,7 +166,15 @@ data:
             href: https://{{ .Release.Name }}-jackettio.elfhosted.com
             description: Stremio Addon supporting private trackers
             siteMonitor: http://jackettio:4000
-        {{ end }}                   
+        {{ end }}     
+
+        {{ if .Values.davio.enabled }}
+        - Davio:
+            icon: webdav.png
+            href: https://{{ .Release.Name }}-davio.elfhosted.com
+            description: Stremio Addon to serve your WebDAV content
+            siteMonitor: http://davio:4000
+        {{ end }}                           
 
         {{ if .Values.annatar.enabled }}
         - Annatar:
@@ -733,7 +741,7 @@ data:
 
         {{ if .Values.rclonemountalldebridpia.enabled }}
         - AllDebrid:
-            icon: real-debrid.png
+            icon: webdav.png
             href: https://{{ .Release.Name }}-alldebrid.elfhosted.com/
             description: Manage AllDebrid files
             siteMonitor: http://alldebrid-webdav:9999
@@ -946,7 +954,7 @@ data:
 
         {{ if .Values.webdav.enabled }}
         - WebDAV:
-            icon: rclone.png
+            icon: webdav.png
             href: https://{{ .Release.Name }}-webdav.elfhosted.com
             description: Your WebDAV endpoint for migration
             siteMonitor: http://rclonebrowser:5574
@@ -954,7 +962,7 @@ data:
 
         {{ if .Values.webdavplus.enabled }}
         - WebDAV Plus:
-            icon: rclone.png
+            icon: webdav.png
             href: https://{{ .Release.Name }}-webdav-plus.elfhosted.com
             description: Your WebDAV Plus endpoint for migration at 150Mbps
             siteMonitor: http://webdav-plus:5574

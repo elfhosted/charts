@@ -386,6 +386,16 @@ data:
             target: "_blank" # optional html tag target attribute
           {{ end }}                     
 
+          {{ if .Values.davio.enabled }}
+          - name: "Davio"
+            logo: "assets/png/webdav.png"
+            subtitle: "Stremio Addon to stream your WebDAV content"
+            tag: "protected"
+            tagstyle: "is-success"
+            url: "https://{{ .Release.Name }}-davio.elfhosted.com"
+            target: "_blank" # optional html tag target attribute
+          {{ end }}                     
+
           {{ if .Values.annatar.enabled }}
           - name: "Annatar"
             logo: "assets/png/annatar.png"

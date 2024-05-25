@@ -10677,6 +10677,63 @@ jackettio:
       name: elfbot-jackettio
       optional: true 
 
+davio:
+  enabled: false
+  image:
+    repository: ghcr.io/geek-cookbook/davio
+    tag: v1.0.0@sha256:9a45e792fb1c6f17396cc0fcb13b795fe4727732d87b26cd285aea6439b2ed70
+  priorityClassName: tenant-normal
+  controller:
+    annotations:
+      configmap.reloader.stakater.com/reload: "elfbot-all,elfbot-davio,davio-env"
+      secret.reloader.stakater.com/reload: "davio-env"
+    strategy:
+    rollingUpdate:
+      unavailable: 1      
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    readOnlyRootFilesystem: true
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 568
+    runAsGroup: 568
+    fsGroup: 568
+    fsGroupChangePolicy: "OnRootMismatch"
+  automountServiceAccountToken: false
+  persistence:
+    tmp: *tmp
+    config: 
+      enabled: true
+      type: custom
+      mountPath: /config
+      volumeSpec: *volumespec_ephemeral_volume_1g
+  resources:
+    requests:
+      cpu: 10m
+      memory: 512Mi
+    limits:
+      cpu: 1
+      memory: 1Gi
+  ingress:
+    main:
+      enabled: false
+  service:
+    main:
+      enabled: true # necessary for probes
+      ports:
+        http:
+          port: 4000    
+  envFrom:
+  - configMapRef:
+      name: davio-env 
+  - secretRef:
+      name: davio-env       
+  - configMapRef:      
+      name: elfbot-davio
+      optional: true 
+
 mediafusion:
   enabled: false
   image:

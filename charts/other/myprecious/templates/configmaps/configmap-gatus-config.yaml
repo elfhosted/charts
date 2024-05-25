@@ -194,6 +194,17 @@ data:
           - type: email
       {{ end }}
 
+      {{ if .Values.davio.enabled }}
+      - name: davio
+        group: consume-media
+        url: "http://davio:4000"
+        interval: 5m
+        conditions:
+          - "[STATUS] == 200"
+        alerts:
+          - type: email
+      {{ end }}      
+
       {{ if .Values.annatar.enabled }}
       - name: annatar
         group: consume-media
