@@ -12,10 +12,10 @@ spec:
           kind: Service
           port: 8000
       middlewares:
-        # - name: error-pages
-        #   namespace: traefik
-        - name: redirect-scheme-https
-          namespace: traefik        
-        - name: set-x-forwarded-proto-https
+        - name: error-pages
           namespace: traefik
+        # - name: redirect-scheme-https
+        #   namespace: traefik        
+        # - name: set-x-forwarded-proto-https
+        #   namespace: traefik
 {{ end }}
