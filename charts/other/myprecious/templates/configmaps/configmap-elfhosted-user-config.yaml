@@ -8,5 +8,5 @@ data:
 
   WEBDAV_USERNAME: {{ .Release.Name }}
   # If we haven't got a webdav password, leave it blank, which will break login (intentionally)
-  WEBDAV_PASSWORD: {{ .Values.webdav.password | default c4v9x }} # just a placeholder
+  WEBDAV_PASSWORD: {{ .Values.webdav.password | default }} # just a placeholder
 
