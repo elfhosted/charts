@@ -10681,7 +10681,7 @@ davio:
   enabled: false
   image:
     repository: ghcr.io/geek-cookbook/davio
-    tag: v1.0.0@sha256:9a45e792fb1c6f17396cc0fcb13b795fe4727732d87b26cd285aea6439b2ed70
+    tag: v1.0.4@sha256:af136e178043757c09a09f29d12cfd05de94d224d70e9f0476a7c6f86dce4187
   priorityClassName: tenant-normal
   controller:
     annotations:
