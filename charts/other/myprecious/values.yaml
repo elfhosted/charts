@@ -6747,12 +6747,6 @@ thelounge:
       volumeSpec:
         persistentVolumeClaim:
           claimName: config-thelounge
-    migration:
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-thelounge-ssd
     elfbot:
       enabled: "true"
       type: "custom"
