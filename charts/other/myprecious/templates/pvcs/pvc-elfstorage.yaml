@@ -4,6 +4,8 @@ metadata:
   name: elfstorage
   annotations:
     helm.sh/resource-policy: keep
+  labels:
+    velero.io/exclude-from-backup: "true"
 spec:
   accessModes:
   - ReadWriteMany
