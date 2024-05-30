@@ -4974,14 +4974,14 @@ plex: &plex
           claimName: config-plex-block                    
     transcode: # in case users use /tmp
       enabled: true
-      type: custom
       mountPath: /transcode
-      volumeSpec: *volumespec_ephemeral_volume_50g
+      type: emptyDir
+      sizeLimit: 50Gi
     phototranscoder:
       enabled: true
-      type: custom
       mountPath: /phototranscoder
-      volumeSpec: *volumespec_ephemeral_volume_50g      
+      type: emptyDir
+      sizeLimit: 50Gi
     elfbot:
       enabled: "true"
       type: "custom"
