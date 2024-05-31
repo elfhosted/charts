@@ -4406,13 +4406,7 @@ prowlarr:
       mountPath: /config/
       volumeSpec:
         persistentVolumeClaim:
-          claimName: config-prowlarr-block
-    migration: # migrating from cephfs
-      enabled: true
-      type: custom
-      volumeSpec:
-        persistentVolumeClaim:
-          claimName: config-prowlarr-ssd            
+          claimName: config-prowlarr-block       
     run: # used for s6-init with non-root
       enabled: true
       type: emptyDir
