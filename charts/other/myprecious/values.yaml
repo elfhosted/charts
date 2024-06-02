@@ -4038,7 +4038,7 @@ calibre:
   # runtimeClassName: kata
   image:
     repository: quay.io/linuxserver.io/calibre
-    tag: 7.12.0@sha256:b1a9e0b02c2cea42a67e9fabc7ee69fe4c6d0a662c2cdfb3f97428b84af65f43
+    tag: 7.11.0@sha256:c429ecd5eb61b28702b140e1a92b81150d1fd34800946215f115da93cf6bb6ea
   priorityClassName: tenant-normal
   securityContext:
     seccompProfile:
@@ -8401,7 +8401,7 @@ mattermost:
   # Declare variables to be passed into your templates.
   image:
     repository: mattermost/mattermost-team-edition
-    tag: 9.9.0@sha256:bb7523c532124a75d0704cebb9ba5a3323c1ff6e741cf014e7dffc1befb918a7
+    tag: 9.8.1@sha256:27d2bace957660693714eac609b0a5d98981556cad64a4ddb17809a53727374c
     imagePullPolicy: IfNotPresent
   controller:
     annotations:
@@ -9875,7 +9875,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/geek-cookbook/iceberg:rolling@sha256:a5f9514c4353fcf4b1a845e5dedb901435e37b653e071b158254b0baa2b131c3
+      image: ghcr.io/elfhosted/iceberg:rolling@sha256:a5f9514c4353fcf4b1a845e5dedb901435e37b653e071b158254b0baa2b131c3
       command:
       - node 
       - /iceberg/frontend/build               
