@@ -9875,7 +9875,7 @@ iceberg:
     bootstrap: *bootstrap
   additionalContainers:
     frontend:
-      image: ghcr.io/elfhosted/iceberg:rolling@sha256:f7e54dad6833fc214afe743189f79457851821a6177eb0578fe1787aaa92accb
+      image: ghcr.io/elfhosted/iceberg:rolling@sha256:37f9a9cf0ff44cd05ff8eafe1f9cd6e182981e6faf23ead7393c92ee9ec26fca
       command:
       - node 
       - /iceberg/frontend/build               
