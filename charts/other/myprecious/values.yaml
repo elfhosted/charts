@@ -11049,7 +11049,7 @@ recyclarr:
   enabled: false
   image:
     repository: ghcr.io/recyclarr/recyclarr
-    tag: latest@sha256:149eacfb27a51e001c50b60bf6b0eeae15c4dbbde46a1e1d30bf11032ef7f734
+    tag: latest@sha256:77a3c0156ec0ddef256998b246d4d80a2f1b96ee4a3a1a21bbc8459bfd0c9ad9
   priorityClassName: tenant-normal
   controller:
     annotations:
@@ -11137,7 +11137,7 @@ recyclarr:
     podinfo:
       image: stefanprodan/podinfo # used to run probes from gatus
     sync:
-      image: ghcr.io/recyclarr/recyclarr:latest@sha256:149eacfb27a51e001c50b60bf6b0eeae15c4dbbde46a1e1d30bf11032ef7f734      
+      image: ghcr.io/recyclarr/recyclarr:latest@sha256:77a3c0156ec0ddef256998b246d4d80a2f1b96ee4a3a1a21bbc8459bfd0c9ad9      
       command:
       - /bin/bash
       - -c
