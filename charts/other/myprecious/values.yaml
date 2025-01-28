@@ -10433,7 +10433,7 @@ redisinsight:
   enabled: false
   image:
     repository: redislabs/redisinsight
-    tag: v2@sha256:7fef8b7ecf2e8597037f906fc69863345dd846d36577210569396f7917333355
+    tag: v2@sha256:a46f32c97b01f8e14a3a7a04095e08b81c4818279f1d1f78b4ee03b43273f64a
   priorityClassName: tenant-normal
   controller:
     annotations:
