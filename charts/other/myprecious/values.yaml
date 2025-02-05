@@ -9445,7 +9445,7 @@ tdarr:
   priorityClassName: tenant-bulk
   image:
     repository: ghcr.io/haveagitgat/tdarr
-    tag: 2.31.01
+    tag: 2.31.02
   controller:
     annotations:
       configmap.reloader.stakater.com/reload: "elfbot-all,storage-changed,elfbot-tdarr"
