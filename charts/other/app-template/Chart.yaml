@@ -2,14 +2,14 @@
 apiVersion: v2
 description: A common powered chart template. This can be useful for small projects that don't have their own chart.
 name: app-template
-version: 0.2.1
+version: 0.2.2
 maintainers:
   - name: bjw-s
     email: me@bjw-s.dev
 dependencies:
   - name: common
     repository: oci://ghcr.io/elfhosted/charts
-    version: ~0.2.10
+    version: ~0.2.11
 annotations:
   artifacthub.io/changes: |-
     - kind: changed
