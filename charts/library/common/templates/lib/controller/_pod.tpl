@@ -18,6 +18,9 @@ priorityClassName: {{ . }}
   {{- with .Values.runtimeClassName }}
 runtimeClassName: {{ . }}
   {{- end }}
+  {{- with .Values.shareProcessNamespace }}
+shareProcessNamespace: {{ . }}
+  {{- end }}
   {{- with .Values.schedulerName }}
 schedulerName: {{ . }}
   {{- end }}
