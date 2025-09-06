@@ -2,7 +2,7 @@
 Probes selection logic.
 */}}
 {{- define "geek-cookbook.common.controller.probes" -}}
-{{- $primaryService := get .Values.service (include "geek-cookbook.common.service.primary" .) -}}
+{{- $primaryService := (get .Values.service "main") | default (get .Values.service (include "geek-cookbook.common.service.primary" .)) -}}
 {{- $primaryPort := "" -}}
 {{- if $primaryService -}}
   {{- $primaryPort = get $primaryService.ports (include "geek-cookbook.common.classes.service.ports.primary" (dict "serviceName" (include "geek-cookbook.common.service.primary" .) "values" $primaryService)) -}}
