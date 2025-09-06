@@ -9,7 +9,7 @@ maintainers:
 dependencies:
   - name: common
     repository: oci://ghcr.io/elfhosted/charts
-    version: ~0.2.11
+    version: ~0.2.12
 annotations:
   artifacthub.io/changes: |-
     - kind: changed
